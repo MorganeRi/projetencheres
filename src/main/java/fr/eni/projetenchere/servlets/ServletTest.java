@@ -28,6 +28,7 @@ public class ServletTest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Test Morgane");
+
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
