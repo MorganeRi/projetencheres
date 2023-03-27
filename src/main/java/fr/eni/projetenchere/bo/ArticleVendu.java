@@ -13,6 +13,7 @@ public class ArticleVendu {
 	private Integer prixDeVente;
 	private Utilisateur utilisateur;
 	private Categorie categorie;
+	private Retrait retrait;
 	private ArrayList<Enchere> listeEncheres;
 
 //	constructeur vide
@@ -22,22 +23,40 @@ public class ArticleVendu {
 
 //	tous les attributs
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-		LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
-		Categorie categorie, ArrayList<Enchere> listeEncheres) {
-	super();
-	this.noArticle = noArticle;
-	this.nomArticle = nomArticle;
-	this.description = description;
-	this.dateDebutEnchere = dateDebutEnchere;
-	this.dateFinEnchere = dateFinEnchere;
-	this.prixInitial = prixInitial;
-	this.prixDeVente = prixDeVente;
-	this.utilisateur = utilisateur;
-	this.categorie = categorie;
-	this.listeEncheres = listeEncheres;
-}
+			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+			Categorie categorie, Retrait retrait, ArrayList<Enchere> listeEncheres) {
 
-	//	sans l'id, sans les null (prix initial, prix de vente), sans liste encheres
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEnchere = dateDebutEnchere;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixInitial = prixInitial;
+		this.prixDeVente = prixDeVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.retrait = retrait;
+		this.listeEncheres = listeEncheres;
+	}
+
+//	sans retrait
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
+			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+			Categorie categorie, ArrayList<Enchere> listeEncheres) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEnchere = dateDebutEnchere;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixInitial = prixInitial;
+		this.prixDeVente = prixDeVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.listeEncheres = listeEncheres;
+	}
+
+	// sans l'id, sans les null (prix initial, prix de vente), sans liste encheres
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			Utilisateur utilisateur, Categorie categorie) {
 		super();
@@ -161,6 +180,15 @@ public class ArticleVendu {
 		this.listeEncheres = listeEncheres;
 	}
 
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
+	// methode toString()
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
