@@ -15,6 +15,13 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int INSERT_OBJET_ECHEC=10001;
 	
+	/**
+	 * Echec de l'authentification
+	 */
+	public static final int SELECT_UTILISATEUR_ECHEC=10002;
+	
+	public static final int SELECT_UTILISATEUR_MDP_ECHEC=10004;
+	
 	
 	
 }
