@@ -1,0 +1,15 @@
+/build/
+.metadata
+bin/
+tmp/
+.classpath
+.project
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+MANIFEST.MF
