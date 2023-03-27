@@ -112,6 +112,13 @@ public class Utilisateur {
 
 	}
 
+	// Constructeur mail et mdp
+	public Utilisateur(String email, String motDePasse) {
+		this.email = email;
+		this.motDePasse = motDePasse;
+
+	}
+
 	// Getters et setters
 	public Integer getNoUtilisateur() {
 		return noUtilisateur;
