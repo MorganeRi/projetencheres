@@ -15,6 +15,7 @@ public class ArticleVendu {
 	private Categorie categorie;
 	private Retrait retrait;
 	private ArrayList<Enchere> listeEncheres;
+//	bijour
 
 //	constructeur vide
 	public ArticleVendu() {
