@@ -1,5 +1,4 @@
 package fr.eni.projetenchere.bll;
-
 import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;

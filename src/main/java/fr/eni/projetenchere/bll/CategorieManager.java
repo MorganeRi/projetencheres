@@ -8,5 +8,5 @@ import fr.eni.projetenchere.bo.Categorie;
 public interface CategorieManager {
 
 	public List<Categorie> selectAllCategorie() throws BusinessException;
-	
+
 }

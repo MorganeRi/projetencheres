@@ -1,7 +1,9 @@
 package fr.eni.projetenchere.bll;
 
+
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Utilisateur;
+
 
 public interface UtilisateurManager {
 	
