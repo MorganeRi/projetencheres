@@ -15,6 +15,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO{
 
 private static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT  e.no_enchere,e.date_enchere, e.montant_enchere,e.no_article,e.no_utilisateur FROM enchere AS e WHERE no_article=?";
 private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere, montant_enchere,no_utilisateur,no_article) VALUES (?,?,?,?)";
+private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article from enchere WHERE no_article=?";
 
 	//	méthode pour insérer une enchère en BDD
 	@Override
@@ -27,7 +28,7 @@ private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere
 		
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ENCHERE, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setDate(1, java.sql.Date.valueOf(enchere.getDateEnchere()));
+			pstmt.setTimestamp(1, java.sql.Timestamp.valueOf(enchere.getDateEnchere()));
 			pstmt.setInt(2, enchere.getMontantEnchere());
 			pstmt.setInt(3, enchere.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(4, enchere.getArticle().getNoArticle());
@@ -70,7 +71,7 @@ private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere
 				
 				ArticleVendu articleVendu1 = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
 				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
-				result.add(new Enchere(rs.getInt("no_enchere"),rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere"),articleVendu1,utilisateur));
+				result.add(new Enchere(rs.getInt("no_enchere"),rs.getTimestamp("date_enchere").toLocalDateTime(),rs.getInt("montant_enchere"),articleVendu1,utilisateur));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +80,39 @@ private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere
 			throw businessException;
 		}
 		return result;
+	}
+
+	@Override
+	public Enchere selectMaxEnchere(ArticleVendu articleVendu) throws BusinessException {
+		Enchere ench = null;
+		if(articleVendu == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_ENCHERE_PARAMETER_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_MAX_ENCHERE);
+			pstmt.setInt(1, articleVendu.getNoArticle());
+			ResultSet rs = pstmt.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+			
+				Integer idUtil = rs.getInt("no_utilisateur");
+				Integer idArticle = rs.getInt("no_article");
+				
+				ArticleVendu articleVendu1 = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
+				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
+				ench= new Enchere(rs.getInt("no_enchere"),rs.getTimestamp("date_enchere").toLocalDateTime(),rs.getInt(3),articleVendu1,utilisateur);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.ECHEC_SELECT_ENCHERE);
+			throw businessException;
+		}
+		return ench;
 	}
 
 

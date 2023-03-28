@@ -2,6 +2,7 @@ package fr.eni.projetenchere.servlets.tests;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +50,8 @@ public class ServletTestDal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "kjgsfgdfm.com", "0666666666",
-				"rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
+
+		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "dfdeztzetgfl.com", "0666666666","rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
 
 		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
 
@@ -80,7 +81,7 @@ public class ServletTestDal extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		Enchere enchere = new Enchere(LocalDate.of(2023, 12, 12), 100, a1, utilisateur);
+		Enchere enchere = new Enchere(LocalDateTime.of(2023, 12, 12,12,12), 180, a1, utilisateur);
 
 		EnchereDAO enchDAO = new EnchereDAOJdbcImpl();
 
@@ -118,6 +119,9 @@ public class ServletTestDal extends HttpServlet {
 			System.out.println(ut.toString());
 			System.out.println(nart.toString());
 			System.out.println(ench.toString());
+			Enchere en = ench.get(0);
+			en= enchDAO.selectMaxEnchere(a1);
+			System.out.println("max"+en.toString());
 			List<Categorie> cate = new ArrayList<Categorie>();
 			CategorieDAO cateDao = new CategorieDAOJdbcImpl();
 			cate = cateDao.selectAllCategorie();
