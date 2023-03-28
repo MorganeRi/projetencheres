@@ -67,9 +67,10 @@ private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere
 			
 				Integer idUtil = rs.getInt("no_utilisateur");
 				Integer idArticle = rs.getInt("no_article");
+				
+				ArticleVendu articleVendu1 = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
 				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
-				ArticleVendu articleVendu = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
-				result.add(new Enchere(rs.getInt("no_enchere"),rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere"),utilisateur,articleVendu));
+				result.add(new Enchere(rs.getInt("no_enchere"),rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere"),articleVendu1,utilisateur));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
