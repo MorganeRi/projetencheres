@@ -15,8 +15,12 @@ public class ArticleVendu {
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private Retrait retrait;
+
 	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
-//	bijour
+
+	private String image;
+
+
 
 //	constructeur vide
 	public ArticleVendu() {
@@ -100,8 +104,43 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
 	}
+// Avec image et sans ID
+public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+			Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait,
+			ArrayList<Enchere> listeEncheres, String image) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEnchere = dateDebutEnchere;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixInitial = prixInitial;
+		this.prixDeVente = prixDeVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.retrait = retrait;
+		this.listeEncheres = listeEncheres;
+		this.image = image;
+	}
+//Complet
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
+		LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+		Categorie categorie, Retrait retrait, ArrayList<Enchere> listeEncheres, String image) {
+	super();
+	this.noArticle = noArticle;
+	this.nomArticle = nomArticle;
+	this.description = description;
+	this.dateDebutEnchere = dateDebutEnchere;
+	this.dateFinEnchere = dateFinEnchere;
+	this.prixInitial = prixInitial;
+	this.prixDeVente = prixDeVente;
+	this.utilisateur = utilisateur;
+	this.categorie = categorie;
+	this.retrait = retrait;
+	this.listeEncheres = listeEncheres;
+	this.image = image;
+}
 
-//	gettes et setters
+	//	gettes et setters
 	public Integer getNoArticle() {
 		return noArticle;
 	}
