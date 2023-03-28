@@ -15,6 +15,7 @@ import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Enchere;
+import fr.eni.projetenchere.bo.Retrait;
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.ArticleVenduDAO;
 import fr.eni.projetenchere.dal.ArticleVenduDAOJdbcImpl;
@@ -22,6 +23,8 @@ import fr.eni.projetenchere.dal.CategorieDAO;
 import fr.eni.projetenchere.dal.CategorieDAOJdbcImpl;
 import fr.eni.projetenchere.dal.EnchereDAO;
 import fr.eni.projetenchere.dal.EnchereDAOJdbcImpl;
+import fr.eni.projetenchere.dal.RetraitDAO;
+import fr.eni.projetenchere.dal.RetraitDAOJdbcImpl;
 import fr.eni.projetenchere.dal.UtilisateurDAO;
 import fr.eni.projetenchere.dal.UtilisateurDAOJdbcImpl;
 
@@ -46,7 +49,7 @@ public class ServletTestDal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "jqsfqsfgl.com", "0666666666",
+		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "kjgsfgdfl.com", "0666666666",
 				"rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
 
 		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
@@ -119,6 +122,14 @@ public class ServletTestDal extends HttpServlet {
 			CategorieDAO cateDao = new CategorieDAOJdbcImpl();
 			cate = cateDao.selectAllCategorie();
 			System.out.println(cate.toString());
+			Retrait retrait = new Retrait("rue de Lionel Richou", "66666", "LA", a1);
+			RetraitDAO retDAO = new RetraitDAOJdbcImpl();
+			retDAO.insertRetrait(retrait);
+			retrait.setCodePostal("55555");
+			retDAO.UpdateRetrait(retrait);
+			retrait=retDAO.selectByIdRetrait(a1.getNoArticle());
+			
+			System.out.println(retrait.toString());
 
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block

@@ -30,7 +30,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 			stmt.setString(2, retrait.getCodePostal());
 			stmt.setString(3, retrait.getVille());
 			stmt.setInt(4, retrait.getArticle().getNoArticle());
-
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
@@ -60,6 +60,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 			businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_ID_RERTRAIT_ECHEC);
 			throw businessException;
 		}
+		
 		return retrait;
 	}
 
