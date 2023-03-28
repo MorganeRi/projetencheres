@@ -42,21 +42,21 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int DELETE_ARTICLE_ECHEC=10011;
 	/**
-	 * Echec de l'insertion d'un avis à cause de la note
+	 * Echec de l'update d'une article
 	 */
 	public static final int UPDATE_ARTICLE_ECHEC=10021;
 	/**
-	 * Echec de l'insertion d'un avis à cause de la note
+	 * Echec de l'update du px de vente
 	 */
 	public static final int UPDATE_PX_VENTE_ARTICLE_ECHEC=10031;
 	/**
-	 * Echec de l'insertion d'un avis à cause de la note
+	 * Echec du select by categorie
 	 */
-	public static final int SELECT_ALL_ARTICLE_ECHEC=10003;
+	public static final int SELECT_BY_CATEGORIE_ARTICLE_ECHEC=10003;
 	/**
-	 * Echec de l'insertion d'un avis à cause de la note
+	 * Echec du select by nom d'article
 	 */
-	public static final int SELECT_ALL_LISTE_ECHEC=10005;
+	public static final int SELECT_BY_NOM_ECHEC=10005;
 	/**
 	 * Echec de l'authentification
 	 */
