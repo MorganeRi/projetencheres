@@ -159,7 +159,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		Utilisateur utilisateur = new Utilisateur();
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_UTILISATUEUR_BY_ID);
-			pstmt.setInt(1, utilisateur.getNoUtilisateur());
+			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
@@ -204,6 +204,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDIT);
 			pstmt.setInt(1, utilisateur.getCredit());
+			pstmt.setInt(2, utilisateur.getNoUtilisateur());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
