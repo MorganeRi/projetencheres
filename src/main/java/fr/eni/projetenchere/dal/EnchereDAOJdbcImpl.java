@@ -9,10 +9,11 @@ import java.util.List;
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Enchere;
+import fr.eni.projetenchere.bo.Utilisateur;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO{
 
-private static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT  e.date_enchere, e.montant_enchere FROM enchere AS e LEFT JOIN article_vendu AS av ON e.no_enchere = av.no_article WHERE e.no_article = ?";
+private static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT  e.no_enchere,e.date_enchere, e.montant_enchere,e.no_article,e.no_utilisateur FROM enchere AS e WHERE no_article=?";
 private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere, montant_enchere,no_utilisateur,no_article) VALUES (?,?,?,?)";
 
 	//	méthode pour insérer une enchère en BDD
@@ -57,10 +58,18 @@ private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ENCHERE_BY_ID_ARTICLE);
 			pstmt.setInt(1, articleVendu.getNoArticle());
+			
 			ResultSet rs = pstmt.executeQuery();
 			
+			
+			
 			while(rs.next()) {
-				result.add(new Enchere(rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere")));
+			
+				Integer idUtil = rs.getInt("no_utilisateur");
+				Integer idArticle = rs.getInt("no_article");
+				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
+				ArticleVendu articleVendu = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
+				result.add(new Enchere(rs.getInt("no_enchere"),rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere"),utilisateur,articleVendu));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
