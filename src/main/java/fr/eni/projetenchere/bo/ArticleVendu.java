@@ -139,10 +139,24 @@ public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEn
 	this.listeEncheres = listeEncheres;
 	this.image = image;
 }
+	//sans prix de vente et sans ID
+	
 
 	//	gettes et setters
 	public Integer getNoArticle() {
 		return noArticle;
+	}
+
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+			Integer prixInitial, Utilisateur utilisateur, Categorie categorie) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEnchere = dateDebutEnchere;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixInitial = prixInitial;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
 	}
 
 	public void setNoArticle(Integer noArticle) {

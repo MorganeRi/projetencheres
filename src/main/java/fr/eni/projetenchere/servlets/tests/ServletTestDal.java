@@ -1,13 +1,25 @@
 package fr.eni.projetenchere.servlets.tests;
 
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import fr.eni.projetenchere.BusinessException;
+import fr.eni.projetenchere.bo.ArticleVendu;
+import fr.eni.projetenchere.bo.Categorie;
+import fr.eni.projetenchere.bo.Enchere;
+import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dal.ArticleVenduDAO;
+import fr.eni.projetenchere.dal.ArticleVenduDAOJdbcImpl;
+import fr.eni.projetenchere.dal.EnchereDAO;
+import fr.eni.projetenchere.dal.EnchereDAOJdbcImpl;
+import fr.eni.projetenchere.dal.UtilisateurDAO;
+import fr.eni.projetenchere.dal.UtilisateurDAOJdbcImpl;
 
 
 
@@ -29,42 +41,58 @@ public class ServletTestDal extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Liste r = new Liste("Liste fruits");
-//		Liste r2 = new Liste("Liste legumes");
-//		Liste r3 = new Liste("Liste feculents");
-//		
-//		ListeDAOImpl dao = new ListeDAOImpl();
-//		
-//		try {
-//			dao.createList(r);
-//			dao.createList(r2);
-//			dao.createList(r3);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		Integer numR = r.getIdListe();
-//		Integer numR2 = r2.getIdListe();
-//		Integer numR3 = r3.getIdListe();
-//		
-//		Article a1 = new Article("banane");
-//		Article a2 = new Article("courgette");
-//		Article a3 = new Article("pates");
-//	
-//		try {
-//			dao.insertArticle(a1, numR);
-//			dao.insertArticle(a2, numR2);
-//			dao.insertArticle(a3, numR3);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		response.getWriter().append("Insertion de mon repas dont l'iD est : ").append(r.getIdListe()+"\n");
-//		response.getWriter().append("Insertion de mon article dans le repas dont l'iD est : ").append(a1.getNomArticle()+" "+r.getIdListe()+"\n");
-//		response.getWriter().append("Insertion de mon article dans le repas dont l'iD est : ").append(a2.getNomArticle()+" "+r2.getIdListe()+"\n");
-//		response.getWriter().append("Insertion de mon article dans le repas dont l'iD est : ").append(a3.getNomArticle()+" "+r3.getIdListe()+"\n");
-//		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
+		Utilisateur utilisateur = new Utilisateur ("Momo","Richou","Morgane", "jesuismomo@gmail.com", "0666666666", "rue de Lionel Richou", "66666", "LA", "coucouCmoi",100,false);
+		
+		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
+		
+		try {
+			utilDAO.insertUtilisateur(utilisateur);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Categorie cat = new Categorie(1, "multimedia");
+		
+		ArticleVendu a1 = new ArticleVendu("banane", "banane",LocalDate.of(2023, 12, 12),LocalDate.of(2023, 12, 12),12, utilisateur, cat );
+		
+		ArticleVenduDAO dao = new ArticleVenduDAOJdbcImpl();
+		
+		try {
+			dao.insertArticleVendu(a1);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Enchere enchere = new Enchere(LocalDate.of(2023, 12, 12), 100, a1, utilisateur);
+		
+		EnchereDAO enchDAO = new EnchereDAOJdbcImpl();
+		
+		try {
+			enchDAO.insertEnchere(enchere);
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			response.getWriter().append("Insertion de mon utilisateur dont l'iD est : ").append(utilisateur.getNoUtilisateur()+"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.getWriter().append("Insertion de mon article dont l'utilisateur dont l'iD est : ").append(a1.getNomArticle()+" "+utilisateur.getNoUtilisateur()+"\n");
+			response.getWriter().append("Insertion d'une enchere : ").append(enchere.getNoEnchere()+"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 //		try {
 //			List<Liste> listListe = dao.getAllNameList();
 //			for(Liste s : listListe) {
@@ -91,8 +119,8 @@ public class ServletTestDal extends HttpServlet {
 //			dao.cocherArticle(a1.getIdArticle());
 //			dao.decocherArticle(a1.getIdArticle());
 //			System.out.println("l'article a bien été décoché");
-////			String nomListe = dao.selectListName(numR);
-////			System.out.println(nomListe);
+//			String nomListe = dao.selectListName(numR);
+//			System.out.println(nomListe);
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
