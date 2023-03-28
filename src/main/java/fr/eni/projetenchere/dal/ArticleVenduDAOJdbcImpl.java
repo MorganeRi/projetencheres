@@ -22,6 +22,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
 	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur from article_vendu where no_article=?";
 
+	
 	@Override
 	public void updateArticleVendu(ArticleVendu articleVendu) throws BusinessException {
 		if (articleVendu == null) {
