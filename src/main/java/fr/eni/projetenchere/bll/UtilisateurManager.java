@@ -1,15 +1,10 @@
 package fr.eni.projetenchere.bll;
 
-<<<<<<< HEAD
-/**
- * @author jpeignelin2023
- *
- */
-=======
+
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Utilisateur;
 
->>>>>>> branch 'master' of https://github.com/MorganeRi/projetencheres.git
+
 public interface UtilisateurManager {
 	
 	
