@@ -14,7 +14,6 @@ public interface UtilisateurManager {
 	 * - Crédit de 100 points par défaut à la création */
 	public void createUtilisateur (Utilisateur utilisateur) throws BusinessException;
 	
-	
 	// voir méthode du prof
 	public void authentifierUtilisateur (String email, String motDePasse)throws BusinessException;
 	
