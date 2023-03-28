@@ -118,14 +118,14 @@ private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enc
 
 	@Override
 	public List<Enchere> selectEnchereByIdUtilisateur(ArticleVendu articleVendu) throws BusinessException {
-		Enchere ench = null;
+		List<Enchere> ench = null;
 		if(articleVendu == null) {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.SELECT_ENCHERE_PARAMETER_NULL);
 			throw businessException;
 		}
 		try (Connection cnx = ConnectionProvider.getConnection()){
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_MAX_ENCHERE);
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_MAX_UTILISATEUR);
 			pstmt.setInt(1, articleVendu.getNoArticle());
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -138,7 +138,11 @@ private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enc
 				
 				ArticleVendu articleVendu1 = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
 				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
-				ench= new Enchere(rs.getInt("no_enchere"),rs.getTimestamp("date_enchere").toLocalDateTime(),rs.getInt(3),articleVendu1,utilisateur);
+				
+				if (ench==null) {
+					ench= new ArrayList<Enchere>();
+;				}
+				ench.add(new Enchere(rs.getInt("no_enchere"),rs.getTimestamp("date_enchere").toLocalDateTime(),rs.getInt(3),articleVendu1,utilisateur));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,6 +151,12 @@ private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enc
 			throw businessException;
 		}
 		return ench;
+	}
+
+	@Override
+	public List<Enchere> selectAllMaxEnchere() throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	}
 
