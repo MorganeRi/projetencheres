@@ -124,7 +124,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		ArticleVendu article=null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_NOM);
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_CATEGORIE);
+			System.out.println(categorie.getNoCategorie());
 			pstmt.setInt(1, categorie.getNoCategorie());
 			ResultSet rs = pstmt.executeQuery();
 
@@ -149,9 +150,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer idUtil = rs.getInt(8);
 				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
 
-
+				
 
 				article = new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin,prixInitial,prixVente,utilisateur, categorie );
+
 				if (articles==null) {
 					articles= new ArrayList<ArticleVendu>();
 				}
