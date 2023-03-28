@@ -51,6 +51,26 @@ public abstract class CodesResultatDAL {
 	 * Echec général quand erreur non gérée à l'insertion d'un utilisateur
 	 */
 	public static final int INSERT_UTILISATEUR_ECHEC=10101;
+	/**
+	 * Echec général quand erreur non gérée à l'insertion d'un retrait
+	 */
+	public static final int INSERT_RETRAIT_NULL=10103;
+	/**
+	 * Echec null quand erreur non gérée à l'insertion d'un retrait
+	 */
+	public static final int UPDATE_RETRAIT_NULL=10108;
+	/**
+	 * Echec général quand erreur non gérée à l'insertion d'un retrait
+	 */
+	public static final int INSERT_RETRAIT_ECHEC=10104;
+	/**
+	 * Echec général quand erreur non gérée à l'insertion d'un retrait
+	 */
+	public static final int SELECT_BY_ID_RERTRAIT_ECHEC=10107;
+	/**
+	 * Echec général quand erreur non gérée à l'update d'un retrait
+	 */
+	public static final int UPDATE_RETRAIT_ECHEC=10109;
 	
 	/**
 	 * Echec de l'insertion d'une enchere null
