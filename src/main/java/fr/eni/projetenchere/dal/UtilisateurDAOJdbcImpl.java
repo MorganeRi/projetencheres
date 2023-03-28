@@ -9,7 +9,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
-	private static final String INSERTUTILISATEUR = "INSERT INTO utilisateur (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?) ";
+	private static final String INSERT_UTILISATEUR = "INSERT INTO utilisateur (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?) ";
 
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -25,7 +25,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			}
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement stmt = cnx.prepareStatement(INSERTUTILISATEUR, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = cnx.prepareStatement(INSERT_UTILISATEUR, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
 			stmt.setString(3, utilisateur.getPrenom());
@@ -60,7 +60,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
-	private static final String SELECTAUTHENTIFIER = "SELECT no_utilisateur FROM utilisateur WHERE email = ? AND mdp = ?;";
+	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur FROM utilisateur WHERE email = ? AND mdp = ?;";
 
 	@Override
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -70,7 +70,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		} else {
 
 			try (Connection cnx = ConnectionProvider.getConnection()) {
-				PreparedStatement pstmt = cnx.prepareStatement(SELECTAUTHENTIFIER);
+				PreparedStatement pstmt = cnx.prepareStatement(SELECT_AUTHENTIFIER);
 				pstmt.setString(1, utilisateur.getEmail());
 				pstmt.setString(2, utilisateur.getMotDePasse());
 				pstmt.execute();
@@ -92,27 +92,122 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
+	private static final String UPDATE_UTILISATEUR = "UPDATE utilisateur SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, administrateur = ? WHERE no_utilisateur = ? ";
+
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException {
-		// TODO Auto-generated method stub
-
+		if (utilisateur == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_UTILISATEUR);
+			pstmt.setString(1, utilisateur.getPseudo());
+			pstmt.setString(2, utilisateur.getNom());
+			pstmt.setString(3, utilisateur.getPrenom());
+			pstmt.setString(4, utilisateur.getEmail());
+			pstmt.setString(5, utilisateur.getTelephone());
+			pstmt.setString(6, utilisateur.getRue());
+			pstmt.setString(7, utilisateur.getCodePostal());
+			pstmt.setString(8, utilisateur.getVille());
+			pstmt.setString(9, utilisateur.getMotDePasse());
+			int tinyIntValue;
+			boolean booleanValue = utilisateur.getAdministrateur();
+			if (booleanValue == false) {
+				tinyIntValue = 0;
+			} else {
+				tinyIntValue = 1;
+			}
+			pstmt.setInt(10, tinyIntValue);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR_ECHEC);
+			throw businessException;
+		}
 	}
+
+	private static final String DELETE_UTILISATEUR = "DELETE FROM utilisateur WHERE no_utilisateur = ? ";
 
 	@Override
 	public void deleteUtilisateur(Utilisateur utilisateur) throws BusinessException {
-		// TODO Auto-generated method stub
-
+		if (utilisateur == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_UTILISATEUR_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_UTILISATEUR);
+			pstmt.setInt(1, utilisateur.getNoUtilisateur());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_UTILISATEUR_ECHEC);
+			throw businessException;
+		}
 	}
+
+	private final String SELECT_UTILISATUEUR_BY_ID = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateur WHERE no_utilisateur = ?";
 
 	@Override
 	public Utilisateur selectByIdUtilisateur(Integer id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		Utilisateur utilisateur = new Utilisateur();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_UTILISATUEUR_BY_ID);
+			pstmt.setInt(1, utilisateur.getNoUtilisateur());
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				utilisateur.setPseudo(rs.getString("pseudo"));
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setPrenom(rs.getString("prenom"));
+				utilisateur.setEmail(rs.getString("email"));
+				utilisateur.setTelephone(rs.getString("telephone"));
+				utilisateur.setRue(rs.getString("rue"));
+				utilisateur.setCodePostal(rs.getString("code_postal"));
+				utilisateur.setVille(rs.getString("ville"));
+				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
+				utilisateur.setCredit(rs.getInt("credit"));
+				int tinyIntValue = rs.getInt("administrateur");
+				boolean booleanValue;
+				if (tinyIntValue == 0) {
+					booleanValue = false;
+				} else {
+					booleanValue = true;
+				}
+				utilisateur.setAdministrateur(booleanValue);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_ID_UTILISATEUR_ECHEC);
+			throw businessException;
+		}
+		return utilisateur;
 	}
+
+	private static final String UPDATE_CREDIT = "UPDATE utilisateur SET credit = ? WHERE no_utilisateur = ? ";
 
 	@Override
 	public void updateMontantCredit(Utilisateur utilisateur) throws BusinessException {
-		// TODO Auto-generated method stub
+		if (utilisateur == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDIT);
+			pstmt.setInt(1, utilisateur.getCredit());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_CREDIT_ECHEC);
+			throw businessException;
+		}
 
 	}
 

@@ -17,9 +17,17 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int DELETE_ARTICLE_NULL=10010;
 	/**
+	 * Echec général quand tentative de supprimer un utilisateur null
+	 */
+	public static final int DELETE_UTILISATEUR_NULL=10110;
+	/**
 	 * Echec général quand tentative de update un article null
 	 */
 	public static final int UPDATE_ARTICLE_NULL=10020;
+	/**
+	 * Echec général quand tentative de update un utilisateur null
+	 */
+	public static final int UPDATE_UTILISATEUR_NULL = 10120;
 	/**
 	 * Echec général quand tentative de update un article null
 	 */
@@ -54,13 +62,25 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int INSERT_UTILISATEUR_AUTHENTIFICATION_NULL=10102;
 	/**
-	 * Echec général quand erreur non gérée à l'insertion d'un article
+	 * Echec général quand erreur non gérée à suppression d'un article
 	 */
 	public static final int DELETE_ARTICLE_ECHEC=10011;
+	/**
+	 * Echec général quand erreur non gérée à suppression d'un utilisateur
+	 */
+	public static final int DELETE_UTILISATEUR_ECHEC=10111;
 	/**
 	 * Echec de l'update d'une article
 	 */
 	public static final int UPDATE_ARTICLE_ECHEC=10021;
+	/**
+	 * Echec de l'update d'un utilisateur
+	 */
+	public static final int UPDATE_UTILISATEUR_ECHEC=10121;
+	/**
+	 * Echec de l'update d'un credit
+	 */
+	public static final int UPDATE_CREDIT_ECHEC=10122;
 	/**
 	 * Echec de l'update du px de vente
 	 */
@@ -73,6 +93,10 @@ public abstract class CodesResultatDAL {
 	 * Echec du select by nom d'article
 	 */
 	public static final int SELECT_BY_NOM_ECHEC=10005;
+	/**
+	 * Echec du select by id utilisateur
+	 */
+	public static final int SELECT_BY_ID_UTILISATEUR_ECHEC=10105;
 	
 	/**
 	 * Echec pour récupérer une liste d'enchère en fonction de l'id d'un Article
