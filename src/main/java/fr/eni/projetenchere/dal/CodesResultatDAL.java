@@ -97,6 +97,10 @@ public abstract class CodesResultatDAL {
 	 * Echec du select by id utilisateur
 	 */
 	public static final int SELECT_BY_ID_UTILISATEUR_ECHEC=10105;
+	/**
+	 * Echec du select all catégorie
+	 */
+	public static final int GET_ALL_CATEGORIE_ECHEC=10106;
 	
 	/**
 	 * Echec pour récupérer une liste d'enchère en fonction de l'id d'un Article
