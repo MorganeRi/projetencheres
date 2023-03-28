@@ -68,7 +68,7 @@ private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere
 			businessException.ajouterErreur(CodesResultatDAL.ECHEC_SELECT_ENCHERE);
 			throw businessException;
 		}
-		return null;
+		return result;
 	}
 
 
