@@ -13,7 +13,7 @@ import fr.eni.projetenchere.bo.Enchere;
 public class EnchereDAOJdbcImpl implements EnchereDAO{
 
 private static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT  e.date_enchere, e.montant_enchere FROM enchere AS e LEFT JOIN article_vendu AS av ON e.no_enchere = av.no_article WHERE e.no_article = ?";
-private static final String INSERT_ENCHERE = "INSERT INTO enchere (date_enchere, montant_enchere,no_utilisateur,no_article) VALUES (?,?,?,?)";
+private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere, montant_enchere,no_utilisateur,no_article) VALUES (?,?,?,?)";
 
 	//	méthode pour insérer une enchère en BDD
 	@Override
