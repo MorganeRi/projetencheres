@@ -13,6 +13,6 @@ public interface EnchereDAO {
 	
 	public List<Enchere> selectEnchereById(ArticleVendu articleVendu) throws BusinessException;
 	
-	
+	public Enchere selectMaxEnchere (ArticleVendu articleVendu) throws BusinessException;
 	
 }

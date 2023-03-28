@@ -1,18 +1,19 @@
 package fr.eni.projetenchere.bo;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 public class Enchere {
 
 	private Integer noEnchere;
-	private LocalDate dateEnchere;
+	private LocalDateTime dateEnchere;
 	private Integer montantEnchere;
 	private ArticleVendu article;
 	private Utilisateur utilisateur;
 
 	// Plusieurs constructeurs differents
 	// complet
-	public Enchere(Integer noEnchere, LocalDate dateEnchere, Integer montantEnchere, ArticleVendu article,
+	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article,
 			Utilisateur utilisateur) {
 		super();
 		this.noEnchere = noEnchere;
@@ -23,7 +24,7 @@ public class Enchere {
 	}
 
 	// sans id
-	public Enchere(LocalDate dateEnchere, Integer montantEnchere, ArticleVendu article, Utilisateur utilisateur) {
+	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article, Utilisateur utilisateur) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
@@ -31,14 +32,14 @@ public class Enchere {
 		this.utilisateur = utilisateur;
 	}
 	// sans Article et sans utilisateur
-	public Enchere(Integer noEnchere, LocalDate dateEnchere, Integer montantEnchere) {
+	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere) {
 		super();
 		this.noEnchere = noEnchere;
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 	}
 	// sans utilisateur
-	public Enchere(Integer noEnchere, LocalDate dateEnchere, Integer montantEnchere, ArticleVendu article) {
+	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article) {
 		super();
 		this.noEnchere = noEnchere;
 		this.dateEnchere = dateEnchere;
@@ -46,7 +47,7 @@ public class Enchere {
 		this.article = article;
 	}
 	// sans id, sans Article et sans utilisateur
-	public Enchere(LocalDate dateEnchere, Integer montantEnchere) {
+	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
@@ -66,11 +67,11 @@ public class Enchere {
 		this.noEnchere = noEnchere;
 	}
 
-	public LocalDate getDateEnchere() {
+	public LocalDateTime getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(LocalDate dateEnchere) {
+	public void setDateEnchere(LocalDateTime dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 
