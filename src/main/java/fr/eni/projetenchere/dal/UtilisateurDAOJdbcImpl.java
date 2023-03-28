@@ -204,6 +204,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDIT);
 			pstmt.setInt(1, utilisateur.getCredit());
+			pstmt.setInt(2, utilisateur.getNoUtilisateur());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
