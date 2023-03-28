@@ -17,7 +17,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			try {
 				{
 					BusinessException businessException = new BusinessException();
-					businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
+					businessException.ajouterErreur(CodesResultatDAL.INSERT_UTILISATEUR_NULL);
 					throw businessException;
 				}
 			} catch (BusinessException e) {
@@ -54,15 +54,41 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_UTILISATEUR_ECHEC);
 			throw businessException;
 		}
 
 	}
 
+	private static final String SELECTAUTHENTIFIER = "SELECT no_utilisateur FROM utilisateur WHERE email = ? AND mdp = ?;";
+
 	@Override
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException {
-		// TODO Auto-generated method stub
+		BusinessException businessException = new BusinessException();
+		if (utilisateur == null) {
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_UTILISATEUR_AUTHENTIFICATION_NULL);
+		} else {
+
+			try (Connection cnx = ConnectionProvider.getConnection()) {
+				PreparedStatement pstmt = cnx.prepareStatement(SELECTAUTHENTIFIER);
+				pstmt.setString(1, utilisateur.getEmail());
+				pstmt.setString(2, utilisateur.getMotDePasse());
+				pstmt.execute();
+				ResultSet rs = pstmt.getResultSet();
+				if (rs.next()) {
+					utilisateur.setNoUtilisateur(rs.getInt(1));
+				} else {
+					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_ECHEC);
+			}
+		}
+
+		if (businessException.hasErreurs())
+			throw businessException;
 
 	}
 
