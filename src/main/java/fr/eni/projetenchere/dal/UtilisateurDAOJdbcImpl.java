@@ -60,7 +60,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
-	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur FROM utilisateur WHERE email = ? AND mdp = ?;";
+	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
 
 	@Override
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -129,7 +129,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 	}
 
-	private static final String DELETE_UTILISATEUR = "DELETE FROM utilisateur WHERE no_utilisateur = ? ";
+	private static final String DELETE_UTILISATEUR = "DELETE FROM utilisateur WHERE no_utilisateur = ?";
 
 	@Override
 	public void deleteUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -150,7 +150,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 	}
 
-	private final String SELECT_UTILISATUEUR_BY_ID = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateur WHERE no_utilisateur = ?";
+	private final String SELECT_UTILISATUEUR_BY_ID = "SELECT no_utilisateur,pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateur WHERE no_utilisateur = ?";
 
 	@Override
 	public Utilisateur selectByIdUtilisateur(Integer id) throws BusinessException {
@@ -160,6 +160,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			pstmt.setInt(1, utilisateur.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
+				utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 				utilisateur.setPseudo(rs.getString("pseudo"));
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom"));
@@ -189,7 +190,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return utilisateur;
 	}
 
-	private static final String UPDATE_CREDIT = "UPDATE utilisateur SET credit = ? WHERE no_utilisateur = ? ";
+	private static final String UPDATE_CREDIT = "UPDATE utilisateur SET credit = ? WHERE no_utilisateur = ?";
 
 	@Override
 	public void updateMontantCredit(Utilisateur utilisateur) throws BusinessException {
