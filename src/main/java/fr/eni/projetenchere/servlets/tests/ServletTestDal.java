@@ -49,7 +49,7 @@ public class ServletTestDal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "kjgsfgdfl.com", "0666666666",
+		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "dfdeztzetgfl.com", "0666666666",
 				"rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
 
 		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
@@ -64,7 +64,7 @@ public class ServletTestDal extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		Categorie cat = new Categorie(1, "multimedia");
+		Categorie cat = new Categorie(2, "multimedia");
 
 		ArticleVendu a1 = new ArticleVendu("banane", "banane", LocalDate.of(2023, 12, 12), LocalDate.of(2023, 12, 12),
 				12, utilisateur, cat);
@@ -112,7 +112,7 @@ public class ServletTestDal extends HttpServlet {
 			Utilisateur ut = new Utilisateur();
 			ut = utilDAO.selectByIdUtilisateur(5);
 			List<ArticleVendu> nart = new ArrayList<ArticleVendu>();
-			nart= dao.selectByNomArticle("out");
+			nart= dao.selectByNomArticle("ane");
 			List<Enchere> ench = new ArrayList<Enchere>();
 			ench = enchDAO.selectEnchereById(a1);
 			System.out.println(ut.toString());
