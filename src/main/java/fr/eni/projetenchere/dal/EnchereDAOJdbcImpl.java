@@ -56,7 +56,7 @@ private static final String INSERT_ENCHERE = "INSERT INTO enchere (date_enchere,
 		}
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ENCHERE_BY_ID_ARTICLE);
-			
+			pstmt.setInt(1, articleVendu.getNoArticle());
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
