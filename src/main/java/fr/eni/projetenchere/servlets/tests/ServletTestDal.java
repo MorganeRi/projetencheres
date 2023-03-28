@@ -117,7 +117,7 @@ public class ServletTestDal extends HttpServlet {
 			List<ArticleVendu> nart = new ArrayList<ArticleVendu>();
 			nart= dao.selectByNomArticle("ane");
 			List<Enchere> ench = new ArrayList<Enchere>();
-			ench = enchDAO.selectEnchereById(a1);
+			ench = enchDAO.selectEnchereByIdArticle(a1);
 			System.out.println(ut.toString());
 			System.out.println(nart.toString());
 			System.out.println(ench.toString());

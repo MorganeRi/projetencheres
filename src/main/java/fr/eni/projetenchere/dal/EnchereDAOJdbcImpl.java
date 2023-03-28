@@ -49,7 +49,7 @@ private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere
 	}
 
 	@Override
-	public List<Enchere> selectEnchereById(ArticleVendu articleVendu) throws BusinessException {
+	public List<Enchere> selectEnchereByIdArticle(ArticleVendu articleVendu) throws BusinessException {
 		List<Enchere> result = new ArrayList<>();
 		if(articleVendu == null) {
 			BusinessException businessException = new BusinessException();
@@ -113,6 +113,12 @@ private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere
 			throw businessException;
 		}
 		return ench;
+	}
+
+	@Override
+	public List<Enchere> selectEnchereByIdUtilisateur(ArticleVendu articleVendu) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
