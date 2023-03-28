@@ -22,5 +22,8 @@ public interface ArticleVenduDAO {
 
 	// Séléction par nom
 	public List<ArticleVendu> selectByNomArticle(String nom) throws BusinessException;
+	
+	//Modification du prix de vente
+	public void updatePxVenteArticleVendu (ArticleVendu articleVendu) throws BusinessException;
 
 }
