@@ -43,12 +43,15 @@ public class ServletTestDal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		
-		Utilisateur utilisateur = new Utilisateur ("Momo","Richou","Morgane", "jesuismomo@gmail.com", "0666666666", "rue de Lionel Richou", "66666", "LA", "coucouCmoi",100,false);
+		Utilisateur utilisateur = new Utilisateur ("Momo","Richou","Morgane", "jesuismomo51354536@gmail.com", "0666666666", "rue de Lionel Richou", "66666", "LA", "coucouCmoi",100,false);
 		
 		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
 		
 		try {
 			utilDAO.insertUtilisateur(utilisateur);
+			utilisateur.setAdministrateur(true);
+			utilDAO.updateUtilisateur(utilisateur);
+			
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,6 +65,8 @@ public class ServletTestDal extends HttpServlet {
 		
 		try {
 			dao.insertArticleVendu(a1);
+			a1.setNomArticle("prout");
+			dao.updateArticleVendu(a1);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

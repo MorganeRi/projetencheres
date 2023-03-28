@@ -119,7 +119,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			} else {
 				tinyIntValue = 1;
 			}
+
 			pstmt.setInt(10, tinyIntValue);
+			pstmt.setInt(11,  utilisateur.getNoUtilisateur());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
