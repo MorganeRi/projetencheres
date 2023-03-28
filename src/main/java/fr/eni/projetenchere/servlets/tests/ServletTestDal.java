@@ -44,7 +44,7 @@ public class ServletTestDal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "j2ouykgmail.com", "0666666666",
+		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "jjtgdfgl.com", "0666666666",
 				"rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
 
 		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
@@ -106,7 +106,7 @@ public class ServletTestDal extends HttpServlet {
 			Utilisateur ut = new Utilisateur();
 			ut = utilDAO.selectByIdUtilisateur(5);
 			List<ArticleVendu> nart = new ArrayList<ArticleVendu>();
-			nart= dao.selectByCategorieArticle(cat);
+			nart= dao.selectByNomArticle("out");
 			List<Enchere> ench = new ArrayList<Enchere>();
 			ench = enchDAO.selectEnchereById(a1);
 			System.out.println(ut.toString());

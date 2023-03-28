@@ -94,6 +94,10 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int SELECT_BY_NOM_ECHEC=10005;
 	/**
+	 * Echec du select by id d'article
+	 */
+	public static final int SELECT_BY_ID_ARTICLE_ECHEC=10015;
+	/**
 	 * Echec du select by id utilisateur
 	 */
 	public static final int SELECT_BY_ID_UTILISATEUR_ECHEC=10105;

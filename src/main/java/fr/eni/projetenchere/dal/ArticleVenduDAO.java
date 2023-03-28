@@ -25,5 +25,8 @@ public interface ArticleVenduDAO {
 	
 	//Modification du prix de vente
 	public void updatePxVenteArticleVendu (ArticleVendu articleVendu) throws BusinessException;
+	
+	//Sélection par ID
+	public ArticleVendu selectByIdArticle (Integer id) throws BusinessException;
 
 }
