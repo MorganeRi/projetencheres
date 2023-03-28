@@ -13,7 +13,7 @@ import fr.eni.projetenchere.bo.Enchere;
 public class EnchereDAOJdbcImpl implements EnchereDAO{
 
 private static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT  e.date_enchere, e.montant_enchere FROM enchere AS e INNER JOIN article_vendu AS av ON e.no_enchere = av.no_article WHERE e.no_article = ?";
-private static final String INSERT_ENCHERE = "INSERT INTO enchere (date_enchere, montant_enchere) VALUES (?,?)";
+private static final String INSERT_ENCHERE = "INSERT INTO enchere (date_enchere, montant_enchere,no_utilisateur,no_article) VALUES (?,?,?,?)";
 
 	//	méthode pour insérer une enchère en BDD
 	@Override
@@ -28,6 +28,9 @@ private static final String INSERT_ENCHERE = "INSERT INTO enchere (date_enchere,
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ENCHERE, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setDate(1, java.sql.Date.valueOf(enchere.getDateEnchere()));
 			pstmt.setInt(2, enchere.getMontantEnchere());
+			pstmt.setInt(3, enchere.getUtilisateur().getNoUtilisateur());
+			pstmt.setInt(4, enchere.getArticle().getNoArticle());
+			
 			int nb = pstmt.executeUpdate();
 			if(nb>0) {
 				ResultSet rs = pstmt.getGeneratedKeys();
