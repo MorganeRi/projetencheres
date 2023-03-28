@@ -16,6 +16,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO{
 private static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT  e.no_enchere,e.date_enchere, e.montant_enchere,e.no_article,e.no_utilisateur FROM enchere AS e WHERE no_article=?";
 private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere, montant_enchere,no_utilisateur,no_article) VALUES (?,?,?,?)";
 private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article from enchere WHERE no_article=?";
+private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article from enchere WHERE no_utilisateur=?";
 
 	//	méthode pour insérer une enchère en BDD
 	@Override
@@ -117,9 +118,37 @@ private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere
 
 	@Override
 	public List<Enchere> selectEnchereByIdUtilisateur(ArticleVendu articleVendu) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		Enchere ench = null;
+		if(articleVendu == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_ENCHERE_PARAMETER_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_MAX_ENCHERE);
+			pstmt.setInt(1, articleVendu.getNoArticle());
+			ResultSet rs = pstmt.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+			
+				Integer idUtil = rs.getInt("no_utilisateur");
+				Integer idArticle = rs.getInt("no_article");
+				
+				ArticleVendu articleVendu1 = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
+				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
+				ench= new Enchere(rs.getInt("no_enchere"),rs.getTimestamp("date_enchere").toLocalDateTime(),rs.getInt(3),articleVendu1,utilisateur);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.ECHEC_SELECT_ENCHERE);
+			throw businessException;
+		}
+		return ench;
+	}
 	}
 
 
-}
+
