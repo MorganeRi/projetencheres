@@ -18,9 +18,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String INSERT_ARTICLE = "insert into article_vendu(nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial, no_utilisateur, no_categorie) values (?,?,?,?,?,?,?)";
 	private static final String DELETE_ARTICLE = "delete from article_vendu where no_article=?";
 	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur from article_vendu where no_categorie=?";
-	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article='%?%'";
+	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ?";
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
-	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur from article_vendu where no_article=?";
+	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
 
 	
 	@Override
@@ -177,7 +177,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_NOM);
-			pstmt.setString(1, nom);
+			String recherche = "%"+nom+"%";
+			pstmt.setString(1, recherche);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -217,7 +218,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 
-			businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_CATEGORIE_ARTICLE_ECHEC);
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_NOM_ECHEC);
 
 			throw businessException;
 		}
@@ -258,7 +259,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID_ARTICLE);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
-
+			while (rs.next()) {
 			String nomArticle = rs.getString(1);
 			String description = rs.getString(2);
 			LocalDate dateDebut = null;
@@ -281,7 +282,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			article = new ArticleVendu(id, nomArticle, description, dateDebut, dateFin, prixInitial, prixVente,
 					utilisateur, cat);
-
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();

@@ -18,6 +18,8 @@ import fr.eni.projetenchere.bo.Enchere;
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.ArticleVenduDAO;
 import fr.eni.projetenchere.dal.ArticleVenduDAOJdbcImpl;
+import fr.eni.projetenchere.dal.CategorieDAO;
+import fr.eni.projetenchere.dal.CategorieDAOJdbcImpl;
 import fr.eni.projetenchere.dal.EnchereDAO;
 import fr.eni.projetenchere.dal.EnchereDAOJdbcImpl;
 import fr.eni.projetenchere.dal.UtilisateurDAO;
@@ -44,7 +46,7 @@ public class ServletTestDal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "jjtgdfgl.com", "0666666666",
+		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "jqsfqsfgl.com", "0666666666",
 				"rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
 
 		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
@@ -113,6 +115,10 @@ public class ServletTestDal extends HttpServlet {
 			System.out.println(ut.toString());
 			System.out.println(nart.toString());
 			System.out.println(ench.toString());
+			List<Categorie> cate = new ArrayList<Categorie>();
+			CategorieDAO cateDao = new CategorieDAOJdbcImpl();
+			cate = cateDao.selectAllCategorie();
+			System.out.println(cate.toString());
 
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
