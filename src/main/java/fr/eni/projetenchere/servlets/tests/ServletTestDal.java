@@ -94,6 +94,7 @@ public class ServletTestDal extends HttpServlet {
 			e.printStackTrace();
 		}
 		try {
+			
 			response.getWriter().append("Insertion de mon article dont l'utilisateur dont l'iD est : ")
 					.append(a1.getNomArticle() + " " + utilisateur.getNoUtilisateur() + "\n");
 			response.getWriter().append("Insertion d'une enchere : ").append(enchere.getNoEnchere() + "\n");
@@ -117,7 +118,7 @@ public class ServletTestDal extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			for (Integer code : e.getListeCodesErreur()) {
-				System.err.println("Code erreur rencontré BLL/DAL : " + code);
+				System.err.println("Code erreur rencontré DAL : " + code);
 			}
 		}
 
