@@ -26,6 +26,16 @@ public abstract class CodesResultatDAL {
 	public static final int UPDATE_PX_VENTE_ARTICLE_NULL=10030;
 	
 	/**
+	 * Echec de l'insertion d'une enchere null
+	 */
+	public static final int INSERT_ENCHERE_NULL=10006;
+	
+	/**
+	 * Echec pour retrouver le paramètre d'article, retourne un null
+	 */
+	public static final int SELECT_ENCHERE_PARAMETER_NULL=10008;
+	
+	/**
 	 * Echec général quand erreur non gérée à l'insertion d'un article
 	 */
 	public static final int INSERT_ARTICLE_ECHEC=10001;
@@ -33,6 +43,12 @@ public abstract class CodesResultatDAL {
 	 * Echec général quand erreur non gérée à l'insertion d'un utilisateur
 	 */
 	public static final int INSERT_UTILISATEUR_ECHEC=10101;
+	
+	/**
+	 * Echec de l'insertion d'une enchere null
+	 */
+	public static final int INSERT_ENCHERE_ECHEC=10007;
+	
 	/**
 	 * Echec général quand erreur non gérée à l'insertion d'un utilisateur
 	 */
@@ -57,6 +73,12 @@ public abstract class CodesResultatDAL {
 	 * Echec du select by nom d'article
 	 */
 	public static final int SELECT_BY_NOM_ECHEC=10005;
+	
+	/**
+	 * Echec pour récupérer une liste d'enchère en fonction de l'id d'un Article
+	 */
+	public static final int ECHEC_SELECT_ENCHERE=10009;
+	
 	/**
 	 * Echec de l'authentification
 	 */

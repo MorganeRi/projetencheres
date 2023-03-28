@@ -2,6 +2,7 @@ package fr.eni.projetenchere.bo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleVendu {
 	private Integer noArticle;
@@ -14,7 +15,7 @@ public class ArticleVendu {
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private Retrait retrait;
-	private ArrayList<Enchere> listeEncheres;
+	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
 //	bijour
 
 //	constructeur vide
@@ -25,7 +26,7 @@ public class ArticleVendu {
 //	tous les attributs
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
 			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
-			Categorie categorie, Retrait retrait, ArrayList<Enchere> listeEncheres) {
+			Categorie categorie, Retrait retrait, List<Enchere> listeEncheres) {
 
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -43,7 +44,7 @@ public class ArticleVendu {
 //	sans retrait
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
 			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
-			Categorie categorie, ArrayList<Enchere> listeEncheres) {
+			Categorie categorie, List<Enchere> listeEncheres) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -72,7 +73,7 @@ public class ArticleVendu {
 // 	sans l'id
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur, Categorie categorie,
-			ArrayList<Enchere> listeEncheres) {
+			List<Enchere> listeEncheres) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -173,11 +174,11 @@ public class ArticleVendu {
 		this.categorie = categorie;
 	}
 
-	public ArrayList<Enchere> getListeEncheres() {
+	public List<Enchere> getListeEncheres() {
 		return listeEncheres;
 	}
 
-	public void setListeEncheres(ArrayList<Enchere> listeEncheres) {
+	public void setListeEncheres(List<Enchere> listeEncheres) {
 		this.listeEncheres = listeEncheres;
 	}
 
