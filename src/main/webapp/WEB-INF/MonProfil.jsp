@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Mon Profil</title>
-</head>
+<jsp:include page="./fragments/head.jsp">
+	<jsp:param name="title" value="Connexion"/>
+</jsp:include>
 <body>
 
 <h1>Mon Profil</h1>
@@ -27,4 +24,4 @@
 	
 
 </body>
-</html>
+<jsp:include page="./fragments/foot.jsp"></jsp:include>
