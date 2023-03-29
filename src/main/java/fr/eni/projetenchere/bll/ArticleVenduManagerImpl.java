@@ -66,4 +66,14 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		return null;
 	}
 
+	@Override
+	public List<ArticleVendu> selectToutArticle() throws BusinessException {
+		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+
+		articles=dao.selectAllArticle();
+
+		System.out.println(articles.toString());
+		return articles;
+	}
+
 }

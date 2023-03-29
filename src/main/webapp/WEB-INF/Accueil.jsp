@@ -20,6 +20,10 @@
 <%
 List<ArticleVendu> articles = (List<ArticleVendu>) request.getAttribute("listArticle");
 
+List<ArticleVendu> toutArticles = (List<ArticleVendu>) request.getAttribute("listToutArticle");
+
+
+
 if (articles != null) {
 %>
 <div class="container d-flex flex-wrap" >
@@ -43,6 +47,29 @@ if (articles != null) {
 	%>
 </div>
 <%
+} else { %>
+	<div class="container d-flex flex-wrap" >
+	<%
+	for (ArticleVendu art : toutArticles) {
+
+	%>
+
+
+
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title"><%=art.getNomArticle()%></h5>
+			<h6 class="card-subtitle mb-2 text-body-secondary"><%=art.getDateDebutEnchere()%></h6>
+			<p class="card-text"><%=art.getDescription()%><%=art.getNoArticle()%></p>
+		</div>
+	</div>
+
+	<%
+	}
+	%>
+</div>	
+	
+<%	
 }
 %>
 

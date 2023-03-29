@@ -22,46 +22,65 @@ import fr.eni.projetenchere.bo.ArticleVendu;
 @WebServlet("/ServletAccueil")
 public class ServletAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletAccueil() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ServletAccueil() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
+
+		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+
+		try {
+		articles = article.selectToutArticle();
+			// System.out.println(articles.toString());
+			request.setAttribute("listToutArticle", articles);
+
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String recherche;
-		
-		recherche=request.getParameter("search");
-		
+
+		recherche = request.getParameter("search");
+
 		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
-		
+
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
-		
+
 		try {
-			articles=article.selectParNomArticle(recherche);
+			articles = article.selectParNomArticle(recherche);
 			// System.out.println(articles.toString());
 			request.setAttribute("listArticle", articles);
-			
+
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 	}
