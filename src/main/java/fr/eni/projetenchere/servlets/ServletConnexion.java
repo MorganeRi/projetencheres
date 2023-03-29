@@ -47,13 +47,13 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String pseudo;
+		String mail;
 		String mdp;
 		try
 		{
-			pseudo = request.getParameter("pseudo");
+			mail = request.getParameter("pseudo");
 			mdp = request.getParameter("mdp");
-			Utilisateur util =new Utilisateur(pseudo, mdp);
+			Utilisateur util =new Utilisateur(mail, mdp);
 			UtilisateurDAO utilDAO = DAOFactory.getUtilisateurDAO();
 			
 			utilDAO.connectUtilisateur(util);
@@ -80,8 +80,8 @@ public class ServletConnexion extends HttpServlet {
 		}
 		
 		HttpSession session = request.getSession();
-        session.setAttribute(SESSION_UTILISATEUR_ID, pseudo);
-        session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
+        session.setAttribute(SESSION_UTILISATEUR_ID, mail);
+        session.setAttribute(SESSION_UTILISATEUR_PSEUDO, mail);
 		
 		response.sendRedirect("./ServletConnexion");
 	}
