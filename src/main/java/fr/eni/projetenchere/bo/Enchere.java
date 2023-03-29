@@ -10,9 +10,13 @@ public class Enchere {
 	private Integer montantEnchere;
 	private ArticleVendu article;
 	private Utilisateur utilisateur;
+	private Boolean enchereGagnante;
 
 	// Plusieurs constructeurs differents
-	// complet
+	
+	
+	
+	// sans boolean
 	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article,
 			Utilisateur utilisateur) {
 		super();
@@ -21,6 +25,30 @@ public class Enchere {
 		this.montantEnchere = montantEnchere;
 		this.article = article;
 		this.utilisateur = utilisateur;
+	}
+	
+	// complet sans Id
+	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article, Utilisateur utilisateur,
+			Boolean enchereGagnante) {
+		super();
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+		this.article = article;
+		this.utilisateur = utilisateur;
+		this.enchereGagnante = enchereGagnante;
+	}
+
+
+	// complet
+	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article,
+			Utilisateur utilisateur, Boolean enchereGagnante) {
+		super();
+		this.noEnchere = noEnchere;
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+		this.article = article;
+		this.utilisateur = utilisateur;
+		this.enchereGagnante = enchereGagnante;
 	}
 
 	// sans id
@@ -98,13 +126,23 @@ public class Enchere {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+	public Boolean getEnchereGagnante() {
+		return enchereGagnante;
+	}
 
+	public void setEnchereGagnante(Boolean enchereGagnante) {
+		this.enchereGagnante = enchereGagnante;
+	}
 	// To String
+
+
 
 	@Override
 	public String toString() {
 		return "Enchere [noEnchere=" + noEnchere + ", dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere
-				+ ", article=" + article + ", utilisateur=" + utilisateur + "]";
+				+ ", article=" + article + ", utilisateur=" + utilisateur + ", enchereGagnante=" + enchereGagnante
+				+ "]";
 	}
+	
 
 }
