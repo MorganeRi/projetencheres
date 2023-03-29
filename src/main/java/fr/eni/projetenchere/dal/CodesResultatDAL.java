@@ -142,6 +142,6 @@ public abstract class CodesResultatDAL {
 	
 	public static final int ECHEC_SELECT_MAX_ENCHERE=10029;
 	
-	
+	public static final int SELECT_ALL_ARTICLE=10112;
 	
 }

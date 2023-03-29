@@ -47,8 +47,9 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	public List<ArticleVendu> selectParNomArticle(String nom) throws BusinessException {
 
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
-		
-		dao.selectByNomArticle(nom);
+
+		articles=dao.selectByNomArticle(nom);
+
 		
 		return articles;
 	}

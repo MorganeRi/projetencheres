@@ -1,5 +1,6 @@
 package fr.eni.projetenchere.dal;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
@@ -28,5 +29,9 @@ public interface ArticleVenduDAO {
 	
 	//Sélection par ID
 	public ArticleVendu selectByIdArticle (Integer id) throws BusinessException;
+	
+	//Select All
+	public List<ArticleVendu> selectAllArticle() throws BusinessException;
+	
 
 }

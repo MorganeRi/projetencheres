@@ -22,6 +22,8 @@
 	<p>Code Postal : <%=utilisateur.getCodePostal()%></p>
 	<p>Ville : <%=utilisateur.getVille()%></p>
 	
+	<a href="ServletModifierUtilisateur" class="btn btn-dark"
+					role="button">Modifier</a>
 
 </body>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>
