@@ -140,13 +140,6 @@ public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEn
 	this.image = image;
 }
 	//sans prix de vente et sans ID
-	
-
-	//	gettes et setters
-	public Integer getNoArticle() {
-		return noArticle;
-	}
-
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			Integer prixInitial, Utilisateur utilisateur, Categorie categorie) {
 		super();
@@ -157,6 +150,11 @@ public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEn
 		this.prixInitial = prixInitial;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
+	}
+
+	//	getters et setters
+	public Integer getNoArticle() {
+		return noArticle;
 	}
 
 	public void setNoArticle(Integer noArticle) {

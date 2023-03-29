@@ -135,8 +135,6 @@ public class Enchere {
 	}
 	// To String
 
-
-
 	@Override
 	public String toString() {
 		return "Enchere [noEnchere=" + noEnchere + ", dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere

@@ -212,7 +212,5 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_CREDIT_ECHEC);
 			throw businessException;
 		}
-
 	}
-
 }

@@ -76,7 +76,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				articleVendu.setNoArticle(rs.getInt(1));
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +85,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			throw businessException;
 		}
-
 	}
 
 	@Override

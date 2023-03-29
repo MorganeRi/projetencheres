@@ -69,9 +69,4 @@ public class Retrait {
 	public String toString() {
 		return "Retrait [rue=" + rue + ", codePostal=" + codePostal + ", Ville=" + Ville + ", article=" + article + "]";
 	}
-	
-	
-	
-	
-	
 }
