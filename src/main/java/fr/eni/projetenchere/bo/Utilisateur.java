@@ -109,7 +109,7 @@ public class Utilisateur {
 	
 	// Constructeur formulaire
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePasse) {
+			String codePostal, String ville, String motDePasse, Integer credit) {
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -119,6 +119,7 @@ public class Utilisateur {
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
+		this.credit = credit;
 	}
 	
 
