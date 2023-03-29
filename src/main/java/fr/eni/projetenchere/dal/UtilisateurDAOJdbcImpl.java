@@ -71,7 +71,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 			try (Connection cnx = ConnectionProvider.getConnection()) {
 				PreparedStatement pstmt = cnx.prepareStatement(SELECT_AUTHENTIFIER);
-				System.out.println(utilisateur.toString());
+
 				pstmt.setString(1, utilisateur.getEmail());
 				pstmt.setString(2, utilisateur.getMotDePasse());
 				pstmt.execute();

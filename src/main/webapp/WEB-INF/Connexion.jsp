@@ -29,20 +29,26 @@
 	}
 	}
 	%>
-
 <div class="container">
-	<form action="<%=request.getContextPath()%>/ServletConnexion"
-		method="post">
-		<label for="idPseudo">Pseudo : </label><input type="text"
-			id="idPseudo" name="pseudo"
-			value="<%=listeCodesErreur != null ? request.getParameter("pseudo") : ""%>" />
-		<br /> <label for="idPass">Mot de passe : </label><input
-			type="password" id="idPass" name="mdp"
-			value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>" />
-		<br /> <input type="submit" class="btn btn-dark" value="Se connecter" />
-	</form>
-
+<form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" name="mdp"
+			value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>">
+  </div>
+  <div class="mb-3 form-check">
+<!--     <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+<!--     <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
+  </div>
+  <button type="submit" class="btn btn-dark">Submit</button>
+</form>
 </div>
+
 
 </body>
 </html>

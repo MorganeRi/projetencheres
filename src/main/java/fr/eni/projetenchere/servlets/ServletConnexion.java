@@ -51,10 +51,9 @@ public class ServletConnexion extends HttpServlet {
 		String mdp;
 		try
 		{
-			mail = request.getParameter("pseudo");
+			mail = request.getParameter("email");
 			
 			mdp = request.getParameter("mdp");
-			System.out.println(mdp);
 			Utilisateur util =new Utilisateur(mail, mdp);
 			UtilisateurDAO utilDAO = DAOFactory.getUtilisateurDAO();
 			
