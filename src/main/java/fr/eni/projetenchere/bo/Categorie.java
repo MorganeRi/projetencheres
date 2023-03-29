@@ -72,9 +72,4 @@ public class Categorie {
 		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + ", ListeArticles=" + ListeArticles
 				+ "]";
 	}
-	
-
-	
-	
-	
 }
