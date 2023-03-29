@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 <%@page import="java.util.List"%>
+<%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <jsp:include page="./fragments/head.jsp">
-	<jsp:param name="title" value="CreationUtilisateur" />
+	<jsp:param name="title" value="ModificationUtilisateur" />
 </jsp:include>
 
 <div class="container">
@@ -22,13 +23,18 @@
 	}
 	}
 	%>
+	
+	<%
+	Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
+	%>
+	
 	<form method="post"
 		action="<%=request.getContextPath()%>/ServletModifierUtilisateur">
 		<div class="input-group mb-3">
 			<span class="input-group-text">Pseudo</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Pseudo" name="Pseudo" required> <label
+					name="Pseudo" value=<%=utilisateur.getPseudo()%> required> <label
 					for="floatingInputGroup1">Pseudo</label>
 			</div>
 		</div>
@@ -36,7 +42,7 @@
 			<span class="input-group-text">Prenom</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Prenom" name="Prenom" required> <label
+					name="Prenom" value=<%=utilisateur.getPrenom()%> required> <label
 					for="floatingInputGroup1">Prenom</label>
 			</div>
 		</div>
@@ -44,7 +50,7 @@
 			<span class="input-group-text">Nom</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Nom" name="Nom" required> <label
+					name="Nom" value=<%=utilisateur.getNom()%> required> <label
 					for="floatingInputGroup1">Nom</label>
 			</div>
 		</div>
@@ -52,7 +58,7 @@
 			<span class="input-group-text">Email</span>
 			<div class="form-floating">
 				<input type="email" class="form-control" id="floatingInputGroup1"
-					placeholder="Email" name="Email" required> <label
+					name="Email" value=<%=utilisateur.getEmail()%> required> <label
 					for="floatingInputGroup1">Email</label>
 			</div>
 		</div>
@@ -60,14 +66,14 @@
 			<span class="input-group-text">Telephone</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Telephone" name="Telephone"> <label for="floatingInputGroup1">Telephone</label>
+					name="Telephone" value=<%=utilisateur.getTelephone()%>> <label for="floatingInputGroup1">Telephone</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
 			<span class="input-group-text">Rue</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Rue" name="Rue" required> <label
+					name="Rue" value=<%=utilisateur.getRue()%> required> <label
 					for="floatingInputGroup1">Rue</label>
 			</div>
 		</div>
@@ -75,7 +81,7 @@
 			<span class="input-group-text">Code postal</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="CodePostal" name="CodePostal" required> <label
+					name="CodePostal" value=<%=utilisateur.getCodePostal()%> required> <label
 					for="floatingInputGroup1">Code postal</label>
 			</div>
 		</div>
@@ -83,28 +89,36 @@
 			<span class="input-group-text">Ville</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Ville" name="Ville" required> <label
+					name="Ville" value=<%=utilisateur.getVille()%> required> <label
 					for="floatingInputGroup1">Ville</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Mot de passe</span>
+			<span class="input-group-text">Mot de passe actuel</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
-					placeholder="MotDePasse" name="MotDePasse" required> <label
+					placeholder="MotDePasseActuel" name="MotDePasseActuel" required> <label
 					for="floatingInputGroup1">Mot de passe</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Confirmation Mot de passe</span>
+			<span class="input-group-text">Nouveau mot de passe</span>
+			<div class="form-floating">
+				<input type="password" class="form-control" id="floatingInputGroup1"
+					placeholder="NouveauMotDePasse" name="MotDePasseNouveau" required> <label
+					for="floatingInputGroup1">Mot de passe</label>
+			</div>
+		</div>
+		<div class="input-group mb-3">
+			<span class="input-group-text">Confirmer mot de passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
 					placeholder="ConfirmationMotDePasse" name="ConfirmationMotDePasse" required> <label
 					for="floatingInputGroup1">Confirmation Mot de passe</label>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-dark">Créer</button>
-		<button type="reset" class="btn btn-dark">Annuler</button>
+		<button type="submit" class="btn btn-dark">Enregistrer</button>
+		<button type="reset" class="btn btn-dark">Supprimer mon compte</button>
 	</form>
 </div>
 </body>

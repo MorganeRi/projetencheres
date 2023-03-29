@@ -37,7 +37,8 @@ public class ServletModifierUtilisateur extends HttpServlet {
 		Utilisateur utilisateur = new Utilisateur();
 		UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
 
-		noUtilisateur = (Integer) request.getSession().getAttribute("id");
+		//noUtilisateur = (Integer) request.getSession().getAttribute("id");
+		noUtilisateur = 2;
 		try {
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 		} catch (BusinessException e) {
