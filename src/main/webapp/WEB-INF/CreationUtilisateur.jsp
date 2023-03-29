@@ -15,8 +15,10 @@
 <title>CreationUtilisateur</title>
 </head>
 <body>
-	<h1>Mon profil</h1>
-	<form method="post" action="/TPSuiviDesRepas/ServletAjoutRepas">
+
+	<div class="container">
+		<h1>Mon profil</h1><br>
+	<form method="post" action="<%=request.getContextPath()%>/ServletAjoutUtilisateur">
 		<div class="input-group mb-3">
 			<span class="input-group-text">Pseudo</span>
 			<div class="form-floating">
@@ -93,5 +95,6 @@
 		<input type="submit" value="Créer" /> <input type="reset"
 			value="Annuler">
 	</form>
+	</div>
 </body>
 </html>

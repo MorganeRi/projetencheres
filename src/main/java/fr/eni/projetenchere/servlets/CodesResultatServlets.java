@@ -7,5 +7,7 @@ public abstract class CodesResultatServlets {
 	
 	public static final int FORMAT_LISTE_ERREUR=30000;
 	
+	public static final int MOTDEPASSE_ERREUR=30001;
+	
 	
 }

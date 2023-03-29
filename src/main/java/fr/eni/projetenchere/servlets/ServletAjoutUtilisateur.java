@@ -1,12 +1,8 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +35,8 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationUtilisateur.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -59,6 +55,8 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 		String ville;
 		String motDePasse;
 		String confirmationMotDePasse;
+		
+		BusinessException businessException = new BusinessException();
 
 		try {
 			pseudo = request.getParameter("Pseudo");
@@ -72,17 +70,21 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
 			
-			UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
-			
-			Utilisateur utilisateur = new Utilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,motDePasse);
-			utilisateurManager.createUtilisateur(utilisateur);
+			if(motDePasse == confirmationMotDePasse) {
+				UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
+				Utilisateur utilisateur = new Utilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,motDePasse);
+				utilisateurManager.createUtilisateur(utilisateur);
+			}else {
+				businessException.ajouterErreur(CodesResultatServlets.MOTDEPASSE_ERREUR);
+			}
 			
 		} catch (BusinessException e) {
 			e.printStackTrace();
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 		}
 
-		doGet(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationUtilisateur.jsp");
+		rd.forward(request, response);
 	}
 
 }
