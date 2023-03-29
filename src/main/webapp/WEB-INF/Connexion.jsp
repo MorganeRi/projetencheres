@@ -6,7 +6,7 @@
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="Connexion"/>
 </jsp:include>
-
+	<h1>Connexion</h1>
 	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {

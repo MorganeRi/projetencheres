@@ -29,7 +29,7 @@
       		<%
 			if( id != null ){
 		%>
-			<li><a href="ServletDeconnexion">Déconnexion [<%=mail%>]</a></li>
+			<li class="nav-item">><a class="nav-link"  href="ServletDeconnexion">Déconnexion [<%=mail%>]</a></li>
 		<%
 			} else {
 		%>
@@ -44,12 +44,7 @@
 		%>	
 
       </ul>
-      <div class="container">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
+
       
     </div>
   </div>
