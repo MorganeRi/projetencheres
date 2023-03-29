@@ -2,19 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 <%@page import="java.util.List"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Connexion Enchere</title>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-	crossorigin="anonymous">
-</head>
-<body>
+<jsp:include page="./fragments/head.jsp">
+	<jsp:param name="title" value="Connexion"/>
+</jsp:include>
 
 	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
@@ -45,10 +36,13 @@
 <!--     <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
 <!--     <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
   </div>
-  <button type="submit" class="btn btn-dark">Submit</button>
+  <button type="submit" class="btn btn-dark">Connexion</button>
 </form>
 </div>
-
-
+<div class="container">
+<br>
+<a href="ServletAjoutUtilisateur" class="btn btn-dark"
+					role="button">Créer un compte</a>
+</div>
 </body>
 </html>
