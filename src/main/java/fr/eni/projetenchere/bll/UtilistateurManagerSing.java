@@ -4,9 +4,9 @@ package fr.eni.projetenchere.bll;
 
 public class UtilistateurManagerSing {
 
-	private static UtilisateurManagerImpl instance;
+	private static UtilisateurManager instance;
 	
-	public static UtilisateurManagerImpl getInstanceUtilisateur(){
+	public static UtilisateurManager getInstanceUtilisateur(){
 		if(instance==null) {
 			instance = new UtilisateurManagerImpl();
 		}
