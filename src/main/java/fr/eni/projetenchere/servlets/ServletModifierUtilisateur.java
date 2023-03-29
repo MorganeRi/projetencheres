@@ -15,27 +15,24 @@ import fr.eni.projetenchere.bll.UtilisateurManagerImpl;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
- * Servlet implementation class ServletMonProfil
+ * Servlet implementation class ServletModifierUtilisateur
  */
-@WebServlet("/ServletMonProfil")
-public class ServletMonProfil extends HttpServlet {
+@WebServlet("/ServletModifierUtilisateur")
+public class ServletModifierUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ServletModifierUtilisateur() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public ServletMonProfil() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer noUtilisateur;
 		Utilisateur utilisateur = new Utilisateur();
 		UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
@@ -50,16 +47,14 @@ public class ServletMonProfil extends HttpServlet {
 
 		request.setAttribute("Utilisateur", utilisateur);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/MonProfil.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp");
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
