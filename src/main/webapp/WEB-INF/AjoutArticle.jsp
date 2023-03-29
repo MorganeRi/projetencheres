@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="./WEB-INF/fragments/head.jsp">
+    <%@page import="fr.eni.projetenchere.bo.Categorie"%>
+     <%@page import="java.util.List"%>
+     
+<jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="AjoutArticle"/>
 </jsp:include>
 	<h1>Nouvelle vente</h1>
@@ -19,28 +22,17 @@
 			<div class="mb-1 d-flex align-items-center">
 				<label  class="form-label me-3" for="Categorie">Categorie : </label>
 				<select  class="form-control" id="Categorie" name="Categorie" style="width: 300px">
-				
+				<option value=""> </option>
 				
 				<%
-                for(String categorieDisponible:)
-                {
+ 				List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
+                  for(Categorie categorieDisponible : listCategorie)
+                 {
             %>
-                    <option value="<%=categorieDisponible%>" ><%=categorieDisponible%></option>
+                    <option value="<%=categorieDisponible%>" ><%=categorieDisponible.getLibelle()%></option>
             <%
                 }
             %>
-<!-- 					<option value="">Choose a category</option> -->
-<!-- 					<option value="multimedia">Multimedia</option> -->
-<!-- 					<option value="automobile">Automobile</option> -->
-<!-- 					<option value="maison">maison</option> -->
-<!-- 					<option value="electromenage">Electromenager</option> -->
-<!-- 					<option value="informatique">Informatique</option> -->
-<!-- 					<option value="loisirs">Loisirs</option> -->
-<!-- 					<option value="livres">Livres</option> -->
-<!-- 					<option value="musique">Musique</option> -->
-<!-- 					<option value="jardin">Jardin</option> -->
-<!-- 					<option value="vetements">Vetements</option> -->
-<!-- 					<option value="sport">Sport</option> -->
 				</select>
 			</div>
 			<br/>
@@ -89,4 +81,4 @@
 			</div>
 		</form>
 	</div>
-<jsp:include page="./WEB-INF/fragments/foot.jsp"></jsp:include>
+<jsp:include page="./fragments/foot.jsp"></jsp:include>
