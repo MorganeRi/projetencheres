@@ -23,8 +23,9 @@ import fr.eni.projetenchere.messages.LecteurMessage;
 @WebServlet("/ServletConnexion")
 public class ServletConnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
+	private static final String SESSION_UTILISATEUR_MAIL = "mail";
 	private static final String SESSION_UTILISATEUR_ID = "id";
+	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -49,12 +50,17 @@ public class ServletConnexion extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String mail;
 		String mdp;
+		Utilisateur util =null;
 		try
 		{
+			
+			//TODO passer par la BLL !!
+			
+			
 			mail = request.getParameter("email");
 			
 			mdp = request.getParameter("mdp");
-			Utilisateur util =new Utilisateur(mail, mdp);
+			util=new Utilisateur(mail, mdp);
 			UtilisateurDAO utilDAO = DAOFactory.getUtilisateurDAO();
 			
 			utilDAO.connectUtilisateur(util);
@@ -81,7 +87,8 @@ public class ServletConnexion extends HttpServlet {
 		}
 		
 		HttpSession session = request.getSession();
-        session.setAttribute(SESSION_UTILISATEUR_ID, mail);
+        session.setAttribute(SESSION_UTILISATEUR_ID,util.getNoUtilisateur() );
+        session.setAttribute(SESSION_UTILISATEUR_MAIL, mail);
         session.setAttribute(SESSION_UTILISATEUR_PSEUDO, mail);
 		
 		response.sendRedirect("./ServletConnexion");
