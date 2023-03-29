@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -16,30 +16,33 @@
 </head>
 <body>
 
-<%
-		List<Integer> listeCodesErreur = (List<Integer>)request.getAttribute("listeCodesErreur");
-		if(listeCodesErreur!=null)
-		{
-	%>
-			<p style="color:red;">Erreur, la connexion n'est pas possible :</p>
 	<%
-			for(int codeErreur:listeCodesErreur)
-			{
+	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
+	if (listeCodesErreur != null) {
 	%>
-				<p><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
-	<%	
-			}
-		}
+	<p style="color: red;">Erreur, la connexion n'est pas possible :</p>
+	<%
+	for (int codeErreur : listeCodesErreur) {
 	%>
-	<form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
-		<label for="idPseudo">Pseudo : </label><input type="text" id="idPseudo" name="pseudo" value="<%=listeCodesErreur!=null?request.getParameter("pseudo"):""%>"/>
-		<br/>
-		<label for="idPass">Mot de passe : </label><input type="password" id="idPass" name="pass" value="<%=listeCodesErreur!=null?request.getParameter("mdp"):""%>"/>
-		<br/>
-		<input type="submit" value="Se connecter"/>
+	<p><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
+	<%
+	}
+	}
+	%>
+
+<div class="container">
+	<form action="<%=request.getContextPath()%>/ServletConnexion"
+		method="post">
+		<label for="idPseudo">Pseudo : </label><input type="text"
+			id="idPseudo" name="pseudo"
+			value="<%=listeCodesErreur != null ? request.getParameter("pseudo") : ""%>" />
+		<br /> <label for="idPass">Mot de passe : </label><input
+			type="password" id="idPass" name="pass"
+			value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>" />
+		<br /> <input type="submit" class="btn btn-dark" value="Se connecter" />
 	</form>
 
-
+</div>
 
 </body>
 </html>

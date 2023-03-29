@@ -14,7 +14,7 @@ public abstract class LecteurMessage {
 	{
 		try
 		{
-			rb = ResourceBundle.getBundle("fr.eni.javaee.tpgestionlistescourses.messages.messages_erreur");
+			rb = ResourceBundle.getBundle("fr.eni.projetenchere.messages.messages_erreur");
 		}
 		catch (Exception e) 
 		{
@@ -37,7 +37,7 @@ public abstract class LecteurMessage {
 			}
 			else
 			{
-				message="Probl�me � la lecture du fichier contenant les messages";
+				message="Problème à la lecture du fichier contenant les messages";
 			}
 		}
 		catch (Exception e) {

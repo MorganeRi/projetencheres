@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
-import fr.eni.projetenchere.bll.UtilisateurManager;
+import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dal.DAOFactory;
+import fr.eni.projetenchere.dal.UtilisateurDAO;
 import fr.eni.projetenchere.messages.LecteurMessage;
 
 /**
@@ -36,7 +38,7 @@ public class ServletConnexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/modules/module6/demonstrations/connexion.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 		rd.forward(request, response);
 	}
 
@@ -51,9 +53,14 @@ public class ServletConnexion extends HttpServlet {
 		{
 			pseudo = request.getParameter("pseudo");
 			mdp = request.getParameter("mdp");
+			Utilisateur util =new Utilisateur(pseudo, mdp);
+			UtilisateurDAO utilDAO = DAOFactory.getUtilisateurDAO();
 			
-			UtilisateurManager utilisateurManager = new UtilisateurManagerSing();
-			utilisateurManager.authentifierUtilisateur(pseudo, mdp); // déclenche une BusinessException si les coordonnées utilisateur sont erronées
+			utilDAO.connectUtilisateur(util);
+			
+			
+//			UtilisateurManager utilisateurManager = new UtilisateurManager();
+//			utilisateurManager.authentifier(pseudo, mdp); // déclenche une BusinessException si les coordonnées utilisateur sont erronées
 			
 		} catch (BusinessException e) {
 
@@ -67,7 +74,7 @@ public class ServletConnexion extends HttpServlet {
 						.collect(Collectors.toList())
 			);
 		
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/modules/module6/demonstrations/connexion.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 			rd.forward(request, response);	
 			return;
 		}
@@ -76,7 +83,7 @@ public class ServletConnexion extends HttpServlet {
         session.setAttribute(SESSION_UTILISATEUR_ID, pseudo);
         session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
 		
-		response.sendRedirect("./ServletAccueil");
+		response.sendRedirect("./ServletConnexion");
 	}
 	}
 
