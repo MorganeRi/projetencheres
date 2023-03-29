@@ -44,5 +44,4 @@
 <a href="ServletAjoutUtilisateur" class="btn btn-dark"
 					role="button">Créer un compte</a>
 </div>
-</body>
-</html>
+<jsp:include page="./fragments/foot.jsp"></jsp:include>
