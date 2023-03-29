@@ -24,12 +24,12 @@
 <form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" name="mdp"
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" name="mdp"
 			value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>">
   </div>
   <div class="mb-3 form-check">
