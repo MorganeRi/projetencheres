@@ -204,6 +204,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 				article = new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
 						prixVente, utilisateur, cat);
+
 				if (articles == null) {
 					articles = new ArrayList<ArticleVendu>();
 				}

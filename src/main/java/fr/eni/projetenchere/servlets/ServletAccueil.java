@@ -54,7 +54,7 @@ public class ServletAccueil extends HttpServlet {
 		
 		try {
 			articles=article.selectParNomArticle(recherche);
-			
+			// System.out.println(articles.toString());
 			request.setAttribute("listArticle", articles);
 			
 		} catch (BusinessException e) {
