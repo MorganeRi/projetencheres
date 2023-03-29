@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<p> Pseudo :   <p>
+<p> Nom :  <p>
+<p> Préom :  <p>
+<p> Préom :  <p>
 
 
 </body>

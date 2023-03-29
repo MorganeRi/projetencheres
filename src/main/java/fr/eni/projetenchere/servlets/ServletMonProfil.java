@@ -26,7 +26,17 @@ public class ServletMonProfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String pseudo;
+		String prenom;
+		String nom;
+		String email;
+		String telephone;
+		String rue;
+		String codePostal;
+		String ville;
+		String motDePasse;
+		
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

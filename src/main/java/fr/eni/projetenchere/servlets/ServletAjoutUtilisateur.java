@@ -73,7 +73,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
 			if(motDePasse.equals(confirmationMotDePasse)) {
 				UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
-				Utilisateur utilisateur = new Utilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,motDePasse,credit,administrateur);
+				Utilisateur utilisateur = new Utilisateur(pseudo ,nom,prenom,email,telephone,rue,codePostal,ville,motDePasse,credit,administrateur);
 				utilisateurManager.createUtilisateur(utilisateur);
 			}else {
 				businessException.ajouterErreur(CodesResultatServlets.MOTDEPASSE_ERREUR);
