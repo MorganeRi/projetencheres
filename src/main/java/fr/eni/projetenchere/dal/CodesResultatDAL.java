@@ -138,6 +138,10 @@ public abstract class CodesResultatDAL {
 	
 	public static final int SELECT_UTILISATEUR_MDP_ECHEC=10004;
 	
+	public static final int ECHEC_SELECT_ENCHERE_BY_ID_U=10019;
+	
+	public static final int ECHEC_SELECT_MAX_ENCHERE=10029;
+	
 	
 	
 }

@@ -110,7 +110,7 @@ private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enc
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.ECHEC_SELECT_ENCHERE);
+			businessException.ajouterErreur(CodesResultatDAL.ECHEC_SELECT_MAX_ENCHERE);
 			throw businessException;
 		}
 		return ench;
@@ -147,7 +147,7 @@ private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enc
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.ECHEC_SELECT_ENCHERE);
+			businessException.ajouterErreur(CodesResultatDAL.ECHEC_SELECT_ENCHERE_BY_ID_U);
 			throw businessException;
 		}
 		return ench;
