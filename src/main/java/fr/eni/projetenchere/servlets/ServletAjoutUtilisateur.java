@@ -55,6 +55,8 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 		String ville;
 		String motDePasse;
 		String confirmationMotDePasse;
+		Integer credit = 100;
+		Boolean administrateur = false;
 		
 		BusinessException businessException = new BusinessException();
 
@@ -69,10 +71,9 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			ville = request.getParameter("Ville");
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
-			
-			if(motDePasse == confirmationMotDePasse) {
+			if(motDePasse.equals(confirmationMotDePasse)) {
 				UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
-				Utilisateur utilisateur = new Utilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,motDePasse);
+				Utilisateur utilisateur = new Utilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,motDePasse,credit,administrateur);
 				utilisateurManager.createUtilisateur(utilisateur);
 			}else {
 				businessException.ajouterErreur(CodesResultatServlets.MOTDEPASSE_ERREUR);

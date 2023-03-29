@@ -23,7 +23,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 	 * - Crédit de 100 points par défaut à la création */
 	@Override
 	public void createUtilisateur(Utilisateur utilisateur) throws BusinessException {
-		// TODO Auto-generated method stub
+		this.utilisateurDao.insertUtilisateur(utilisateur);
 		
 	}
 

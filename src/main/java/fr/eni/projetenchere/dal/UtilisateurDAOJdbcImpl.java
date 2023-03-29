@@ -23,7 +23,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
-
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement stmt = cnx.prepareStatement(INSERT_UTILISATEUR, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, utilisateur.getPseudo());
