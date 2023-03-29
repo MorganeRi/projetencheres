@@ -11,7 +11,8 @@ import fr.eni.projetenchere.bo.Categorie;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
-	private static final String GET_ALL_CATEGORIE = "SELECT no_categorie, libelle FROM categorie";
+	private static final String SELECT_CATEGORIE_BY_ID = "SELECT no_categorie,libelle FROM categorie WHERE no_categorie = ? ";
+	private static final String GET_ALL_CATEGORIE = "SELECT libelle FROM categorie";
 
 	@Override
 	public List<Categorie> selectAllCategorie() throws BusinessException {
@@ -32,5 +33,26 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			throw businessException;
 		}
 		return result;
+	}
+
+	@Override
+	public Categorie selectCategorieByID(Integer idCategorie) throws BusinessException {
+		Categorie categorie = null ;
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_CATEGORIE_BY_ID);
+			pstmt.setInt(1, idCategorie);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String nomCategorie =rs.getString(1);
+				categorie = new Categorie(idCategorie,nomCategorie);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+//			businessException.ajouterErreur(CodesResultatDAL.SELECT_CATEGORIE_BY_ID_ECHEC);
+//			throw businessException;
+		}
+		return categorie;
 	}
 }

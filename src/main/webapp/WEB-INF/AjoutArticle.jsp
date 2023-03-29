@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@page import="fr.eni.projetenchere.bo.Categorie"%>
      <%@page import="java.util.List"%>
+     <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
      
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="AjoutArticle"/>
@@ -29,7 +30,7 @@
                   for(Categorie categorieDisponible : listCategorie)
                  {
             %>
-                    <option value="<%=categorieDisponible%>" ><%=categorieDisponible.getLibelle()%></option>
+                    <option value="<%=categorieDisponible.getNoCategorie() %>" ><%=categorieDisponible.getLibelle()%></option>
             <%
                 }
             %>
@@ -43,7 +44,7 @@
 			<br/>
 			<div class="mb-1 d-flex align-items-center">
 				<label class="form-label me-3" for="MiseAPrix">Mise à prix : </label>
-				<input class="form-control" type="number" id="prixDepart" name="prixDepart" min="150" max="1000" style="width: 300px" placeholder="150"/>
+				<input class="form-control" type="number" id="prixDepart" name="prixDepart" min="150" max="1000" style="width: 300px" placeholder="150" value="150"/>
 			</div>
 			<br/>
 			<div class="mb-1 d-flex align-items-center">
@@ -58,19 +59,22 @@
 			<br/>
 			<fieldset>
 				<legend>Retrait</legend>
+				<%
+					Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
+				%>
 				<div class="mb-1 d-flex align-items-center">
 					<label class="form-label me-3" for="nomRue">Rue : </label>
-					<input class="form-control" type="text" id="nomRue" name="nomRue" style="width: 300px"/>
+					<input class="form-control" type="text" id="nomRue" name="nomRue" style="width: 300px" value="<%=utilisateur.getRue()%>"/>
 				</div>
 				<br/>
 				<div class="mb-1 d-flex align-items-center">
 					<label class="form-label me-3" for="codePostal">Code Postal : </label>
-					<input class="form-control" type="text" id="codePostal" name="codePostal" style="width: 300px"/>
+					<input class="form-control" type="text" id="codePostal" name="codePostal" style="width: 300px" value="<%=utilisateur.getCodePostal()%>"/>
 				</div>
 				<br/>
 				<div class="mb-1 d-flex align-items-center">
 					<label class="form-label me-3" for="nomVille">Ville : </label>
-					<input class="form-control" type="text" id="nomVille" name="nomVille" style="width: 300px"/>
+					<input class="form-control" type="text" id="nomVille" name="nomVille" style="width: 300px" value="<%=utilisateur.getVille()%>"/>
 				</div>
 				<br/>
 			</fieldset>

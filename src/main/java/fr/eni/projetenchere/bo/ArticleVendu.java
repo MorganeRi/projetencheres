@@ -28,6 +28,8 @@ public class ArticleVendu {
 	}
 
 //	tous les attributs
+	
+	
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
 			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
 			Categorie categorie, Retrait retrait, List<Enchere> listeEncheres) {
@@ -45,7 +47,9 @@ public class ArticleVendu {
 		this.listeEncheres = listeEncheres;
 	}
 
-//	sans retrait
+
+
+	//	sans retrait
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
 			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
 			Categorie categorie, List<Enchere> listeEncheres) {

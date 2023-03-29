@@ -47,7 +47,6 @@ public class ServletMonProfil extends HttpServlet {
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 			System.out.println(utilisateur.toString());
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -55,6 +54,7 @@ public class ServletMonProfil extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/MonProfil.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/**

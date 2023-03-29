@@ -8,5 +8,7 @@ import fr.eni.projetenchere.bo.Categorie;
 public interface CategorieDAO {
 
 	public List<Categorie> selectAllCategorie() throws BusinessException;
+	
+	public Categorie selectCategorieByID(Integer idCategorie) throws BusinessException;
 
 }
