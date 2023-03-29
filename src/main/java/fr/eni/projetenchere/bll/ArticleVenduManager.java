@@ -27,4 +27,6 @@ public interface ArticleVenduManager {
 	
 	public ArticleVendu selectParIdArticle (Integer id)throws BusinessException;
 	
+	public List<ArticleVendu> selectToutArticle (String nom)throws BusinessException;
+	
 }
