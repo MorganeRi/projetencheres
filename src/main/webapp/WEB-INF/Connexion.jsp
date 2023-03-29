@@ -37,7 +37,7 @@
 			id="idPseudo" name="pseudo"
 			value="<%=listeCodesErreur != null ? request.getParameter("pseudo") : ""%>" />
 		<br /> <label for="idPass">Mot de passe : </label><input
-			type="password" id="idPass" name="pass"
+			type="password" id="idPass" name="mdp"
 			value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>" />
 		<br /> <input type="submit" class="btn btn-dark" value="Se connecter" />
 	</form>
