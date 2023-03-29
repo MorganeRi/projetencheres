@@ -5,10 +5,10 @@ package fr.eni.projetenchere.bll;
  */
 public abstract class CodesResultatBLL {
 	
-	public static final int REGLE_LISTE_NOM_ERREUR=20000;
-
-	public static final int REGLE_ARTICLE_NOM_ERREUR=20001;
 	
+	
+//	Echec pour récupérer une liste de catégories
+	public static final int FAIL_SELECT_CATEGORIE = 20000;
 	
 	
 }
