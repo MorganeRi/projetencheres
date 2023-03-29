@@ -1,4 +1,4 @@
-package fr.eni.projetenchere.servlets;
+package fr.eni.projetenchere.servlets.tests;
 
 import java.io.IOException;
 import java.sql.Connection;
