@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+<nav class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="ServletAccueil">Enchere MOJONE</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

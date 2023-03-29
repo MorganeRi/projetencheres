@@ -1,5 +1,6 @@
 package fr.eni.projetenchere.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
@@ -14,10 +15,10 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public void ajouterArticleVendu(ArticleVendu article) throws BusinessException {
-		
+
 //		BusinessException businessException = new BusinessException();
 //		if (!businessException.hasErreurs()) {
-			this.dao.insertArticleVendu(article);
+		this.dao.insertArticleVendu(article);
 //		} else {
 //			throw businessException;
 //		}
@@ -44,8 +45,12 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public List<ArticleVendu> selectParNomArticle(String nom) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+		
+		dao.selectByNomArticle(nom);
+		
+		return articles;
 	}
 
 	@Override
