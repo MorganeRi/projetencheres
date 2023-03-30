@@ -43,7 +43,7 @@ public class ServletSupprimerArticle extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("./ServletAjoutArticle");
+		response.sendRedirect("./ServletModifierArticle");
 	}
 
 	/**

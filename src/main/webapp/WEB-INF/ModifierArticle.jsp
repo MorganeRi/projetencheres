@@ -6,26 +6,33 @@
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
      
 <jsp:include page="./fragments/head.jsp">
-	<jsp:param name="title" value="AjoutArticle"/>
+	<jsp:param name="title" value="ModifierArticle"/>
 </jsp:include>
 	<h1 class="font-weight-bold text-center">Nouvelle vente</h1>
 <!-- 	style="border: 1px solid silver;width:600px;" -->
 	<div class="container" style="border: 1px solid silver;width:500px;">
-		<form action="<%=request.getContextPath()%>/ServletAjoutArticle" method="post">
+	
+	<%
+	ArticleVendu articleVendu = (ArticleVendu) request.getAttribute("articleAAfficher");
+	%>
+		<form action="<%=request.getContextPath()%>/ServletModifierArticle" method="post">
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3 mt-2" for="nomArticle">Article : </label>
-				<input class="form-control mt-2" type="text" id="nomArticle" name="nomArticle" style="width: 300px"/>
+				<input class="form-control mt-2" type="text" id="nomArticle" 
+				name="nomArticle" style="width: 300px" value =<%=articleVendu.getNomArticle()%> required/>
 			</div>
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label  class="form-label me-3" for="Description">Description : </label>
-				<textarea  class="form-control" id="Description" name="Description" style="height: 100px ; width: 300px"/></textarea>
+				<textarea  class="form-control" id="Description" name="Description" 
+				style="height: 100px ; width: 300px" required/><%=articleVendu.getDescription()%></textarea>
 			</div>
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label  class="form-label me-3" for="Categorie">Categorie : </label>
-				<select  class="form-control" id="Categorie" name="Categorie" style="width: 300px">
-				<option value=""> </option>
+				<select  class="form-control" id="Categorie" name="Categorie" 
+				style="width: 300px" required>
+				<option value="<%=articleVendu.getCategorie().getNoCategorie()%>"> <%=articleVendu.getCategorie().getLibelle()%></option>
 				
 				<%
  				List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
@@ -41,24 +48,27 @@
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3" for="imageArticle">Photo de l'article : </label>
-				<input class="form-control" type="file" id="imageArticle" name="imageArticle" accept="image/png, image/jpeg" style="width: 400px"/>
+				<input class="form-control" type="file" id="imageArticle" name="imageArticle"
+				 accept="image/png, image/jpeg" style="width: 400px" />
 			</div>
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3" for="MiseAPrix">Mise à prix : </label>
-				<input class="form-control" type="number" id="prixDepart" name="prixDepart" min="150" max="1000" style="width: 300px" placeholder="150" value="150"/>
+				<input class="form-control" type="number" id="prixDepart" name="prixDepart" 
+				min="150" max="1000" style="width: 300px" placeholder="150" 
+				value=<%=articleVendu.getPrixInitial()%> required/>
 			</div>
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3" for="DebutEnchere">Début de l'enchère : </label>
 				<input class="form-control" type="date" id="DebutEnchere" name="DebutEnchere" 
-				style="width: 300px" />
+				style="width: 300px" value=<%=articleVendu.getDateDebutEnchere()%> required/>
 			</div>
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3" for="FinEnchere">Fin de l'enchère : </label>
 				<input class="form-control" type="date" id="FinEnchere" name="FinEnchere" 
-				style="width: 300px"/>
+				style="width: 300px" value=<%=articleVendu.getDateFinEnchere()%> required/>
 			</div>
 			<br/>
 			<fieldset>
@@ -74,8 +84,8 @@
 				<br/>
 				<div class="mb-1 d-flex align-items-center justify-content-between">
 					<label class="form-label me-3" for="codePostal">Code Postal : </label>
-					<input class="form-control" type="text" id="codePostal" name="codePostal" 
-					style="width: 300px" value="<%=utilisateur.getCodePostal()%>"/>
+					<input class="form-control" type="text" id="codePostal" name="codePostal"
+					 style="width: 300px" value="<%=utilisateur.getCodePostal()%>"/>
 				</div>
 				<br/>
 				<div class="mb-1 d-flex align-items-center justify-content-between">
@@ -89,7 +99,7 @@
 				ArticleVendu articleAjoute = (ArticleVendu) request.getAttribute("articleAjoute");
 				if (articleAjoute != null) {
 			%>
-				<p style="color: green;">L'article a été ajouté avec succès</p>
+				<p style="color: green;">L'article a été modifié avec succès</p>
 				
 				
 			<%
@@ -98,7 +108,7 @@
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 				<input  type="submit" value="Enregistrer" class="btn btn-dark me-3"/>
 				<input  type="reset" value="Annuler" class="btn btn-dark me-3">
-				
+				<a  href="ServletSupprimerArticle"  class="btn btn-dark me-3" role="button">Annuler la vente</a>
 			</div>
 		</form>
 	</div>

@@ -28,7 +28,8 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public void majArticleVendu(ArticleVendu article) throws BusinessException {
-		// TODO Auto-generated method stub
+		
+		dao.updateArticleVendu(article);
 
 	}
 
@@ -63,8 +64,11 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public ArticleVendu selectParIdArticle(Integer id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		ArticleVendu articleVendu = new ArticleVendu();
+		
+		articleVendu = dao.selectByIdArticle(id);
+		
+		return articleVendu;
 	}
 
 	@Override

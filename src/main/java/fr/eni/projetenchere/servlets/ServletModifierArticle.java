@@ -25,26 +25,26 @@ import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
- * Servlet implementation class ServletAjoutArticle
+ * Servlet implementation class ServletModifierArticle
  */
-@WebServlet("/ServletAjoutArticle")
-public class ServletAjoutArticle extends HttpServlet {
-	private static final String ARTICLE_A_MANIPULER = "articleAManipuler";
-	private static final String LIST_CATEGORIE = "listCategorie";
-	private static final String UTILISATEUR = "Utilisateur";
+@WebServlet("/ServletModifierArticle")
+public class ServletModifierArticle extends HttpServlet {
+	private static final String ARTICLE_A_AFFICHER_START = "articleAAfficher";
 	private static final long serialVersionUID = 1L;
 	private static CategorieManager CATEGORIE_MANAGER = CategorieManagerSing.getInstanceCategorieImpl();
-	
+	private static final String LIST_CATEGORIE = "listCategorie";
 	private static UtilisateurManager UTILISATEUR_MANAGER = UtilistateurManagerSing.getInstanceUtilisateur();
-			
+	private static final String UTILISATEUR = "Utilisateur";
 	private static ArticleVenduManager ARTICLE_VENDU_MANAGER = ArticleVenduManagerSing.getInstanceArticle();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletAjoutArticle() {
-        super();
-    }
+	private static final String ARTICLE_A_MANIPULER = "articleAManipuler";
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ServletModifierArticle() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,48 +57,62 @@ public class ServletAjoutArticle extends HttpServlet {
             response.sendRedirect("ServletConnexion");
             return;
         } else {
-	//		récupérer la liste des catégories disponibles dans ma BDD
+		
 			List<Categorie> listCategorie = new ArrayList<>(); 
-			System.out.println("coucou");
+			
 			try {
 	//			System.out.println("coucou2");
 				listCategorie = CATEGORIE_MANAGER.selectAllCategorie();
-	//			System.out.println("coucou3");
-				for(Categorie categorie : listCategorie) {
-					System.out.println(categorie.toString());
-				}
-				
-			request.setAttribute(LIST_CATEGORIE, listCategorie);
+				request.setAttribute(LIST_CATEGORIE, listCategorie);
 			} catch (BusinessException e1) {
 				
 				e1.printStackTrace();
 			}
 			
-	//		gérer la récupération de session utilisateur
-			Integer noUtilisateur;
-			Utilisateur utilisateur = new Utilisateur();
 	
+	//		gérer la récupération de session utilisateur
+			Integer noUtilisateur = null;;
+			Utilisateur utilisateur = new Utilisateur();
+			
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
 	//		noUtilisateur = 2;
 			System.out.println(noUtilisateur);
 			try {
 	//			
 				utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
-				System.out.println(utilisateur.toString());
+				request.setAttribute(UTILISATEUR, utilisateur);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
-			request.setAttribute(UTILISATEUR, utilisateur);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AjoutArticle.jsp");
+			
+	//		récupérer les infos d'un article 
+			Integer noArticle = null;
+			ArticleVendu articleAAfficher = new ArticleVendu();
+			
+	//		TODO : Finir code pour récupérer l'id de l'article depuis la page de liste d'articles
+			noArticle =21;
+			System.out.println(noArticle);
+			
+			try {
+				articleAAfficher = ARTICLE_VENDU_MANAGER.selectParIdArticle(noArticle);
+				System.out.println(articleAAfficher);
+				request.setAttribute(ARTICLE_A_AFFICHER_START, articleAAfficher);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierArticle.jsp");
 			rd.forward(request, response);
 		}
 	}
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String nomArticle = null;
 		String description = null;
 		Integer noCategorie = null;
@@ -109,9 +123,9 @@ public class ServletAjoutArticle extends HttpServlet {
 		String codePostal = null;
 		String nomVille = null;
 		Categorie categorie = null;
-		
+
 		try {
-			
+
 			nomArticle = request.getParameter("nomArticle");
 //			System.out.println(nomArticle);
 			description = request.getParameter("Description");
@@ -128,7 +142,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			rue = request.getParameter("nomRue");
 			codePostal = request.getParameter("codePostal");
 			nomVille = request.getParameter("nomVille");
-			
+
 			Integer noUtilisateur;
 			Utilisateur utilisateur = new Utilisateur();
 
@@ -143,23 +157,28 @@ public class ServletAjoutArticle extends HttpServlet {
 			}
 			categorie = CATEGORIE_MANAGER.selectCategorieParId(noCategorie);
 //			System.out.println(categorie);
-			ArticleVendu articleVendu = new ArticleVendu(nomArticle,description,dateDebutEnchere,
-					dateFinEnchere,prixInitial,utilisateur,categorie);
+			ArticleVendu articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
+					prixInitial, utilisateur, categorie);
 //			System.out.println(articleVendu.toString());
-			ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
+			try {
+				ARTICLE_VENDU_MANAGER.majArticleVendu(articleVendu);
+				request.setAttribute("articleAjoute", articleVendu);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			ARTICLE_VENDU_MANAGER.majArticleVendu(articleVendu);
 			request.setAttribute("articleAjoute", articleVendu);
 //			System.out.println("test");
-			
+
 //			permettre d'instancier un attribut dans la session pour le recuperer
 //			dans une autre Servlet
 			HttpSession session = request.getSession();
 			session.setAttribute(ARTICLE_A_MANIPULER, articleVendu);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		doGet(request, response);
 	}
 
