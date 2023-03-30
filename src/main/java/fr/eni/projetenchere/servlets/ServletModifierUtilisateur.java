@@ -1,6 +1,8 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -77,8 +79,8 @@ public class ServletModifierUtilisateur extends HttpServlet {
 		Integer credit;
 		Boolean administrateur;
 
-		BusinessException businessException = new BusinessException();
 		Utilisateur util = new Utilisateur();
+		List<Integer> listeCodesErreur = new ArrayList<>();
 
 		try {
 			util = utilisateurManager.selectParNoUtilisateur((Integer) request.getSession().getAttribute("id"));
@@ -110,10 +112,12 @@ public class ServletModifierUtilisateur extends HttpServlet {
 							codePostal, ville, nouveauMotDePasse, credit, administrateur);
 					utilisateurManager.majUtilisateur(utilisateur);
 				} else {
-					businessException.ajouterErreur(CodesResultatServlets.MOTDEPASSE_ERREUR);
+					listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
+					request.setAttribute("listeCodesErreur", listeCodesErreur);
 				}
 			} else {
-				businessException.ajouterErreur(CodesResultatServlets.MOTDEPASSE_ERREUR);
+				listeCodesErreur.add(CodesResultatServlets.MOTDEPASSEACTUEL_ERREUR);
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
 			}
 		} catch (BusinessException e) {
 			e.printStackTrace();

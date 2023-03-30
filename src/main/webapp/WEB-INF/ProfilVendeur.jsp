@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <jsp:include page="./fragments/head.jsp">
-	<jsp:param name="title" value="MonProfil"/>
+	<jsp:param name="title" value="ProfilVendeur"/>
 </jsp:include>
 <body>
 
-<h1>Mon Profil</h1>
+<h1>Profil Vendeur</h1>
 
 	<%
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
@@ -24,9 +24,7 @@
   <li class="list-group-item"><b>CODE POSTAL</b> : <%=utilisateur.getCodePostal()%></li>
   <li class="list-group-item"><b>VILLE</b> : <%=utilisateur.getVille()%></li>
 </ul>
-<br>
-<a href="ServletModifierUtilisateur" class="btn btn-dark"
-					role="button">Modifier</a>
 </div>
+<br>
 </body>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

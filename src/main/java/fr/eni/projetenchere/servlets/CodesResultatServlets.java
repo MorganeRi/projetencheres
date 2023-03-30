@@ -9,5 +9,6 @@ public abstract class CodesResultatServlets {
 	
 	public static final int MOTDEPASSE_ERREUR=30001;
 	
+	public static final int MOTDEPASSEACTUEL_ERREUR=30002;
 	
 }
