@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.Session;
+
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
 import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
@@ -94,14 +96,14 @@ public class ServletModifierArticle extends HttpServlet {
 			
 			try {
 				articleAAfficher = ARTICLE_VENDU_MANAGER.selectParIdArticle(noArticle);
-//				System.out.println(articleAAfficher);
+				System.out.println(articleAAfficher);
 				request.setAttribute("articleAManipuler", articleAAfficher);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+			session.setAttribute("articleAModifier", articleAAfficher);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierArticle.jsp");
-			rd.forward(request, response);
+			rd.forward(request, response); 
 		}
 	}
 
@@ -111,64 +113,47 @@ public class ServletModifierArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String nomArticle = null;
-		String description = null;
-		Integer noCategorie = null;
-		LocalDate dateDebutEnchere = null;
-		LocalDate dateFinEnchere = null;
-		Integer prixInitial = null;
-		String rue = null;
-		String codePostal = null;
-		String nomVille = null;
-		Categorie categorie = null;
-
+		
+		HttpSession session = request.getSession();
+		
+		ArticleVendu articleAManipuler = (ArticleVendu) session.getAttribute("articleAModifier");
+		System.out.println(articleAManipuler);
 		try {
+			articleAManipuler.setNomArticle(request.getParameter("nomArticle"));
+			articleAManipuler.setDescription(request.getParameter("Description"));
+			
+			Integer noCategorie = Integer.parseInt(request.getParameter("Categorie"));
+			Categorie categorie = CATEGORIE_MANAGER.selectCategorieParId(noCategorie);
+			articleAManipuler.setCategorie(categorie);
+			articleAManipuler.setDateDebutEnchere(LocalDate.parse(request.getParameter("DebutEnchere")));
+			articleAManipuler.setDateFinEnchere(LocalDate.parse(request.getParameter("FinEnchere")));
+			articleAManipuler.setPrixInitial(Integer.parseInt(request.getParameter("prixDepart")));
+			Integer noUtilisateur = null;
+			Utilisateur utilisateur = new Utilisateur();
+			noUtilisateur = (Integer) request.getSession().getAttribute("id");
+			utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
+			articleAManipuler.setUtilisateur(utilisateur);
 
-			nomArticle = request.getParameter("nomArticle");
-			System.out.println(nomArticle);
-			description = request.getParameter("Description");
-			System.out.println(description);
-//			cast en integer 
-			noCategorie = Integer.parseInt(request.getParameter("Categorie"));
-			System.out.println(noCategorie);
-			dateDebutEnchere = LocalDate.parse(request.getParameter("DebutEnchere"));
-			System.out.println(dateDebutEnchere);
-			dateFinEnchere = LocalDate.parse(request.getParameter("FinEnchere"));
-			System.out.println(dateFinEnchere);
-			prixInitial = Integer.parseInt(request.getParameter("prixDepart"));
-			System.out.println(prixInitial);
+			String rue = null;
+			String codePostal = null;
+			String nomVille = null;
+			
 			rue = request.getParameter("nomRue");
 			codePostal = request.getParameter("codePostal");
 			nomVille = request.getParameter("nomVille");
 
-			Integer noUtilisateur;
-			Utilisateur utilisateur = new Utilisateur();
-
-			noUtilisateur = (Integer) request.getSession().getAttribute("id");
-//			noUtilisateur = 2;
-//			System.out.println(noUtilisateur);
+			
 			try {
-				utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
-//				System.out.println(utilisateur.toString());
-			} catch (BusinessException e) {
-				e.printStackTrace();
-			}
-			categorie = CATEGORIE_MANAGER.selectCategorieParId(noCategorie);
-//			System.out.println(categorie);
-			ArticleVendu articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
-					prixInitial, utilisateur, categorie);
-			System.out.println(articleVendu.toString());
-			try {
-				ARTICLE_VENDU_MANAGER.majArticleVendu(articleVendu);
-				request.setAttribute("articleAManipuler", articleVendu);
+				ARTICLE_VENDU_MANAGER.majArticleVendu(articleAManipuler);
+				request.setAttribute("articleAManipuler", articleAManipuler);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 //			permettre d'instancier un attribut dans la session pour le recuperer
 //			dans une autre Servlet
-			HttpSession session = request.getSession();
-			session.setAttribute("articleAManipuler", articleVendu);
+			
+			session.setAttribute("articleAManipuler", articleAManipuler);
 
 		} catch (Exception e) {
 			e.printStackTrace();
