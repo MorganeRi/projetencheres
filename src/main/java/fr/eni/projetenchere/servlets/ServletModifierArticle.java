@@ -135,7 +135,7 @@ public class ServletModifierArticle extends HttpServlet {
 			articleAManipuler.setUtilisateur(utilisateur);
 
 			String rue = null;
-			String codePostal = null;
+			String codePostal = null  ;
 			String nomVille = null;
 			
 			rue = request.getParameter("nomRue");
