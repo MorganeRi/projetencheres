@@ -29,14 +29,13 @@ import fr.eni.projetenchere.bo.Utilisateur;
  */
 @WebServlet("/ServletModifierArticle")
 public class ServletModifierArticle extends HttpServlet {
-	private static final String ARTICLE_A_AFFICHER_START = "articleAAfficher";
 	private static final long serialVersionUID = 1L;
 	private static CategorieManager CATEGORIE_MANAGER = CategorieManagerSing.getInstanceCategorieImpl();
 	private static final String LIST_CATEGORIE = "listCategorie";
 	private static UtilisateurManager UTILISATEUR_MANAGER = UtilistateurManagerSing.getInstanceUtilisateur();
 	private static final String UTILISATEUR = "Utilisateur";
 	private static ArticleVenduManager ARTICLE_VENDU_MANAGER = ArticleVenduManagerSing.getInstanceArticle();
-	private static final String ARTICLE_A_MANIPULER = "articleAManipuler";
+
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -61,7 +60,6 @@ public class ServletModifierArticle extends HttpServlet {
 			List<Categorie> listCategorie = new ArrayList<>(); 
 			
 			try {
-	//			System.out.println("coucou2");
 				listCategorie = CATEGORIE_MANAGER.selectAllCategorie();
 				request.setAttribute(LIST_CATEGORIE, listCategorie);
 			} catch (BusinessException e1) {
@@ -75,8 +73,8 @@ public class ServletModifierArticle extends HttpServlet {
 			Utilisateur utilisateur = new Utilisateur();
 			
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
-	//		noUtilisateur = 2;
-			System.out.println(noUtilisateur);
+//			noUtilisateur = 1;
+//			System.out.println(noUtilisateur);
 			try {
 	//			
 				utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
@@ -91,13 +89,13 @@ public class ServletModifierArticle extends HttpServlet {
 			ArticleVendu articleAAfficher = new ArticleVendu();
 			
 	//		TODO : Finir code pour récupérer l'id de l'article depuis la page de liste d'articles
-			noArticle =21;
+			noArticle =24;
 			System.out.println(noArticle + "bonjour") ;
 			
 			try {
 				articleAAfficher = ARTICLE_VENDU_MANAGER.selectParIdArticle(noArticle);
-				System.out.println(articleAAfficher);
-				request.setAttribute(ARTICLE_A_AFFICHER_START, articleAAfficher);
+//				System.out.println(articleAAfficher);
+				request.setAttribute("articleAManipuler", articleAAfficher);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -127,18 +125,18 @@ public class ServletModifierArticle extends HttpServlet {
 		try {
 
 			nomArticle = request.getParameter("nomArticle");
-//			System.out.println(nomArticle);
+			System.out.println(nomArticle);
 			description = request.getParameter("Description");
-//			System.out.println(description);
+			System.out.println(description);
 //			cast en integer 
 			noCategorie = Integer.parseInt(request.getParameter("Categorie"));
-//			System.out.println(noCategorie);
+			System.out.println(noCategorie);
 			dateDebutEnchere = LocalDate.parse(request.getParameter("DebutEnchere"));
-//			System.out.println(dateDebutEnchere);
+			System.out.println(dateDebutEnchere);
 			dateFinEnchere = LocalDate.parse(request.getParameter("FinEnchere"));
-//			System.out.println(dateFinEnchere);
+			System.out.println(dateFinEnchere);
 			prixInitial = Integer.parseInt(request.getParameter("prixDepart"));
-//			System.out.println(prixInitial);
+			System.out.println(prixInitial);
 			rue = request.getParameter("nomRue");
 			codePostal = request.getParameter("codePostal");
 			nomVille = request.getParameter("nomVille");
@@ -146,8 +144,8 @@ public class ServletModifierArticle extends HttpServlet {
 			Integer noUtilisateur;
 			Utilisateur utilisateur = new Utilisateur();
 
-//			noUtilisateur = (Integer) request.getSession().getAttribute("id");
-			noUtilisateur = 2;
+			noUtilisateur = (Integer) request.getSession().getAttribute("id");
+//			noUtilisateur = 2;
 //			System.out.println(noUtilisateur);
 			try {
 				utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
@@ -159,21 +157,18 @@ public class ServletModifierArticle extends HttpServlet {
 //			System.out.println(categorie);
 			ArticleVendu articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
 					prixInitial, utilisateur, categorie);
-//			System.out.println(articleVendu.toString());
+			System.out.println(articleVendu.toString());
 			try {
 				ARTICLE_VENDU_MANAGER.majArticleVendu(articleVendu);
-				request.setAttribute("articleAjoute", articleVendu);
+				request.setAttribute("articleAManipuler", articleVendu);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			ARTICLE_VENDU_MANAGER.majArticleVendu(articleVendu);
-			request.setAttribute("articleAjoute", articleVendu);
-//			System.out.println("test");
 
 //			permettre d'instancier un attribut dans la session pour le recuperer
 //			dans une autre Servlet
 			HttpSession session = request.getSession();
-			session.setAttribute(ARTICLE_A_MANIPULER, articleVendu);
+			session.setAttribute("articleAManipuler", articleVendu);
 
 		} catch (Exception e) {
 			e.printStackTrace();

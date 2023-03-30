@@ -79,7 +79,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			Utilisateur utilisateur = new Utilisateur();
 	
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
-	//		noUtilisateur = 2;
+//			noUtilisateur = 1;
 			System.out.println(noUtilisateur);
 			try {
 	//			
@@ -132,8 +132,8 @@ public class ServletAjoutArticle extends HttpServlet {
 			Integer noUtilisateur;
 			Utilisateur utilisateur = new Utilisateur();
 
-//			noUtilisateur = (Integer) request.getSession().getAttribute("id");
-			noUtilisateur = 2;
+			noUtilisateur = (Integer) request.getSession().getAttribute("id");
+//			noUtilisateur = 2;
 //			System.out.println(noUtilisateur);
 			try {
 				utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
@@ -147,7 +147,7 @@ public class ServletAjoutArticle extends HttpServlet {
 					dateFinEnchere,prixInitial,utilisateur,categorie);
 //			System.out.println(articleVendu.toString());
 			ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
-			request.setAttribute("articleAjoute", articleVendu);
+			request.setAttribute("articleAManipuler", articleVendu);
 //			System.out.println("test");
 			
 //			permettre d'instancier un attribut dans la session pour le recuperer
