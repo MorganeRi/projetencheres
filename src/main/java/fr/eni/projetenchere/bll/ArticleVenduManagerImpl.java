@@ -18,9 +18,8 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 //		BusinessException businessException = new BusinessException();
 //		if (!businessException.hasErreurs()) {
-		ArticleVendu nouvelArticle = new ArticleVendu();
-		nouvelArticle = dao.insertArticleVendu(article);
-		return nouvelArticle;
+		dao.insertArticleVendu(article);
+		return article;
 //		} else {
 //			throw businessException;
 //		}
@@ -35,7 +34,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public void supprimerArticleVendu(ArticleVendu article) throws BusinessException {
-		// TODO Auto-generated method stub
+		dao.deleteArticleVendu(article);
 
 	}
 

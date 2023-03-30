@@ -5,49 +5,128 @@
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
 <%@page import="fr.eni.projetenchere.bo.Categorie"%>
+<script>
+	function toggleCheckboxes() {
+		var achatsRadio = document.getElementById("achatsRadio");
+		var ventesRadio = document.getElementById("ventesRadio");
+		var enchereCheckbox = document.getElementById("enchereCheckbox");
+		var mesEncheresCheckbox = document
+				.getElementById("mesEncheresCheckbox");
+		var mesEncheresRemporteesCheckbox = document
+				.getElementById("mesEncheresRemporteesCheckbox");
+		var ventesEnCoursCheckbox = document
+				.getElementById("ventesEnCoursCheckbox");
+		var ventesNonDebuteesCheckbox = document
+				.getElementById("ventesNonDebuteesCheckbox");
+		var ventesTermineesCheckbox = document
+				.getElementById("ventesTermineesCheckbox");
 
+		if (achatsRadio.checked) {
+			enchereCheckbox.disabled = false;
+			mesEncheresCheckbox.disabled = false;
+			mesEncheresRemporteesCheckbox.disabled = false;
+			ventesEnCoursCheckbox.disabled = true;
+			ventesNonDebuteesCheckbox.disabled = true;
+			ventesTermineesCheckbox.disabled = true;
+		} else if (ventesRadio.checked) {
+			enchereCheckbox.disabled = true;
+			mesEncheresCheckbox.disabled = true;
+			mesEncheresRemporteesCheckbox.disabled = true;
+			ventesEnCoursCheckbox.disabled = false;
+			ventesNonDebuteesCheckbox.disabled = false;
+			ventesTermineesCheckbox.disabled = false;
+		}
+	}
+</script>
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="Accueil" />
 </jsp:include>
 <h1>Liste des enchères</h1>
 <div class="container">
-	<form class="d-flex justify-content-start" role="search"
+	<form class="d-flex" role="search"
 		action="<%=request.getContextPath()%>/ServletAccueil" method="post">
-		<input class="form-control me-3" type="search" placeholder="Rechercher un article"
-			aria-label="Search" name="search" style="width: 400px">
-	
-	
+		<div class="container">
+			<input class="form-control me-3" type="search"
+				placeholder="Rechercher un article" aria-label="Search"
+				name="search" style="width: 400px">
 
 
-<%
-List<ArticleVendu> articles = (List<ArticleVendu>) request.getAttribute("listArticle");
 
-List<ArticleVendu> toutArticles = (List<ArticleVendu>) request.getAttribute("listToutArticle");
 
-String pasArticle = (String) request.getAttribute("PasArticle");%>
-<br>
+			<%
+			Integer id = (Integer) session.getAttribute("id");
+			List<ArticleVendu> articles = (List<ArticleVendu>) request.getAttribute("listArticle");
 
-<label  class="form-label me-3" for="Categorie">Categorie </label>
-<select  class="form-control" id="Categorie" name="Categorie" style="width: 300px" placeholder="Selectionner une categorie">
-  <option selected>Selectionner une categorie</option>
+			List<ArticleVendu> toutArticles = (List<ArticleVendu>) request.getAttribute("listToutArticle");
 
-<%
-	List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
-  for(Categorie categorieDisponible : listCategorie)
- {
-%>
-    <option value="<%=categorieDisponible.getNoCategorie()%>" ><%=categorieDisponible.getLibelle()%></option>
-<%
-}
-%>
-</select>
-	<button class="btn btn-outline-success" type="submit">Rechercher</button>
+			String pasArticle = (String) request.getAttribute("PasArticle");
+			%>
+			<br> <label class="form-label me-3" for="Categorie">Categorie
+			</label> <select class="form-control" id="Categorie" name="Categorie"
+				style="width: 300px" placeholder="Selectionner une categorie">
+				<option selected>Selectionner une categorie</option>
 
-</form>
+				<%
+				List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
+				for (Categorie categorieDisponible : listCategorie) {
+				%>
+				<option value="<%=categorieDisponible.getNoCategorie()%>"><%=categorieDisponible.getLibelle()%></option>
+				<%
+				}
+				%>
+			</select>
+			<button class="btn btn-outline-success" type="submit">Rechercher</button>
+		</div>
+		<%
+		if (id != null) {
+		%>
+		<div>
+			<input type="radio" name="options" id="achatsRadio" value="achats"
+				onclick="toggleCheckboxes()" checked>Achats
+			<div>
+				<input type="checkbox" name="encheres" id="enchereCheckbox"
+					value="enchères ouvertes">enchères ouvertes
+			</div>
+			<div>
+				<input type="checkbox" name="mesEncheres" id="mesEncheresCheckbox"
+					value="mes enchères">mes enchères
+			</div>
+			<div>
+				<input type="checkbox" name="mesEncheresRemportees"
+					id="mesEncheresRemporteesCheckbox" value="mes enchères remportées">mes
+				enchères remportées
+			</div>
+		</div>
+		<div>
+			<input type="radio" name="options" id="ventesRadio" value="ventes"
+				onclick="toggleCheckboxes()">Mes Ventes
+			<div>
+				<input type="checkbox" name="ventesEnCours"
+					id="ventesEnCoursCheckbox" value="mes ventes en cours">mes
+				ventes en cours
+			</div>
+			<div>
+				<input type="checkbox" name="ventesNonDebutees"
+					id="ventesNonDebuteesCheckbox" value="ventes non débutées">ventes
+				non débutées
+			</div>
+			<div>
+				<input type="checkbox" name="ventesTerminees"
+					id="ventesTermineesCheckbox" value="ventes terminées">ventes
+				terminées
+			</div>
+		</div>
+
+		<%
+		}
+		%>
+
+
+	</form>
 </div>
 <%
-
-if (articles != null) { %>
+if (articles != null) {
+%>
 <div class="container d-flex align-content-stretch flex-wrap">
 	<%
 	for (ArticleVendu art : articles) {
@@ -69,11 +148,12 @@ if (articles != null) { %>
 	%>
 </div>
 <%
-} else { if (toutArticles != null) {%>
+} else {
+if (toutArticles != null) {
+%>
 <div class="container d-flex flex-wrap">
 	<%
 	for (ArticleVendu art : toutArticles) {
-
 	%>
 
 
@@ -93,12 +173,13 @@ if (articles != null) { %>
 
 <%
 } else {
-	%> 
-	
-	<p><%=pasArticle %></p>
-	
-<%	
-}}
+%>
+
+<p><%=pasArticle%></p>
+
+<%
+}
+}
 %>
 
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

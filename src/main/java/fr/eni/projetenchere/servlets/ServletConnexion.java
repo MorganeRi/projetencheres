@@ -53,9 +53,7 @@ public class ServletConnexion extends HttpServlet {
 		Utilisateur util =null;
 		try
 		{
-			
-			//TODO passer par la BLL !!
-			
+	
 			
 			mail = request.getParameter("email");
 			
@@ -64,7 +62,7 @@ public class ServletConnexion extends HttpServlet {
 			UtilisateurDAO utilDAO = DAOFactory.getUtilisateurDAO();
 			
 			utilDAO.connectUtilisateur(util);
-			
+			request.setAttribute("Utilisateur",util);
 			
 //			UtilisateurManager utilisateurManager = new UtilisateurManager();
 //			utilisateurManager.authentifier(pseudo, mdp); // déclenche une BusinessException si les coordonnées utilisateur sont erronées

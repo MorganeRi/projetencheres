@@ -11,15 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
-import fr.eni.projetenchere.bll.ArticleVenduManagerImpl;
 import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
 import fr.eni.projetenchere.bll.CategorieManager;
 import fr.eni.projetenchere.bll.CategorieManagerSing;
 import fr.eni.projetenchere.bll.UtilisateurManager;
-import fr.eni.projetenchere.bll.UtilisateurManagerImpl;
 import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
@@ -30,6 +29,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
  */
 @WebServlet("/ServletAjoutArticle")
 public class ServletAjoutArticle extends HttpServlet {
+	private static final String ARTICLE_A_MANIPULER = "articleAManipuler";
 	private static final String LIST_CATEGORIE = "listCategorie";
 	private static final String UTILISATEUR = "Utilisateur";
 	private static final long serialVersionUID = 1L;
@@ -50,6 +50,7 @@ public class ServletAjoutArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		récupérer la liste des catégories disponibles dans ma BDD
 		List<Categorie> listCategorie = new ArrayList<>(); 
 		System.out.println("coucou");
 		try {
@@ -66,6 +67,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
+//		gérer la récupération de session utilisateur
 		Integer noUtilisateur;
 		Utilisateur utilisateur = new Utilisateur();
 
@@ -137,14 +139,20 @@ public class ServletAjoutArticle extends HttpServlet {
 			ArticleVendu articleVendu = new ArticleVendu(nomArticle,description,dateDebutEnchere,
 					dateFinEnchere,prixInitial,utilisateur,categorie);
 //			System.out.println(articleVendu.toString());
-			ArticleVendu articleAjoute =ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
-			request.setAttribute("articleAjoute", articleAjoute);
+			ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
+			request.setAttribute("articleAjoute", articleVendu);
 //			System.out.println("test");
+			
+//			permettre d'instancier un attribut dans la session pour le recuperer
+//			dans une autre Servlet
+			HttpSession session = request.getSession();
+			session.setAttribute(ARTICLE_A_MANIPULER, articleVendu);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-
+		
 		doGet(request, response);
 	}
 
