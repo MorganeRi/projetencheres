@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
 import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
+import fr.eni.projetenchere.bll.RetraitManager;
+import fr.eni.projetenchere.bll.RetraitManagerSing;
 import fr.eni.projetenchere.bll.UtilisateurManager;
 import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
@@ -25,7 +27,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletDetailArticle")
 public class ServletDetailArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	ArticleVendu art = new ArticleVendu();  
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -51,6 +53,7 @@ public class ServletDetailArticle extends HttpServlet {
 		Retrait retrait = new Retrait();
 		ArticleVenduManager ArticleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
 		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+		RetraitManager retMan = RetraitManagerSing.getInstanceRetraitImpl();
 
 		Integer idArticle = Integer.parseInt(request.getParameter("idArticle"));
 
@@ -59,6 +62,8 @@ public class ServletDetailArticle extends HttpServlet {
 //TODO Modifier 
 			art = ArticleVenduManager.selectParIdArticle(idArticle);
 			utilisateur = utilisateurManager.selectParNoUtilisateur(art.getUtilisateur().getNoUtilisateur());
+			// retrait = retMan.selectParIdRetrait(idArticle);
+			
 			retrait.setRue(utilisateur.getRue());
 			retrait.setCodePostal(utilisateur.getCodePostal());
 			retrait.setVille(utilisateur.getVille());

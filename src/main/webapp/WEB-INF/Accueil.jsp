@@ -40,8 +40,9 @@ if (achatsRadio.checked) {
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="Accueil" />
 </jsp:include>
-<h1>Liste des enchères</h1>
+
 <div class="container">
+<h1>Liste des enchères</h1>
 	<form class="d-flex" role="search"
 		action="<%=request.getContextPath()%>/ServletAccueil" method="post">
 		<div class="container">
