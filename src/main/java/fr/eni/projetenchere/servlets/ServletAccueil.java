@@ -86,15 +86,22 @@ public class ServletAccueil extends HttpServlet {
 		String noCat;
 		System.out.println((request.getParameter("Categorie")));
 		noCat=request.getParameter("Categorie");
-		if (noCat.equals("")) {
-			System.out.println("coucou");
+		if (noCat.equals("Selectionner une categorie")) {
 			try {
 				articles = article.selectParNomArticle(recherche);
-				// System.out.println(articles.toString());
-				request.setAttribute("listArticle", articles);
 
+				if (articles==null) {
+					request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
+				}else {
+					request.setAttribute("listArticle", articles);
+				}
+				
+
+
+
+				
 			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 		} else {
@@ -102,11 +109,15 @@ public class ServletAccueil extends HttpServlet {
 			
 			try {
 				articles = article.selectParNomArticleParCat(recherche, noCategorie);
-				// System.out.println(articles.toString());
-				request.setAttribute("listArticle", articles);
+
+				if (articles==null) {
+					request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
+				}else {
+					request.setAttribute("listArticle", articles);
+				}
 
 			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 			
