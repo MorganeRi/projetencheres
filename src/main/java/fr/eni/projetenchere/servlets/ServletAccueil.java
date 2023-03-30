@@ -14,7 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
 import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
+import fr.eni.projetenchere.bll.CategorieManager;
+import fr.eni.projetenchere.bll.CategorieManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
+import fr.eni.projetenchere.bo.Categorie;
 
 /**
  * Servlet implementation class Accueil
@@ -51,6 +54,18 @@ public class ServletAccueil extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		List<Categorie> listCategorie = new ArrayList<>();
+		CategorieManager catMan = CategorieManagerSing.getInstanceCategorieImpl();
+		try {
+
+			listCategorie = catMan.selectAllCategorie();
+			
+			request.setAttribute("listCategorie", listCategorie);
+			
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
@@ -62,7 +77,18 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		List<Categorie> listCategorie = new ArrayList<>();
+		CategorieManager catMan = CategorieManagerSing.getInstanceCategorieImpl();
+		try {
 
+			listCategorie = catMan.selectAllCategorie();
+			
+			request.setAttribute("listCategorie", listCategorie);
+			
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String recherche;
 
 		recherche = request.getParameter("search");
