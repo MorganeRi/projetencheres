@@ -6,14 +6,14 @@
 </jsp:include>
 <body>
 
-<h1>Mon Profil</h1>
+
 
 	<%
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
 	%>
 
 <div class="container" style="border: 1px solid silver;width:500px;">
-
+<h1>Mon Profil</h1>
 <ul class="list-group list-group-flush">
   <li class="list-group-item"><b>PSEUDO</b> : <%=utilisateur.getPseudo()%> </li>
    <li class="list-group-item"><b>NOM</b> : <%=utilisateur.getNom()%></li>
