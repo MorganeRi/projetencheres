@@ -1,6 +1,6 @@
 package fr.eni.projetenchere.dal;
 
-
+import java.sql.SQLException;
 import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
@@ -13,7 +13,7 @@ public interface ArticleVenduDAO {
 	public void updateArticleVendu(ArticleVendu articleVendu) throws BusinessException;
 
 	// Insérer un nouveal article
-	public void insertArticleVendu(ArticleVendu articleVendu) throws BusinessException;
+	public ArticleVendu insertArticleVendu(ArticleVendu articleVendu) throws BusinessException;
 
 	// supprimer un article
 	public void deleteArticleVendu(ArticleVendu articleVendu) throws BusinessException;
@@ -32,9 +32,6 @@ public interface ArticleVenduDAO {
 	
 	//Select All
 	public List<ArticleVendu> selectAllArticle() throws BusinessException;
-	
-	//Sélection par nom et par categorie
-	public List<ArticleVendu> selectByNomArticleByCat (String nom,Integer id) throws BusinessException;
 	
 
 }

@@ -11,7 +11,7 @@ public interface ArticleVenduManager {
 	/* Contraintes : 
 	 * - Appeller la méthode selectUtilisateur pour récupérer adresse puis Appeler la méthode insertRetrait pour l'ajouter
 	 *  */
-	public void ajouterArticleVendu (ArticleVendu article)throws BusinessException;
+	public ArticleVendu ajouterArticleVendu (ArticleVendu article)throws BusinessException;
 	
 	// Contrainte : on peut faire une MAJ que si la date de début de l'enchère n'a pas encore débuté
 	public void majArticleVendu (ArticleVendu article)throws BusinessException;
@@ -28,8 +28,5 @@ public interface ArticleVenduManager {
 	public ArticleVendu selectParIdArticle (Integer id)throws BusinessException;
 	
 	public List<ArticleVendu> selectToutArticle ()throws BusinessException;
-	
-	//Sélection par nom et par categorie
-	public List<ArticleVendu> selectParNomArticleParCat (String nom,Integer id) throws BusinessException;
 	
 }

@@ -14,11 +14,13 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	private ArticleVenduDAO dao = DAOFactory.getArticleVenduDAO();
 
 	@Override
-	public void ajouterArticleVendu(ArticleVendu article) throws BusinessException {
+	public ArticleVendu ajouterArticleVendu(ArticleVendu article) throws BusinessException {
 
 //		BusinessException businessException = new BusinessException();
 //		if (!businessException.hasErreurs()) {
-		this.dao.insertArticleVendu(article);
+		ArticleVendu nouvelArticle = new ArticleVendu();
+		nouvelArticle = dao.insertArticleVendu(article);
+		return nouvelArticle;
 //		} else {
 //			throw businessException;
 //		}
@@ -73,19 +75,9 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 		articles=dao.selectAllArticle();
 
-		System.out.println(articles.toString());
+		
 		return articles;
 
-	}
-
-	@Override
-	public List<ArticleVendu> selectParNomArticleParCat(String nom, Integer id) throws BusinessException {
-		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
-
-		articles=dao.selectByNomArticleByCat(nom, id);
-
-		System.out.println(articles.toString());
-		return articles;
 	}
 
 }

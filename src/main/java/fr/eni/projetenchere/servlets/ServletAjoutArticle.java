@@ -69,8 +69,8 @@ public class ServletAjoutArticle extends HttpServlet {
 		Integer noUtilisateur;
 		Utilisateur utilisateur = new Utilisateur();
 
-//		noUtilisateur = (Integer) request.getSession().getAttribute("id");
-		noUtilisateur = 2;
+		noUtilisateur = (Integer) request.getSession().getAttribute("id");
+//		noUtilisateur = 2;
 		System.out.println(noUtilisateur);
 		try {
 //			
@@ -137,7 +137,8 @@ public class ServletAjoutArticle extends HttpServlet {
 			ArticleVendu articleVendu = new ArticleVendu(nomArticle,description,dateDebutEnchere,
 					dateFinEnchere,prixInitial,utilisateur,categorie);
 //			System.out.println(articleVendu.toString());
-			ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
+			ArticleVendu articleAjoute =ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
+			request.setAttribute("articleAjoute", articleAjoute);
 //			System.out.println("test");
 		} catch (Exception e) {
 			e.printStackTrace();
