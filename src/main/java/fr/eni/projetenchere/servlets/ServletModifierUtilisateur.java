@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
@@ -38,23 +39,31 @@ public class ServletModifierUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		Integer noUtilisateur;
-		Utilisateur utilisateur = new Utilisateur();
 
-		noUtilisateur = (Integer) request.getSession().getAttribute("id");
-		//noUtilisateur = 2;
-		try {
-			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		HttpSession session = request.getSession();
+		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		if (idUtilisateur == null) {
+			// Rediriger vers la page de connexion
+			response.sendRedirect("ServletConnexion");
+			return;
+		} else {
+			Integer noUtilisateur;
+			Utilisateur utilisateur = new Utilisateur();
+
+			noUtilisateur = (Integer) request.getSession().getAttribute("id");
+			// noUtilisateur = 2;
+			try {
+				utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			request.setAttribute("Utilisateur", utilisateur);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp");
+			rd.forward(request, response);
 		}
-
-		request.setAttribute("Utilisateur", utilisateur);
-
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp");
-		rd.forward(request, response);
 	}
 
 	/**
@@ -84,7 +93,7 @@ public class ServletModifierUtilisateur extends HttpServlet {
 
 		try {
 			util = utilisateurManager.selectParNoUtilisateur((Integer) request.getSession().getAttribute("id"));
-			//util = utilisateurManager.selectParNoUtilisateur(2);
+			// util = utilisateurManager.selectParNoUtilisateur(2);
 		} catch (BusinessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -92,7 +101,7 @@ public class ServletModifierUtilisateur extends HttpServlet {
 
 		try {
 			id = (Integer) request.getSession().getAttribute("id");
-			//id = 2;
+			// id = 2;
 			pseudo = request.getParameter("Pseudo");
 			prenom = request.getParameter("Prenom");
 			nom = request.getParameter("Nom");
