@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
@@ -33,7 +34,13 @@ public class ServletProfilVendeur extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+        Integer idUtilisateur = (Integer) session.getAttribute("id");
+        if (idUtilisateur == null) {
+            // Rediriger vers la page de connexion
+            response.sendRedirect("ServletConnexion");
+            return;
+        } else {
 
 		Utilisateur utilisateur = new Utilisateur();
 		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
@@ -51,7 +58,7 @@ public class ServletProfilVendeur extends HttpServlet {
 		request.setAttribute("Utilisateur", utilisateur);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ProfilVendeur.jsp");
-		rd.forward(request, response);
+		rd.forward(request, response); }
 	}
 
 	/**
