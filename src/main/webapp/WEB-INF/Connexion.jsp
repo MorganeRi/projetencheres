@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
+<%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <%@page import="java.util.List"%>
 
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="Connexion"/>
 </jsp:include>
 	<h1>Connexion</h1>
+	
+	<%
+	Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
+	if (utilisateur != null) {
+	%>
+	<p style="color: green;">Vous êtes connecté !</p>
+	<%
+	}
+	%>
+	
 	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
@@ -23,12 +34,12 @@
 <div class="container">
 <form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <label for="exampleInputEmail1" class="form-label">Addresse E-mail</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+
   </div>
   <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" name="mdp"
 			value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>">
   </div>
