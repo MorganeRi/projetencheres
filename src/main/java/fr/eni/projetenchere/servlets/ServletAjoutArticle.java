@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
 import fr.eni.projetenchere.bll.ArticleVenduManagerImpl;
+import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
 import fr.eni.projetenchere.bll.CategorieManager;
 import fr.eni.projetenchere.bll.CategorieManagerSing;
 import fr.eni.projetenchere.bll.UtilisateurManager;
 import fr.eni.projetenchere.bll.UtilisateurManagerImpl;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
@@ -28,10 +30,14 @@ import fr.eni.projetenchere.bo.Utilisateur;
  */
 @WebServlet("/ServletAjoutArticle")
 public class ServletAjoutArticle extends HttpServlet {
+	private static final String LIST_CATEGORIE = "listCategorie";
+	private static final String UTILISATEUR = "Utilisateur";
 	private static final long serialVersionUID = 1L;
-	private static CategorieManager categorieManager = CategorieManagerSing.getInstanceCategorieImpl();
+	private static CategorieManager CATEGORIE_MANAGER = CategorieManagerSing.getInstanceCategorieImpl();
 	
-//	private static UtilisateurManager utilisateurManager = UtilisateurManagerSing ;
+	private static UtilisateurManager UTILISATEUR_MANAGER = UtilistateurManagerSing.getInstanceUtilisateur();
+			
+	private static ArticleVenduManager ARTICLE_VENDU_MANAGER = ArticleVenduManagerSing.getInstanceArticle();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,13 +54,13 @@ public class ServletAjoutArticle extends HttpServlet {
 		System.out.println("coucou");
 		try {
 //			System.out.println("coucou2");
-			listCategorie = categorieManager.selectAllCategorie();
+			listCategorie = CATEGORIE_MANAGER.selectAllCategorie();
 //			System.out.println("coucou3");
 			for(Categorie categorie : listCategorie) {
 				System.out.println(categorie.toString());
 			}
 			
-			request.setAttribute("listCategorie", listCategorie);
+			request.setAttribute(LIST_CATEGORIE, listCategorie);
 		} catch (BusinessException e1) {
 			
 			e1.printStackTrace();
@@ -62,18 +68,18 @@ public class ServletAjoutArticle extends HttpServlet {
 		
 		Integer noUtilisateur;
 		Utilisateur utilisateur = new Utilisateur();
-		UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
 
 //		noUtilisateur = (Integer) request.getSession().getAttribute("id");
 		noUtilisateur = 2;
 		System.out.println(noUtilisateur);
 		try {
-			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+//			
+			utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
 			System.out.println(utilisateur.toString());
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("Utilisateur", utilisateur);
+		request.setAttribute(UTILISATEUR, utilisateur);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AjoutArticle.jsp");
 		rd.forward(request, response);
@@ -114,33 +120,30 @@ public class ServletAjoutArticle extends HttpServlet {
 			codePostal = request.getParameter("codePostal");
 			nomVille = request.getParameter("nomVille");
 			
-			ArticleVenduManager articleManager = new ArticleVenduManagerImpl();
 			Integer noUtilisateur;
 			Utilisateur utilisateur = new Utilisateur();
-			UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
 
 //			noUtilisateur = (Integer) request.getSession().getAttribute("id");
 			noUtilisateur = 2;
 //			System.out.println(noUtilisateur);
 			try {
-				utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+				utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
 //				System.out.println(utilisateur.toString());
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
-			categorie = categorieManager.selectCategorieParId(noCategorie);
+			categorie = CATEGORIE_MANAGER.selectCategorieParId(noCategorie);
 //			System.out.println(categorie);
 			ArticleVendu articleVendu = new ArticleVendu(nomArticle,description,dateDebutEnchere,
 					dateFinEnchere,prixInitial,utilisateur,categorie);
 //			System.out.println(articleVendu.toString());
-			articleManager.ajouterArticleVendu(articleVendu);
+			ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
 //			System.out.println("test");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-//		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AjoutArticle.jsp");
-//		rd.forward(request, response);
+
 		doGet(request, response);
 	}
 
