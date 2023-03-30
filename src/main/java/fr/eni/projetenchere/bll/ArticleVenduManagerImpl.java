@@ -84,7 +84,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 		articles=dao.selectByNomArticleByCat(nom, id);
 
-		System.out.println(articles.toString());
+
 		return articles;
 	}
 
