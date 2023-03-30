@@ -33,6 +33,7 @@ public class ServletAccueil extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -55,17 +56,9 @@ public class ServletAccueil extends HttpServlet {
 			e.printStackTrace();
 		}
 		List<Categorie> listCategorie = new ArrayList<>();
-		CategorieManager catMan = CategorieManagerSing.getInstanceCategorieImpl();
-		try {
-
-			listCategorie = catMan.selectAllCategorie();
-			
-			request.setAttribute("listCategorie", listCategorie);
-			
-		} catch (BusinessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		listCategorie=affichageCategorie();
+		
+		request.setAttribute("listCategorie", listCategorie);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
@@ -77,38 +70,72 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		List<Categorie> listCategorie = new ArrayList<>();
+		listCategorie=affichageCategorie();
+		
+		request.setAttribute("listCategorie", listCategorie);
+		
+		String recherche;
+		Integer noCategorie;
+		
+		recherche = request.getParameter("search");
+		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
+
+		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+		String noCat;
+		System.out.println((request.getParameter("Categorie")));
+		noCat=request.getParameter("Categorie");
+		if (noCat.equals("")) {
+			System.out.println("coucou");
+			try {
+				articles = article.selectParNomArticle(recherche);
+				// System.out.println(articles.toString());
+				request.setAttribute("listArticle", articles);
+
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+		noCategorie = Integer.parseInt(request.getParameter("Categorie"));
+			
+			try {
+				articles = article.selectParNomArticleParCat(recherche, noCategorie);
+				// System.out.println(articles.toString());
+				request.setAttribute("listArticle", articles);
+
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		rd.forward(request, response);
+	}
+	
+	private List<Categorie>  affichageCategorie() {
+		
 		List<Categorie> listCategorie = new ArrayList<>();
 		CategorieManager catMan = CategorieManagerSing.getInstanceCategorieImpl();
 		try {
 
 			listCategorie = catMan.selectAllCategorie();
 			
-			request.setAttribute("listCategorie", listCategorie);
+
 			
 		} catch (BusinessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String recherche;
-
-		recherche = request.getParameter("search");
-
-		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
-
-		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
-
-		try {
-			articles = article.selectParNomArticle(recherche);
-			// System.out.println(articles.toString());
-			request.setAttribute("listArticle", articles);
-
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
-		rd.forward(request, response);
+		return listCategorie;
+		
 	}
+	
+	
 
 }

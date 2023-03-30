@@ -80,4 +80,15 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	}
 
+	@Override
+	public List<ArticleVendu> selectParNomArticleParCat(String nom, Integer id) throws BusinessException {
+		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+
+		articles=dao.selectByNomArticleByCat(nom, id);
+
+
+		return articles;
+	}
+
+
 }

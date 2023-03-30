@@ -9,20 +9,21 @@
 	<jsp:param name="title" value="Accueil" />
 </jsp:include>
 <h1>Liste des enchères</h1>
-<div class="container">
+<div class="container flex-column">
 	<form class="d-flex" role="search"
 		action="<%=request.getContextPath()%>/ServletAccueil" method="post">
 		<input class="form-control me-3" type="search" placeholder="Search"
 			aria-label="Search" name="search">
 		<button class="btn btn-outline-success" type="submit">Search</button>
-	</form>
-</div>
+	
+
 
 <%
 List<ArticleVendu> articles = (List<ArticleVendu>) request.getAttribute("listArticle");
 
 List<ArticleVendu> toutArticles = (List<ArticleVendu>) request.getAttribute("listToutArticle");%>
-<div class ="container">
+<br>
+<label  class="form-label me-3" for="Categorie">Categorie : </label>
 <select  class="form-control" id="Categorie" name="Categorie" style="width: 300px">
 <option value=""> </option>
 
@@ -31,16 +32,18 @@ List<ArticleVendu> toutArticles = (List<ArticleVendu>) request.getAttribute("lis
   for(Categorie categorieDisponible : listCategorie)
  {
 %>
-    <option value="<%=categorieDisponible%>" ><%=categorieDisponible.getLibelle()%></option>
+    <option value="<%=categorieDisponible.getNoCategorie()%>" ><%=categorieDisponible.getLibelle()%></option>
 <%
 }
 %>
 </select>
+
+</form>
 </div>
 <%
 
 if (articles != null) { %>
-<div class="container d-flex flex-wrap grid gap-0 row-gap-3">
+<div class="container d-flex align-content-stretch flex-wrap">
 	<%
 	for (ArticleVendu art : articles) {
 		// System.out.println(articles.toString());
@@ -48,7 +51,7 @@ if (articles != null) { %>
 
 
 
-	<div class="card p-2 g-col-6">
+	<div class="card">
 		<div class="card-body">
 			<h5 class="card-title"><%=art.getNomArticle()%></h5>
 			<h6 class="card-subtitle mb-2 text-body-secondary"><%=art.getDateDebutEnchere()%></h6>

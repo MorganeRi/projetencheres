@@ -33,5 +33,8 @@ public interface ArticleVenduDAO {
 	//Select All
 	public List<ArticleVendu> selectAllArticle() throws BusinessException;
 	
+	//Sélection par nom et par categorie
+	public List<ArticleVendu> selectByNomArticleByCat (String nom,Integer id) throws BusinessException;
+	
 
 }
