@@ -3,6 +3,7 @@
 <%@page import="fr.eni.projetenchere.bo.Categorie"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
+<%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
      
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="AjoutArticle"/>
@@ -79,10 +80,20 @@
 				</div>
 				<br/>
 			</fieldset>
-			<div class="mb-1 d-flex align-items-center justify-content-between">
+			<%
+				ArticleVendu articleAjoute = (ArticleVendu) request.getAttribute("articleAjoute");
+				if (articleAjoute != null) {
+			%>
+				<p style="color: green;">L'article a été ajouté avec succès</p>
+				
+				
+			<%
+				}
+			%>
+		<div class="mb-1 d-flex align-items-center justify-content-between">
 				<input  type="submit" value="Enregistrer" class="btn btn-dark me-3"/>
 				<input  type="reset" value="Annuler" class="btn btn-dark me-3">
-				<input  type="reset" value="Annuler la vente" class="btn btn-dark me-3">
+				<a  href="ServletSupprimerArticle"  class="btn btn-dark me-3" role="button">Annuler la vente</a>
 			</div>
 		</form>
 	</div>

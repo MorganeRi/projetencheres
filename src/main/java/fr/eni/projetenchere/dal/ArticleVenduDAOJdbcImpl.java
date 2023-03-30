@@ -56,7 +56,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	@Override
 	public ArticleVendu insertArticleVendu(ArticleVendu articleVendu) throws BusinessException {
-		ArticleVendu article = null;
+		
 		if (articleVendu == null) {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_ARTICLE_NULL);
@@ -65,22 +65,14 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
-			String nomArticle = articleVendu.getNomArticle();
-			String descriptionArticle = articleVendu.getDescription();
-			LocalDate dateDebutEnchere = articleVendu.getDateDebutEnchere();
-			LocalDate dateFinEnchere = articleVendu.getDateFinEnchere();
-			Integer prixInitial = articleVendu.getPrixInitial();
-			Integer noUtilisateur = articleVendu.getUtilisateur().getNoUtilisateur();
-			Integer noCategorie = articleVendu.getCategorie().getNoCategorie();
 			
-			
-			pstmt.setString(1, nomArticle);
-			pstmt.setString(2, descriptionArticle);
-			pstmt.setDate(3, java.sql.Date.valueOf(dateDebutEnchere));
-			pstmt.setDate(4, java.sql.Date.valueOf(dateFinEnchere));
-			pstmt.setInt(5, prixInitial);
-			pstmt.setInt(6, noUtilisateur);
-			pstmt.setInt(7, noCategorie);
+			pstmt.setString(1, articleVendu.getNomArticle());
+			pstmt.setString(2, articleVendu.getDescription());
+			pstmt.setDate(3, java.sql.Date.valueOf(articleVendu.getDateDebutEnchere()));
+			pstmt.setDate(4, java.sql.Date.valueOf(articleVendu.getDateFinEnchere()));
+			pstmt.setInt(5, articleVendu.getPrixInitial());
+			pstmt.setInt(6, articleVendu.getUtilisateur().getNoUtilisateur());
+			pstmt.setInt(7, articleVendu.getCategorie().getNoCategorie());
 			pstmt.executeUpdate();
 
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -95,7 +87,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			throw businessException;
 		}
-		return article;
+		return articleVendu;
 	}
 
 	@Override
