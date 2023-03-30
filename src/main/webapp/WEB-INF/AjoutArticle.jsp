@@ -86,7 +86,7 @@
 				<br/>
 			</fieldset>
 			<%
-				ArticleVendu articleAjoute = (ArticleVendu) request.getAttribute("articleAjoute");
+				ArticleVendu articleAjoute = (ArticleVendu) request.getAttribute("articleAManipuler");
 				if (articleAjoute != null) {
 			%>
 				<p style="color: green;">L'article a été ajouté avec succès</p>

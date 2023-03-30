@@ -13,7 +13,7 @@
 	<div class="container" style="border: 1px solid silver;width:500px;">
 	
 	<%
-	ArticleVendu articleVendu = (ArticleVendu) request.getAttribute("articleAAfficher");
+	ArticleVendu articleVendu = (ArticleVendu) request.getAttribute("articleAManipuler");
 	%>
 		<form action="<%=request.getContextPath()%>/ServletModifierArticle" method="post">
 			<div class="mb-1 d-flex align-items-center justify-content-between">
