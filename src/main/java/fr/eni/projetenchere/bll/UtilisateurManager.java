@@ -30,5 +30,7 @@ public interface UtilisateurManager {
 	public Utilisateur selectParNoUtilisateur (Integer id) throws BusinessException;
 	
 	public void majMontantCredit (Utilisateur utilisateur)throws BusinessException;
+	
+	public Utilisateur selectParEmailUtilisateur (String email) throws BusinessException;
 
 }

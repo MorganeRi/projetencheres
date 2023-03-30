@@ -91,7 +91,7 @@ public class ServletModifierArticle extends HttpServlet {
 			ArticleVendu articleAAfficher = new ArticleVendu();
 			
 	//		TODO : Finir code pour récupérer l'id de l'article depuis la page de liste d'articles
-			noArticle =24;
+			noArticle =4;
 			System.out.println(noArticle + "bonjour") ;
 			
 			try {

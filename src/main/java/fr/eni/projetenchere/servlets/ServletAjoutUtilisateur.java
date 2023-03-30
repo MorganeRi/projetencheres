@@ -41,6 +41,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationUtilisateur.jsp");
 		rd.forward(request, response);
 	}
@@ -66,6 +67,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 		String confirmationMotDePasse;
 		Integer credit = 100;
 		Boolean administrateur = false;
+		List<Integer> listeCodesErreur = new ArrayList<>();
 
 		try {
 			pseudo = request.getParameter("Pseudo");
@@ -78,19 +80,26 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			ville = request.getParameter("Ville");
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
-			if (motDePasse.equals(confirmationMotDePasse)) {
-				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-						motDePasse, credit, administrateur);
-				utilisateurManager.createUtilisateur(utilisateur);
-				request.setAttribute("utilisateur", utilisateur);
-				HttpSession session = request.getSession();
-				session.setAttribute(SESSION_UTILISATEUR_ID, utilisateur.getNoUtilisateur());
-				session.setAttribute(SESSION_UTILISATEUR_MAIL, email);
-				session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
-			} else {
-				List<Integer> listeCodesErreur = new ArrayList<>();
-				listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
+						
+			if (utilisateurManager.selectParEmailUtilisateur(email) != null) {
+				System.out.println(email);
+				listeCodesErreur.add(CodesResultatServlets.MAIL_DOUBLON_ERREUR);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
+			} else {
+				
+				if (motDePasse.equals(confirmationMotDePasse)) {
+					Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+							motDePasse, credit, administrateur);
+					utilisateurManager.createUtilisateur(utilisateur);
+					request.setAttribute("utilisateur", utilisateur);
+					HttpSession session = request.getSession();
+					session.setAttribute(SESSION_UTILISATEUR_ID, utilisateur.getNoUtilisateur());
+					session.setAttribute(SESSION_UTILISATEUR_MAIL, email);
+					session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
+				} else {
+					listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
+					request.setAttribute("listeCodesErreur", listeCodesErreur);
+				}
 			}
 
 		} catch (BusinessException e) {
