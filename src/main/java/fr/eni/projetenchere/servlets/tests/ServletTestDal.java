@@ -53,7 +53,7 @@ public class ServletTestDal extends HttpServlet {
 
 
 
-		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "dfdeztzetgfl.com", "0666666666","rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
+		Utilisateur utilisateur = new Utilisateur("Momo", "Richou", "Morgane", "dfdeztl.com", "0666666666","rue de Lionel Richou", "66666", "LA", "coucouCmoi", 100, false);
 
 		UtilisateurDAO utilDAO = new UtilisateurDAOJdbcImpl();
 
@@ -136,6 +136,10 @@ public class ServletTestDal extends HttpServlet {
 			retrait=retDAO.selectByIdRetrait(a1.getNoArticle());
 			
 			System.out.println(retrait.toString());
+			
+			Categorie categorie ;
+			categorie = cateDao.selectCategorieByID(2);
+			System.out.println(categorie);
 
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block

@@ -121,6 +121,8 @@ public abstract class CodesResultatDAL {
 	 * Echec du select by id utilisateur
 	 */
 	public static final int SELECT_BY_ID_UTILISATEUR_ECHEC=10105;
+	
+	public static final int SELECT_CATEGORIE_BY_ID_ECHEC = 10049;
 	/**
 	 * Echec du select all catégorie
 	 */

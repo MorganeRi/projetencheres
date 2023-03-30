@@ -17,30 +17,33 @@ public class Categorie {
 		this.libelle = libelle;
 		ListeArticles = listeArticles;
 	}
+	
 	//sans id
 	public Categorie(String libelle, List<ArticleVendu> listeArticles) {
 		super();
 		this.libelle = libelle;
 		ListeArticles = listeArticles;
 	}
+	
 	//sans list
 	public Categorie(Integer noCategorie, String libelle) {
 		super();
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
 	}
-	//san id sans list
+	
+	//sans id sans list
 	public Categorie(String libelle) {
 		super();
 		this.libelle = libelle;
 	}
+	
 	//vide
 	public Categorie() {
 		super();
 	}
 
 	//Getters and Setters
-	
 	public Integer getNoCategorie() {
 		return noCategorie;
 	}

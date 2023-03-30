@@ -24,4 +24,15 @@ public class CategorieManagerImpl implements CategorieManager{
 		}
 	}
 
+	@Override
+	public Categorie selectCategorieParId(Integer idCategorie) throws BusinessException {
+		try {
+			return dao.selectCategorieByID(idCategorie);
+		} catch (Exception e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatBLL.FAIL_SELECT_CATEGORIE_BY_ID);
+			throw businessException;
+		}
+	}
+
 }

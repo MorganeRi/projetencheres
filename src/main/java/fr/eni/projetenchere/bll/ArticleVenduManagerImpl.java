@@ -66,4 +66,10 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		return null;
 	}
 
+	@Override
+	public List<ArticleVendu> selectToutArticle(String nom) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
