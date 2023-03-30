@@ -34,14 +34,16 @@ public class ServletProfilVendeur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Integer noUtilisateur;
+
 		Utilisateur utilisateur = new Utilisateur();
 		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
-		noUtilisateur = (Integer) request.getSession().getAttribute("id");
+		Integer idVendeur = Integer.parseInt(request.getParameter("idVendeur"));
+
+//		noUtilisateur = (Integer) request.getSession().getAttribute("id");
 		try {
 			// TO DO : Changer id pour mettre id vendeur
-			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+			utilisateur = utilisateurManager.selectParNoUtilisateur(idVendeur);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

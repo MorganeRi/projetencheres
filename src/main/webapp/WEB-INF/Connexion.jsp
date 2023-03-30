@@ -10,15 +10,6 @@
 	<h1>Connexion</h1>
 	
 	<%
-	Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
-	if (utilisateur != null) {
-	%>
-	<p style="color: green;">Vous êtes connecté !</p>
-	<%
-	}
-	%>
-	
-	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
 	%>
@@ -30,6 +21,8 @@
 	<%
 	}
 	}
+	Integer id = (Integer) session.getAttribute("id");
+	if (id == null) {
 	%>
 <div class="container">
 <form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
@@ -55,5 +48,9 @@
 <a href="ServletAjoutUtilisateur" class="btn btn-dark"
 					role="button">Créer un compte</a>
 </div>
-
+<%}else{ %>
+<div class="container">
+<p>Vous êtes connecté</p>
+</div>
+<%} %>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

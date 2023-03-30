@@ -80,7 +80,7 @@
 		<%
 		if (id != null) {
 		%>
-		<div>
+		<div class="form-check">
 			<input type="radio" name="options" id="achatsRadio" value="achats"
 				onclick="toggleCheckboxes()" checked>Achats
 			<div>
@@ -97,7 +97,7 @@
 				enchères remportées
 			</div>
 		</div>
-		<div>
+		<div class="form-check">
 			<input type="radio" name="options" id="ventesRadio" value="ventes"
 				onclick="toggleCheckboxes()">Mes Ventes
 			<div>
@@ -160,9 +160,41 @@ if (toutArticles != null) {
 
 	<div class="card">
 		<div class="card-body">
-			<h5 class="card-title"><%=art.getNomArticle()%></h5>
-			<h6 class="card-subtitle mb-2 text-body-secondary"><%=art.getDateDebutEnchere()%></h6>
-			<p class="card-text"><%=art.getDescription()%><%=art.getNoArticle()%></p>
+			<%
+			if (id != null) {
+			%>
+			<h5 class="card-title text-dark">
+				<a class="text-dark" href="#"><%=art.getNomArticle()%></a>
+				
+			</h5>
+			<% //Servlet?idArticle=<%art.getNoArticle()
+			} else {
+			%>
+			<h5 class="card-title text-dark"><%=art.getNomArticle()%></h5>
+			<%
+			}
+			%>
+			<h6 class="card-subtitle mb-2 text-body-secondary">
+				Prix :
+				<%=art.getPrixDeVente()%></h6>
+			<p class="card-text">
+				Fin de l'enchère :
+				<%=art.getDateFinEnchere()%></p>
+			<%
+			if (id != null) {
+			%>
+			<p class="card-text">
+				Vendeur : <a href="ServletProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
+			</p>
+			<%
+			} else {
+			%>
+			<p class="card-text">
+				Vendeur :
+				<%=art.getUtilisateur().getNom()%></p>
+			<%
+			}
+			%>
 		</div>
 	</div>
 
