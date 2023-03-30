@@ -79,13 +79,13 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		return articles;
 
 	}
-
+	
+	
 	@Override
 	public List<ArticleVendu> selectParNomArticleParCat(String nom, Integer id) throws BusinessException {
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 
 		articles=dao.selectByNomArticleByCat(nom, id);
-
 
 		return articles;
 	}
