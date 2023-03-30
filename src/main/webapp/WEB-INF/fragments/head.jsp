@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <%
-	Integer id = (Integer)session.getAttribute("id");
-	String mail = (String)session.getAttribute("mail");
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+Integer id = (Integer) session.getAttribute("id");
+String mail = (String) session.getAttribute("mail");
 %>
 
 <!DOCTYPE html>
@@ -18,36 +18,43 @@
 </head>
 <body>
 
-<nav class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="ServletAccueil">Enchere MOJONE</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-      		<%
-			if( id != null ){
-		%>
-			<li class="nav-item">><a class="nav-link"  href="ServletAjoutArticle">Vendre un article</a></li>
-			<li class="nav-item">><a class="nav-link"  href="ServletMonProfil">Mon profil</a></li>
-			<li class="nav-item">><a class="nav-link"  href="ServletDeconnexion">Déconnexion [<%=mail%>]</a></li>
-		<%
-			} else {
-		%>
-        <li class="nav-item">
-          <a class="nav-link" href="ServletAjoutUtilisateur">S'inscrire</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="ServletConnexion">Se connecter</a>
-        </li>
-		<%
-			}	
-		%>	
+	<nav
+		class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark bg-gradient"
+		data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="ServletAccueil">Enchere MOJONE</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<%
+					if (id != null) {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="ServletAjoutArticle">Vendre un article</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="ServletMonProfil">Mon profil</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="ServletDeconnexion">Déconnexion [<%=mail%>]
+					</a></li>
+					<%
+					} else {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="ServletAjoutUtilisateur">S'inscrire</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="ServletConnexion">Se connecter</a></li>
+					<%
+					}
+					%>
 
-      </ul>
+				</ul>
 
-      
-    </div>
-  </div>
-</nav>
+
+			</div>
+		</div>
+	</nav>
