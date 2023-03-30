@@ -29,6 +29,7 @@
       		<%
 			if( id != null ){
 		%>
+			<li class="nav-item">><a class="nav-link"  href="ServletAjoutArticle">Vendre un article</a></li>
 			<li class="nav-item">><a class="nav-link"  href="ServletMonProfil">Mon profil</a></li>
 			<li class="nav-item">><a class="nav-link"  href="ServletDeconnexion">Déconnexion [<%=mail%>]</a></li>
 		<%
