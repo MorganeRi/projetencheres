@@ -44,7 +44,7 @@ public class ServletAjoutArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Categorie> listCategorie = new ArrayList<>();
+		List<Categorie> listCategorie = new ArrayList<>(); 
 		System.out.println("coucou");
 		try {
 //			System.out.println("coucou2");

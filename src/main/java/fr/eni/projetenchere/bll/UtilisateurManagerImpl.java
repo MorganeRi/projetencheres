@@ -37,7 +37,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	// Même contraintes que pour la création
 	@Override
 	public void majUtilisateur(Utilisateur utilisateur) throws BusinessException {
-		// TODO Auto-generated method stub
+		this.utilisateurDao.updateUtilisateur(utilisateur);
 
 	}
 

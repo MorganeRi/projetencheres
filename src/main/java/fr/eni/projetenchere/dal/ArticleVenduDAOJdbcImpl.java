@@ -22,7 +22,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ?";
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
 	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
-	private static final String SELECT_ALL = "select select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie";
+	private static final String SELECT_ALL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie";
 
 	@Override
 	public void updateArticleVendu(ArticleVendu articleVendu) throws BusinessException {

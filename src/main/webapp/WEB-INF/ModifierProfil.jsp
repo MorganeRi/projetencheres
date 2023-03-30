@@ -118,7 +118,8 @@
 			</div>
 		</div>
 		<button type="submit" class="btn btn-dark">Enregistrer</button>
-		<button type="reset" class="btn btn-dark">Supprimer mon compte</button>
+		<a href="ServletSupprimerCompte" class="btn btn-dark"
+					role="button">Supprimer mon compte</a>
 	</form>
 </div>
 </body>
