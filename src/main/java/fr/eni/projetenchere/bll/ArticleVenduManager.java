@@ -29,4 +29,7 @@ public interface ArticleVenduManager {
 	
 	public List<ArticleVendu> selectToutArticle ()throws BusinessException;
 	
+	//Sélection par nom et par categorie
+	public List<ArticleVendu> selectParNomArticleParCat (String nom,Integer id) throws BusinessException;
+	
 }
