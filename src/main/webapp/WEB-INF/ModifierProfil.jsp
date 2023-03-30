@@ -122,5 +122,4 @@
 					role="button">Supprimer mon compte</a>
 	</form>
 </div>
-</body>
-</html>
+<jsp:include page="./fragments/foot.jsp"></jsp:include>

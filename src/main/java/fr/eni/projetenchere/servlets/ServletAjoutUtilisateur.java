@@ -1,6 +1,8 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,10 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
-import fr.eni.projetenchere.bll.UtilisateurManagerImpl;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
@@ -20,6 +23,9 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletAjoutUtilisateur")
 public class ServletAjoutUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String SESSION_UTILISATEUR_MAIL = "mail";
+	private static final String SESSION_UTILISATEUR_ID = "id";
+	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,6 +51,9 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+
 		String pseudo;
 		String prenom;
 		String nom;
@@ -57,8 +66,6 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 		String confirmationMotDePasse;
 		Integer credit = 100;
 		Boolean administrateur = false;
-		
-		BusinessException businessException = new BusinessException();
 
 		try {
 			pseudo = request.getParameter("Pseudo");
@@ -71,17 +78,24 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			ville = request.getParameter("Ville");
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
-			if(motDePasse.equals(confirmationMotDePasse)) {
-				UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
-				Utilisateur utilisateur = new Utilisateur(pseudo ,nom,prenom,email,telephone,rue,codePostal,ville,motDePasse,credit,administrateur);
+			if (motDePasse.equals(confirmationMotDePasse)) {
+				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+						motDePasse, credit, administrateur);
 				utilisateurManager.createUtilisateur(utilisateur);
-			}else {
-				businessException.ajouterErreur(CodesResultatServlets.MOTDEPASSE_ERREUR);
+				request.setAttribute("utilisateur", utilisateur);
+				HttpSession session = request.getSession();
+				session.setAttribute(SESSION_UTILISATEUR_ID, utilisateur.getNoUtilisateur());
+				session.setAttribute(SESSION_UTILISATEUR_MAIL, email);
+				session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
+			} else {
+				List<Integer> listeCodesErreur = new ArrayList<>();
+				listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
 			}
-			
+
 		} catch (BusinessException e) {
 			e.printStackTrace();
-			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
+
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationUtilisateur.jsp");

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
-import fr.eni.projetenchere.bll.UtilisateurManagerImpl;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
@@ -38,7 +38,7 @@ public class ServletMonProfil extends HttpServlet {
 
 		Integer noUtilisateur;
 		Utilisateur utilisateur = new Utilisateur();
-		UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
+		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 		noUtilisateur = (Integer) request.getSession().getAttribute("id");
 		try {

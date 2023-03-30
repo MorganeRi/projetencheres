@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <jsp:include page="./fragments/head.jsp">
-	<jsp:param name="title" value="Connexion"/>
+	<jsp:param name="title" value="MonProfil"/>
 </jsp:include>
 <body>
 

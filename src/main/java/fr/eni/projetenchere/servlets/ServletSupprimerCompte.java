@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
-import fr.eni.projetenchere.bll.UtilisateurManagerImpl;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
@@ -34,7 +34,7 @@ public class ServletSupprimerCompte extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
+		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 		Utilisateur util = new Utilisateur();
 		try {
 			util = utilisateurManager.selectParNoUtilisateur((Integer) request.getSession().getAttribute("id"));

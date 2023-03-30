@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
-import fr.eni.projetenchere.bll.UtilisateurManagerImpl;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
@@ -20,6 +20,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletModifierUtilisateur")
 public class ServletModifierUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -35,9 +36,9 @@ public class ServletModifierUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		Integer noUtilisateur;
 		Utilisateur utilisateur = new Utilisateur();
-		UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
 
 		noUtilisateur = (Integer) request.getSession().getAttribute("id");
 		//noUtilisateur = 2;
@@ -77,7 +78,6 @@ public class ServletModifierUtilisateur extends HttpServlet {
 		Boolean administrateur;
 
 		BusinessException businessException = new BusinessException();
-		UtilisateurManager utilisateurManager = new UtilisateurManagerImpl();
 		Utilisateur util = new Utilisateur();
 
 		try {
