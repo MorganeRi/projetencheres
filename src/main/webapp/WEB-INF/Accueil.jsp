@@ -20,8 +20,7 @@
 				.getElementById("ventesNonDebuteesCheckbox");
 		var ventesTermineesCheckbox = document
 				.getElementById("ventesTermineesCheckbox");
-
-		if (achatsRadio.checked) {
+if (achatsRadio.checked) {
 			enchereCheckbox.disabled = false;
 			mesEncheresCheckbox.disabled = false;
 			mesEncheresRemporteesCheckbox.disabled = false;
@@ -164,10 +163,11 @@ if (toutArticles != null) {
 			if (id != null) {
 			%>
 			<h5 class="card-title text-dark">
-				<a class="text-dark" href="#"><%=art.getNomArticle()%></a>
-				
+				<a class="text-dark" href="ServletDetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
+
 			</h5>
-			<% //Servlet?idArticle=<%art.getNoArticle()
+			<%
+	
 			} else {
 			%>
 			<h5 class="card-title text-dark"><%=art.getNomArticle()%></h5>
@@ -184,7 +184,8 @@ if (toutArticles != null) {
 			if (id != null) {
 			%>
 			<p class="card-text">
-				Vendeur : <a href="ServletProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
+				Vendeur : <a
+					href="ServletProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 			</p>
 			<%
 			} else {
