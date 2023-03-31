@@ -115,7 +115,8 @@ public class ServletAjoutArticle extends HttpServlet {
 		String codePostal = null;
 		String nomVille = null;
 		Categorie categorie = null;
-		BufferedImage photo = null;
+		String photo = null;
+		ArticleVendu articleVendu = null;
 
 		try {
 
@@ -150,32 +151,22 @@ public class ServletAjoutArticle extends HttpServlet {
 			System.out.println(request.getParameter("imageArticle"));
 			String test = request.getParameter("imageArticle");
 			Boolean photoOuPas= true;
+			
+			articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
+					prixInitial, utilisateur, categorie);
+			
 			if (test.equals("")) {
 				
 				photoOuPas = false;
 			}
 			if (photoOuPas) {
-				String imagePath = "./images/" + request.getParameter("imageArticle");
-				System.out.println(imagePath);
-				photo = ImageIO.read(new File(imagePath));
-
-				// Convertir l'image en tableau de bytes
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				ImageIO.write(photo, "png", baos);
-				byte[] imageData = baos.toByteArray();
-
-				// Créer un BLOB à partir du tableau de bytes
-				Blob blob = new SerialBlob(imageData);
+				
+				photo = "./images/" + request.getParameter("imageArticle");
+				
+				articleVendu.setPhoto(photo);
+				
 			}
 				
-			
-			
-			
-
-			ArticleVendu articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
-					prixInitial, utilisateur, categorie);
-//			articleVendu.setPhoto(blob);
-
 			ARTICLE_VENDU_MANAGER.ajouterArticleVendu(articleVendu);
 			request.setAttribute("articleAManipuler", articleVendu);
 

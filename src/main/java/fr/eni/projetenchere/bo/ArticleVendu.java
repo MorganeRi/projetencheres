@@ -16,7 +16,7 @@ public class ArticleVendu {
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private Retrait retrait;
-	private Blob photo;
+	private String photo;
 
 	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
 
@@ -107,7 +107,7 @@ public class ArticleVendu {
 	// Complet sans ID
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait,
-			ArrayList<Enchere> listeEncheres, Blob photo) {
+			ArrayList<Enchere> listeEncheres, String photo) {
 		super();
 
 		this.nomArticle = nomArticle;
@@ -126,7 +126,7 @@ public class ArticleVendu {
 //Complet
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
 			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
-			Categorie categorie, Retrait retrait, ArrayList<Enchere> listeEncheres, Blob photo) {
+			Categorie categorie, Retrait retrait, ArrayList<Enchere> listeEncheres, String photo) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -245,11 +245,11 @@ public class ArticleVendu {
 		this.retrait = retrait;
 	}
 
-	public Blob getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(Blob photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 

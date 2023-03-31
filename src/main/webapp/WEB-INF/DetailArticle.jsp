@@ -15,6 +15,7 @@
 <div class="container" style="border: 1px solid silver;width:500px;">
 <h1>Detail Article</h1>
 <ul class="list-group list-group-flush">
+  <li class="list-group-item"><img alt="photo" src="<%=art.getPhoto()%>"></li>
   <li class="list-group-item"><b>Nom :</b> : <%=art.getNomArticle()%> </li>
    <li class="list-group-item"><b>Description :</b> : <%=art.getDescription()%></li>
   <li class="list-group-item"><b>Categorie : </b> : <%=art.getCategorie().getLibelle()%></li>

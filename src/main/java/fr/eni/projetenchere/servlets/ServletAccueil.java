@@ -112,24 +112,24 @@ public class ServletAccueil extends HttpServlet {
 		} else {
 		noCategorie = Integer.parseInt(request.getParameter("Categorie"));
 			
-		if ("achats".equals(achatOuVente)) {
-			
-			try {
-				articles=article.selectParNomArticleParCatSaufUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
-			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} else if ("ventes".equals(achatOuVente)) {
-			
-			try {
-				articles=article.selectParNomArticleParCatParUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
-			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
+//		if ("achats".equals(achatOuVente)) {
+//			
+//			try {
+//				articles=article.selectParNomArticleParCatSaufUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
+//			} catch (BusinessException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//		} else if ("ventes".equals(achatOuVente)) {
+//			
+//			try {
+//				articles=article.selectParNomArticleParCatParUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
+//			} catch (BusinessException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} else {
 			
 				
 			try {
@@ -153,7 +153,7 @@ public class ServletAccueil extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 		}
-	}
+//	}
 	
 	private List<Categorie>  affichageCategorie() {
 		
