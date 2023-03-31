@@ -51,7 +51,7 @@ public class ServletAjoutArticle extends HttpServlet {
 	public ServletAjoutArticle() {
 		super();
 	}
-
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -60,6 +60,9 @@ public class ServletAjoutArticle extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		
+		
+		Integer idUtilisateur2 = 2;
 		if (idUtilisateur == null) {
 			// Rediriger vers la page de connexion
 			response.sendRedirect("ServletConnexion");
