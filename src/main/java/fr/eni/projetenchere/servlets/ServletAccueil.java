@@ -42,6 +42,13 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+	    String uri = request.getRequestURI();
+	    if (uri.endsWith("/projetencheres/")) {
+	        // Rediriger l'utilisateur vers la page d'accueil
+	        RequestDispatcher rd = request.getRequestDispatcher("/ServletAccueil");
+	        rd.forward(request, response);
+	    } else {
 
 		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
 
@@ -63,7 +70,7 @@ public class ServletAccueil extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
-	}
+	}}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -89,6 +96,8 @@ public class ServletAccueil extends HttpServlet {
 		String noCat;
 
 		noCat=request.getParameter("Categorie");
+		if (noCat!=null) {
+					
 		if (noCat.equals("Selectionner une categorie")) {
 			
 			
@@ -147,7 +156,7 @@ public class ServletAccueil extends HttpServlet {
 			}
 			
 			
-		}
+		}}
 		
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
