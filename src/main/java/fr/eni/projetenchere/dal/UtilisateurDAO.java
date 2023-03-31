@@ -28,5 +28,7 @@ public interface UtilisateurDAO {
 	
 	// afficher le profil des autres utilisateurs par email
 	public Utilisateur selectByEmailUtilisateur(String email) throws BusinessException;
+	// afficher le profil des autres utilisateurs par pseudo
+	Utilisateur selectByPseudoUtilisateur(String pseudo) throws BusinessException;
 
 }

@@ -86,6 +86,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public Utilisateur selectParEmailUtilisateur(String email) throws BusinessException {
 		return this.utilisateurDao.selectByEmailUtilisateur(email);
 	}
+	
+	@Override
+	public Utilisateur selectParPseudoUtilisateur(String pseudo) throws BusinessException {
+		return this.utilisateurDao.selectByPseudoUtilisateur(pseudo);
+	}
 
 
 

@@ -36,4 +36,7 @@ public interface UtilisateurManager {
 	
 	public Utilisateur selectParEmailUtilisateur (String email) throws BusinessException;
 
+
+	public Utilisateur selectParPseudoUtilisateur(String pseudo) throws BusinessException;
+
 }

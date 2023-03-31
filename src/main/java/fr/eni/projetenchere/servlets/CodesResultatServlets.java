@@ -13,6 +13,8 @@ public abstract class CodesResultatServlets {
 	
 	public static final int MAIL_DOUBLON_ERREUR=30003;
 	
+	public static final int PSEUDO_DOUBLON_ERREUR=30004;
+	
 	public static final int ARTICLE_A_MODIFIE_EQUIVALENT = 30011;
 	
 	public static final int INSERT_ENCHERE_ERREUR = 30012;
