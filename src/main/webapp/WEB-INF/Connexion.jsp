@@ -27,7 +27,7 @@
 <div class="container">
 <form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Addresse E-mail</label>
+    <label for="exampleInputEmail1" class="form-label">Adresse E-mail</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
 
   </div>

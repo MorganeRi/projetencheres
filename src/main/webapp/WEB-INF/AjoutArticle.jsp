@@ -39,10 +39,25 @@
 				</select>
 			</div>
 			<br/>
+<!-- 			<div class="mb-1 d-flex align-items-center justify-content-between"> -->
+<!-- 				<label class="form-label me-3" for="imageArticle">Photo de l'article : </label> -->
+<!-- 				<input class="form-control" type="file" id="imageArticle" name="imageArticle" accept="image/png, image/jpeg" style="width: 400px"/> -->
+				
+				
+<!-- 			</div> -->
 			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="imageArticle">Photo de l'article : </label>
-				<input class="form-control" type="file" id="imageArticle" name="imageArticle" accept="image/png, image/jpeg" style="width: 400px"/>
+				<label  class="form-label me-3" for="Categorie">Photo de l'article : </label>
+				<select  class="form-control" id="photo" name="imageArticle" style="width: 300px">
+				<option value="image 1.gif"> image 1 </option>
+				<option value="image 2.gif"> image 2 </option>
+				<option value="image 3.jpg"> image 3 </option>
+				<option value="image 4.jpg"> image 4 </option>
+				<option value="image 5.png"> image 5 </option>
+				<option value="image 6.png"> image 6 </option>
+				<option value="image 7.png"> image 7 </option>
+				</select>
 			</div>
+	
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3" for="MiseAPrix">Mise à prix : </label>
