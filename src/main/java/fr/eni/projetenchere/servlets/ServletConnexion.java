@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
+import fr.eni.projetenchere.bll.UtilisateurManager;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.DAOFactory;
 import fr.eni.projetenchere.dal.UtilisateurDAO;
@@ -48,21 +50,38 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String mail;
+		String champ;
 		String mdp;
 		Utilisateur util =null;
+		String mail=null;
+		String pseudo=null;
+		UtilisateurManager utilMan = UtilistateurManagerSing.getInstanceUtilisateur();
 		try
 		{
 	
 			
-			mail = request.getParameter("email");
-			
+			champ = request.getParameter("email");
 			mdp = request.getParameter("mdp");
-			util=new Utilisateur(mail, mdp);
-			UtilisateurDAO utilDAO = DAOFactory.getUtilisateurDAO();
 			
-			utilDAO.connectUtilisateur(util);
-			request.setAttribute("Utilisateur",util);
+			//Vérifier si c'est un pseudo ou un mail
+			if (champ.contains("@")) {
+				mail=champ;
+				util=new Utilisateur(mail, mdp);
+				utilMan.authentifierUtilisateurMail(util);
+				request.setAttribute("Utilisateur",util);
+			    System.out.println("C'est une adresse e-mail");
+			} else {
+				pseudo=champ;
+				util=new Utilisateur();
+				util.setPseudo(pseudo);
+				util.setMotDePasse(mdp);
+				utilMan.authentifierUtilisateurPseudo(util);
+				request.setAttribute("Utilisateur",util);
+			    System.out.println("C'est un pseudo");
+			}
+			
+
+
 			
 //			UtilisateurManager utilisateurManager = new UtilisateurManager();
 //			utilisateurManager.authentifier(pseudo, mdp); // déclenche une BusinessException si les coordonnées utilisateur sont erronées
@@ -87,7 +106,7 @@ public class ServletConnexion extends HttpServlet {
 		HttpSession session = request.getSession();
         session.setAttribute(SESSION_UTILISATEUR_ID,util.getNoUtilisateur() );
         session.setAttribute(SESSION_UTILISATEUR_MAIL, mail);
-        session.setAttribute(SESSION_UTILISATEUR_PSEUDO, mail);
+        session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
 		
 		response.sendRedirect("./ServletConnexion");
 	}

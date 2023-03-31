@@ -92,6 +92,38 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			throw businessException;
 
 	}
+	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
+	@Override
+	public void connectUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException {
+		BusinessException businessException = new BusinessException();
+		if (utilisateur == null) {
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_UTILISATEUR_AUTHENTIFICATION_NULL);
+		} else {
+
+			try (Connection cnx = ConnectionProvider.getConnection()) {
+				PreparedStatement pstmt = cnx.prepareStatement(SELECT_AUTHENTIFIER_PSEUDO);
+
+				pstmt.setString(1, utilisateur.getPseudo());
+				pstmt.setString(2, utilisateur.getMotDePasse());
+				pstmt.execute();
+				ResultSet rs = pstmt.getResultSet();
+				if (rs.next()) {
+					utilisateur.setNoUtilisateur(rs.getInt(1));
+				} else {
+					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_ECHEC);
+			}
+		}
+
+		if (businessException.hasErreurs())
+			throw businessException;
+		
+	}
+	
 
 	private static final String UPDATE_UTILISATEUR = "UPDATE utilisateur SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, administrateur = ? WHERE no_utilisateur = ? ";
 
@@ -256,5 +288,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 		return utilisateur;
 	}
+
+
+
 
 }

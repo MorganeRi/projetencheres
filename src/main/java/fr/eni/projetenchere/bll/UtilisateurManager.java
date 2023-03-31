@@ -15,8 +15,11 @@ public interface UtilisateurManager {
 	public void createUtilisateur (Utilisateur utilisateur) throws BusinessException;
 	
 	
-	// voir méthode du prof
-	public void authentifierUtilisateur (String email, String motDePasse)throws BusinessException;
+	// authentifier par mail
+	public void authentifierUtilisateurMail (Utilisateur utilisateur)throws BusinessException;
+	
+	// authentifier par pseudo
+	public void authentifierUtilisateurPseudo (Utilisateur utilisateur)throws BusinessException;
 	
 	//Même contraintes que pour la création
 	public void majUtilisateur (Utilisateur utilisateur) throws BusinessException;
