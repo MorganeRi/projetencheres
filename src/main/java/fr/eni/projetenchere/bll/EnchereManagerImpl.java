@@ -5,13 +5,23 @@ import java.util.List;
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Enchere;
+import fr.eni.projetenchere.dal.DAOFactory;
 import fr.eni.projetenchere.dal.EnchereDAO;
 
 public class EnchereManagerImpl implements EnchereManager {
 	private EnchereDAO enchereDao;
 
+	/**
+	 * Le constructeur permet d'initialiser la variable UtilisateurDAOJdbcImpl pour
+	 * permettre une communication avec la base de données.
+	 */
+	public EnchereManagerImpl() {
+		this.enchereDao = DAOFactory.getEnchereDAO();
+	}
+	
 	@Override
 	public void insertEnchere(Enchere enchere) throws BusinessException {
+		System.out.println("ici la bll");
 		this.enchereDao.insertEnchere(enchere);
 		
 	}

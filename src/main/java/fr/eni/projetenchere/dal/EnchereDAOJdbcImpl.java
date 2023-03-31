@@ -22,6 +22,7 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 	//	méthode pour insérer une enchère en BDD
 	@Override
 	public void insertEnchere(Enchere enchere) throws BusinessException {
+		System.out.println("ici la dal");
 		if(enchere == null || enchere.getMontantEnchere() == null || enchere.getDateEnchere() == null) {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_ENCHERE_NULL);
@@ -34,7 +35,6 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 			pstmt.setInt(2, enchere.getMontantEnchere());
 			pstmt.setInt(3, enchere.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(4, enchere.getArticle().getNoArticle());
-			
 			int nb = pstmt.executeUpdate();
 			if(nb>0) {
 				ResultSet rs = pstmt.getGeneratedKeys();

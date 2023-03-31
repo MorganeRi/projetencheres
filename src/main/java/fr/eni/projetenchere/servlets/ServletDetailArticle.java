@@ -1,6 +1,8 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,14 +61,18 @@ public class ServletDetailArticle extends HttpServlet {
 			ArticleVendu art = new ArticleVendu();
 			Utilisateur utilisateur = new Utilisateur();
 			Retrait retrait = new Retrait();
+			Integer idArticle = null;
 			ArticleVenduManager ArticleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
 			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 			RetraitManager retMan = RetraitManagerSing.getInstanceRetraitImpl();
 
-			Integer idArticle = Integer.parseInt(request.getParameter("idArticle"));
-//		AJOUT TEMPORAIRE
-			request.getSession().setAttribute("idArticle", idArticle);
+			if ((request.getParameter("idArticle")) != null) {
+				idArticle = Integer.parseInt(request.getParameter("idArticle"));
+				request.getSession().setAttribute("idArticle", idArticle);
+			} else {
+				idArticle = (Integer) request.getSession().getAttribute("idArticle");
 
+			}
 			try {
 
 				art = ArticleVenduManager.selectParIdArticle(idArticle);
@@ -102,6 +108,7 @@ public class ServletDetailArticle extends HttpServlet {
 		Utilisateur utilisateur = null;
 		Integer noUtilisateur;
 		Enchere enchere;
+		LocalDateTime dateEnchere = LocalDateTime.now();
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
 		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
@@ -110,14 +117,14 @@ public class ServletDetailArticle extends HttpServlet {
 		try {
 			String enchereString = request.getParameter("enchere");
 			montantEnchere = Integer.parseInt(enchereString);
-			noArticle = (Integer)(request.getSession().getAttribute("idArticle"));
+			noArticle = (Integer) (request.getSession().getAttribute("idArticle"));
 			article = articleManager.selectParIdArticle(noArticle);
 			HttpSession session = request.getSession();
 			noUtilisateur = (Integer) session.getAttribute("id");
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
-			enchere = new Enchere(montantEnchere, article, utilisateur);
-			System.out.println(enchere);
+			enchere = new Enchere(dateEnchere, montantEnchere, article, utilisateur);
 			enchereManager.insertEnchere(enchere);
+			request.setAttribute("enchere", enchere);
 
 		} catch (BusinessException e) {
 			e.printStackTrace();
@@ -125,6 +132,7 @@ public class ServletDetailArticle extends HttpServlet {
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 
 		}
+
 		doGet(request, response);
 
 	}

@@ -1,6 +1,5 @@
 package fr.eni.projetenchere.bo;
 
-
 import java.time.LocalDateTime;
 
 public class Enchere {
@@ -13,9 +12,7 @@ public class Enchere {
 	private Boolean enchereGagnante;
 
 	// Plusieurs constructeurs differents
-	
-	
-	
+
 	// sans boolean
 	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article,
 			Utilisateur utilisateur) {
@@ -26,14 +23,7 @@ public class Enchere {
 		this.article = article;
 		this.utilisateur = utilisateur;
 	}
-	
-	public Enchere(Integer montantEnchere, ArticleVendu article,
-			Utilisateur utilisateur) {
-		this.montantEnchere = montantEnchere;
-		this.article = article;
-		this.utilisateur = utilisateur;
-	}
-	
+
 	// complet sans Id
 	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article, Utilisateur utilisateur,
 			Boolean enchereGagnante) {
@@ -44,7 +34,6 @@ public class Enchere {
 		this.utilisateur = utilisateur;
 		this.enchereGagnante = enchereGagnante;
 	}
-
 
 	// complet
 	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article,
@@ -66,6 +55,7 @@ public class Enchere {
 		this.article = article;
 		this.utilisateur = utilisateur;
 	}
+
 	// sans Article et sans utilisateur
 	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere) {
 		super();
@@ -73,6 +63,7 @@ public class Enchere {
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 	}
+
 	// sans utilisateur
 	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article) {
 		super();
@@ -81,12 +72,14 @@ public class Enchere {
 		this.montantEnchere = montantEnchere;
 		this.article = article;
 	}
+
 	// sans id, sans Article et sans utilisateur
 	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 	}
+
 	// sans vide
 	public Enchere() {
 		super();
@@ -133,6 +126,7 @@ public class Enchere {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
 	public Boolean getEnchereGagnante() {
 		return enchereGagnante;
 	}
@@ -148,6 +142,5 @@ public class Enchere {
 				+ ", article=" + article + ", utilisateur=" + utilisateur + ", enchereGagnante=" + enchereGagnante
 				+ "]";
 	}
-	
 
 }

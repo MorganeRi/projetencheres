@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
+     <%@page import="fr.eni.projetenchere.bo.Enchere"%>
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="Detail Article" />
 </jsp:include>
@@ -25,6 +26,16 @@
   <li class="list-group-item"><b>Retrait : </b>  <%=art.getRetrait().getRue()%> <%=art.getRetrait().getCodePostal()%> <%=art.getRetrait().getVille()%></li>
   <li class="list-group-item"><b>Vendeur : </b>  <%=art.getUtilisateur().getNom()%></li>
 </ul>
+<%
+		Enchere enchereAjoute = (Enchere) request.getAttribute("enchere");
+		if (enchereAjoute != null) {
+		%>
+		<p style="color: green;">Votre enchere a ete prise en compte avec succes</p>
+
+
+		<%
+		}
+		%>
 <form method="post"
 		action="<%=request.getContextPath()%>/ServletDetailArticle">
 <label class="form-label me-3" for="MiseAPrix"><b>Ma proposition : </b></label>
