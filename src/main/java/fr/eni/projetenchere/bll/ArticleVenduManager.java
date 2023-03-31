@@ -31,4 +31,12 @@ public interface ArticleVenduManager {
 	
 	public List<ArticleVendu> selectParNomArticleParCat(String nom, Integer id) throws BusinessException;
 	
+	//Selection des articles SAUF ceux de l'uilisateur connecté
+	
+	public List<ArticleVendu> selectParNomArticleParCatSaufUtil (String nom,Integer idArticle, Integer idUtilisateur) throws BusinessException;
+	
+	//Selection des articles QUE ceux de l'uilisateur connecté
+	
+	public List<ArticleVendu> selectParNomArticleParCatParUtil (String nom,Integer idArticle, Integer idUtilisateur) throws BusinessException;
+	
 }

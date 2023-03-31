@@ -117,7 +117,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		String nomVille = null;
 		
 		Categorie categorie = null;
-		BufferedImage photo = null;
+
 		Retrait retrait=null;
 		
 		Integer noUtilisateur;
@@ -129,6 +129,11 @@ public class ServletAjoutArticle extends HttpServlet {
 		
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		
+
+		String photo = null;
+		
+
+
 		try {
 //			récupérer les données rentrées par l'utilisateur pour ajouter article 
 			nomArticle = request.getParameter("nomArticle");
@@ -152,23 +157,22 @@ public class ServletAjoutArticle extends HttpServlet {
 			System.out.println(request.getParameter("imageArticle"));
 			String test = request.getParameter("imageArticle");
 			Boolean photoOuPas= true;
+			
+			articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
+					prixInitial, utilisateur, categorie);
+			
 			if (test.equals("")) {
 				
 				photoOuPas = false;
 			}
 			if (photoOuPas) {
-				String imagePath = "./images/" + request.getParameter("imageArticle");
-				System.out.println(imagePath);
-				photo = ImageIO.read(new File(imagePath));
-
-				// Convertir l'image en tableau de bytes
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				ImageIO.write(photo, "png", baos);
-				byte[] imageData = baos.toByteArray();
-
-				// Créer un BLOB à partir du tableau de bytes
-				Blob blob = new SerialBlob(imageData);
+				
+				photo = "./images/" + request.getParameter("imageArticle");
+				
+				articleVendu.setPhoto(photo);
+				
 			}
+
 //			articleVendu.setPhoto(blob);
 
 			articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
@@ -180,6 +184,7 @@ public class ServletAjoutArticle extends HttpServlet {
 //				la date de début est postérieure à la date de fin 
 				listeCodesErreur.add(CodesResultatServlets.ERREUR_DATE_POSTERIEUR);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
+
 
 			} else if (resultatComparaisonDates == 0) {
 //				les deux dates sont égales

@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%
 Integer id = (Integer) session.getAttribute("id");
-String mail = (String) session.getAttribute("mail");
+
+
+
+String pseudo = (String) session.getAttribute("pseudo");
+
+
+
 %>
 
 <!DOCTYPE html>
@@ -39,7 +45,7 @@ String mail = (String) session.getAttribute("mail");
 					<li class="nav-item"><a class="nav-link"
 						href="ServletMonProfil">Mon profil</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="ServletDeconnexion">Déconnexion [<%=mail%>]
+						href="ServletDeconnexion">Déconnexion [<%=pseudo%>]
 					</a></li>
 					<%
 					} else {

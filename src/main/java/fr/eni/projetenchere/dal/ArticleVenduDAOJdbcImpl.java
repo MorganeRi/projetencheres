@@ -21,9 +21,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur from article_vendu where no_categorie=?";
 	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ?";
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
-	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
+	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle, photo from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
 	private static final String SELECT_ALL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie";
 	private static final String SELECT_BY_NOM_BY_CAT = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=?";
+	private static final String SELECT_BY_NOM_BY_CAT_SAUF_UTIL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=? and no_utilisateur!=?";
+	private static final String SELECT_BY_NOM_BY_CAT_BY_UTIL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=? and no_utilisateur=?";
+	
+	
 	@Override
 	public void updateArticleVendu(ArticleVendu articleVendu) throws BusinessException {
 		if (articleVendu == null) {
@@ -73,7 +77,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pstmt.setInt(5, articleVendu.getPrixInitial());
 			pstmt.setInt(6, articleVendu.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(7, articleVendu.getCategorie().getNoCategorie());
-			pstmt.setBlob(8, articleVendu.getPhoto());
+			pstmt.setString(8, articleVendu.getPhoto());
 			pstmt.executeUpdate();
 
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -281,10 +285,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
 				Integer idCat = rs.getInt(8);
 				String libelle = rs.getString(9);
+				String photo = rs.getString(10);
+				
 				cat = new Categorie(idCat, libelle);
 
 				article = new ArticleVendu(id, nomArticle, description, dateDebut, dateFin, prixInitial, prixVente,
 						utilisateur, cat);
+				article.setPhoto(photo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -410,5 +417,125 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		}
 		return articles;
 
+	}
+
+	@Override
+	public List<ArticleVendu> selectByNomArticleByCatSaufUtil(String nom, Integer idArticle, Integer idUtilisateur)
+			throws BusinessException {
+		List<ArticleVendu> articles = null;
+		ArticleVendu article = null;
+		Categorie cat = null;
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_NOM_BY_CAT_SAUF_UTIL);
+			String recherche = "%" + nom + "%";
+			pstmt.setString(1, recherche);
+			pstmt.setInt(2, idArticle);
+			pstmt.setInt(3, idUtilisateur);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				Integer noArticle = rs.getInt(1);
+				String nomArticle = rs.getString(2);
+				String description = rs.getString(3);
+				LocalDate dateDebut = null;
+				rs.getDate(4);
+				if (!rs.wasNull()) {
+					dateDebut = rs.getDate(4).toLocalDate();
+				}
+				LocalDate dateFin = null;
+				rs.getDate(5);
+				if (!rs.wasNull()) {
+					dateFin = rs.getDate(5).toLocalDate();
+				}
+				Integer prixInitial = rs.getInt(6);
+				Integer prixVente = rs.getInt(7);
+				Integer idUtil = rs.getInt(8);
+				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
+				Integer idCat = rs.getInt(9);
+				String libelle = rs.getString(10);
+				cat = new Categorie(idCat, libelle);
+
+				article = new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
+						prixVente, utilisateur, cat);
+
+				if (articles == null) {
+					articles = new ArrayList<ArticleVendu>();
+				}
+
+				articles.add(article);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_NOM_ECHEC);
+
+			throw businessException;
+		}
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectByNomArticleByCatByUtil(String nom, Integer idArticle, Integer idUtilisateur)
+			throws BusinessException {
+		List<ArticleVendu> articles = null;
+		ArticleVendu article = null;
+		Categorie cat = null;
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_NOM_BY_CAT_BY_UTIL);
+			String recherche = "%" + nom + "%";
+			pstmt.setString(1, recherche);
+			pstmt.setInt(2, idArticle);
+			pstmt.setInt(3, idUtilisateur);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				Integer noArticle = rs.getInt(1);
+				String nomArticle = rs.getString(2);
+				String description = rs.getString(3);
+				LocalDate dateDebut = null;
+				rs.getDate(4);
+				if (!rs.wasNull()) {
+					dateDebut = rs.getDate(4).toLocalDate();
+				}
+				LocalDate dateFin = null;
+				rs.getDate(5);
+				if (!rs.wasNull()) {
+					dateFin = rs.getDate(5).toLocalDate();
+				}
+				Integer prixInitial = rs.getInt(6);
+				Integer prixVente = rs.getInt(7);
+				Integer idUtil = rs.getInt(8);
+				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
+				Integer idCat = rs.getInt(9);
+				String libelle = rs.getString(10);
+				cat = new Categorie(idCat, libelle);
+
+				article = new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
+						prixVente, utilisateur, cat);
+
+				if (articles == null) {
+					articles = new ArrayList<ArticleVendu>();
+				}
+
+				articles.add(article);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_NOM_ECHEC);
+
+			throw businessException;
+		}
+		return articles;
 	}
 }

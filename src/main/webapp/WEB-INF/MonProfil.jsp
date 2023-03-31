@@ -23,6 +23,7 @@
   <li class="list-group-item"><b>RUE</b> : <%=utilisateur.getRue()%></li>
   <li class="list-group-item"><b>CODE POSTAL</b> : <%=utilisateur.getCodePostal()%></li>
   <li class="list-group-item"><b>VILLE</b> : <%=utilisateur.getVille()%></li>
+  <li class="list-group-item"><b>CREDIT</b> : <%=utilisateur.getCredit()%></li>
 </ul>
 <br>
 <a href="ServletModifierUtilisateur" class="btn btn-dark"

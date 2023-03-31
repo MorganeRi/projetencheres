@@ -68,13 +68,13 @@
 				l'article : </label> <select class="form-control" id="photo"
 				name="imageArticle" style="width: 300px">
 				<option value=""></option>
-				<option value="image 1.gif">image 1</option>
-				<option value="image 2.gif">image 2</option>
-				<option value="image 3.jpg">image 3</option>
-				<option value="image 4.jpg">image 4</option>
-				<option value="image 5.png">image 5</option>
-				<option value="image 6.png">image 6</option>
-				<option value="image 7.png">image 7</option>
+				<option value="image1.gif">image 1</option>
+				<option value="image2.gif">image 2</option>
+				<option value="image3.jpg">image 3</option>
+				<option value="image4.jpg">image 4</option>
+				<option value="image5.png">image 5</option>
+				<option value="image6.png">image 6</option>
+				<option value="image7.png">image 7</option>
 			</select>
 		</div>
 

@@ -60,7 +60,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
-	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
+	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur, email, pseudo FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
 
 	@Override
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -78,6 +78,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				ResultSet rs = pstmt.getResultSet();
 				if (rs.next()) {
 					utilisateur.setNoUtilisateur(rs.getInt(1));
+					utilisateur.setEmail(rs.getString(2));
+					utilisateur.setPseudo(rs.getString(3));
 				} else {
 					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
 				}
@@ -92,6 +94,40 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			throw businessException;
 
 	}
+	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur, email, pseudo FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
+	@Override
+	public void connectUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException {
+		BusinessException businessException = new BusinessException();
+		if (utilisateur == null) {
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_UTILISATEUR_AUTHENTIFICATION_NULL);
+		} else {
+
+			try (Connection cnx = ConnectionProvider.getConnection()) {
+				PreparedStatement pstmt = cnx.prepareStatement(SELECT_AUTHENTIFIER_PSEUDO);
+
+				pstmt.setString(1, utilisateur.getPseudo());
+				pstmt.setString(2, utilisateur.getMotDePasse());
+				pstmt.execute();
+				ResultSet rs = pstmt.getResultSet();
+				if (rs.next()) {
+					utilisateur.setNoUtilisateur(rs.getInt(1));
+					utilisateur.setEmail(rs.getString(2));
+					utilisateur.setPseudo(rs.getString(3));
+				} else {
+					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_ECHEC);
+			}
+		}
+
+		if (businessException.hasErreurs())
+			throw businessException;
+		
+	}
+	
 
 	private static final String UPDATE_UTILISATEUR = "UPDATE utilisateur SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, administrateur = ? WHERE no_utilisateur = ? ";
 
@@ -256,5 +292,50 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 		return utilisateur;
 	}
+	
+	private final String SELECT_UTILISATEUR_BY_PSEUDO = "SELECT no_utilisateur,pseudo, nom, prenom, email, telephone, rue, "
+			+ "					code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateur WHERE pseudo = ?";
+
+	
+	@Override
+	public Utilisateur selectByPseudoUtilisateur(String pseudo) throws BusinessException {
+		Utilisateur utilisateur = new Utilisateur();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_PSEUDO);
+			pstmt.setString(1, pseudo);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+				utilisateur.setPseudo(rs.getString("pseudo"));
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setPrenom(rs.getString("prenom"));
+				utilisateur.setEmail(rs.getString("email"));
+				utilisateur.setTelephone(rs.getString("telephone"));
+				utilisateur.setRue(rs.getString("rue"));
+				utilisateur.setCodePostal(rs.getString("code_postal"));
+				utilisateur.setVille(rs.getString("ville"));
+				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
+				utilisateur.setCredit(rs.getInt("credit"));
+				int tinyIntValue = rs.getInt("administrateur");
+				boolean booleanValue;
+				if (tinyIntValue == 0) {
+					booleanValue = false;
+				} else {
+					booleanValue = true;
+				}
+				utilisateur.setAdministrateur(booleanValue);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_EMAIL_UTILISATEUR_ECHEC);
+			throw businessException;
+		}
+		return utilisateur;
+	}
+
+
+
 
 }

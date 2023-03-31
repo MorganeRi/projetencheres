@@ -6,15 +6,16 @@ import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
+import fr.eni.projetenchere.bll.UtilisateurManager;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.Utilisateur;
-import fr.eni.projetenchere.dal.DAOFactory;
-import fr.eni.projetenchere.dal.UtilisateurDAO;
 import fr.eni.projetenchere.messages.LecteurMessage;
 
 /**
@@ -48,24 +49,44 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String mail;
+		String champ;
 		String mdp;
 		Utilisateur util =null;
+		String mail=null;
+		String pseudo=null;
+		String rememberMe=null;
+
+		UtilisateurManager utilMan = UtilistateurManagerSing.getInstanceUtilisateur();
 		try
 		{
 	
-			
-			mail = request.getParameter("email");
-			
+
+			rememberMe=request.getParameter("rememberMe");
+			champ = request.getParameter("email");
 			mdp = request.getParameter("mdp");
-			util=new Utilisateur(mail, mdp);
-			UtilisateurDAO utilDAO = DAOFactory.getUtilisateurDAO();
+
 			
-			utilDAO.connectUtilisateur(util);
-			request.setAttribute("Utilisateur",util);
+			//Vérifier si c'est un pseudo ou un mail
+			if (champ.contains("@")) {
+				mail=champ;
+				util=new Utilisateur(mail, mdp);
+				utilMan.authentifierUtilisateurMail(util);
+				request.setAttribute("Utilisateur",util);
+				souvenirCookie(rememberMe,util, request, response);
+
+			} else {
+				pseudo=champ;
+				util=new Utilisateur();
+				util.setPseudo(pseudo);
+				util.setMotDePasse(mdp);
+				utilMan.authentifierUtilisateurPseudo(util);
+				request.setAttribute("Utilisateur",util);
+				souvenirCookie(rememberMe,util, request, response);
+
+			}
 			
-//			UtilisateurManager utilisateurManager = new UtilisateurManager();
-//			utilisateurManager.authentifier(pseudo, mdp); // déclenche une BusinessException si les coordonnées utilisateur sont erronées
+			
+			
 			
 		} catch (BusinessException e) {
 
@@ -86,11 +107,30 @@ public class ServletConnexion extends HttpServlet {
 		
 		HttpSession session = request.getSession();
         session.setAttribute(SESSION_UTILISATEUR_ID,util.getNoUtilisateur() );
-        session.setAttribute(SESSION_UTILISATEUR_MAIL, mail);
-        session.setAttribute(SESSION_UTILISATEUR_PSEUDO, mail);
+        session.setAttribute(SESSION_UTILISATEUR_MAIL, util.getEmail());
+        session.setAttribute(SESSION_UTILISATEUR_PSEUDO, util.getPseudo());
 		
 		response.sendRedirect("./ServletConnexion");
 	}
+	
+	
+	// Methode qui cree un cookie valable 5 min si l'utilisateur a cocher la case "se souvenir de moi"
+	private void souvenirCookie(String rememberMe,Utilisateur util, HttpServletRequest request, HttpServletResponse response) {
+
+		
+		if (rememberMe != null && rememberMe.equals("on")) {
+			Cookie cookie = new Cookie("username", util.getPseudo());
+		    System.out.println("je suis un cookie");
+		      // Définit la durée de validité du cookie à 24 heures
+		      cookie.setMaxAge(60*5);
+		    
+		      // Ajoute le cookie à la réponse HTTP
+		      response.addCookie(cookie);
+			
+		}
+		
+	}
+	
 	}
 
 

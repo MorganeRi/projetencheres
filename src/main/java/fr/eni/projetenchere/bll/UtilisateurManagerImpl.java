@@ -26,11 +26,18 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		    this.utilisateurDao.insertUtilisateur(utilisateur);
 	}
 
-	// voir méthode du prof
+	// authentifier par mail
 	@Override
-	public void authentifierUtilisateur(String email, String motDePasse) throws BusinessException {
-		// TODO Auto-generated method stub
+	public void authentifierUtilisateurMail(Utilisateur util) throws BusinessException {
+		this.utilisateurDao.connectUtilisateur(util);
 
+	}
+	
+	// authentifier par pseudo
+	@Override
+	public void authentifierUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException {
+		this.utilisateurDao.connectUtilisateurPseudo(utilisateur);
+		
 	}
 
 	// Même contraintes que pour la création
@@ -79,5 +86,12 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public Utilisateur selectParEmailUtilisateur(String email) throws BusinessException {
 		return this.utilisateurDao.selectByEmailUtilisateur(email);
 	}
+	
+	@Override
+	public Utilisateur selectParPseudoUtilisateur(String pseudo) throws BusinessException {
+		return this.utilisateurDao.selectByPseudoUtilisateur(pseudo);
+	}
+
+
 
 }

@@ -1,11 +1,12 @@
 package fr.eni.projetenchere.dal;
 
-import java.sql.SQLException;
+
 import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
+
 
 public interface ArticleVenduDAO {
 
@@ -35,6 +36,14 @@ public interface ArticleVenduDAO {
 	
 	//Sélection par nom et par categorie
 	public List<ArticleVendu> selectByNomArticleByCat (String nom,Integer id) throws BusinessException;
+	
+	//Selection des articles SAUF ceux de l'uilisateur connecté
+	
+	public List<ArticleVendu> selectByNomArticleByCatSaufUtil (String nom,Integer idArticle, Integer idUtilisateur) throws BusinessException;
+	
+	//Selection des articles QUE ceux de l'uilisateur connecté
+	
+	public List<ArticleVendu> selectByNomArticleByCatByUtil (String nom,Integer idArticle, Integer idUtilisateur) throws BusinessException;
 	
 
 }

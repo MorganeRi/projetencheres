@@ -80,7 +80,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
 
-			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)){
+			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)&&(utilisateurManager.selectParPseudoUtilisateur(pseudo)==null)){
 				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit, administrateur);
 				utilisateurManager.createUtilisateur(utilisateur);
@@ -92,6 +92,10 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			} else {
 				if (utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() != null) {
 					listeCodesErreur.add(CodesResultatServlets.MAIL_DOUBLON_ERREUR);
+					request.setAttribute("listeCodesErreur", listeCodesErreur);
+				}
+				if (utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()!=null) {
+					listeCodesErreur.add(CodesResultatServlets.PSEUDO_DOUBLON_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);
 				}
 			}

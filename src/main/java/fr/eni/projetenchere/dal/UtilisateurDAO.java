@@ -10,6 +10,9 @@ public interface UtilisateurDAO {
 
 	// Etape 1: uniquement avec le mail revenir plus tard pour ajouter pseudo
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException;
+	
+	// Etape 1: uniquement avec le mail revenir plus tard pour ajouter pseudo
+	public void connectUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException;
 
 	// modification de l'ensemble des informations de l'utilisateur
 	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException;
@@ -25,5 +28,7 @@ public interface UtilisateurDAO {
 	
 	// afficher le profil des autres utilisateurs par email
 	public Utilisateur selectByEmailUtilisateur(String email) throws BusinessException;
+	// afficher le profil des autres utilisateurs par pseudo
+	Utilisateur selectByPseudoUtilisateur(String pseudo) throws BusinessException;
 
 }

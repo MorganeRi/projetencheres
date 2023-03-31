@@ -94,5 +94,25 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		return articles;
 	}
 
+	@Override
+	public List<ArticleVendu> selectParNomArticleParCatSaufUtil(String nom, Integer idArticle, Integer idUtilisateur)
+			throws BusinessException {
+		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+
+		articles=dao.selectByNomArticleByCatSaufUtil(nom, idArticle, idUtilisateur);
+
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectParNomArticleParCatParUtil(String nom, Integer idArticle, Integer idUtilisateur)
+			throws BusinessException {
+		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+
+		articles=dao.selectByNomArticleByCatByUtil(nom, idArticle, idUtilisateur);
+
+		return articles;                  
+	}
+
 
 }

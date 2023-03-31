@@ -114,7 +114,8 @@
 			</div>
 		</div>
 		<button type="submit" class="btn btn-dark">Créer</button>
-		<button type="reset" class="btn btn-dark">Annuler</button>
+		<a href="ServletAccueil" class="btn btn-dark"
+					role="button">Annuler</a>
 	</form>
 </div>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>
