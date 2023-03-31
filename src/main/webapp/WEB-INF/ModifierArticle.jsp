@@ -4,11 +4,13 @@
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
+<%@page import="fr.eni.projetenchere.bo.Retrait"%>
+<%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
      
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="ModifierArticle"/>
 </jsp:include>
-	<h1 class="font-weight-bold text-center">Nouvelle vente</h1>
+	<h1 class="font-weight-bold text-center">Modifier l'article</h1>
 <!-- 	style="border: 1px solid silver;width:600px;" -->
 	<div class="container" style="border: 1px solid silver;width:500px;">
 	
@@ -16,10 +18,24 @@
 	ArticleVendu articleVendu = (ArticleVendu) request.getAttribute("articleAManipuler");
 	%>
 		<form action="<%=request.getContextPath()%>/ServletModifierArticle" method="post">
-			<div class="mb-1 d-flex align-items-center justify-content-between">
+		<%
+			List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
+			if (listeCodesErreur != null) {
+		%>
+		<p style="color: red;">Erreur, la modification n'est pas possible :</p>
+		<%
+			for (int codeErreur : listeCodesErreur) {
+		%>
+		<p><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
+		<%
+			}
+		}
+		%>
+
+		<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3 mt-2" for="nomArticle">Article : </label>
 				<input class="form-control mt-2" type="text" id="nomArticle" 
-				name="nomArticle" style="width: 300px" value =<%=articleVendu.getNomArticle()%> required/>
+				name="nomArticle" style="width: 300px" value ='<%=articleVendu.getNomArticle()%>' required/>
 			</div>
 			<br/>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
@@ -74,24 +90,24 @@
 			<fieldset>
 				<legend>Retrait</legend>
 				<%
-					Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
+					Retrait retrait = (Retrait) request.getAttribute("retrait");
 				%>
 				<div class="mb-1 d-flex align-items-center justify-content-between">
 					<label class="form-label me-3" for="nomRue">Rue : </label>
 					<input class="form-control" type="text" id="nomRue" name="nomRue" 
-					style="width: 300px" value="<%=utilisateur.getRue()%>"/>
+					style="width: 300px" value="<%=retrait.getRue()%>"/>
 				</div>
 				<br/>
 				<div class="mb-1 d-flex align-items-center justify-content-between">
 					<label class="form-label me-3" for="codePostal">Code Postal : </label>
 					<input class="form-control" type="text" id="codePostal" name="codePostal"
-					 style="width: 300px" value="<%=utilisateur.getCodePostal()%>"/>
+					 style="width: 300px" value="<%=retrait.getCodePostal() %>"/>
 				</div>
 				<br/>
 				<div class="mb-1 d-flex align-items-center justify-content-between">
 					<label class="form-label me-3" for="nomVille">Ville : </label>
 					<input class="form-control" type="text" id="nomVille" name="nomVille" 
-					style="width: 300px" value="<%=utilisateur.getVille()%>"/>
+					style="width: 300px" value="<%=retrait.getVille() %>"/>
 				</div>
 				<br/>
 			</fieldset>
