@@ -3,6 +3,7 @@ package fr.eni.projetenchere.servlets;
 /**
  * Les codes disponibles sont entre 30000 et 39999
  */
+
 public abstract class CodesResultatServlets {
 	
 	public static final int FORMAT_LISTE_ERREUR=30000;
@@ -17,5 +18,11 @@ public abstract class CodesResultatServlets {
 	
 	public static final int ARTICLE_A_MODIFIE_EQUIVALENT = 30011;
 	
-	public static final int INSERT_ENCHERE_ERREUR = 30012;
+
+	public static final int ERREUR_DATE_POSTERIEUR = 30012;
+	
+	public static final int ERREUR_DATES_IDENTIQUES = 30013;
+
+	public static final int INSERT_ENCHERE_ERREUR = 30014;
+
 }

@@ -4,13 +4,27 @@
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
+<%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="AjoutArticle" />
 </jsp:include>
 <h1 class="font-weight-bold text-center">Nouvelle vente</h1>
-<!-- 	style="border: 1px solid silver;width:600px;" -->
+
 <div class="container" style="border: 1px solid silver; width: 500px;">
+	<%
+	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
+	if (listeCodesErreur != null) {
+	%>
+	<p style="color: red;">Erreur, l'ajout d'article n'est pas possible :</p>
+	<%
+	for (int codeErreur : listeCodesErreur) {
+	%>
+	<p><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
+	<%
+		}
+	}
+	%>
 	<form action="<%=request.getContextPath()%>/ServletAjoutArticle"
 		method="post">
 		<div class="mb-1 d-flex align-items-center justify-content-between">
