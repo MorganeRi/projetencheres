@@ -21,7 +21,6 @@ public class EnchereManagerImpl implements EnchereManager {
 	
 	@Override
 	public void insertEnchere(Enchere enchere) throws BusinessException {
-		System.out.println("ici la bll");
 		this.enchereDao.insertEnchere(enchere);
 		
 	}
