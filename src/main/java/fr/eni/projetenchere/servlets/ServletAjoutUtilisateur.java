@@ -41,9 +41,15 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		if (idUtilisateur != null) {
+			// Rediriger vers la page de connexion
+			response.sendRedirect("ServletMonProfil");
+			return;
+		} else {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationUtilisateur.jsp");
-		rd.forward(request, response);
+		rd.forward(request, response);}
 	}
 
 	/**
