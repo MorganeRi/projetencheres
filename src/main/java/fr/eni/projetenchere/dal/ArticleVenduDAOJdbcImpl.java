@@ -16,7 +16,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	private static final String UPDATE_ARTICLE = "update article_vendu set nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?, prix_initial=?,  no_categorie=? where no_article =?";
-	private static final String INSERT_ARTICLE = "insert into article_vendu(nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial, no_utilisateur, no_categorie) values (?,?,?,?,?,?,?)";
+	private static final String INSERT_ARTICLE = "insert into article_vendu(nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial, no_utilisateur, no_categorie, photo) values (?,?,?,?,?,?,?,?)";
 	private static final String DELETE_ARTICLE = "delete from article_vendu where no_article=?";
 	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur from article_vendu where no_categorie=?";
 	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ?";
@@ -73,6 +73,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pstmt.setInt(5, articleVendu.getPrixInitial());
 			pstmt.setInt(6, articleVendu.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(7, articleVendu.getCategorie().getNoCategorie());
+			pstmt.setBlob(8, articleVendu.getPhoto());
 			pstmt.executeUpdate();
 
 			ResultSet rs = pstmt.getGeneratedKeys();

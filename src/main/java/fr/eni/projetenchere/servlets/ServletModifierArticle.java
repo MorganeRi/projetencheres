@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.cj.Session;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
@@ -25,6 +24,7 @@ import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dal.CodesResultatDAL;
 
 /**
  * Servlet implementation class ServletModifierArticle
@@ -69,14 +69,12 @@ public class ServletModifierArticle extends HttpServlet {
 				e1.printStackTrace();
 			}
 			
-	
 	//		gérer la récupération de session utilisateur
 			Integer noUtilisateur = null;;
 			Utilisateur utilisateur = new Utilisateur();
 			
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
-//			noUtilisateur = 1;
-//			System.out.println(noUtilisateur);
+
 			try {
 	//			
 				utilisateur = UTILISATEUR_MANAGER.selectParNoUtilisateur(noUtilisateur);
@@ -85,23 +83,24 @@ public class ServletModifierArticle extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			
 	//		récupérer les infos d'un article 
 			Integer noArticle = null;
 			ArticleVendu articleAAfficher = new ArticleVendu();
-			
 
-			noArticle =Integer.parseInt(request.getParameter("idArticle"));
-			System.out.println(noArticle + "bonjour") ;
-			
+			noArticle = (Integer) session.getAttribute("idArticle");
+
+		    
+//			noArticle = 20;
 			try {
 				articleAAfficher = ARTICLE_VENDU_MANAGER.selectParIdArticle(noArticle);
-				System.out.println(articleAAfficher);
 				request.setAttribute("articleAManipuler", articleAAfficher);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 			session.setAttribute("articleAModifier", articleAAfficher);
+
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierArticle.jsp");
 			rd.forward(request, response); 
 		}
@@ -117,7 +116,6 @@ public class ServletModifierArticle extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		ArticleVendu articleAManipuler = (ArticleVendu) session.getAttribute("articleAModifier");
-		System.out.println(articleAManipuler);
 		try {
 			articleAManipuler.setNomArticle(request.getParameter("nomArticle"));
 			articleAManipuler.setDescription(request.getParameter("Description"));
@@ -141,19 +139,25 @@ public class ServletModifierArticle extends HttpServlet {
 			rue = request.getParameter("nomRue");
 			codePostal = request.getParameter("codePostal");
 			nomVille = request.getParameter("nomVille");
-
 			
+		
 			try {
+				request.setAttribute("articleModifie", articleAManipuler);
+				
+//				if((request.getAttribute("articleModifie")).equals(session.getAttribute("articleAmodifier"))) {
+//					BusinessException businessException = new BusinessException();
+//					businessException.ajouterErreur(CodesResultatServlets.ARTICLE_A_MODIFIE_EQUIVALENT);
+//					throw businessException;
+//				}else {
+//					
+//				}
 				ARTICLE_VENDU_MANAGER.majArticleVendu(articleAManipuler);
-				request.setAttribute("articleAManipuler", articleAManipuler);
+				request.setAttribute("articleModifie", articleAManipuler);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-//			permettre d'instancier un attribut dans la session pour le recuperer
-//			dans une autre Servlet
-			
-			session.setAttribute("articleAManipuler", articleAManipuler);
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,5 +165,4 @@ public class ServletModifierArticle extends HttpServlet {
 
 		doGet(request, response);
 	}
-
 }

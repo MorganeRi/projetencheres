@@ -35,6 +35,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public void supprimerArticleVendu(ArticleVendu article) throws BusinessException {
+		
 		dao.deleteArticleVendu(article);
 
 	}
