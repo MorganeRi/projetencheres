@@ -96,15 +96,21 @@
 				<br/>
 			</fieldset>
 			<%
-				ArticleVendu articleAjoute = (ArticleVendu) request.getAttribute("articleAjoute");
-				if (articleAjoute != null) {
+				ArticleVendu articleAModifier = (ArticleVendu) request.getAttribute("articleAModifier");
+				ArticleVendu articleModifie = (ArticleVendu) request.getAttribute("articleModifie");
+				if (articleAModifier == articleModifie) {
 			%>
 				<p style="color: green;">L'article a été modifié avec succès</p>
 				
-				
+			<%
+				} else {
+			%>
+			
+				<p style="color: red;">Vos champs sont similaires, maj non nécessaire</p>
 			<%
 				}
-			%>
+			%>	
+				
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 				<input  type="submit" value="Enregistrer" class="btn btn-dark me-3"/>
 				<input  type="reset" value="Annuler" class="btn btn-dark me-3">

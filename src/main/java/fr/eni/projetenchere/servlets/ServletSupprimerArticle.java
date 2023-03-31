@@ -2,6 +2,7 @@ package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +37,7 @@ public class ServletSupprimerArticle extends HttpServlet {
 		//request.getSession().getAttribute("id");
 
 		HttpSession session = request.getSession();
-		ArticleVendu articleASupprimer = (ArticleVendu) session.getAttribute("articleAManipuler");
+		ArticleVendu articleASupprimer = (ArticleVendu) session.getAttribute("articleAModifier");
 		
 		System.out.println(articleASupprimer);
 		
@@ -46,7 +47,10 @@ public class ServletSupprimerArticle extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("./ServletModifierArticle");
+
+		
+		request.getRequestDispatcher("/ServletAjoutArticle").forward(request, response);
+		
 	}
 
 	/**
