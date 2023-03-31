@@ -56,6 +56,8 @@ public class ServletDetailArticle extends HttpServlet {
 		RetraitManager retMan = RetraitManagerSing.getInstanceRetraitImpl();
 
 		Integer idArticle = Integer.parseInt(request.getParameter("idArticle"));
+//		AJOUT TEMPORAIRE
+		request.getSession().setAttribute("idArticle", idArticle);
 
 
 		try {
