@@ -61,7 +61,7 @@ public class ServletDetailArticle extends HttpServlet {
 
 
 		try {
-//TODO Modifier 
+
 			art = ArticleVenduManager.selectParIdArticle(idArticle);
 			utilisateur = utilisateurManager.selectParNoUtilisateur(art.getUtilisateur().getNoUtilisateur());
 			// retrait = retMan.selectParIdRetrait(idArticle);
