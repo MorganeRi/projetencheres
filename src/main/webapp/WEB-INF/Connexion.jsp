@@ -27,8 +27,8 @@
 <div class="container">
 <form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Adresse E-mail</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
+    <label for="exampleInputEmail1" class="form-label">Adresse E-mail ou pseudo</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
 
   </div>
   <div class="mb-3">
@@ -37,7 +37,7 @@
 			value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>">
   </div>
   <div class="mb-3 form-check">
-<!--     <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="rememberMe"> se souvenir de moi
 <!--     <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
   </div>
   <button type="submit" class="btn btn-dark">Connexion</button>

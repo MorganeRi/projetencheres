@@ -60,7 +60,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
-	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
+	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur, email, pseudo FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
 
 	@Override
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -78,6 +78,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				ResultSet rs = pstmt.getResultSet();
 				if (rs.next()) {
 					utilisateur.setNoUtilisateur(rs.getInt(1));
+					utilisateur.setEmail(rs.getString(2));
+					utilisateur.setPseudo(rs.getString(3));
 				} else {
 					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
 				}
@@ -92,7 +94,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			throw businessException;
 
 	}
-	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
+	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur, email, pseudo FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
 	@Override
 	public void connectUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException {
 		BusinessException businessException = new BusinessException();
@@ -109,6 +111,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				ResultSet rs = pstmt.getResultSet();
 				if (rs.next()) {
 					utilisateur.setNoUtilisateur(rs.getInt(1));
+					utilisateur.setEmail(rs.getString(2));
+					utilisateur.setPseudo(rs.getString(3));
 				} else {
 					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
 				}
