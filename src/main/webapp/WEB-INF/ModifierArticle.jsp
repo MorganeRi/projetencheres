@@ -112,17 +112,11 @@
 				<br/>
 			</fieldset>
 			<%
-				ArticleVendu articleAModifier = (ArticleVendu) request.getAttribute("articleAModifier");
 				ArticleVendu articleModifie = (ArticleVendu) request.getAttribute("articleModifie");
-				if (articleAModifier == articleModifie) {
+				if (articleModifie !=null) {
 			%>
 				<p style="color: green;">L'article a été modifié avec succès</p>
 				
-			<%
-				} else {
-			%>
-			
-				<p style="color: red;">Vos champs sont similaires, maj non nécessaire</p>
 			<%
 				}
 			%>	
