@@ -25,9 +25,10 @@
   <li class="list-group-item"><b>Retrait : </b>  <%=art.getRetrait().getRue()%> <%=art.getRetrait().getCodePostal()%> <%=art.getRetrait().getVille()%></li>
   <li class="list-group-item"><b>Vendeur : </b>  <%=art.getUtilisateur().getNom()%></li>
 </ul>
-<form action="encherir" method="post">
+<form method="post"
+		action="<%=request.getContextPath()%>/ServletDetailArticle">
 <label class="form-label me-3" for="MiseAPrix"><b>Ma proposition : </b></label>
-<input class="form-control" type="number" id="enchere" name="enchere" min="<%=art.getPrixDeVente()%>"  style="width: 100px"/>
+<input class="form-control" type="number" id="enchere" name="enchere" min="<%=art.getPrixInitial()%>" value="<%=art.getPrixInitial()%>"  style="width: 100px"/>
 <input  type="submit" value="Encherir" class="btn btn-dark me-3"/>
 </form> 
 

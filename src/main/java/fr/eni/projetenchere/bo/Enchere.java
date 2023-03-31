@@ -27,6 +27,13 @@ public class Enchere {
 		this.utilisateur = utilisateur;
 	}
 	
+	public Enchere(Integer montantEnchere, ArticleVendu article,
+			Utilisateur utilisateur) {
+		this.montantEnchere = montantEnchere;
+		this.article = article;
+		this.utilisateur = utilisateur;
+	}
+	
 	// complet sans Id
 	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, ArticleVendu article, Utilisateur utilisateur,
 			Boolean enchereGagnante) {
