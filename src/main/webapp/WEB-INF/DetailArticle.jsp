@@ -8,6 +8,7 @@
 
 
 	<%
+	Integer id = (Integer) session.getAttribute("id");
 	ArticleVendu art = (ArticleVendu) request.getAttribute("article");
 	%>
 
@@ -28,6 +29,10 @@
 <input class="form-control" type="number" id="enchere" name="enchere" min="<%=art.getPrixDeVente()%>"  style="width: 100px"/>
 <input  type="submit" value="Encherir" class="btn btn-dark me-3"/>
 </form>
+			<%if (id == art.getUtilisateur().getNoUtilisateur()) { %>
+<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>" class="btn btn-dark"
+					role="button">Modifier Article</a>
+					<%} %>
 </div>
 
 <jsp:include page="./fragments/foot.jsp"></jsp:include>
