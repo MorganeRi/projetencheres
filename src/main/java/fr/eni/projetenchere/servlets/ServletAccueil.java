@@ -49,11 +49,11 @@ public class ServletAccueil extends HttpServlet {
 
 		try {
 		articles = article.selectToutArticle();
-			// System.out.println(articles.toString());
+
 			request.setAttribute("listToutArticle", articles);
 
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		List<Categorie> listCategorie = new ArrayList<>();

@@ -80,7 +80,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
 
-			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)&&(utilisateurManager.selectParPseudoUtilisateur(pseudo)==null)){
+			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)||(utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()==null)){
 				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit, administrateur);
 				utilisateurManager.createUtilisateur(utilisateur);
@@ -108,7 +108,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationUtilisateur.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("./ServletAccueil");
 		rd.forward(request, response);
 	}
 

@@ -38,7 +38,7 @@
 			<span class="input-group-text">Pseudo</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Pseudo" name="Pseudo" required> <label
+					placeholder="Pseudo" name="Pseudo" pattern="[a-zA-Z0-9]+" required> <label
 					for="floatingInputGroup1">Pseudo</label>
 			</div>
 		</div>
