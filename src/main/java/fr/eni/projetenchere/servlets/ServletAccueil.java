@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
@@ -78,15 +79,19 @@ public class ServletAccueil extends HttpServlet {
 		
 		String recherche;
 		Integer noCategorie;
+		String achatOuVente = request.getParameter("options");
+		HttpSession session = request.getSession();
 		
 		recherche = request.getParameter("search");
 		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
 
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 		String noCat;
-		System.out.println((request.getParameter("Categorie")));
+
 		noCat=request.getParameter("Categorie");
 		if (noCat.equals("Selectionner une categorie")) {
+			
+			
 			try {
 				articles = article.selectParNomArticle(recherche);
 
@@ -107,6 +112,26 @@ public class ServletAccueil extends HttpServlet {
 		} else {
 		noCategorie = Integer.parseInt(request.getParameter("Categorie"));
 			
+		if ("achats".equals(achatOuVente)) {
+			
+			try {
+				articles=article.selectParNomArticleParCatSaufUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} else if ("ventes".equals(achatOuVente)) {
+			
+			try {
+				articles=article.selectParNomArticleParCatParUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			
+				
 			try {
 				articles = article.selectParNomArticleParCat(recherche, noCategorie);
 
@@ -127,6 +152,7 @@ public class ServletAccueil extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
+		}
 	}
 	
 	private List<Categorie>  affichageCategorie() {

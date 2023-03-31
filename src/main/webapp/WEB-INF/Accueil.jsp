@@ -83,38 +83,38 @@ if (achatsRadio.checked) {
 		<div class="form-check">
 			<input type="radio" name="options" id="achatsRadio" value="achats"
 				onclick="toggleCheckboxes()" checked>Achats
-			<div>
-				<input type="checkbox" name="encheres" id="enchereCheckbox"
-					value="enchères ouvertes">enchères ouvertes
-			</div>
-			<div>
-				<input type="checkbox" name="mesEncheres" id="mesEncheresCheckbox"
-					value="mes enchères">mes enchères
-			</div>
-			<div>
-				<input type="checkbox" name="mesEncheresRemportees"
-					id="mesEncheresRemporteesCheckbox" value="mes enchères remportées">mes
-				enchères remportées
-			</div>
+<!-- 			<div> -->
+<!-- 				<input type="checkbox" name="encheres" id="enchereCheckbox" -->
+<!-- 					value="enchères ouvertes">enchères ouvertes -->
+<!-- 			</div> -->
+<!-- 			<div> -->
+<!-- 				<input type="checkbox" name="mesEncheres" id="mesEncheresCheckbox" -->
+<!-- 					value="mes enchères">mes enchères -->
+<!-- 			</div> -->
+<!-- 			<div> -->
+<!-- 				<input type="checkbox" name="mesEncheresRemportees" -->
+<!-- 					id="mesEncheresRemporteesCheckbox" value="mes enchères remportées">mes -->
+<!-- 				enchères remportées -->
+<!-- 			</div> -->
 		</div>
 		<div class="form-check">
 			<input type="radio" name="options" id="ventesRadio" value="ventes"
 				onclick="toggleCheckboxes()">Mes Ventes
-			<div>
-				<input type="checkbox" name="ventesEnCours"
-					id="ventesEnCoursCheckbox" value="mes ventes en cours">mes
-				ventes en cours
-			</div>
-			<div>
-				<input type="checkbox" name="ventesNonDebutees"
-					id="ventesNonDebuteesCheckbox" value="ventes non débutées">ventes
-				non débutées
-			</div>
-			<div>
-				<input type="checkbox" name="ventesTerminees"
-					id="ventesTermineesCheckbox" value="ventes terminées">ventes
-				terminées
-			</div>
+<!-- 			<div> -->
+<!-- 				<input type="checkbox" name="ventesEnCours" -->
+<!-- 					id="ventesEnCoursCheckbox" value="mes ventes en cours">mes -->
+<!-- 				ventes en cours -->
+<!-- 			</div> -->
+<!-- 			<div> -->
+<!-- 				<input type="checkbox" name="ventesNonDebutees" -->
+<!-- 					id="ventesNonDebuteesCheckbox" value="ventes non débutées">ventes -->
+<!-- 				non débutées -->
+<!-- 			</div> -->
+<!-- 			<div> -->
+<!-- 				<input type="checkbox" name="ventesTerminees" -->
+<!-- 					id="ventesTermineesCheckbox" value="ventes terminées">ventes -->
+<!-- 				terminées -->
+<!-- 			</div> -->
 		</div>
 
 		<%
@@ -154,7 +154,7 @@ if (articles != null) {
 			%>
 			<h6 class="card-subtitle mb-2 text-body-secondary">
 				Prix :
-				<%=art.getPrixDeVente()%></h6>
+				<%=art.getPrixInitial()%></h6>
 			<p class="card-text">
 				Fin de l'enchère :
 				<%=art.getDateFinEnchere()%></p>
