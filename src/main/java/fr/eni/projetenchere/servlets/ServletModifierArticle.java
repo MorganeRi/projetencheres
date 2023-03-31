@@ -88,8 +88,11 @@ public class ServletModifierArticle extends HttpServlet {
 			ArticleVendu articleAAfficher = new ArticleVendu();
 			System.out.println(articleAAfficher);
 			
-	//		TODO : Finir code pour récupérer l'id de l'article depuis la page de liste d'articles
-			noArticle =23;
+
+
+			noArticle =Integer.parseInt(request.getParameter("idArticle"));
+			System.out.println(noArticle + "bonjour") ;
+
 			
 			try {
 				articleAAfficher = ARTICLE_VENDU_MANAGER.selectParIdArticle(noArticle);

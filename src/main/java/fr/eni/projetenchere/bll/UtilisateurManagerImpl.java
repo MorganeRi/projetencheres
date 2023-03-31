@@ -23,8 +23,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	 */
 	@Override
 	public void createUtilisateur(Utilisateur utilisateur) throws BusinessException {
-		this.utilisateurDao.insertUtilisateur(utilisateur);
-
+		    this.utilisateurDao.insertUtilisateur(utilisateur);
 	}
 
 	// voir méthode du prof
@@ -74,6 +73,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public void majMontantCredit(Utilisateur utilisateur) throws BusinessException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Utilisateur selectParEmailUtilisateur(String email) throws BusinessException {
+		return this.utilisateurDao.selectByEmailUtilisateur(email);
 	}
 
 }

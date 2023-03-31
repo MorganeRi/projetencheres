@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
@@ -36,22 +37,31 @@ public class ServletMonProfil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Integer noUtilisateur;
-		Utilisateur utilisateur = new Utilisateur();
-		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+		HttpSession session = request.getSession();
+		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		if (idUtilisateur == null) {
+			// Rediriger vers la page de connexion
+			response.sendRedirect("ServletConnexion");
+			return;
+		} else {
 
-		noUtilisateur = (Integer) request.getSession().getAttribute("id");
-		try {
-			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
-		} catch (BusinessException e) {
-			e.printStackTrace();
+			Integer noUtilisateur;
+			Utilisateur utilisateur = new Utilisateur();
+			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+
+			noUtilisateur = (Integer) request.getSession().getAttribute("id");
+			try {
+				utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+
+			request.setAttribute("Utilisateur", utilisateur);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/MonProfil.jsp");
+			rd.forward(request, response);
+
 		}
-
-		request.setAttribute("Utilisateur", utilisateur);
-
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/MonProfil.jsp");
-		rd.forward(request, response);
-		
 	}
 
 	/**

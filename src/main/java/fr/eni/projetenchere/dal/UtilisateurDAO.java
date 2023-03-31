@@ -22,5 +22,8 @@ public interface UtilisateurDAO {
 
 	// Update du montant du crédit utilisateur
 	public void updateMontantCredit(Utilisateur utilisateur) throws BusinessException;
+	
+	// afficher le profil des autres utilisateurs par email
+	public Utilisateur selectByEmailUtilisateur(String email) throws BusinessException;
 
 }

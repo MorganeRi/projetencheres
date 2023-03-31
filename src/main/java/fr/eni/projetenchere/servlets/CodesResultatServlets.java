@@ -11,4 +11,6 @@ public abstract class CodesResultatServlets {
 	
 	public static final int MOTDEPASSEACTUEL_ERREUR=30002;
 	
+	public static final int MAIL_DOUBLON_ERREUR=30003;
+	
 }

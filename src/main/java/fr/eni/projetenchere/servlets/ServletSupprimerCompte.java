@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.UtilisateurManager;
@@ -34,24 +35,33 @@ public class ServletSupprimerCompte extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-		Utilisateur util = new Utilisateur();
-		try {
-			util = utilisateurManager.selectParNoUtilisateur((Integer) request.getSession().getAttribute("id"));
-			// util = utilisateurManager.selectParNoUtilisateur(2);
-		} catch (BusinessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			utilisateurManager.supprimerUtilisateur(util);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		HttpSession session = request.getSession();
+		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		if (idUtilisateur == null) {
+			// Rediriger vers la page de connexion
+			response.sendRedirect("ServletConnexion");
+			return;
+		} else {
 
-		request.getSession().invalidate();
-		response.sendRedirect("./ServletAccueil");
+			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+			Utilisateur util = new Utilisateur();
+			try {
+				util = utilisateurManager.selectParNoUtilisateur((Integer) request.getSession().getAttribute("id"));
+				// util = utilisateurManager.selectParNoUtilisateur(2);
+			} catch (BusinessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				utilisateurManager.supprimerUtilisateur(util);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			request.getSession().invalidate();
+			response.sendRedirect("./ServletAccueil");
+		}
 	}
 
 	/**
