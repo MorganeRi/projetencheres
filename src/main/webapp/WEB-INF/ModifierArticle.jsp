@@ -108,7 +108,7 @@
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 				<input  type="submit" value="Enregistrer" class="btn btn-dark me-3"/>
 				<input  type="reset" value="Annuler" class="btn btn-dark me-3">
-				<a  href="ServletSupprimerArticle"  class="btn btn-dark me-3" role="button">Annuler la vente</a>
+				<a  href="ServletSupprimerArticle"  class="btn btn-dark me-3" role="button">Supprimer l'article</a>
 			</div>
 		</form>
 	</div>

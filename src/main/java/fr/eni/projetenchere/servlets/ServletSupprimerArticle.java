@@ -20,7 +20,7 @@ import fr.eni.projetenchere.bo.ArticleVendu;
 @WebServlet("/ServletSupprimerArticle")
 public class ServletSupprimerArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ArticleVenduManager ARTICLE_VENDU_MANAGER = ArticleVenduManagerSing.getInstanceArticle();
+	private static ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,12 +33,15 @@ public class ServletSupprimerArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().getAttribute("id");
+		//request.getSession().getAttribute("id");
+
 		HttpSession session = request.getSession();
 		ArticleVendu articleASupprimer = (ArticleVendu) session.getAttribute("articleAManipuler");
 		
+		System.out.println(articleASupprimer);
+		
 		try {
-			ARTICLE_VENDU_MANAGER.supprimerArticleVendu(articleASupprimer);
+			articleVenduManager.supprimerArticleVendu(articleASupprimer);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
