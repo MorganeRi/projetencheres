@@ -80,7 +80,8 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			ville = request.getParameter("Ville");
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
-						
+		
+			
 			if (utilisateurManager.selectParEmailUtilisateur(email) != null) {
 				System.out.println(email);
 				listeCodesErreur.add(CodesResultatServlets.MAIL_DOUBLON_ERREUR);

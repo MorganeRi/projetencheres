@@ -15,7 +15,7 @@
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 	if (utilisateur != null) {
 	%>
-	<p style="color: green;">Votre compte a été crée avec succès et vous êtes connecté !</p>
+	<p style="color: green;">Votre compte a été crée avec succès et vous êtes connecté ! </p>
 	<%
 	}
 	%>
