@@ -29,7 +29,11 @@ import fr.eni.projetenchere.bo.Utilisateur;
 
 
 /**
- * Servlet implementation class ServletModifierArticle
+ * Servlet ServletModifierArticle qui permet de :
+ * -Afficher toutes les infos actuelles de l'article
+ * -Permettre de changer les infos dans chaque champ
+ * -Mettre à jour les changements d'infos de l'article
+ * -Supprimer l'article 
  */
 @WebServlet("/ServletModifierArticle")
 public class ServletModifierArticle extends HttpServlet {
@@ -56,15 +60,17 @@ public class ServletModifierArticle extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Ici mon doGet va permettre lors de l'appel de la Servlet de : 
+	 * - récupérer la session en cours, si pas de session on renvoie direct à la ServletConnexion
+	 * - On va aller chercher les catégories en BDD pour les réafficher dans le déroulant de la JSP
+	 * - On va récupérer l'idArticle stocké dans la session (qui permet d'acceder au modifierArticle
+	 * quand on est sur le detail de l'article)
+	 * - On récupère les infos retrait en fonction de l'idArticle
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		gérer la récupération de session utilisateur
 		HttpSession session = request.getSession();
         Integer idUtilisateur = (Integer) session.getAttribute("id");
-    	
-		Integer noUtilisateur = null;;
-		Utilisateur utilisateur = new Utilisateur();
-		
         List<Categorie> listCategorie = new ArrayList<>(); 
        
 		Integer noArticle = null;
@@ -72,17 +78,12 @@ public class ServletModifierArticle extends HttpServlet {
 		Retrait retrait = null;
         
         if (idUtilisateur == null) {
-            // Rediriger vers la page de connexion
             response.sendRedirect("ServletConnexion");
             return;
         } else {
 			try {
 				listCategorie = cateegorieManager.selectAllCategorie();
 				request.setAttribute(LIST_CATEGORIE, listCategorie);
-				
-				noUtilisateur = (Integer) request.getSession().getAttribute("id");
-				utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
-				request.setAttribute(UTILISATEUR, utilisateur);
 				
 				noArticle = (Integer) session.getAttribute("idArticle");
 				articleAAfficher = articleVenduManager.selectParIdArticle(noArticle);
