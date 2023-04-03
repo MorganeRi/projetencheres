@@ -77,10 +77,11 @@ public class ServletDetailArticle extends HttpServlet {
 				art = ArticleVenduManager.selectParIdArticle(idArticle);
 				utilisateur = utilisateurManager.selectParNoUtilisateur(art.getUtilisateur().getNoUtilisateur());
 				// retrait = retMan.selectParIdRetrait(idArticle);
-				if(enchereManager.selectMaxEnchere(art) != null) {
+				if (enchereManager.selectMaxEnchere(art) != null) {
 					enchereMax = enchereManager.selectMaxEnchere(art);
-					}else {enchereMax.setMontantEnchere(0);
-					}
+				} else {
+					enchereMax.setMontantEnchere(0);
+				}
 				retrait.setRue(utilisateur.getRue());
 				retrait.setCodePostal(utilisateur.getCodePostal());
 				retrait.setVille(utilisateur.getVille());
@@ -130,24 +131,22 @@ public class ServletDetailArticle extends HttpServlet {
 			noUtilisateur = (Integer) session.getAttribute("id");
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 			enchere = new Enchere(dateEnchere, montantEnchere, article, utilisateur);
-			
+
 			creditUtilisateur = utilisateur.getCredit();
 			if (creditUtilisateur >= montantEnchere) {
-				if(enchereManager.selectMaxEnchere(article) != null) {
+
 				enchereMax = enchereManager.selectMaxEnchere(article);
 				utilisateurActuelMax = enchereManager.selectMaxEnchere(article).getUtilisateur();
 				utilisateurActuelMax = enchereMax.getUtilisateur();
-				utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit()+enchereMax.getMontantEnchere());
+				utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit() + enchereMax.getMontantEnchere());
 				utilisateurManager.majMontantCredit(utilisateurActuelMax);
-				}else {enchereMax.setMontantEnchere(0);
-				}
-				
+
 				enchereManager.insertEnchere(enchere);
 				request.setAttribute("enchere", enchere);
-				
+
 				utilisateur.setCredit(creditUtilisateur - montantEnchere);
 				utilisateurManager.majMontantCredit(utilisateur);
-				
+
 			} else {
 				listeCodesErreur.add(CodesResultatServlets.CREDIT_INSUFFISANT);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
