@@ -20,7 +20,7 @@
 				.getElementById("ventesNonDebuteesCheckbox");
 		var ventesTermineesCheckbox = document
 				.getElementById("ventesTermineesCheckbox");
-if (achatsRadio.checked) {
+		if (achatsRadio.checked) {
 			enchereCheckbox.disabled = false;
 			mesEncheresCheckbox.disabled = false;
 			mesEncheresRemporteesCheckbox.disabled = false;
@@ -41,11 +41,12 @@ if (achatsRadio.checked) {
 	<jsp:param name="title" value="Accueil" />
 </jsp:include>
 
-<div class="container">
-<h1>Liste des enchères</h1>
+<div class="container-fluid">
+	<h1>Liste des enchères</h1>
 	<form class="d-flex" role="search"
 		action="<%=request.getContextPath()%>/ServletAccueil" method="post">
-		<div class="container">
+		<input type="hidden" name="form" value="form1" />
+		<div class="container-fluid">
 			<input class="form-control me-3" type="search"
 				placeholder="Rechercher un article" aria-label="Search"
 				name="search" style="width: 400px">
@@ -77,45 +78,48 @@ if (achatsRadio.checked) {
 			</select>
 			<button class="btn btn-outline-success" type="submit">Rechercher</button>
 		</div>
-		<%
-		if (id != null) {
-		%>
+	</form>
+	<%
+	if (id != null) {
+	%>
+	<form action="">
 		<div class="form-check">
 			<input type="radio" name="options" id="achatsRadio" value="achats"
 				onclick="toggleCheckboxes()" checked>Achats
-<!-- 			<div> -->
-<!-- 				<input type="checkbox" name="encheres" id="enchereCheckbox" -->
-<!-- 					value="enchères ouvertes">enchères ouvertes -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<input type="checkbox" name="mesEncheres" id="mesEncheresCheckbox" -->
-<!-- 					value="mes enchères">mes enchères -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<input type="checkbox" name="mesEncheresRemportees" -->
-<!-- 					id="mesEncheresRemporteesCheckbox" value="mes enchères remportées">mes -->
-<!-- 				enchères remportées -->
-<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<input type="checkbox" name="encheres" id="enchereCheckbox" -->
+			<!-- 					value="enchères ouvertes">enchères ouvertes -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<input type="checkbox" name="mesEncheres" id="mesEncheresCheckbox" -->
+			<!-- 					value="mes enchères">mes enchères -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<input type="checkbox" name="mesEncheresRemportees" -->
+			<!-- 					id="mesEncheresRemporteesCheckbox" value="mes enchères remportées">mes -->
+			<!-- 				enchères remportées -->
+			<!-- 			</div> -->
 		</div>
 		<div class="form-check">
 			<input type="radio" name="options" id="ventesRadio" value="ventes"
 				onclick="toggleCheckboxes()">Mes Ventes
-<!-- 			<div> -->
-<!-- 				<input type="checkbox" name="ventesEnCours" -->
-<!-- 					id="ventesEnCoursCheckbox" value="mes ventes en cours">mes -->
-<!-- 				ventes en cours -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<input type="checkbox" name="ventesNonDebutees" -->
-<!-- 					id="ventesNonDebuteesCheckbox" value="ventes non débutées">ventes -->
-<!-- 				non débutées -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<input type="checkbox" name="ventesTerminees" -->
-<!-- 					id="ventesTermineesCheckbox" value="ventes terminées">ventes -->
-<!-- 				terminées -->
-<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<input type="checkbox" name="ventesEnCours" -->
+			<!-- 					id="ventesEnCoursCheckbox" value="mes ventes en cours">mes -->
+			<!-- 				ventes en cours -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<input type="checkbox" name="ventesNonDebutees" -->
+			<!-- 					id="ventesNonDebuteesCheckbox" value="ventes non débutées">ventes -->
+			<!-- 				non débutées -->
+			<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- 				<input type="checkbox" name="ventesTerminees" -->
+			<!-- 					id="ventesTermineesCheckbox" value="ventes terminées">ventes -->
+			<!-- 				terminées -->
+			<!-- 			</div> -->
 		</div>
+
 
 		<%
 		}
@@ -124,10 +128,12 @@ if (achatsRadio.checked) {
 
 	</form>
 </div>
+<div><a href="<%=request.getContextPath()%>/images/image5.png">test</a></div>
+
 <%
 if (articles != null) {
 %>
-<div class="container d-flex align-content-stretch flex-wrap">
+<div class="container-fluid d-flex align-content-stretch flex-wrap">
 	<%
 	for (ArticleVendu art : articles) {
 		// System.out.println(articles.toString());
@@ -135,17 +141,17 @@ if (articles != null) {
 
 
 
-<div class="card">
+	<div class="card">
 		<div class="card-body">
 			<%
 			if (id != null) {
 			%>
 			<h5 class="card-title text-dark">
-				<a class="text-dark" href="ServletDetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
+				<a class="text-dark"
+					href="ServletDetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
 
 			</h5>
 			<%
-	
 			} else {
 			%>
 			<h5 class="card-title text-dark"><%=art.getNomArticle()%></h5>
@@ -185,7 +191,7 @@ if (articles != null) {
 } else {
 if (toutArticles != null) {
 %>
-<div class="container d-flex flex-wrap">
+<div class="container-fluid d-flex flex-wrap">
 	<%
 	for (ArticleVendu art : toutArticles) {
 	%>
@@ -198,11 +204,11 @@ if (toutArticles != null) {
 			if (id != null) {
 			%>
 			<h5 class="card-title text-dark">
-				<a class="text-dark" href="ServletDetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
+				<a class="text-dark"
+					href="ServletDetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
 
 			</h5>
 			<%
-	
 			} else {
 			%>
 			<h5 class="card-title text-dark"><%=art.getNomArticle()%></h5>
