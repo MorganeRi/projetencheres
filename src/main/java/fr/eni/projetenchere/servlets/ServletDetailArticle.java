@@ -1,7 +1,6 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,6 @@ import fr.eni.projetenchere.bll.ArticleVenduManager;
 import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
 import fr.eni.projetenchere.bll.EnchereManager;
 import fr.eni.projetenchere.bll.EnchereManagerSing;
-import fr.eni.projetenchere.bll.RetraitManager;
-import fr.eni.projetenchere.bll.RetraitManagerSing;
 import fr.eni.projetenchere.bll.UtilisateurManager;
 import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
@@ -60,11 +57,13 @@ public class ServletDetailArticle extends HttpServlet {
 
 			ArticleVendu art = new ArticleVendu();
 			Utilisateur utilisateur = new Utilisateur();
+			Enchere enchereMax = new Enchere();
 			Retrait retrait = new Retrait();
 			Integer idArticle = null;
 			ArticleVenduManager ArticleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
 			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-			RetraitManager retMan = RetraitManagerSing.getInstanceRetraitImpl();
+			EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
+//			RetraitManager retMan = RetraitManagerSing.getInstanceRetraitImpl();
 
 			if ((request.getParameter("idArticle")) != null) {
 				idArticle = Integer.parseInt(request.getParameter("idArticle"));
@@ -78,7 +77,7 @@ public class ServletDetailArticle extends HttpServlet {
 				art = ArticleVenduManager.selectParIdArticle(idArticle);
 				utilisateur = utilisateurManager.selectParNoUtilisateur(art.getUtilisateur().getNoUtilisateur());
 				// retrait = retMan.selectParIdRetrait(idArticle);
-
+				enchereMax = enchereManager.selectMaxEnchere(art);
 				retrait.setRue(utilisateur.getRue());
 				retrait.setCodePostal(utilisateur.getCodePostal());
 				retrait.setVille(utilisateur.getVille());
@@ -89,6 +88,7 @@ public class ServletDetailArticle extends HttpServlet {
 			}
 
 			request.setAttribute("article", art);
+			request.setAttribute("enchereMax", enchereMax);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/DetailArticle.jsp");
 			rd.forward(request, response);
@@ -108,13 +108,17 @@ public class ServletDetailArticle extends HttpServlet {
 		Utilisateur utilisateur = null;
 		Integer noUtilisateur;
 		Enchere enchere;
+		Enchere enchereMax;
+		Utilisateur utilisateurActuelMax;
 		LocalDateTime dateEnchere = LocalDateTime.now();
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
 		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+		Integer creditUtilisateur = null;
 		EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
 
 		try {
+
 			String enchereString = request.getParameter("enchere");
 			montantEnchere = Integer.parseInt(enchereString);
 			noArticle = (Integer) (request.getSession().getAttribute("idArticle"));
@@ -123,9 +127,26 @@ public class ServletDetailArticle extends HttpServlet {
 			noUtilisateur = (Integer) session.getAttribute("id");
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 			enchere = new Enchere(dateEnchere, montantEnchere, article, utilisateur);
-			enchereManager.insertEnchere(enchere);
-			request.setAttribute("enchere", enchere);
-
+			
+			creditUtilisateur = utilisateur.getCredit();
+			if (creditUtilisateur >= montantEnchere) {
+				
+				utilisateurActuelMax = enchereManager.selectMaxEnchere(article).getUtilisateur();
+				enchereMax = enchereManager.selectMaxEnchere(article);
+				utilisateurActuelMax = enchereMax.getUtilisateur();
+				utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit()+enchereMax.getMontantEnchere());
+				utilisateurManager.majMontantCredit(utilisateurActuelMax);
+				
+				enchereManager.insertEnchere(enchere);
+				request.setAttribute("enchere", enchere);
+				
+				utilisateur.setCredit(creditUtilisateur - montantEnchere);
+				utilisateurManager.majMontantCredit(utilisateur);
+				
+			} else {
+				listeCodesErreur.add(CodesResultatServlets.CREDIT_INSUFFISANT);
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.INSERT_ENCHERE_ERREUR);

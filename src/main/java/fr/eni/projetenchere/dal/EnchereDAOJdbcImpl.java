@@ -82,6 +82,7 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 		}
 		return result;
 	}
+//	private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article, enchere_gagnante from enchere WHERE no_article=?";
 
 	@Override
 	public Enchere selectMaxEnchere(ArticleVendu articleVendu) throws BusinessException {
