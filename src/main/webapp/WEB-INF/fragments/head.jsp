@@ -69,7 +69,6 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 
 				</ul>
 
-
 			</div>
 
 		</div>
