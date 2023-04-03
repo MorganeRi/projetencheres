@@ -57,16 +57,30 @@ public class ServletGestionAdmin extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AdminGestion.jsp");
 			rd.forward(request, response);
 		}
-		
-		
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		Categorie categorie = null; 
+		String nomCategorie = null;
+		
+		try {
+			nomCategorie = request.getParameter("nomCategorie");
+			
+			categorie = new Categorie(nomCategorie);
+			System.out.println(categorie);
+			
+			categorieManager.ajouterCategorie(categorie);
+//			permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
+//			de validation lors de l'insertion de la categorie
+			request.setAttribute("categorieARajouter", categorie);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		doGet(request, response);
 	}
 

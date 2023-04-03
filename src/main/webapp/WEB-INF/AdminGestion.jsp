@@ -62,11 +62,19 @@
 							<label class="form-label me-3" for="nomCategorie">Ajouter : 
 							</label> 
 							<input class="form-control me-3" type="text"
-								id="nomVille" name="nomVille" style="width: 30%" /> 
+								id="nomCategorie" name="nomCategorie" style="width: 30%" /> 
 							<input type="submit" value="Enregistrer" class="btn btn-dark me-3" />
 						</div>
 						</form>
-					
+						<br />
+						<%
+							Categorie categorieAjoute = (Categorie) request.getAttribute("categorieARajouter");
+							if(categorieAjoute != null){
+						%>
+							<p style="color: green;">La catégorie a été ajoutée avec succès</p>
+						<%
+						}
+						%>
 					<a href="#!" class="btn btn-dark">Modifier la catégorie</a>
                     <a href="#!" class="btn btn-dark">Supprimer la catégorie</a>
                 </div>
