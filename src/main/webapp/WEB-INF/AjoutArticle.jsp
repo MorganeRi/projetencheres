@@ -11,7 +11,7 @@
 </jsp:include>
 <h1 class="font-weight-bold text-center">Nouvelle vente</h1>
 
-<div class="container" style="border: 1px solid silver; width: 500px;">
+<div class="container-fluid" style="border: 1px solid silver; width: 500px;">
 	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {

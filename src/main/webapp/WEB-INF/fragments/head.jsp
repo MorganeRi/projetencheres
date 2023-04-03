@@ -28,7 +28,7 @@ String pseudo = (String) session.getAttribute("pseudo");
 		class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark bg-gradient"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="ServletAccueil"><img class="img-fluid" alt="logo" src="/projetencheres/images/logo.jpg" width="100" height="auto"></a>
+			<a class="navbar-brand" href="ServletAccueil"><img class="img-fluid" alt="logo" src="./images/logo.jpg" width="100" height="auto"></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
