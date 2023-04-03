@@ -5,7 +5,7 @@ import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.ArticleVendu;
-import fr.eni.projetenchere.bo.Categorie;
+
 import fr.eni.projetenchere.dal.ArticleVenduDAO;
 import fr.eni.projetenchere.dal.DAOFactory;
 

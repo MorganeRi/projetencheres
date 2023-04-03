@@ -11,6 +11,12 @@ import fr.eni.projetenchere.dal.DAOFactory;
 
 public class CategorieManagerImpl implements CategorieManager{
 	private CategorieDAO dao = DAOFactory.getCategorieDAO();
+	
+	@Override
+	public Categorie ajouterCategorie(Categorie categorie) throws BusinessException {
+		dao.insertCategorie(categorie);
+		return categorie;
+	}
 
 	@Override
 	public List<Categorie> selectAllCategorie() throws BusinessException {
@@ -34,5 +40,7 @@ public class CategorieManagerImpl implements CategorieManager{
 			throw businessException;
 		}
 	}
+
+	
 
 }

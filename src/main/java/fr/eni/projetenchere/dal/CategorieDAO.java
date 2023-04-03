@@ -6,6 +6,8 @@ import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Categorie;
 
 public interface CategorieDAO {
+	
+	public Categorie insertCategorie(Categorie categorie) throws BusinessException;
 
 	public List<Categorie> selectAllCategorie() throws BusinessException;
 	

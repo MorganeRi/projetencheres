@@ -3,17 +3,16 @@
 <%@page import="fr.eni.projetenchere.bo.Categorie"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
-<%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 
-<jsp:include page="./WEB-INF/fragments/head.jsp">
+<jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="Gestion du site par Super Admin " />
 </jsp:include>
 <h1 class="font-weight-bold text-center">Gestion du site par Super Admin</h1>
 
 <div class="container-fluid   mt-4">
 	<div class="row">
-		<div class="col-md-11 mx-auto">
+		<div class="col-md-9 mx-auto">
 			<div class="position-relative card table-nowrap table-card">
                 <div class="card-header align-items-center">
                     <h5 class="mb-0">Liste des catégories</h5>
@@ -30,12 +29,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="align-middle">
+                        	<%
+                        		List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
+                        		for (Categorie categorieDispo : listCategorie){
+                        	%>
+                        		<tr class="align-middle">
                                 <td>
-                                    #57473829
+                                    <%=categorieDispo.getNoCategorie()%>
                                 </td>
-                                <td>informatique</td>
-                                
+                                <td>
+                                	<%=categorieDispo.getLibelle()%>
+                                </td>
 								<td>
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" id="checkbox1">
@@ -43,68 +47,26 @@
 									</div>
 								</td>
 							</tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #012458780
-                                </td>
-                                <td>loisirs</td>
-                                
-                                <td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-                            </tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #76444326
-                                </td>
-                                <td>maison</td>
-                                
-                                <td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-                            </tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #12498745
-                                </td>
-                                <td>electromenager</td>
-                                
-                                <td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-                            </tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #87444654
-                                </td>
-                                <td>musique </td>
-                                
-                                <td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-                            </tr>
+                        	<%
+                        		}
+                        	%>
+                            
                         </tbody>
                     </table>
                 </div>
                 <div class="card-footer text-end">
-					<div class="mb-1 d-flex align-items-center justify-content-end">
-						<label class="form-label me-3" for="nomCategorie">Ajouter : </label> 
-						<input class="form-control" type="text" id="nomVille" name="nomVille" 
-						style="width: 30%"/>
-						<input type="submit" value="Enregistrer" class="btn btn-dark me-3" />
-					</div>
+					
+						<form action="<%=request.getContextPath()%>/ServletGestionAdmin"
+						method="post">
+						<div class="mb-1 d-flex align-items-center justify-content-end">
+							<label class="form-label me-3" for="nomCategorie">Ajouter : 
+							</label> 
+							<input class="form-control me-3" type="text"
+								id="nomVille" name="nomVille" style="width: 30%" /> 
+							<input type="submit" value="Enregistrer" class="btn btn-dark me-3" />
+						</div>
+						</form>
+					
 					<a href="#!" class="btn btn-dark">Modifier la catégorie</a>
                     <a href="#!" class="btn btn-dark">Supprimer la catégorie</a>
                 </div>
@@ -227,4 +189,4 @@
 		</div>
 	</div>
 </div>
-<jsp:include page="./WEB-INF/fragments/foot.jsp"></jsp:include>
+<jsp:include page="./fragments/foot.jsp"></jsp:include>
