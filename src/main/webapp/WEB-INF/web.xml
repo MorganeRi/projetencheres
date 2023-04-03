@@ -14,7 +14,7 @@
 </session-config>
 <servlet>
     <servlet-name>homePageRedirectServlet</servlet-name>
-    <servlet-class>com.example.HomePageRedirectServlet</servlet-class>
+    <servlet-class>fr.eni.projetenchere.servlets.HomePageRedirectServlet</servlet-class>
 </servlet>
 <servlet-mapping>
     <servlet-name>homePageRedirectServlet</servlet-name>

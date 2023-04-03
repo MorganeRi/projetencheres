@@ -26,8 +26,13 @@ public class HomePageRedirectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = request.getContextPath() + "/ServletAccueil/";
-        response.sendRedirect(path);
+        String path = request.getContextPath() + "/ServletAccueil";
+        String currentPath = request.getRequestURI();
+        if (!currentPath.equals(path)) {
+            response.sendRedirect(path);
+        } else {
+            // l'utilisateur est déjà sur la page d'accueil, pas besoin de rediriger
+        }
 	}
 
 	/**
