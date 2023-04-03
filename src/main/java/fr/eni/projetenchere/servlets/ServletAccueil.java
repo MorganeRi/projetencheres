@@ -100,8 +100,7 @@ public class ServletAccueil extends HttpServlet {
         }
         
         if(formulaire.equals("form1")) {
-        	System.out.println(noCat);
-        	System.out.println(recherche);
+
             if ((noCat.equals("Selectionner une categorie")) && recherche.isBlank()) {
             	try {
 
@@ -141,7 +140,7 @@ public class ServletAccueil extends HttpServlet {
 				}
             } else {
             	try {
-					articles =  article.selectParNomArticleParCat(recherche, noCategorie);
+					articles =  article.selectParNomArticleParCat(recherche, noCat);
 					if (articles==null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 4");
 					}else {

@@ -115,9 +115,12 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 				} else {
 					enchGa=true;
 				}
-				
-
-				ench= new Enchere(rs.getInt("no_enchere"),rs.getTimestamp("date_enchere").toLocalDateTime(),rs.getInt(3),articleVendu1,utilisateur, enchGa);
+				if (idUtil != 0) {
+					ench = new Enchere(rs.getInt("no_enchere"), rs.getTimestamp("date_enchere").toLocalDateTime(),
+							rs.getInt(3), articleVendu1, utilisateur, enchGa);
+				} else {
+					ench = null;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

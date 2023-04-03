@@ -23,7 +23,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
 	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle, photo from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
 	private static final String SELECT_ALL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie";
-	private static final String SELECT_BY_NOM_BY_CAT = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=?";
+	private static final String SELECT_BY_NOM_BY_CAT = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and libelle=?";
 	private static final String SELECT_BY_NOM_BY_CAT_SAUF_UTIL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=? and no_utilisateur!=?";
 	private static final String SELECT_BY_NOM_BY_CAT_BY_UTIL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=? and no_utilisateur=?";
 	
@@ -361,7 +361,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public List<ArticleVendu> selectByNomArticleByCat(String nom, Integer id) throws BusinessException {
+	public List<ArticleVendu> selectByNomArticleByCat(String nom, String lib) throws BusinessException {
 		List<ArticleVendu> articles = null;
 		ArticleVendu article = null;
 		Categorie cat = null;
@@ -370,7 +370,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_NOM_BY_CAT);
 			String recherche = "%" + nom + "%";
 			pstmt.setString(1, recherche);
-			pstmt.setInt(2, id);
+			pstmt.setString(2, lib);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {

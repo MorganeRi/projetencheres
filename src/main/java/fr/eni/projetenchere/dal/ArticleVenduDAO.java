@@ -35,7 +35,7 @@ public interface ArticleVenduDAO {
 	public List<ArticleVendu> selectAllArticle() throws BusinessException;
 	
 	//Sélection par nom et par categorie
-	public List<ArticleVendu> selectByNomArticleByCat (String nom,Integer id) throws BusinessException;
+	public List<ArticleVendu> selectByNomArticleByCat (String nom,String lib) throws BusinessException;
 	
 	//Selection des articles SAUF ceux de l'uilisateur connecté
 	

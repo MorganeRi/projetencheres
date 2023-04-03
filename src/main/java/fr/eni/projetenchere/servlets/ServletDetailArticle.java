@@ -77,7 +77,10 @@ public class ServletDetailArticle extends HttpServlet {
 				art = ArticleVenduManager.selectParIdArticle(idArticle);
 				utilisateur = utilisateurManager.selectParNoUtilisateur(art.getUtilisateur().getNoUtilisateur());
 				// retrait = retMan.selectParIdRetrait(idArticle);
-				enchereMax = enchereManager.selectMaxEnchere(art);
+				if(enchereManager.selectMaxEnchere(art) != null) {
+					enchereMax = enchereManager.selectMaxEnchere(art);
+					}else {enchereMax.setMontantEnchere(0);
+					}
 				retrait.setRue(utilisateur.getRue());
 				retrait.setCodePostal(utilisateur.getCodePostal());
 				retrait.setVille(utilisateur.getVille());
