@@ -130,6 +130,16 @@ public abstract class CodesResultatDAL {
 	 * Echec du select by id utilisateur
 	 */
 	public static final int SELECT_BY_ID_UTILISATEUR_ECHEC = 10105;
+	
+	
+	/**
+	 * le paramètre categorie rentré est null
+	 */
+	public static final int INSERT_CATEGORIE_NULL = 10201;
+	/**
+	 * l'insert de categorie a échoué
+	 */
+	public static final int INSERT_CATEGORIE_ECHEC = 10202;
 
 	public static final int SELECT_CATEGORIE_BY_ID_ECHEC = 10049;
 	/**

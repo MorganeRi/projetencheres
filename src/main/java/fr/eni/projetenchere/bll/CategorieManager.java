@@ -6,6 +6,9 @@ import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Categorie;
 
 public interface CategorieManager {
+	
+	
+	public Categorie ajouterCategorie(Categorie categorie) throws BusinessException;
 
 	public List<Categorie> selectAllCategorie() throws BusinessException;
 	
