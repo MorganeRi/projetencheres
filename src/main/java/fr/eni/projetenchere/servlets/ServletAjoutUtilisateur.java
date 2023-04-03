@@ -78,7 +78,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			codePostal = request.getParameter("CodePostal");
 			ville = request.getParameter("Ville");
 			motDePasse = request.getParameter("MotDePasse");
-			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
+			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse") ;
 
 			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)||(utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()==null)){
 				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
