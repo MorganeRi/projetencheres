@@ -1,6 +1,7 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,11 +115,11 @@ public class ServletDetailArticle extends HttpServlet {
 		Enchere enchere;
 		Enchere enchereMax = null;
 		Utilisateur utilisateurActuelMax;
+		Integer creditUtilisateur = null;
 		LocalDateTime dateEnchere = LocalDateTime.now();
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
 		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-		Integer creditUtilisateur = null;
 		EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
 
 		try {
@@ -145,11 +146,25 @@ public class ServletDetailArticle extends HttpServlet {
 					utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit() + enchereMax.getMontantEnchere());
 					utilisateurManager.majMontantCredit(utilisateurActuelMax);
 				}
+
 				enchereManager.insertEnchere(enchere);
 				request.setAttribute("enchere", enchere);
 
 				utilisateur.setCredit(creditUtilisateur - montantEnchere);
 				utilisateurManager.majMontantCredit(utilisateur);
+
+				// La date de fin de l'enchère est arrivée il faut donc déterminer qui est
+				// l'acquéreur et quel est le prix de vente final
+				LocalDate dateFinEnchere = article.getDateFinEnchere();
+				LocalDate dateDuJour = LocalDate.now();
+				if (dateFinEnchere.isAfter(dateDuJour)) {
+					article.setNoAcquereur(
+							enchereManager.selectMaxEnchere(article).getUtilisateur().getNoUtilisateur());
+					article.setPrixDeVente(enchereManager.selectMaxEnchere(article).getMontantEnchere());
+					articleManager.majPxVenteArticleVendu(article);
+					articleManager.majNoAcquereur(article);
+
+				}
 
 			} else {
 				listeCodesErreur.add(CodesResultatServlets.CREDIT_INSUFFISANT);

@@ -3,7 +3,6 @@ package fr.eni.projetenchere.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +20,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where libelle=?";
 	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ?";
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
+	private static final String UPDATE_NO_ACQUEREUR = "update article_vendu set no_acquereur=? where no_article =?";
 	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle, photo from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
 	private static final String SELECT_ALL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie";
 	private static final String SELECT_BY_NOM_BY_CAT = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and libelle=?";
@@ -255,6 +255,29 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			BusinessException businessException = new BusinessException();
 
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_PX_VENTE_ARTICLE_ECHEC);
+
+			throw businessException;
+		}
+	}
+	
+	public void updateNoAcquereur(ArticleVendu articleVendu) throws BusinessException {
+		if (articleVendu == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_NO_ACQUEREUR_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_NO_ACQUEREUR);
+
+			pstmt.setInt(1, articleVendu.getNoAcquereur());
+			pstmt.setInt(2, articleVendu.getNoArticle());
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_NO_ACQUEREUR_ECHEC);
 
 			throw businessException;
 		}

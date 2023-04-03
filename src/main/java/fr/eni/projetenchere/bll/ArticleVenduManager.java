@@ -4,7 +4,6 @@ import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.ArticleVendu;
-import fr.eni.projetenchere.bo.Categorie;
 
 public interface ArticleVenduManager {
 	
@@ -46,5 +45,7 @@ public interface ArticleVenduManager {
 	public List<ArticleVendu> ventesNonDebutees(Integer idUtil) throws BusinessException;
 	
 	public List<ArticleVendu> ventesTerminees(Integer idUtil) throws BusinessException;
+	
+	public void majNoAcquereur(ArticleVendu articleVendu) throws BusinessException;
 	
 }

@@ -136,5 +136,11 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		return dao.ventesTerminees(idUtil);
 	}
 
+	@Override
+	public void majNoAcquereur(ArticleVendu articleVendu) throws BusinessException {
+		this.dao.updateNoAcquereur(articleVendu);
+		
+	}
+
 
 }
