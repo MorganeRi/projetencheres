@@ -58,7 +58,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public void majPxVenteArticleVendu(ArticleVendu articleVendu) throws BusinessException {
-		// TODO Auto-generated method stub
+		this.dao.updatePxVenteArticleVendu(articleVendu);
 
 	}
 

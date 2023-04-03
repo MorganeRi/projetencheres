@@ -26,5 +26,7 @@ public abstract class CodesResultatServlets {
 	
 	public static final int CREDIT_INSUFFISANT = 30015;
 	
+	public static final int HORS_DATE_ENCHERE = 30016;
+	
 
 }

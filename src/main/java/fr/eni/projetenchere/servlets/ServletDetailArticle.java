@@ -115,7 +115,7 @@ public class ServletDetailArticle extends HttpServlet {
 		Enchere enchereMax = null;
 		Utilisateur utilisateurActuelMax;
 		Integer creditUtilisateur = null;
-		LocalDateTime dateEnchere = LocalDateTime.now();
+		LocalDateTime dateDuJour = LocalDateTime.now();
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
 		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
@@ -130,7 +130,8 @@ public class ServletDetailArticle extends HttpServlet {
 			HttpSession session = request.getSession();
 			noUtilisateur = (Integer) session.getAttribute("id");
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
-			enchere = new Enchere(dateEnchere, montantEnchere, article, utilisateur);
+			enchere = new Enchere(dateDuJour, montantEnchere, article, utilisateur);
+			LocalDateTime dateFinEnchere = article.getDateFinEnchere();
 
 			enchereMax = enchereManager.selectMaxEnchere(article);
 			if (enchereMax != null && enchereMax.getMontantEnchere() == null) {
@@ -154,8 +155,7 @@ public class ServletDetailArticle extends HttpServlet {
 
 				// La date de fin de l'enchère est arrivée il faut donc déterminer qui est
 				// l'acquéreur et quel est le prix de vente final
-				LocalDateTime dateFinEnchere = article.getDateFinEnchere();
-				LocalDateTime dateDuJour = LocalDateTime.now();
+
 				if (dateFinEnchere.isAfter(dateDuJour)) {
 					article.setNoAcquereur(
 							enchereManager.selectMaxEnchere(article).getUtilisateur().getNoUtilisateur());
@@ -169,6 +169,7 @@ public class ServletDetailArticle extends HttpServlet {
 				listeCodesErreur.add(CodesResultatServlets.CREDIT_INSUFFISANT);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
 			}
+
 		} catch (
 
 		BusinessException e) {

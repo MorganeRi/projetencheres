@@ -3,6 +3,7 @@
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
 <%@page import="fr.eni.projetenchere.bo.Enchere"%>
 <%@page import="java.util.List"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 <jsp:include page="./fragments/head.jsp">
 	<jsp:param name="title" value="Detail Article" />
@@ -16,7 +17,8 @@ ArticleVendu art = (ArticleVendu) request.getAttribute("article");
 Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 %>
 
-<div class="container-fluid" style="border: 1px solid silver; width: 500px;">
+<div class="container-fluid"
+	style="border: 1px solid silver; width: 500px;">
 	<h1>Detail Article</h1>
 	<ul class="list-group list-group-flush">
 		<li class="list-group-item"><img alt="photo"
@@ -25,11 +27,17 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 		</li>
 		<li class="list-group-item"><b>Description :</b> <%=art.getDescription()%></li>
 		<li class="list-group-item"><b>Categorie : </b> <%=art.getCategorie().getLibelle()%></li>
-		<% if(enchereMax.getMontantEnchere()==null){ %>
+		<%
+		if (enchereMax.getMontantEnchere() == null) {
+		%>
 		<li class="list-group-item"><b>Meilleur offre :</b>0</li>
-		<% } else { %>
+		<%
+		} else {
+		%>
 		<li class="list-group-item"><b>Meilleur offre :</b> <%=enchereMax.getMontantEnchere()%></li>
-		<%} %>
+		<%
+		}
+		%>
 		<li class="list-group-item"><b>Mise à prix : </b> <%=art.getPrixInitial()%></li>
 		<li class="list-group-item"><b>Fin de l'enchère : </b> <%=art.getDateFinEnchere()%></li>
 		<li class="list-group-item"><b>Retrait : </b> <%=art.getRetrait().getRue()%>
@@ -37,11 +45,19 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 		<li class="list-group-item"><b>Vendeur : </b> <%=art.getUtilisateur().getNom()%></li>
 	</ul>
 	<%
+	boolean enchereSoumise = false; // initialisez la variable booléenne
 	Enchere enchereAjoute = (Enchere) request.getAttribute("enchere");
-	
-	if (id != art.getUtilisateur().getNoUtilisateur()) {
-	
-	if (enchereAjoute != null) {
+	if (enchereAjoute == null) {
+		enchereAjoute = new Enchere();
+		enchereAjoute.setDateEnchere(LocalDateTime.now());
+	}
+
+	if (enchereAjoute.getDateEnchere().isBefore(art.getDateFinEnchere())
+			&& enchereAjoute.getDateEnchere().isAfter(art.getDateDebutEnchere())) {
+
+		if (id != art.getUtilisateur().getNoUtilisateur()) {
+			if (request.getMethod().equals("POST")) {
+		enchereSoumise = true;
 	%>
 	<p style="color: green;">Votre enchere a ete prise en compte avec
 		succes</p>
@@ -49,8 +65,6 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 
 	<%
 	}
-	%>
-	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
 	%>
@@ -68,25 +82,25 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 		<label class="form-label me-3" for="MiseAPrix"><b>Ma
 				proposition : </b></label> <input class="form-control" type="number"
 			id="enchere" name="enchere"
-			<% if(enchereMax.getMontantEnchere()==0){ %>
-			min="<%=art.getPrixInitial() + 1 %>"
-			<%}else{%>
-			min="<%=enchereMax.getMontantEnchere() + 1%>"
-			<%}%>
-			<% if(enchereMax.getMontantEnchere()==0){ %>
-			value="<%=art.getPrixInitial() + 1%>"
-			<%}else{%>
-			value="<%=enchereMax.getMontantEnchere() + 1%>"
-			<%}%>
-			style="width: 100px" />
-		<input type="submit" value="Encherir" class="btn btn-dark me-3" />
+			<%if (enchereMax.getMontantEnchere() == 0) {%>
+			min="<%=art.getPrixInitial() + 1%>" <%} else {%>
+			min="<%=enchereMax.getMontantEnchere() + 1%>" <%}%>
+			<%if (enchereMax.getMontantEnchere() == 0) {%>
+			value="<%=art.getPrixInitial() + 1%>" <%} else {%>
+			value="<%=enchereMax.getMontantEnchere() + 1%>" <%}%>
+			style="width: 100px" /> <input type="submit" value="Encherir"
+			class="btn btn-dark me-3" />
 	</form>
 
-	<%}
+	<%
+	}
 	if (id == art.getUtilisateur().getNoUtilisateur()) {
 	%>
 	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Modifier Article</a>
+	<%
+	}
+	%>
 	<%
 	}
 	%>
