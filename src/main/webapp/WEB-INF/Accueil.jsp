@@ -166,7 +166,7 @@ if (articles != null) {
 			<h6 class="card-subtitle mb-2 text-body-secondary">
 				Prix :
 				
-				<%if(art.getPrixDeVente()==null){ %>
+				<%if(art.getPrixDeVente()==0){ %>
 				
 				<%=art.getPrixInitial()%>
 				
@@ -231,7 +231,7 @@ if (toutArticles != null) {
 			%>
 			<h6 class="card-subtitle mb-2 text-body-secondary">
 				Prix :
-				<%if(art.getPrixDeVente()==null){ %>
+				<%if(art.getPrixDeVente()==0){ %>
 				
 				<%=art.getPrixInitial()%>
 				
