@@ -112,8 +112,7 @@ public class ServletConnexion extends HttpServlet {
         session.setAttribute(SESSION_UTILISATEUR_MAIL, util.getEmail());
         session.setAttribute(SESSION_UTILISATEUR_PSEUDO, util.getPseudo());
         session.setAttribute(SESSION_UTILISATEUR_ADMIN, util.getAdministrateur());
-        
-        System.out.println(session.getAttribute("admin"));
+
 		
 		response.sendRedirect("./ServletConnexion");
 	}
