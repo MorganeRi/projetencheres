@@ -135,12 +135,12 @@ public class ServletDetailArticle extends HttpServlet {
 			if (creditUtilisateur >= montantEnchere) {
 				if(enchereManager.selectMaxEnchere(article) != null) {
 				enchereMax = enchereManager.selectMaxEnchere(article);
-				}else {enchereMax.setMontantEnchere(0);
-				}
 				utilisateurActuelMax = enchereManager.selectMaxEnchere(article).getUtilisateur();
 				utilisateurActuelMax = enchereMax.getUtilisateur();
 				utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit()+enchereMax.getMontantEnchere());
 				utilisateurManager.majMontantCredit(utilisateurActuelMax);
+				}else {enchereMax.setMontantEnchere(0);
+				}
 				
 				enchereManager.insertEnchere(enchere);
 				request.setAttribute("enchere", enchere);
