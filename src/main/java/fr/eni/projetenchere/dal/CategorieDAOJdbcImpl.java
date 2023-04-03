@@ -11,6 +11,7 @@ import fr.eni.projetenchere.bo.Categorie;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
+	private static final String UPDATE_CATEGORIE = "UPDATE categorie SET libelle=? WHERE no_categorie=?";
 	private static final String INSERT_CATEGORIE = "INSERT INTO categorie(libelle) values(?)";
 	private static final String SELECT_CATEGORIE_BY_ID = "SELECT no_categorie,libelle FROM categorie WHERE no_categorie = ? ";
 	private static final String GET_ALL_CATEGORIE = "SELECT no_categorie, libelle FROM categorie";
@@ -34,9 +35,32 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 				categorie.setNoCategorie(rs.getInt(1));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_CATEGORIE_ECHEC);
+			throw businessException;
+		}
+		return categorie;
+	}
+	
+	@Override
+	public Categorie updateCategorie(Categorie categorie) throws BusinessException {
+		if(categorie == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_CATEGORIE_NULL);
+			throw businessException;
+		}
+		
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CATEGORIE);
+			
+			pstmt.setString(1, categorie.getLibelle());
+			pstmt.setInt(2, categorie.getNoCategorie());
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_CATEGORIE_ECHEC);
 			throw businessException;
 		}
 		return categorie;
@@ -84,6 +108,8 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		return categorie;
 	}
+
+	
 
 	
 }

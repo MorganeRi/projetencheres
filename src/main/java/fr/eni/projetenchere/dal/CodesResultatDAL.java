@@ -140,6 +140,15 @@ public abstract class CodesResultatDAL {
 	 * l'insert de categorie a échoué
 	 */
 	public static final int INSERT_CATEGORIE_ECHEC = 10202;
+	/**
+	 * le paramètre catégorie rentré est null
+	 */
+	
+	public static final int UPDATE_CATEGORIE_NULL = 10203;
+	/**
+	 * Eche pour mettre à jour cette catégorie
+	 */
+	public static final int UPDATE_CATEGORIE_ECHEC = 10204;
 
 	public static final int SELECT_CATEGORIE_BY_ID_ECHEC = 10049;
 	/**

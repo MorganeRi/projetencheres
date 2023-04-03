@@ -63,19 +63,36 @@ public class ServletGestionAdmin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Categorie categorie = null; 
-		String nomCategorie = null;
+		Categorie categorie,ancienneCategorie = null; 
+		String nomCategorie,action = null;
+		Integer noCategorie = null;
+		
 		
 		try {
-			nomCategorie = request.getParameter("nomCategorie");
+			action = request.getParameter("action");
 			
-			categorie = new Categorie(nomCategorie);
-			System.out.println(categorie);
+			if("Ajout Categorie".equals(action)) {
+//				Traitement pour ajouter une catégorie
+				nomCategorie = request.getParameter("nomCategorie");
+				
+				categorie = new Categorie(nomCategorie);
+//				System.out.println(categorie);
+				
+				categorieManager.ajouterCategorie(categorie);
+//				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
+//				de validation lors de l'insertion de la categorie
+				request.setAttribute("categorieARajouter", categorie);
+			} else if ("Modifier la catégorie".equals(action)) {
+//				Traitement pour modifier une catégorie en recuperant son ancien libelle
+				noCategorie = Integer.parseInt(request.getParameter("Categorie"));
+				ancienneCategorie = categorieManager.selectCategorieParId(noCategorie);
+				
+				ancienneCategorie.setLibelle(request.getParameter("NouveauNomCategorie"));
+				System.out.println(ancienneCategorie.toString());
+				categorieManager.majCategorie(ancienneCategorie);
+			}
 			
-			categorieManager.ajouterCategorie(categorie);
-//			permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
-//			de validation lors de l'insertion de la categorie
-			request.setAttribute("categorieARajouter", categorie);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

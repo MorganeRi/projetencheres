@@ -41,8 +41,8 @@
 		</div>
 		<br />
 		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="Categorie">Categorie : </label> <select
-				class="form-control" id="Categorie" name="Categorie"
+			<label class="form-label me-3" for="Categorie">Categorie : </label>
+			 <select class="form-control" id="Categorie" name="Categorie"
 				style="width: 300px">
 				<option value=""></option>
 
@@ -104,7 +104,8 @@
 			Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
 			%>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomRue">Rue : </label> <input
+				<label class="form-label me-3" for="nomRue">Rue : </label>
+				 <input
 					class="form-control" type="text" id="nomRue" name="nomRue"
 					style="width: 300px" value="<%=utilisateur.getRue()%>" />
 			</div>
