@@ -12,7 +12,7 @@
 </jsp:include>
 	<h1 class="font-weight-bold text-center">Modifier l'article</h1>
 <!-- 	style="border: 1px solid silver;width:600px;" -->
-	<div class="container" style="border: 1px solid silver;width:500px;">
+	<div class="container-fluid" style="border: 1px solid silver;width:500px;">
 	
 	<%
 	ArticleVendu articleVendu = (ArticleVendu) request.getAttribute("articleAManipuler");

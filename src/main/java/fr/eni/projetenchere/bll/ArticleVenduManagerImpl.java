@@ -121,25 +121,35 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public List<ArticleVendu> ventesEnCours(Integer idUtil) throws BusinessException {
-		// TODO Auto-generated method stub
+
 		return dao.ventesEnCours(idUtil);
 	}
 	@Override
 	public List<ArticleVendu> ventesNonDebutees(Integer idUtil) throws BusinessException {
-		// TODO Auto-generated method stub
+
 		return dao.ventesNonDebutees(idUtil);
 	}
 
 	@Override
 	public List<ArticleVendu> ventesTerminees(Integer idUtil) throws BusinessException {
-		// TODO Auto-generated method stub
+
 		return dao.ventesTerminees(idUtil);
 	}
 
 	@Override
 	public void majNoAcquereur(ArticleVendu articleVendu) throws BusinessException {
 		this.dao.updateNoAcquereur(articleVendu);
+	}
 		
+	public List<ArticleVendu> articleEncherie(Integer idUtil) throws BusinessException {
+		return dao.articleEncheris(idUtil);
+	}
+
+	@Override
+	public List<ArticleVendu> articleEnchereRemporte(Integer idUtil) throws BusinessException {
+
+		return dao.articleEnchereRemportees(idUtil);
+
 	}
 
 

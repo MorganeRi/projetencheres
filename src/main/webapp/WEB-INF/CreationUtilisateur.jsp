@@ -7,7 +7,7 @@
 	<jsp:param name="title" value="CreationUtilisateur" />
 </jsp:include>
 
-<div class="container">
+<div class="container-fluid">
 	<h1>Mon profil</h1>
 	<br>
 	
