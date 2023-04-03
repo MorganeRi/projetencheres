@@ -1,6 +1,5 @@
 package fr.eni.projetenchere.bo;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

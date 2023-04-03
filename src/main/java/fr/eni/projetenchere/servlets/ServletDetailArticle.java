@@ -132,15 +132,19 @@ public class ServletDetailArticle extends HttpServlet {
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 			enchere = new Enchere(dateEnchere, montantEnchere, article, utilisateur);
 
+			enchereMax = enchereManager.selectMaxEnchere(article);
+			if (enchereMax != null && enchereMax.getMontantEnchere() == null) {
+				enchereMax.setMontantEnchere(0);
+			}
+
 			creditUtilisateur = utilisateur.getCredit();
 			if (creditUtilisateur >= montantEnchere) {
 
-				enchereMax = enchereManager.selectMaxEnchere(article);
-				utilisateurActuelMax = enchereManager.selectMaxEnchere(article).getUtilisateur();
-				utilisateurActuelMax = enchereMax.getUtilisateur();
-				utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit() + enchereMax.getMontantEnchere());
-				utilisateurManager.majMontantCredit(utilisateurActuelMax);
-
+				if (enchereMax != null) {
+					utilisateurActuelMax = enchereMax.getUtilisateur();
+					utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit() + enchereMax.getMontantEnchere());
+					utilisateurManager.majMontantCredit(utilisateurActuelMax);
+				}
 				enchereManager.insertEnchere(enchere);
 				request.setAttribute("enchere", enchere);
 
@@ -151,7 +155,9 @@ public class ServletDetailArticle extends HttpServlet {
 				listeCodesErreur.add(CodesResultatServlets.CREDIT_INSUFFISANT);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
 			}
-		} catch (BusinessException e) {
+		} catch (
+
+		BusinessException e) {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.INSERT_ENCHERE_ERREUR);
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());

@@ -65,8 +65,17 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 		<label class="form-label me-3" for="MiseAPrix"><b>Ma
 				proposition : </b></label> <input class="form-control" type="number"
 			id="enchere" name="enchere"
+			<% if(enchereMax.getMontantEnchere()==0){ %>
+			min="<%=art.getPrixInitial() + 1 %>"
+			<%}else{%>
 			min="<%=enchereMax.getMontantEnchere() + 1%>"
-			value="<%=enchereMax.getMontantEnchere() + 1%>" style="width: 100px" />
+			<%}%>
+			<% if(enchereMax.getMontantEnchere()==0){ %>
+			value="<%=art.getPrixInitial() + 1%>"
+			<%}else{%>
+			value="<%=enchereMax.getMontantEnchere() + 1%>"
+			<%}%>
+			style="width: 100px" />
 		<input type="submit" value="Encherir" class="btn btn-dark me-3" />
 	</form>
 
