@@ -111,8 +111,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				} else {
 					enchGa = true;
 				}
-
-				if (idUtil != null) {
+System.out.println(idUtil);
+				if (idUtil != 0) {
 					ench = new Enchere(rs.getInt("no_enchere"), rs.getTimestamp("date_enchere").toLocalDateTime(),
 							rs.getInt(3), articleVendu1, utilisateur, enchGa);
 				} else {

@@ -29,7 +29,7 @@ public interface ArticleVenduManager {
 	
 	public List<ArticleVendu> selectToutArticle ()throws BusinessException;
 	
-	public List<ArticleVendu> selectParNomArticleParCat(String nom, Integer id) throws BusinessException;
+	public List<ArticleVendu> selectParNomArticleParCat(String nom, String lib) throws BusinessException;
 	
 	//Selection des articles SAUF ceux de l'uilisateur connecté
 	
