@@ -25,6 +25,13 @@ public class CategorieManagerImpl implements CategorieManager{
 		return categorie;
 	}
 
+	
+	@Override
+	public Categorie supprimerCategorie(Categorie categorie) throws BusinessException {
+		dao.deleteCategorie(categorie);
+		return categorie;
+	}
+
 	@Override
 	public List<Categorie> selectAllCategorie() throws BusinessException {
 		try {
@@ -48,6 +55,8 @@ public class CategorieManagerImpl implements CategorieManager{
 		}
 	}
 
+
+	
 	
 	
 

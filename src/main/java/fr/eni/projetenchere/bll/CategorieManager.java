@@ -11,6 +11,8 @@ public interface CategorieManager {
 	public Categorie ajouterCategorie(Categorie categorie) throws BusinessException;
 	
 	public Categorie majCategorie(Categorie categorie) throws BusinessException;
+	
+	public Categorie supprimerCategorie (Categorie categorie) throws BusinessException;
 
 	public List<Categorie> selectAllCategorie() throws BusinessException;
 	

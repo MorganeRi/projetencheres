@@ -112,14 +112,15 @@
 			<br />
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3" for="codePostal">Code Postal
-					: </label> <input class="form-control" type="text" id="codePostal"
+					: </label> 
+				<input class="form-control" type="text" id="codePostal"
 					name="codePostal" style="width: 300px"
 					value="<%=utilisateur.getCodePostal()%>" />
 			</div>
 			<br />
 			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomVille">Ville : </label> <input
-					class="form-control" type="text" id="nomVille" name="nomVille"
+				<label class="form-label me-3" for="nomVille">Ville : </label> 
+				<input class="form-control" type="text" id="nomVille" name="nomVille"
 					style="width: 300px" value="<%=utilisateur.getVille()%>" />
 			</div>
 			<br />

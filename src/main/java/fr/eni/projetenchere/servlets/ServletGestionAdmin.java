@@ -63,7 +63,7 @@ public class ServletGestionAdmin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Categorie categorie,ancienneCategorie = null; 
+		Categorie categorie,categorieAModifier,categorieASupprimer = null; 
 		String nomCategorie,action = null;
 		Integer noCategorie = null;
 		
@@ -71,7 +71,7 @@ public class ServletGestionAdmin extends HttpServlet {
 		try {
 			action = request.getParameter("action");
 			
-			if("Ajout Categorie".equals(action)) {
+			if("Ajout".equals(action)) {
 //				Traitement pour ajouter une catégorie
 				nomCategorie = request.getParameter("nomCategorie");
 				
@@ -82,14 +82,31 @@ public class ServletGestionAdmin extends HttpServlet {
 //				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
 //				de validation lors de l'insertion de la categorie
 				request.setAttribute("categorieARajouter", categorie);
-			} else if ("Modifier la catégorie".equals(action)) {
+			} else if ("Modifier".equals(action)) {
 //				Traitement pour modifier une catégorie en recuperant son ancien libelle
-				noCategorie = Integer.parseInt(request.getParameter("Categorie"));
-				ancienneCategorie = categorieManager.selectCategorieParId(noCategorie);
+				noCategorie = Integer.parseInt(request.getParameter("CategorieAModifier"));
+//				System.out.println(noCategorie);
+				categorieAModifier = categorieManager.selectCategorieParId(noCategorie);
 				
-				ancienneCategorie.setLibelle(request.getParameter("NouveauNomCategorie"));
-				System.out.println(ancienneCategorie.toString());
-				categorieManager.majCategorie(ancienneCategorie);
+				categorieAModifier.setLibelle(request.getParameter("NouveauNomCategorie"));
+//				System.out.println(categorieAModifier.toString());
+				categorieManager.majCategorie(categorieAModifier);
+				
+//				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
+//				de validation lors de la modification de la categorie
+				request.setAttribute("categorieAModifier", categorieAModifier );
+			}else if ("Supprimer".equals(action)) {
+//				Traitement pour supprimer la catégorie
+				noCategorie = Integer.parseInt(request.getParameter("CategorieASupprimer"));
+				System.out.println(noCategorie);
+				
+				categorieASupprimer = categorieManager.selectCategorieParId(noCategorie);
+				categorieASupprimer = categorieManager.supprimerCategorie(categorieASupprimer);
+				
+//				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
+//				de validation lors de la suppression de la categorie
+				request.setAttribute("categorieASupprimer", categorieASupprimer);
+				
 			}
 			
 			

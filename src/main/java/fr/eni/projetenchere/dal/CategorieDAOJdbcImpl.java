@@ -11,6 +11,7 @@ import fr.eni.projetenchere.bo.Categorie;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
+	private static final String DELETE_CATEGORIE = "DELETE FROM categorie WHERE no_categorie=?";
 	private static final String UPDATE_CATEGORIE = "UPDATE categorie SET libelle=? WHERE no_categorie=?";
 	private static final String INSERT_CATEGORIE = "INSERT INTO categorie(libelle) values(?)";
 	private static final String SELECT_CATEGORIE_BY_ID = "SELECT no_categorie,libelle FROM categorie WHERE no_categorie = ? ";
@@ -67,6 +68,28 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	}
 	
 	@Override
+	public Categorie deleteCategorie(Categorie categorie) throws BusinessException {
+		if(categorie == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.REMOVE_CATEGORIE_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_CATEGORIE);
+			
+			pstmt.setInt(1, categorie.getNoCategorie());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.REMOVE_CATEGORIE_ECHEC);
+			throw businessException;
+		}
+		
+		
+		return categorie;
+	}
+	
+	@Override
 	public List<Categorie> selectAllCategorie() throws BusinessException {
 		List<Categorie> result = new ArrayList<>();
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -108,6 +131,8 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		return categorie;
 	}
+
+	
 
 	
 

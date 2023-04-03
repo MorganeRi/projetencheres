@@ -11,6 +11,8 @@ public interface CategorieDAO {
 	
 	public Categorie updateCategorie(Categorie categorie) throws BusinessException;
 	
+	public Categorie deleteCategorie(Categorie categorie) throws BusinessException;
+	
 	public List<Categorie> selectAllCategorie() throws BusinessException;
 	
 	public Categorie selectCategorieByID(Integer idCategorie) throws BusinessException;

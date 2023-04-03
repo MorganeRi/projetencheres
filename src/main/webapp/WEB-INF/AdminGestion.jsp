@@ -13,7 +13,7 @@
 
 <div class="container-fluid   mt-4">
 	<div class="row">
-		<div class="col-md-9 mx-auto">
+		<div class="col-md-5 mx-auto">
 			<div class="position-relative card table-nowrap table-card">
 				<div class="card-header align-items-center">
 					<h5 class="mb-0">Liste des catégories</h5>
@@ -26,7 +26,6 @@
 								<th>ID de la catégorie</th>
 								<th>Nom de la catégorie</th>
 
-								<th>Check</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -37,12 +36,7 @@
 							<tr class="align-middle">
 								<td><%=categorieDispo.getNoCategorie()%></td>
 								<td><%=categorieDispo.getLibelle()%></td>
-								<td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
+								
 							</tr>
 							<%
 							}
@@ -60,7 +54,7 @@
 								: </label> 
 							<input class="form-control me-3" type="text"
 								id="nomCategorie" name="nomCategorie" style="width: 30%" /> 
-							<input type="submit" name="action" value="Ajout Categorie"
+							<input type="submit" name="action" value="Ajout"
 								class="btn btn-dark" />
 							 <br />
 							
@@ -78,7 +72,7 @@
 						<div class="mb-1 d-flex align-items-center justify-content-end">
 							<label class="form-label me-2" for="nomCategorie">Modifier
 								: </label> 
-							<select class="form-control" id="Categorie" name="Categorie" 
+							<select class="form-control me-2" id="Categorie" name="CategorieAModifier" 
 								style="width: 30%">
 								<option value="Sélectionner categorie"></option>
 
@@ -94,10 +88,26 @@
 								name="NouveauNomCategorie" style="width: 30%"
 								placeholder="Nouveau nom" /> 
 							<input type="submit" name="action"
-								class="btn btn-dark" value="Modifier la catégorie">
+								class="btn btn-dark" value="Modifier">
 						</div>
+						<div class="mb-1 d-flex align-items-center justify-content-end">
+							<label class="form-label me-2" for="nomCategorie">Supprimer
+								: </label> 
+							<select class="form-control me-2" id="Categorie" name="CategorieASupprimer" 
+								style="width: 30%">
+								<option value=""></option>
 
-						<a href="#!" class="btn btn-dark">Supprimer la catégorie</a>
+								<%
+								for (Categorie categorieDisponible : listCategorie) {
+								%>
+								<option value="<%=categorieDisponible.getNoCategorie()%>"><%=categorieDisponible.getLibelle()%></option>
+								<%
+								}
+								%>
+							</select>
+							<input type="submit" name="action"
+								class="btn btn-dark" value="Supprimer">
+						</div>
 					</form>
 
 				</div>
