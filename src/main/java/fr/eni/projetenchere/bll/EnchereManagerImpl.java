@@ -33,8 +33,7 @@ public class EnchereManagerImpl implements EnchereManager {
 
 	@Override
 	public Enchere selectMaxEnchere(ArticleVendu articleVendu) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.enchereDao.selectMaxEnchere(articleVendu);
 	}
 
 	@Override

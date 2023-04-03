@@ -23,7 +23,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	 */
 	@Override
 	public void createUtilisateur(Utilisateur utilisateur) throws BusinessException {
-		    this.utilisateurDao.insertUtilisateur(utilisateur);
+		this.utilisateurDao.insertUtilisateur(utilisateur);
 	}
 
 	// authentifier par mail
@@ -32,12 +32,12 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		this.utilisateurDao.connectUtilisateur(util);
 
 	}
-	
+
 	// authentifier par pseudo
 	@Override
 	public void authentifierUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException {
 		this.utilisateurDao.connectUtilisateurPseudo(utilisateur);
-		
+
 	}
 
 	// Même contraintes que pour la création
@@ -78,7 +78,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	@Override
 	public void majMontantCredit(Utilisateur utilisateur) throws BusinessException {
-		// TODO Auto-generated method stub
+		this.utilisateurDao.updateMontantCredit(utilisateur);
 
 	}
 
@@ -86,12 +86,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public Utilisateur selectParEmailUtilisateur(String email) throws BusinessException {
 		return this.utilisateurDao.selectByEmailUtilisateur(email);
 	}
-	
+
 	@Override
 	public Utilisateur selectParPseudoUtilisateur(String pseudo) throws BusinessException {
 		return this.utilisateurDao.selectByPseudoUtilisateur(pseudo);
 	}
-
-
 
 }

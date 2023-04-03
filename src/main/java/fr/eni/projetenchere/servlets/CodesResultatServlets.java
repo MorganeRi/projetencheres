@@ -23,5 +23,8 @@ public abstract class CodesResultatServlets {
 	public static final int ERREUR_DATES_IDENTIQUES = 30013;
 
 	public static final int INSERT_ENCHERE_ERREUR = 30014;
+	
+	public static final int CREDIT_INSUFFISANT = 30015;
+	
 
 }
