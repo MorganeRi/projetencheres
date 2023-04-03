@@ -19,6 +19,7 @@ import fr.eni.projetenchere.bll.CategorieManager;
 import fr.eni.projetenchere.bll.CategorieManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
+import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class Accueil
@@ -98,7 +99,7 @@ public class ServletAccueil extends HttpServlet {
         if(formulaire == null) {
             this.doGet(request, response);
         }
-        
+        //Si l'utilisateur fait une recherche par nom et/ ou catégorie
         if(formulaire.equals("form1")) {
 
             if ((noCat.equals("Selectionner une categorie")) && recherche.isBlank()) {
@@ -126,7 +127,7 @@ public class ServletAccueil extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            } else if (noCat == null || noCat.isBlank()) {
+            } else if (noCat.equals("Selectionner une categorie")) {
             	try {
 					articles =  article.selectParNomArticle(recherche);
 					if (articles==null) {
@@ -154,27 +155,47 @@ public class ServletAccueil extends HttpServlet {
         	
         }
         
+        //Si l'utilisateur fait une recherche via les checks Box
+        if(formulaire.equals("form2")) {
+        	System.out.println("coucou");
+            Integer idUtil = (Integer) session.getAttribute("id");
+            String check = request.getParameter("check");
+
+            switch (check) {
+                case "encheres_ouvertes" :
+                  try {
+                	  System.out.println("coucou2");
+					articles = article.affichageArticlesEnVente(idUtil);
+				} catch (BusinessException e) {
+					request.setAttribute("PasArticle", "Vous n'avez pas d'article en vente");
+					e.printStackTrace();
+				}
+                    break;
+                case "mes_encheres" :
+                  //  affichageEncheresEnCours(request,idUtil);
+                    break;
+                case "encheres_remportees" :
+                 //   affichageEncheresGagnees(request, idUtil);
+                    break;
+                case "ventes_cours" :
+                //    affichageVentesEnCours(request, idUtil);
+                    break;
+                case "ventes_non_debutees" :
+                  //  affichageVentesNonDebutees(request, idUtil);
+                    break;
+                case "ventes_terminees" :
+                 //   affichageVentesTerminees(request, idUtil);
+                    break;
+            }
+        	
+        	
+        	
+        	
+        }
 		
 
 			
-//		if ("achats".equals(achatOuVente)) {
-//			
-//			try {
-//				articles=article.selectParNomArticleParCatSaufUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
-//			} catch (BusinessException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-//		} else if ("ventes".equals(achatOuVente)) {
-//			
-//			try {
-//				articles=article.selectParNomArticleParCatParUtil(recherche, noCategorie, (Integer)session.getAttribute("id"));
-//			} catch (BusinessException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		} else {
+
 			
 				
 	
@@ -204,7 +225,7 @@ public class ServletAccueil extends HttpServlet {
 		return listCategorie;
 		
 	}
-	
+
 	
 
 }

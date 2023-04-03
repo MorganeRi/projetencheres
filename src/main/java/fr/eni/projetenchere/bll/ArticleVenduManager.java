@@ -39,4 +39,6 @@ public interface ArticleVenduManager {
 	
 	public List<ArticleVendu> selectParNomArticleParCatParUtil (String nom,Integer idArticle, Integer idUtilisateur) throws BusinessException;
 	
+	public List<ArticleVendu> affichageArticlesEnVente(Integer idUtil) throws BusinessException;
+	
 }

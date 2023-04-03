@@ -92,15 +92,15 @@
 					onclick="toggleCheckboxes()" checked>Achats
 							<div>
 								<input type="checkbox" name="check" id="enchereCheckbox"
-									value="enchères_ouvertes">enchères ouvertes
+									value="encheres_ouvertes">enchères ouvertes
 							</div>
 							<div>
 								<input type="checkbox" name="check" id="mesEncheresCheckbox"
-									value="mes_enchères">mes enchères
+									value="mes_encheres">mes enchères
 							</div>
 							<div>
 								<input type="checkbox" name="check"
-									id="mesEncheresRemporteesCheckbox" value="enchères_remportées">mes
+									id="mesEncheresRemporteesCheckbox" value="encheres_remportees">mes
 								enchères remportées
 							</div>
 			</div>
@@ -114,12 +114,12 @@
 							</div>
 							<div>
 								<input type="checkbox" name="check"
-									id="ventesNonDebuteesCheckbox" value="ventes_non_débutées">ventes
+									id="ventesNonDebuteesCheckbox" value="ventes_non_debutees">ventes
 								non débutées
 							</div>
 							<div>
 								<input type="checkbox" name="check"
-									id="ventesTermineesCheckbox" value="ventes_terminées">ventes
+									id="ventesTermineesCheckbox" value="ventes_terminees">ventes
 								terminées
 							</div>
 			</div>
@@ -132,7 +132,7 @@
 
 	</form>
 </div>
-<%-- <div><a href="<%=request.getContextPath()%>/images/image5.png">test</a></div> --%>
+
 
 <%
 if (articles != null) {

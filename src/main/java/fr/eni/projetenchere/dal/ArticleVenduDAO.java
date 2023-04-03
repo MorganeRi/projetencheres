@@ -45,5 +45,7 @@ public interface ArticleVenduDAO {
 	
 	public List<ArticleVendu> selectByNomArticleByCatByUtil (String nom,Integer idArticle, Integer idUtilisateur) throws BusinessException;
 	
+	public List<ArticleVendu> affichageArticlesEnVente (Integer idUtil)throws BusinessException;
+	
 
 }

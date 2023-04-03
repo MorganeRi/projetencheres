@@ -25,7 +25,11 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 		</li>
 		<li class="list-group-item"><b>Description :</b> <%=art.getDescription()%></li>
 		<li class="list-group-item"><b>Categorie : </b> <%=art.getCategorie().getLibelle()%></li>
+		<% if(enchereMax.getMontantEnchere()==null){ %>
+		<li class="list-group-item"><b>Meilleur offre :</b>0</li>
+		<% } else { %>
 		<li class="list-group-item"><b>Meilleur offre :</b> <%=enchereMax.getMontantEnchere()%></li>
+		<%} %>
 		<li class="list-group-item"><b>Mise à prix : </b> <%=art.getPrixInitial()%></li>
 		<li class="list-group-item"><b>Fin de l'enchère : </b> <%=art.getDateFinEnchere()%></li>
 		<li class="list-group-item"><b>Retrait : </b> <%=art.getRetrait().getRue()%>
@@ -47,8 +51,7 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
 	%>
-	<p style="color: red;">Erreur, l'enchère n'est pas
-		possible :</p>
+	<p style="color: red;">Erreur, l'enchère n'est pas possible :</p>
 	<%
 	for (int codeErreur : listeCodesErreur) {
 	%>
@@ -63,8 +66,8 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 				proposition : </b></label> <input class="form-control" type="number"
 			id="enchere" name="enchere"
 			min="<%=enchereMax.getMontantEnchere() + 1%>"
-			value="<%=enchereMax.getMontantEnchere() + 1%>" style="width: 100px" /> <input
-			type="submit" value="Encherir" class="btn btn-dark me-3" />
+			value="<%=enchereMax.getMontantEnchere() + 1%>" style="width: 100px" />
+		<input type="submit" value="Encherir" class="btn btn-dark me-3" />
 	</form>
 
 	<%

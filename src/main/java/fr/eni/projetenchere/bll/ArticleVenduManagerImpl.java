@@ -113,5 +113,11 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		return articles;                  
 	}
 
+	@Override
+	public List<ArticleVendu> affichageArticlesEnVente(Integer idUtil) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
