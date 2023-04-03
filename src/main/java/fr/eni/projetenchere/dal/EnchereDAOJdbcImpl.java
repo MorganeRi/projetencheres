@@ -15,7 +15,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO{
 
 private static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT  e.no_enchere,e.date_enchere, e.montant_enchere,e.no_article,e.no_utilisateur FROM enchere AS e WHERE no_article=?";
 private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere, montant_enchere,no_utilisateur,no_article) VALUES (?,?,?,?)";
-private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article, enchere_gagnante from enchere WHERE no_article=?";
+private static final String SELECT_MAX_ENCHERE= "SELECT no_enchere, date_enchere, montant_enchere, no_utilisateur, no_article, enchere_gagnante FROM enchere WHERE no_article=? AND montant_enchere = (SELECT MAX(montant_enchere) FROM enchere WHERE no_article=?)";
 private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article, enchere_gagnante from enchere WHERE no_utilisateur=?";
 private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_gagnante=? where no_article =?";
 
@@ -82,7 +82,8 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 		}
 		return result;
 	}
-//	private static final String SELECT_MAX_ENCHERE= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article, enchere_gagnante from enchere WHERE no_article=?";
+	
+//	private static final String SELECT_MAX_ENCHERE= "SELECT no_enchere, date_enchere, montant_enchere, no_utilisateur, no_article, enchere_gagnante FROM enchere WHERE no_article=? AND montant_enchere = (SELECT MAX(montant_enchere) FROM enchere WHERE no_article=?)";
 
 	@Override
 	public Enchere selectMaxEnchere(ArticleVendu articleVendu) throws BusinessException {
@@ -95,6 +96,7 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_MAX_ENCHERE);
 			pstmt.setInt(1, articleVendu.getNoArticle());
+			pstmt.setInt(2, articleVendu.getNoArticle());
 			
 			ResultSet rs = pstmt.executeQuery();
 			

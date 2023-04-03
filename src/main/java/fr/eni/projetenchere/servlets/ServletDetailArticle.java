@@ -137,7 +137,6 @@ public class ServletDetailArticle extends HttpServlet {
 				enchereMax = enchereManager.selectMaxEnchere(article);
 				}else {enchereMax.setMontantEnchere(0);
 				}
-				System.out.println(enchereMax);
 				utilisateurActuelMax = enchereManager.selectMaxEnchere(article).getUtilisateur();
 				utilisateurActuelMax = enchereMax.getUtilisateur();
 				utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit()+enchereMax.getMontantEnchere());
