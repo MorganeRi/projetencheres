@@ -105,6 +105,9 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 	<%
 	}
 	%>
+	<%
+	}
+	%>
 </div>
 
 <jsp:include page="./fragments/foot.jsp"></jsp:include>
