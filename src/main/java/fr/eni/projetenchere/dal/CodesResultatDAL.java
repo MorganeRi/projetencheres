@@ -111,6 +111,14 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int UPDATE_PX_VENTE_ARTICLE_ECHEC = 10031;
 	/**
+	 * Echec de l'update car article null
+	 */
+	public static final int UPDATE_NO_ACQUEREUR_NULL = 10032;
+	/**
+	 * Echec de l'update du no acquereur
+	 */
+	public static final int UPDATE_NO_ACQUEREUR_ECHEC = 10033;
+	/**
 	 * Echec du select by categorie
 	 */
 	public static final int SELECT_BY_CATEGORIE_ARTICLE_ECHEC = 10003;

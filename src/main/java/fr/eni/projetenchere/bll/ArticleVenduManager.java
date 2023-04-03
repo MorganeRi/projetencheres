@@ -4,7 +4,6 @@ import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.ArticleVendu;
-import fr.eni.projetenchere.bo.Categorie;
 
 public interface ArticleVenduManager {
 	
@@ -47,8 +46,11 @@ public interface ArticleVenduManager {
 	
 	public List<ArticleVendu> ventesTerminees(Integer idUtil) throws BusinessException;
 	
+	public void majNoAcquereur(ArticleVendu articleVendu) throws BusinessException;
+
 	public List<ArticleVendu> articleEncherie(Integer idUtil) throws BusinessException;
 	
 	public List<ArticleVendu> articleEnchereRemporte(Integer idUtil) throws BusinessException;
+
 	
 }

@@ -3,8 +3,7 @@ package fr.eni.projetenchere.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where libelle=?";
 	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ?";
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
+	private static final String UPDATE_NO_ACQUEREUR = "update article_vendu set no_acquereur=? where no_article =?";
 	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle, photo from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
 	private static final String SELECT_ALL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie";
 	private static final String SELECT_BY_NOM_BY_CAT = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and libelle=?";
@@ -45,8 +45,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			pstmt.setString(1, articleVendu.getNomArticle());
 			pstmt.setString(2, articleVendu.getDescription());
-			pstmt.setDate(3, java.sql.Date.valueOf(articleVendu.getDateDebutEnchere()));
-			pstmt.setDate(4, java.sql.Date.valueOf(articleVendu.getDateFinEnchere()));
+			pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(articleVendu.getDateDebutEnchere()));
+			pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(articleVendu.getDateFinEnchere()));
 			pstmt.setInt(5, articleVendu.getPrixInitial());
 			pstmt.setInt(6, articleVendu.getCategorie().getNoCategorie());
 			pstmt.setInt(7, articleVendu.getNoArticle());
@@ -77,8 +77,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			
 			pstmt.setString(1, articleVendu.getNomArticle());
 			pstmt.setString(2, articleVendu.getDescription());
-			pstmt.setDate(3, java.sql.Date.valueOf(articleVendu.getDateDebutEnchere()));
-			pstmt.setDate(4, java.sql.Date.valueOf(articleVendu.getDateFinEnchere()));
+			pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(articleVendu.getDateDebutEnchere()));
+			pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(articleVendu.getDateFinEnchere()));
 			pstmt.setInt(5, articleVendu.getPrixInitial());
 			pstmt.setInt(6, articleVendu.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(7, articleVendu.getCategorie().getNoCategorie());
@@ -142,15 +142,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 				Integer prixInitial = rs.getInt(6);
 				Integer prixVente = rs.getInt(7);
@@ -197,15 +197,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 				Integer prixInitial = rs.getInt(6);
 				Integer prixVente = rs.getInt(7);
@@ -261,6 +261,29 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			throw businessException;
 		}
 	}
+	
+	public void updateNoAcquereur(ArticleVendu articleVendu) throws BusinessException {
+		if (articleVendu == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_NO_ACQUEREUR_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_NO_ACQUEREUR);
+
+			pstmt.setInt(1, articleVendu.getNoAcquereur());
+			pstmt.setInt(2, articleVendu.getNoArticle());
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_NO_ACQUEREUR_ECHEC);
+
+			throw businessException;
+		}
+	}
 
 	@Override
 	public ArticleVendu selectByIdArticle(Integer id) throws BusinessException {
@@ -274,15 +297,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			while (rs.next()) {
 				String nomArticle = rs.getString(1);
 				String description = rs.getString(2);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(3);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(3).toLocalDate();
+					dateDebut = rs.getTimestamp(3).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(4).toLocalDate();
+					dateFin = rs.getTimestamp(4).toLocalDateTime();
 				}
 				Integer prixInitial = rs.getInt(5);
 				Integer prixVente = rs.getInt(6);
@@ -326,15 +349,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 				Integer prixInitial = rs.getInt(6);
 				Integer prixVente = rs.getInt(7);
@@ -383,15 +406,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 				Integer prixInitial = rs.getInt(6);
 				Integer prixVente = rs.getInt(7);
@@ -444,15 +467,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 				Integer prixInitial = rs.getInt(6);
 				Integer prixVente = rs.getInt(7);
@@ -504,15 +527,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 				Integer prixInitial = rs.getInt(6);
 				Integer prixVente = rs.getInt(7);
@@ -561,15 +584,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 
 				Integer prixInitial = rs.getInt(6);
@@ -618,15 +641,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 
 				Integer prixInitial = rs.getInt(6);
@@ -676,15 +699,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 
 				Integer prixInitial = rs.getInt(6);
@@ -733,15 +756,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 
 				Integer prixInitial = rs.getInt(6);
@@ -789,15 +812,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 
 				Integer prixInitial = rs.getInt(6);
@@ -846,15 +869,15 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer noArticle = rs.getInt(1);
 				String nomArticle = rs.getString(2);
 				String description = rs.getString(3);
-				LocalDate dateDebut = null;
+				LocalDateTime dateDebut = null;
 				rs.getDate(4);
 				if (!rs.wasNull()) {
-					dateDebut = rs.getDate(4).toLocalDate();
+					dateDebut = rs.getTimestamp(4).toLocalDateTime();
 				}
-				LocalDate dateFin = null;
+				LocalDateTime dateFin = null;
 				rs.getDate(5);
 				if (!rs.wasNull()) {
-					dateFin = rs.getDate(5).toLocalDate();
+					dateFin = rs.getTimestamp(5).toLocalDateTime();
 				}
 
 				Integer prixInitial = rs.getInt(6);

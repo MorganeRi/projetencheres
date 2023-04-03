@@ -88,13 +88,13 @@
 		<br />
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 			<label class="form-label me-3" for="DebutEnchere">Début de
-				l'enchère : </label> <input class="form-control" type="date"
+				l'enchère : </label> <input class="form-control" type="datetime-local"
 				id="DebutEnchere" name="DebutEnchere" style="width: 300px" />
 		</div>
 		<br />
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 			<label class="form-label me-3" for="FinEnchere">Fin de
-				l'enchère : </label> <input class="form-control" type="date" id="FinEnchere"
+				l'enchère : </label> <input class="form-control" type="datetime-local" id="FinEnchere"
 				name="FinEnchere" style="width: 300px" />
 		</div>
 		<br />

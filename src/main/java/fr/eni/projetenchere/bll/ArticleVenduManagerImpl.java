@@ -137,8 +137,11 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	}
 
 	@Override
+	public void majNoAcquereur(ArticleVendu articleVendu) throws BusinessException {
+		this.dao.updateNoAcquereur(articleVendu);
+	}
+		
 	public List<ArticleVendu> articleEncherie(Integer idUtil) throws BusinessException {
-
 		return dao.articleEncheris(idUtil);
 	}
 
@@ -146,6 +149,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	public List<ArticleVendu> articleEnchereRemporte(Integer idUtil) throws BusinessException {
 
 		return dao.articleEnchereRemportees(idUtil);
+
 	}
 
 
