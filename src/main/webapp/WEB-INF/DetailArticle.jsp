@@ -38,6 +38,9 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 	</ul>
 	<%
 	Enchere enchereAjoute = (Enchere) request.getAttribute("enchere");
+	
+	if (id != art.getUtilisateur().getNoUtilisateur()) {
+	
 	if (enchereAjoute != null) {
 	%>
 	<p style="color: green;">Votre enchere a ete prise en compte avec
@@ -79,7 +82,7 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 		<input type="submit" value="Encherir" class="btn btn-dark me-3" />
 	</form>
 
-	<%
+	<%}
 	if (id == art.getUtilisateur().getNoUtilisateur()) {
 	%>
 	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
