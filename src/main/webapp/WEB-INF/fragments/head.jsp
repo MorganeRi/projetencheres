@@ -65,7 +65,7 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 					%>
 
 				</ul>
-				<ul class="navbar-nav">
+				<ul class="navbar-nav" style="margin-left:auto;">
 					<%
 					if (id != null) {
 					%>
