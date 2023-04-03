@@ -1,7 +1,7 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +39,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 public class ServletModifierArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String LIST_CATEGORIE = "listCategorie";
-	private static final String UTILISATEUR = "Utilisateur";
+//	private static final String UTILISATEUR = "Utilisateur";
 	
 	private static CategorieManager cateegorieManager = CategorieManagerSing.getInstanceCategorieImpl();
 	
@@ -122,8 +122,8 @@ public class ServletModifierArticle extends HttpServlet {
 		
 		Integer resultatComparaisonDates = null;
 		
-		LocalDate dateDebutEnchere = null;
-		LocalDate dateFinEnchere = null;
+		LocalDateTime dateDebutEnchere = null;
+		LocalDateTime dateFinEnchere = null;
 		
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		
@@ -135,8 +135,8 @@ public class ServletModifierArticle extends HttpServlet {
 			categorie = cateegorieManager.selectCategorieParId(noCategorie);
 			
 			articleAManipuler.setCategorie(categorie);
-			articleAManipuler.setDateDebutEnchere(LocalDate.parse(request.getParameter("DebutEnchere")));
-			articleAManipuler.setDateFinEnchere(LocalDate.parse(request.getParameter("FinEnchere")));
+			articleAManipuler.setDateDebutEnchere(LocalDateTime.parse(request.getParameter("DebutEnchere")));
+			articleAManipuler.setDateFinEnchere(LocalDateTime.parse(request.getParameter("FinEnchere")));
 			articleAManipuler.setPrixInitial(Integer.parseInt(request.getParameter("prixDepart")));
 			
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
