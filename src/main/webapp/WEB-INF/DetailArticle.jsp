@@ -63,7 +63,7 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 				proposition : </b></label> <input class="form-control" type="number"
 			id="enchere" name="enchere"
 			min="<%=enchereMax.getMontantEnchere() + 1%>"
-			value="<%=enchereMax.getMontantEnchere()%>" style="width: 100px" /> <input
+			value="<%=enchereMax.getMontantEnchere() + 1%>" style="width: 100px" /> <input
 			type="submit" value="Encherir" class="btn btn-dark me-3" />
 	</form>
 
