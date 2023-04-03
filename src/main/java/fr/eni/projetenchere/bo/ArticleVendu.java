@@ -1,6 +1,7 @@
 package fr.eni.projetenchere.bo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,8 @@ public class ArticleVendu {
 	private Integer noArticle;
 	private String nomArticle;
 	private String description;
-	private LocalDate dateDebutEnchere;
-	private LocalDate dateFinEnchere;
+	private LocalDateTime dateDebutEnchere;
+	private LocalDateTime dateFinEnchere;
 	private Integer prixInitial;
 	private Integer prixDeVente;
 	private Utilisateur utilisateur;
@@ -29,8 +30,8 @@ public class ArticleVendu {
 
 //	tous les attributs
 
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEnchere,
+			LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
 			Categorie categorie, Retrait retrait, String photo, Integer noAcquereur, List<Enchere> listeEncheres) {
 		super();
 		this.noArticle = noArticle;
@@ -50,8 +51,8 @@ public class ArticleVendu {
 
 
 
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEnchere,
+			LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
 			Categorie categorie, Retrait retrait, List<Enchere> listeEncheres) {
 
 		this.noArticle = noArticle;
@@ -68,8 +69,8 @@ public class ArticleVendu {
 	}
 
 	// sans retrait
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEnchere,
+			LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
 			Categorie categorie, List<Enchere> listeEncheres) {
 		super();
 		this.noArticle = noArticle;
@@ -85,7 +86,7 @@ public class ArticleVendu {
 	}
 
 	// sans l'id, sans les null (prix initial, prix de vente), sans liste encheres
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
 			Utilisateur utilisateur, Categorie categorie) {
 		super();
 		this.nomArticle = nomArticle;
@@ -97,7 +98,7 @@ public class ArticleVendu {
 	}
 
 // 	sans l'id
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
 			Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur, Categorie categorie,
 			List<Enchere> listeEncheres) {
 		super();
@@ -113,8 +114,8 @@ public class ArticleVendu {
 	}
 
 //	sans liste encheres
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEnchere,
+			LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
 			Categorie categorie) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -128,7 +129,7 @@ public class ArticleVendu {
 	}
 
 	// Complet sans ID
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
 			Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait,
 			ArrayList<Enchere> listeEncheres, String photo) {
 		super();
@@ -147,8 +148,8 @@ public class ArticleVendu {
 	}
 
 //Complet
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEnchere,
+			LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
 			Categorie categorie, Retrait retrait, ArrayList<Enchere> listeEncheres, String photo) {
 		super();
 		this.noArticle = noArticle;
@@ -167,7 +168,7 @@ public class ArticleVendu {
 	}
 
 	// sans prix de vente et sans ID
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
 			Integer prixInitial, Utilisateur utilisateur, Categorie categorie) {
 		super();
 		this.nomArticle = nomArticle;
@@ -204,19 +205,19 @@ public class ArticleVendu {
 		this.description = description;
 	}
 
-	public LocalDate getDateDebutEnchere() {
+	public LocalDateTime getDateDebutEnchere() {
 		return dateDebutEnchere;
 	}
 
-	public void setDateDebutEnchere(LocalDate dateDebutEnchere) {
+	public void setDateDebutEnchere(LocalDateTime dateDebutEnchere) {
 		this.dateDebutEnchere = dateDebutEnchere;
 	}
 
-	public LocalDate getDateFinEnchere() {
+	public LocalDateTime getDateFinEnchere() {
 		return dateFinEnchere;
 	}
 
-	public void setDateFinEnchere(LocalDate dateFinEnchere) {
+	public void setDateFinEnchere(LocalDateTime dateFinEnchere) {
 		this.dateFinEnchere = dateFinEnchere;
 	}
 
