@@ -12,4 +12,12 @@
   <session-config>
   <session-timeout>5</session-timeout>
 </session-config>
+<servlet>
+    <servlet-name>homePageRedirectServlet</servlet-name>
+    <servlet-class>com.example.HomePageRedirectServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>homePageRedirectServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
 </web-app>
