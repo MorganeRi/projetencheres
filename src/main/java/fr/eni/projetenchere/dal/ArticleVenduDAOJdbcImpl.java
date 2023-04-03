@@ -30,6 +30,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_MES_ARTCILE_EN_VENTE = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie WHERE no_utilisateur=? and date_debut_enchere<= NOW() and date_fin_enchere>= NOW() ";
 	private static final String SELECT_MES_ARTCILE_EN_VENTE_NON_DEBUTE = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie WHERE no_utilisateur=? and date_debut_enchere>= NOW() ";
 	private static final String SELECT_MES_ARTCILE_EN_VENTE_TERMINE = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie WHERE no_utilisateur=? and date_fin_enchere<= NOW() ";
+	private static final String SELECT_ARTCILE_MES_ENCHERES = "select a.no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, a.no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie inner join enchere as e on a.no_article=e.no_article WHERE e.no_utilisateur=?";
+	private static final String SELECT_ARTCILE_REMPORTE = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie WHERE no_acquereur=? ";
 	
 	@Override
 	public void updateArticleVendu(ArticleVendu articleVendu) throws BusinessException {
@@ -723,6 +725,119 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_MES_ARTCILE_EN_VENTE_TERMINE);
+			pstmt.setInt(1, idUtil);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				Integer noArticle = rs.getInt(1);
+				String nomArticle = rs.getString(2);
+				String description = rs.getString(3);
+				LocalDate dateDebut = null;
+				rs.getDate(4);
+				if (!rs.wasNull()) {
+					dateDebut = rs.getDate(4).toLocalDate();
+				}
+				LocalDate dateFin = null;
+				rs.getDate(5);
+				if (!rs.wasNull()) {
+					dateFin = rs.getDate(5).toLocalDate();
+				}
+
+				Integer prixInitial = rs.getInt(6);
+				Integer prixVente = rs.getInt(7);
+				Integer idUtil1 = rs.getInt(8);
+				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil1);
+				Integer idCat = rs.getInt(9);
+				String libelle = rs.getString(10);
+				cat = new Categorie(idCat, libelle);
+
+				article = new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
+						prixVente, utilisateur, cat);
+
+				if (articles == null) {
+					articles = new ArrayList<ArticleVendu>();
+				}
+				
+				articles.add(article);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_ALL_ARTICLE);
+
+			throw businessException;
+		}
+		return articles;
+	}
+
+	@Override
+	public List<ArticleVendu> articleEncheris(Integer idUtil) throws BusinessException {
+		List<ArticleVendu> articles = null;
+		ArticleVendu article = null;
+		Categorie cat = null;
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ARTCILE_MES_ENCHERES);
+			pstmt.setInt(1, idUtil);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				Integer noArticle = rs.getInt(1);
+				String nomArticle = rs.getString(2);
+				String description = rs.getString(3);
+				LocalDate dateDebut = null;
+				rs.getDate(4);
+				if (!rs.wasNull()) {
+					dateDebut = rs.getDate(4).toLocalDate();
+				}
+				LocalDate dateFin = null;
+				rs.getDate(5);
+				if (!rs.wasNull()) {
+					dateFin = rs.getDate(5).toLocalDate();
+				}
+
+				Integer prixInitial = rs.getInt(6);
+				Integer prixVente = rs.getInt(7);
+				Integer idUtil1 = rs.getInt(8);
+				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil1);
+				Integer idCat = rs.getInt(9);
+				String libelle = rs.getString(10);
+				cat = new Categorie(idCat, libelle);
+
+				article = new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
+						prixVente, utilisateur, cat);
+
+				if (articles == null) {
+					articles = new ArrayList<ArticleVendu>();
+				}
+				
+				articles.add(article);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.SELECT_ALL_ARTICLE);
+
+			throw businessException;
+		}
+		return articles;
+	
+	}
+
+	@Override
+	public List<ArticleVendu> articleEnchereRemportees(Integer idUtil) throws BusinessException {
+		List<ArticleVendu> articles = null;
+		ArticleVendu article = null;
+		Categorie cat = null;
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ARTCILE_REMPORTE);
 			pstmt.setInt(1, idUtil);
 			ResultSet rs = pstmt.executeQuery();
 

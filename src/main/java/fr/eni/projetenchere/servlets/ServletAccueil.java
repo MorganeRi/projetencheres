@@ -78,8 +78,6 @@ public class ServletAccueil extends HttpServlet {
 		request.setAttribute("listCategorie", listCategorie);
 
 		String recherche;
-		Integer noCategorie = null;
-		String achatOuVente = request.getParameter("options");
 		HttpSession session = request.getSession();
 
 		recherche = request.getParameter("search");
@@ -107,7 +105,7 @@ public class ServletAccueil extends HttpServlet {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 			} else if (recherche.isBlank()) {
@@ -119,7 +117,7 @@ public class ServletAccueil extends HttpServlet {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 			} else if (noCat.equals("Selectionner une categorie")) {
@@ -131,7 +129,7 @@ public class ServletAccueil extends HttpServlet {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 			} else {
@@ -143,7 +141,7 @@ public class ServletAccueil extends HttpServlet {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 			}
@@ -172,10 +170,32 @@ public class ServletAccueil extends HttpServlet {
 				}
 				break;
 			case "mes_encheres":
-				// affichageEncheresEnCours(request,idUtil);
+				try {
+
+					articles = article.articleEncherie(idUtil);
+					if (articles == null) {
+						request.setAttribute("PasArticle", "Vous n'avez pas encheris sur un articel");
+					} else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+
+					e.printStackTrace();
+				}
 				break;
 			case "encheres_remportees":
-				// affichageEncheresGagnees(request, idUtil);
+				try {
+
+					articles = article.articleEnchereRemporte(idUtil);
+					if (articles == null) {
+						request.setAttribute("PasArticle", "Vous n'avez pas remporte d'enchere");
+					} else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+
+					e.printStackTrace();
+				}
 				break;
 			case "ventes_cours":
 				try {

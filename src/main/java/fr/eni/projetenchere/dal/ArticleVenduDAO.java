@@ -52,5 +52,9 @@ public interface ArticleVenduDAO {
 	public List<ArticleVendu> ventesNonDebutees(Integer idUtil) throws BusinessException;
 	
 	public List<ArticleVendu> ventesTerminees(Integer idUtil) throws BusinessException;
+	
+	public List<ArticleVendu> articleEncheris(Integer idUtil) throws BusinessException;
+	
+	public List<ArticleVendu> articleEnchereRemportees(Integer idUtil) throws BusinessException;
 
 }

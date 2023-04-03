@@ -47,4 +47,8 @@ public interface ArticleVenduManager {
 	
 	public List<ArticleVendu> ventesTerminees(Integer idUtil) throws BusinessException;
 	
+	public List<ArticleVendu> articleEncherie(Integer idUtil) throws BusinessException;
+	
+	public List<ArticleVendu> articleEnchereRemporte(Integer idUtil) throws BusinessException;
+	
 }

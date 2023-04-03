@@ -24,7 +24,7 @@
 	Integer id = (Integer) session.getAttribute("id");
 	if (id == null) {
 	%>
-<div class="container">
+<div class="container-fluid">
 <form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Adresse E-mail ou pseudo</label>
@@ -43,13 +43,13 @@
   <button type="submit" class="btn btn-dark">Connexion</button>
 </form>
 </div>
-<div class="container">
+<div class="container-fluid">
 <br>
 <a href="ServletAjoutUtilisateur" class="btn btn-dark"
 					role="button">Créer un compte</a>
 </div>
 <%}else{ %>
-<div class="container">
+<div class="container-fluid">
 <p>Vous êtes connecté</p>
 </div>
 <%} %>

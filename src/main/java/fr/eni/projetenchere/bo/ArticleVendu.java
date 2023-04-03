@@ -16,6 +16,7 @@ public class ArticleVendu {
 	private Categorie categorie;
 	private Retrait retrait;
 	private String photo;
+	private Integer noAcquereur;
 
 	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
 
@@ -23,8 +24,31 @@ public class ArticleVendu {
 	public ArticleVendu() {
 		super();
 	}
+	
+	
 
 //	tous les attributs
+
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
+			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
+			Categorie categorie, Retrait retrait, String photo, Integer noAcquereur, List<Enchere> listeEncheres) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEnchere = dateDebutEnchere;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixInitial = prixInitial;
+		this.prixDeVente = prixDeVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.retrait = retrait;
+		this.photo = photo;
+		this.noAcquereur = noAcquereur;
+		this.listeEncheres = listeEncheres;
+	}
+
+
 
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
 			LocalDate dateFinEnchere, Integer prixInitial, Integer prixDeVente, Utilisateur utilisateur,
@@ -251,14 +275,33 @@ public class ArticleVendu {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
+	
 
-	// methode toString()
+	public Integer getNoAcquereur() {
+		return noAcquereur;
+	}
+
+
+
+	public void setNoAcquereur(Integer noAcquereur) {
+		this.noAcquereur = noAcquereur;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixInitial="
 				+ prixInitial + ", prixDeVente=" + prixDeVente + ", utilisateur=" + utilisateur + ", categorie="
-				+ categorie + ", listeEncheres=" + listeEncheres + "]";
+				+ categorie + ", retrait=" + retrait + ", photo=" + photo + ", noAcquereur=" + noAcquereur
+				+ ", listeEncheres=" + listeEncheres + "]";
 	}
+
+
+
+	// methode toString()
+
 
 }
