@@ -43,9 +43,7 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 						href="ServletAjoutArticle">Vendre un article</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="ServletMonProfil">Mon profil</a></li>
-<!-- 					<li class="nav-item"><a class="nav-link" -->
-<%-- 						href="ServletDeconnexion">Déconnexion [<%=pseudo%>] --%>
-<!-- 					</a></li> -->
+
 					<%
 					if (estAdmin) {
 					%>
