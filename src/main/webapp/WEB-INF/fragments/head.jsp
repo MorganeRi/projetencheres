@@ -3,14 +3,9 @@
 <%
 Integer id = (Integer) session.getAttribute("id");
 
-
-
 String pseudo = (String) session.getAttribute("pseudo");
 
 Boolean estAdmin = (Boolean) session.getAttribute("admin");
-
-
-
 %>
 
 <!DOCTYPE html>
@@ -30,7 +25,9 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 		class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark bg-gradient"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="ServletAccueil"><img class="img-fluid" alt="logo" src="./images/logo.jpg" width="100" height="auto"></a>
+			<a class="navbar-brand" href="ServletAccueil"><img
+				class="img-fluid" alt="logo" src="./images/logo.jpg" width="100"
+				height="auto"></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -38,7 +35,7 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
+				<ul class="navbar-nav mr-auto">
 					<%
 					if (id != null) {
 					%>
@@ -46,17 +43,17 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 						href="ServletAjoutArticle">Vendre un article</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="ServletMonProfil">Mon profil</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="ServletDeconnexion">Déconnexion [<%=pseudo%>]
-					</a></li>
+<!-- 					<li class="nav-item"><a class="nav-link" -->
+<%-- 						href="ServletDeconnexion">Déconnexion [<%=pseudo%>] --%>
+<!-- 					</a></li> -->
 					<%
-					if(estAdmin){
-						%>
-						<li class="nav-item"><a class="nav-link"
-							href="ServletGestionAdmin">Interface Administrateur</a></li>
+					if (estAdmin) {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="ServletGestionAdmin">Interface Administrateur</a></li>
 					<%
 					}
-					
+
 					} else {
 					%>
 					<li class="nav-item"><a class="nav-link"
@@ -67,6 +64,17 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 					}
 					%>
 
+				</ul>
+				<ul class="navbar-nav">
+					<%
+					if (id != null) {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="ServletDeconnexion">Déconnexion [<%=pseudo%>]
+					</a></li>
+					<%
+					}
+					%>
 				</ul>
 
 			</div>
