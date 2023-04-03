@@ -18,7 +18,7 @@ public interface ArticleVenduManager {
 	
 	public void supprimerArticleVendu (ArticleVendu article)throws BusinessException;
 	
-	public List<ArticleVendu> selectParCategorieArticle (Categorie categorie)throws BusinessException;
+	public List<ArticleVendu> selectParCategorieArticle (String LibCat)throws BusinessException;
 	
 	public List<ArticleVendu> selectParNomArticle (String nom)throws BusinessException;
 

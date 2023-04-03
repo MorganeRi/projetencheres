@@ -41,9 +41,8 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	}
 
 	@Override
-	public List<ArticleVendu> selectParCategorieArticle(Categorie categorie) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArticleVendu> selectParCategorieArticle(String LibCat) throws BusinessException {
+		return dao.selectByCategorieArticle(LibCat);
 	}
 
 	@Override
