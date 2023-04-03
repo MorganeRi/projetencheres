@@ -108,7 +108,7 @@ public class ServletDetailArticle extends HttpServlet {
 		Utilisateur utilisateur = null;
 		Integer noUtilisateur;
 		Enchere enchere;
-		Enchere enchereMax;
+		Enchere enchereMax = null;
 		Utilisateur utilisateurActuelMax;
 		LocalDateTime dateEnchere = LocalDateTime.now();
 		List<Integer> listeCodesErreur = new ArrayList<>();
@@ -130,9 +130,12 @@ public class ServletDetailArticle extends HttpServlet {
 			
 			creditUtilisateur = utilisateur.getCredit();
 			if (creditUtilisateur >= montantEnchere) {
-				
-				utilisateurActuelMax = enchereManager.selectMaxEnchere(article).getUtilisateur();
+				if(enchereManager.selectMaxEnchere(article) != null) {
 				enchereMax = enchereManager.selectMaxEnchere(article);
+				}else {enchereMax.setMontantEnchere(0);
+				}
+				System.out.println(enchereMax);
+				utilisateurActuelMax = enchereManager.selectMaxEnchere(article).getUtilisateur();
 				utilisateurActuelMax = enchereMax.getUtilisateur();
 				utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit()+enchereMax.getMontantEnchere());
 				utilisateurManager.majMontantCredit(utilisateurActuelMax);
