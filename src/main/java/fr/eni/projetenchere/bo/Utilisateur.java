@@ -17,10 +17,11 @@ public class Utilisateur {
 	private String motDePasse;
 	private Integer credit;
 	private Boolean administrateur;
+	private Boolean actif;
 	private List<ArticleVendu> articleVendu = new ArrayList<>();
 	private List<Enchere> enchere = new ArrayList<>();
 
-	// Constructeur complet
+	// Constructeur sans actif
 	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, Integer credit, Boolean administrateur,
 			List<ArticleVendu> articleVendu, List<Enchere> enchere) {
@@ -39,6 +40,29 @@ public class Utilisateur {
 		this.articleVendu = articleVendu;
 		this.enchere = enchere;
 	}
+ 
+//	Constructeur complet
+	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, Integer credit, Boolean administrateur,
+			Boolean actif, List<ArticleVendu> articleVendu, List<Enchere> enchere) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+		this.actif = actif;
+		this.articleVendu = articleVendu;
+		this.enchere = enchere;
+	}
+
 
 	// Constructeur sans list
 	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
@@ -136,8 +160,18 @@ public class Utilisateur {
 	}
 
 	// Getters et setters
+	
+	
 	public Integer getNoUtilisateur() {
 		return noUtilisateur;
+	}
+
+	public Boolean getActif() {
+		return actif;
+	}
+
+	public void setActif(Boolean actif) {
+		this.actif = actif;
 	}
 
 	public void setNoUtilisateur(Integer noUtilisateur) {

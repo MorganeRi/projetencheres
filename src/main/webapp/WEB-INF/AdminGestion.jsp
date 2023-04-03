@@ -19,6 +19,29 @@
 					<h5 class="mb-0">Liste des catégories</h5>
 					<p class="mb-0 small text-muted">Ajout/Modification/Suppression</p>
 				</div>
+				<%
+					Categorie categorieAjoute = (Categorie) request.getAttribute("categorieARajouter");
+					Categorie categorieModifie = (Categorie) request.getAttribute("categorieAModifier");
+					Categorie categorieSupprime  = (Categorie) request.getAttribute("categorieASupprimer");
+					if (categorieAjoute != null) {
+				%>
+					<br />
+					<p style="color: green;">La catégorie a été ajoutée avec
+					succès</p>
+				<%
+					} else if (categorieModifie != null){
+				%>
+					<p style="color: green;">La catégorie a été modifiée avec
+					succès</p>
+				<%
+					} else if (categorieSupprime != null){
+				%>
+					<p style="color: green;">La catégorie a été supprimée avec
+					succès</p>
+				<%
+					}
+				%>	
+				
 				<div class="table-responsive">
 					<table class="table mb-0">
 						<thead class="small text-uppercase bg-body text-muted">
@@ -59,16 +82,7 @@
 							 <br />
 							
 						</div>
-						<%
-							Categorie categorieAjoute = (Categorie) request.getAttribute("categorieARajouter");
-							if (categorieAjoute != null) {
-						%>
-						<br />
-						<p style="color: green;">La catégorie a été ajoutée avec
-								succès</p>
-						<%
-							}
-						%>
+						
 						<div class="mb-1 d-flex align-items-center justify-content-end">
 							<label class="form-label me-2" for="nomCategorie">Modifier
 								: </label> 
@@ -200,7 +214,7 @@
 								<td>lamoula</td>
 								<td>jmlamoula@gmail.com</td>
 								<td><span
-									class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span>
+									class="badge fs-6 fw-normal bg-tint-success text-success">Activé </span>
 								</td>
 								<td>
 									<div class="form-check">

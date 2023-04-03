@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
@@ -92,9 +93,9 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 			class="btn btn-dark me-3" />
 	</form>
 
+
 	<%
-	}
-	if (id == art.getUtilisateur().getNoUtilisateur()) {
+	if (id == art.getUtilisateur().getNoUtilisateur()&& art.getDateDebutEnchere().isBefore(LocalDateTime.now())) {
 	%>
 	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Modifier Article</a>

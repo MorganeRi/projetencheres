@@ -7,6 +7,8 @@ Integer id = (Integer) session.getAttribute("id");
 
 String pseudo = (String) session.getAttribute("pseudo");
 
+Boolean estAdmin = (Boolean) session.getAttribute("admin");
+
 
 
 %>
@@ -48,6 +50,13 @@ String pseudo = (String) session.getAttribute("pseudo");
 						href="ServletDeconnexion">Déconnexion [<%=pseudo%>]
 					</a></li>
 					<%
+					if(estAdmin){
+						%>
+						<li class="nav-item"><a class="nav-link"
+							href="ServletGestionAdmin">Interface Administrateur</a></li>
+					<%
+					}
+					
 					} else {
 					%>
 					<li class="nav-item"><a class="nav-link"
@@ -59,7 +68,6 @@ String pseudo = (String) session.getAttribute("pseudo");
 					%>
 
 				</ul>
-
 
 			</div>
 
