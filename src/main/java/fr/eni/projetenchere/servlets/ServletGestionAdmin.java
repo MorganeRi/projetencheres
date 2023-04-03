@@ -94,7 +94,7 @@ public class ServletGestionAdmin extends HttpServlet {
 				
 //				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
 //				de validation lors de la modification de la categorie
-				request.setAttribute("categorieAModifier", categorieAModifier );
+				request.setAttribute("categorieAModifier", categorieAModifier);
 			}else if ("Supprimer".equals(action)) {
 //				Traitement pour supprimer la catégorie
 				noCategorie = Integer.parseInt(request.getParameter("CategorieASupprimer"));
