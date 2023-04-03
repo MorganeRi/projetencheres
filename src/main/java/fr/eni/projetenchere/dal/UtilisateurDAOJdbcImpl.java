@@ -43,6 +43,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				tinyIntValue = 1;
 			}
 			stmt.setInt(11, tinyIntValue);
+			
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
