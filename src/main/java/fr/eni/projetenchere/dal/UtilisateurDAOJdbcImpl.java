@@ -60,7 +60,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
-	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur, email, pseudo FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
+	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur, email, pseudo, administrateur FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
 
 	@Override
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -80,6 +80,13 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					utilisateur.setNoUtilisateur(rs.getInt(1));
 					utilisateur.setEmail(rs.getString(2));
 					utilisateur.setPseudo(rs.getString(3));
+					Boolean estAdmin;
+					if (rs.getInt(4)==1) {
+						estAdmin = true;
+					} else {
+						estAdmin=false;
+					}
+					utilisateur.setAdministrateur(estAdmin);
 				} else {
 					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
 				}
@@ -94,7 +101,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			throw businessException;
 
 	}
-	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur, email, pseudo FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
+	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur, email, pseudo, administrateur FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
 	@Override
 	public void connectUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException {
 		BusinessException businessException = new BusinessException();
@@ -113,6 +120,13 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					utilisateur.setNoUtilisateur(rs.getInt(1));
 					utilisateur.setEmail(rs.getString(2));
 					utilisateur.setPseudo(rs.getString(3));
+					Boolean estAdmin;
+					if (rs.getInt(4)==1) {
+						estAdmin = true;
+					} else {
+						estAdmin=false;
+					}
+					utilisateur.setAdministrateur(estAdmin);
 				} else {
 					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
 				}

@@ -27,6 +27,8 @@ public class ServletConnexion extends HttpServlet {
 	private static final String SESSION_UTILISATEUR_MAIL = "mail";
 	private static final String SESSION_UTILISATEUR_ID = "id";
 	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
+	private static final String SESSION_UTILISATEUR_ADMIN = "admin";
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -109,6 +111,9 @@ public class ServletConnexion extends HttpServlet {
         session.setAttribute(SESSION_UTILISATEUR_ID,util.getNoUtilisateur() );
         session.setAttribute(SESSION_UTILISATEUR_MAIL, util.getEmail());
         session.setAttribute(SESSION_UTILISATEUR_PSEUDO, util.getPseudo());
+        session.setAttribute(SESSION_UTILISATEUR_ADMIN, util.getAdministrateur());
+        
+        System.out.println(session.getAttribute("admin"));
 		
 		response.sendRedirect("./ServletConnexion");
 	}
