@@ -165,18 +165,17 @@ public class ServletAjoutArticle extends HttpServlet {
 				
 				photoOuPas = false;
 			}
+
+
+			articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
+					prixInitial, utilisateur, categorie);
 			if (photoOuPas) {
 				
-				photo = "./images/" + request.getParameter("imageArticle");
+				photo = request.getParameter("imageArticle");
 				
 				articleVendu.setPhoto(photo);
 				
 			}
-
-//			articleVendu.setPhoto(blob);
-
-			articleVendu = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere,
-					prixInitial, utilisateur, categorie);
 			retrait = new Retrait(rue,codePostal,nomVille,articleVendu);
 			
 			resultatComparaisonDates = dateDebutEnchere.compareTo(dateFinEnchere);

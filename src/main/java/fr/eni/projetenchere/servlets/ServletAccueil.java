@@ -90,7 +90,7 @@ public class ServletAccueil extends HttpServlet {
 		noCat = request.getParameter("Categorie");
 
 		String formulaire = request.getParameter("form");
-		System.out.println(formulaire);
+
 		if (formulaire == null) {
 			this.doGet(request, response);
 		}
@@ -178,13 +178,46 @@ public class ServletAccueil extends HttpServlet {
 				// affichageEncheresGagnees(request, idUtil);
 				break;
 			case "ventes_cours":
-				// affichageVentesEnCours(request, idUtil);
+				try {
+
+					articles = article.ventesEnCours(idUtil);
+					if (articles == null) {
+						request.setAttribute("PasArticle", "Vous n'avez pas de vente en cours");
+					} else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+
+					e.printStackTrace();
+				}
 				break;
 			case "ventes_non_debutees":
-				// affichageVentesNonDebutees(request, idUtil);
+				try {
+
+					articles = article.ventesNonDebutees(idUtil);
+					if (articles == null) {
+						request.setAttribute("PasArticle", "Vous n'avez d'article en attente d'être mis aux enchères");
+					} else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+
+					e.printStackTrace();
+				}
 				break;
 			case "ventes_terminees":
-				// affichageVentesTerminees(request, idUtil);
+				try {
+
+					articles = article.ventesTerminees(idUtil);
+					if (articles == null) {
+						request.setAttribute("PasArticle", "Vous n'avez pas encore vendu d'article");
+					} else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+
+					e.printStackTrace();
+				}
 				break;
 			}
 

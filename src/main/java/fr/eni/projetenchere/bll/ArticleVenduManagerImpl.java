@@ -119,5 +119,22 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		return dao.affichageArticlesEnVente(idUtil);
 	}
 
+	@Override
+	public List<ArticleVendu> ventesEnCours(Integer idUtil) throws BusinessException {
+		// TODO Auto-generated method stub
+		return dao.ventesEnCours(idUtil);
+	}
+	@Override
+	public List<ArticleVendu> ventesNonDebutees(Integer idUtil) throws BusinessException {
+		// TODO Auto-generated method stub
+		return dao.ventesNonDebutees(idUtil);
+	}
+
+	@Override
+	public List<ArticleVendu> ventesTerminees(Integer idUtil) throws BusinessException {
+		// TODO Auto-generated method stub
+		return dao.ventesTerminees(idUtil);
+	}
+
 
 }

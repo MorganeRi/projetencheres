@@ -87,36 +87,41 @@
 		id="formradio">
 		<input type="hidden" name="form" value="form2" />
 		<fieldset id="check">
+			<legend>Mes Achats</legend>
 			<div class="form-check">
-				<input type="radio" name="options" id="achatsRadio" value="achats"
-					onclick="toggleCheckboxes()" checked>Achats
+				<!-- 				<input type="radio" name="options" id="achatsRadio" value="achats" -->
+				<!-- 					onclick="toggleCheckboxes()" checked>Achats -->
 				<div>
-					<input type="checkbox" name="check" id="enchereCheckbox"
+					<input type="radio" name="check" id="enchereCheckbox"
 						value="encheres_ouvertes">enchères ouvertes
 				</div>
 				<div>
-					<input type="checkbox" name="check" id="mesEncheresCheckbox"
+					<input type="radio" name="check" id="mesEncheresCheckbox"
 						value="mes_encheres">mes enchères
 				</div>
 				<div>
-					<input type="checkbox" name="check"
+					<input type="radio" name="check"
 						id="mesEncheresRemporteesCheckbox" value="encheres_remportees">mes
 					enchères remportées
 				</div>
 			</div>
+		</fieldset>
+		<fieldset id="check">
+			<legend>Mes ventes</legend>
 			<div class="form-check">
-				<input type="radio" name="options" id="ventesRadio" value="ventes"
-					onclick="toggleCheckboxes()">Mes Ventes
+				<!-- 				<input type="radio" name="options" id="ventesRadio" value="ventes" -->
+				<!-- 					onclick="toggleCheckboxes()">Mes Ventes -->
+
 				<div>
-					<input type="checkbox" name="check" id="ventesEnCoursCheckbox"
+					<input type="radio" name="check" id="ventesEnCoursCheckbox"
 						value="ventes_cours">mes ventes en cours
 				</div>
 				<div>
-					<input type="checkbox" name="check" id="ventesNonDebuteesCheckbox"
+					<input type="radio" name="check" id="ventesNonDebuteesCheckbox"
 						value="ventes_non_debutees">ventes non débutées
 				</div>
 				<div>
-					<input type="checkbox" name="check" id="ventesTermineesCheckbox"
+					<input type="radio" name="check" id="ventesTermineesCheckbox"
 						value="ventes_terminees">ventes terminées
 				</div>
 			</div>
@@ -133,12 +138,10 @@
 
 <%
 if (articles != null) {
-
 %>
 <div class="container-fluid d-flex align-content-stretch flex-wrap">
 	<%
 	for (ArticleVendu art : articles) {
-
 	%>
 
 
