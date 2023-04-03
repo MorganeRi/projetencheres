@@ -75,7 +75,7 @@ public class ServletGestionAdmin extends HttpServlet {
 //				Traitement pour ajouter une catégorie
 				nomCategorie = request.getParameter("nomCategorie");
 				
-				categorie = new Categorie(nomCategorie);
+				categorie = new Categorie(nomCategorie) ;
 //				System.out.println(categorie);
 				
 				categorieManager.ajouterCategorie(categorie);
