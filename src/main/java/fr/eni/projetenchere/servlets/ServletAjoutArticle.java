@@ -1,15 +1,10 @@
 package fr.eni.projetenchere.servlets;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.sql.Blob;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.rowset.serial.SerialBlob;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
@@ -109,8 +103,8 @@ public class ServletAjoutArticle extends HttpServlet {
 		String nomArticle = null;
 		String description = null;
 		Integer noCategorie = null;
-		LocalDate dateDebutEnchere = null;
-		LocalDate dateFinEnchere = null;
+		LocalDateTime dateDebutEnchere = null;
+		LocalDateTime dateFinEnchere = null;
 		Integer prixInitial = null;
 		String rue = null;
 		String codePostal = null;
@@ -139,8 +133,8 @@ public class ServletAjoutArticle extends HttpServlet {
 			nomArticle = request.getParameter("nomArticle");
 			description = request.getParameter("Description");
 			noCategorie = Integer.parseInt(request.getParameter("Categorie"));
-			dateDebutEnchere = LocalDate.parse(request.getParameter("DebutEnchere"));
-			dateFinEnchere = LocalDate.parse(request.getParameter("FinEnchere"));
+			dateDebutEnchere = LocalDateTime.parse(request.getParameter("DebutEnchere"));
+			dateFinEnchere = LocalDateTime.parse(request.getParameter("FinEnchere"));
 			prixInitial = Integer.parseInt(request.getParameter("prixDepart"));
 			
 			rue = request.getParameter("nomRue");

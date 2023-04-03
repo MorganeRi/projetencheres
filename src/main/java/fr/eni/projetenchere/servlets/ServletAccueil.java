@@ -19,7 +19,6 @@ import fr.eni.projetenchere.bll.CategorieManager;
 import fr.eni.projetenchere.bll.CategorieManagerSing;
 import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
-import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class Accueil

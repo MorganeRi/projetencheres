@@ -1,7 +1,6 @@
 package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,8 +154,8 @@ public class ServletDetailArticle extends HttpServlet {
 
 				// La date de fin de l'enchère est arrivée il faut donc déterminer qui est
 				// l'acquéreur et quel est le prix de vente final
-				LocalDate dateFinEnchere = article.getDateFinEnchere();
-				LocalDate dateDuJour = LocalDate.now();
+				LocalDateTime dateFinEnchere = article.getDateFinEnchere();
+				LocalDateTime dateDuJour = LocalDateTime.now();
 				if (dateFinEnchere.isAfter(dateDuJour)) {
 					article.setNoAcquereur(
 							enchereManager.selectMaxEnchere(article).getUtilisateur().getNoUtilisateur());
