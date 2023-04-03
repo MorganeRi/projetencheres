@@ -18,6 +18,13 @@ public class CategorieManagerImpl implements CategorieManager{
 		return categorie;
 	}
 
+	
+	@Override
+	public Categorie majCategorie(Categorie categorie) throws BusinessException {
+		dao.updateCategorie(categorie);
+		return categorie;
+	}
+
 	@Override
 	public List<Categorie> selectAllCategorie() throws BusinessException {
 		try {
@@ -41,6 +48,7 @@ public class CategorieManagerImpl implements CategorieManager{
 		}
 	}
 
+	
 	
 
 }
