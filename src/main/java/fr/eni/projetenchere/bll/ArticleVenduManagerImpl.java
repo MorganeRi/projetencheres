@@ -115,8 +115,8 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public List<ArticleVendu> affichageArticlesEnVente(Integer idUtil) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+
+		return dao.affichageArticlesEnVente(idUtil);
 	}
 
 

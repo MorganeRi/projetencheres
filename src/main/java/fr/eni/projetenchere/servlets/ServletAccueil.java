@@ -35,7 +35,6 @@ public class ServletAccueil extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -43,14 +42,13 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 
 		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
 
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 
 		try {
-		articles = article.selectToutArticle();
+			articles = article.selectToutArticle();
 
 			request.setAttribute("listToutArticle", articles);
 
@@ -59,8 +57,8 @@ public class ServletAccueil extends HttpServlet {
 			e.printStackTrace();
 		}
 		List<Categorie> listCategorie = new ArrayList<>();
-		listCategorie=affichageCategorie();
-		
+		listCategorie = affichageCategorie();
+
 		request.setAttribute("listCategorie", listCategorie);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
@@ -73,159 +71,144 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		List<Categorie> listCategorie = new ArrayList<>();
-		listCategorie=affichageCategorie();
-		
+		listCategorie = affichageCategorie();
+
 		request.setAttribute("listCategorie", listCategorie);
-		
+
 		String recherche;
-		Integer noCategorie= null;
+		Integer noCategorie = null;
 		String achatOuVente = request.getParameter("options");
 		HttpSession session = request.getSession();
-		
+
 		recherche = request.getParameter("search");
 		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
 
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 		String noCat;
-		noCat=request.getParameter("Categorie");
-		
+		noCat = request.getParameter("Categorie");
 
+		String formulaire = request.getParameter("form");
+		System.out.println(formulaire);
+		if (formulaire == null) {
+			this.doGet(request, response);
+		}
+		// Si l'utilisateur fait une recherche par nom et/ ou catégorie
+		if (formulaire.equals("form1")) {
 
-		
-        String formulaire = request.getParameter("form");
-
-        if(formulaire == null) {
-            this.doGet(request, response);
-        }
-        //Si l'utilisateur fait une recherche par nom et/ ou catégorie
-        if(formulaire.equals("form1")) {
-
-            if ((noCat.equals("Selectionner une categorie")) && recherche.isBlank()) {
-            	try {
+			if ((noCat.equals("Selectionner une categorie")) && recherche.isBlank()) {
+				try {
 
 					articles = article.selectToutArticle();
-					if (articles==null) {
+					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 1");
-					}else {
+					} else {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            } else if (recherche.isBlank()) {
-            	try {
-					articles =  article.selectParCategorieArticle(noCat);
-					if (articles==null) {
+			} else if (recherche.isBlank()) {
+				try {
+					articles = article.selectParCategorieArticle(noCat);
+					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 2");
-					}else {
+					} else {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            } else if (noCat.equals("Selectionner une categorie")) {
-            	try {
-					articles =  article.selectParNomArticle(recherche);
-					if (articles==null) {
+			} else if (noCat.equals("Selectionner une categorie")) {
+				try {
+					articles = article.selectParNomArticle(recherche);
+					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 3");
-					}else {
+					} else {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            } else {
-            	try {
-					articles =  article.selectParNomArticleParCat(recherche, noCat);
-					if (articles==null) {
+			} else {
+				try {
+					articles = article.selectParNomArticleParCat(recherche, noCat);
+					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 4");
-					}else {
+					} else {
 						request.setAttribute("listArticle", articles);
 					}
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            }
-        	
-        }
-        
-        //Si l'utilisateur fait une recherche via les checks Box
-        if(formulaire.equals("form2")) {
-        	System.out.println("coucou");
-            Integer idUtil = (Integer) session.getAttribute("id");
-            String check = request.getParameter("check");
+			}
 
-            switch (check) {
-                case "encheres_ouvertes" :
-                  try {
-                	  System.out.println("coucou2");
+		}
+
+		// Si l'utilisateur fait une recherche via les checks Box
+		else if (formulaire.equals("form2")) {
+
+			Integer idUtil = (Integer) session.getAttribute("id");
+			String check = request.getParameter("check");
+
+			switch (check) {
+			case "encheres_ouvertes":
+				try {
+
 					articles = article.affichageArticlesEnVente(idUtil);
+					if (articles == null) {
+						request.setAttribute("PasArticle", "Vous n'avez pas d'article en vente");
+					} else {
+						request.setAttribute("listArticle", articles);
+					}
 				} catch (BusinessException e) {
-					request.setAttribute("PasArticle", "Vous n'avez pas d'article en vente");
+
 					e.printStackTrace();
 				}
-                    break;
-                case "mes_encheres" :
-                  //  affichageEncheresEnCours(request,idUtil);
-                    break;
-                case "encheres_remportees" :
-                 //   affichageEncheresGagnees(request, idUtil);
-                    break;
-                case "ventes_cours" :
-                //    affichageVentesEnCours(request, idUtil);
-                    break;
-                case "ventes_non_debutees" :
-                  //  affichageVentesNonDebutees(request, idUtil);
-                    break;
-                case "ventes_terminees" :
-                 //   affichageVentesTerminees(request, idUtil);
-                    break;
-            }
-        	
-        	
-        	
-        	
-        }
-		
+				break;
+			case "mes_encheres":
+				// affichageEncheresEnCours(request,idUtil);
+				break;
+			case "encheres_remportees":
+				// affichageEncheresGagnees(request, idUtil);
+				break;
+			case "ventes_cours":
+				// affichageVentesEnCours(request, idUtil);
+				break;
+			case "ventes_non_debutees":
+				// affichageVentesNonDebutees(request, idUtil);
+				break;
+			case "ventes_terminees":
+				// affichageVentesTerminees(request, idUtil);
+				break;
+			}
 
-			
-
-			
-				
-	
-			
-		
-		
+		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
-		
+
 	}
-	
-	private List<Categorie>  affichageCategorie() {
-		
+
+	private List<Categorie> affichageCategorie() {
+
 		List<Categorie> listCategorie = new ArrayList<>();
 		CategorieManager catMan = CategorieManagerSing.getInstanceCategorieImpl();
 		try {
 
 			listCategorie = catMan.selectAllCategorie();
-			
 
-			
 		} catch (BusinessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		return listCategorie;
-		
-	}
 
-	
+	}
 
 }

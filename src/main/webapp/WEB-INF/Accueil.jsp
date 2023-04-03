@@ -65,7 +65,7 @@
 			<br> <label class="form-label me-3" for="Categorie">Categorie
 			</label> <select class="form-control" id="Categorie" name="Categorie"
 				style="width: 300px" placeholder="Selectionner une categorie">
-				<option  selected>Selectionner une categorie</option>
+				<option selected>Selectionner une categorie</option>
 
 				<%
 				List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
@@ -90,45 +90,42 @@
 			<div class="form-check">
 				<input type="radio" name="options" id="achatsRadio" value="achats"
 					onclick="toggleCheckboxes()" checked>Achats
-							<div>
-								<input type="checkbox" name="check" id="enchereCheckbox"
-									value="encheres_ouvertes">enchères ouvertes
-							</div>
-							<div>
-								<input type="checkbox" name="check" id="mesEncheresCheckbox"
-									value="mes_encheres">mes enchères
-							</div>
-							<div>
-								<input type="checkbox" name="check"
-									id="mesEncheresRemporteesCheckbox" value="encheres_remportees">mes
-								enchères remportées
-							</div>
+				<div>
+					<input type="checkbox" name="check" id="enchereCheckbox"
+						value="encheres_ouvertes">enchères ouvertes
+				</div>
+				<div>
+					<input type="checkbox" name="check" id="mesEncheresCheckbox"
+						value="mes_encheres">mes enchères
+				</div>
+				<div>
+					<input type="checkbox" name="check"
+						id="mesEncheresRemporteesCheckbox" value="encheres_remportees">mes
+					enchères remportées
+				</div>
 			</div>
 			<div class="form-check">
 				<input type="radio" name="options" id="ventesRadio" value="ventes"
 					onclick="toggleCheckboxes()">Mes Ventes
-							<div>
-								<input type="checkbox" name="check"
-									id="ventesEnCoursCheckbox" value="ventes_cours">mes
-								ventes en cours
-							</div>
-							<div>
-								<input type="checkbox" name="check"
-									id="ventesNonDebuteesCheckbox" value="ventes_non_debutees">ventes
-								non débutées
-							</div>
-							<div>
-								<input type="checkbox" name="check"
-									id="ventesTermineesCheckbox" value="ventes_terminees">ventes
-								terminées
-							</div>
+				<div>
+					<input type="checkbox" name="check" id="ventesEnCoursCheckbox"
+						value="ventes_cours">mes ventes en cours
+				</div>
+				<div>
+					<input type="checkbox" name="check" id="ventesNonDebuteesCheckbox"
+						value="ventes_non_debutees">ventes non débutées
+				</div>
+				<div>
+					<input type="checkbox" name="check" id="ventesTermineesCheckbox"
+						value="ventes_terminees">ventes terminées
+				</div>
 			</div>
 		</fieldset>
 
 		<%
 		}
 		%>
-
+		<button class="btn btn-outline-success" type="submit">Rechercher</button>
 
 	</form>
 </div>
@@ -136,11 +133,12 @@
 
 <%
 if (articles != null) {
+
 %>
 <div class="container-fluid d-flex align-content-stretch flex-wrap">
 	<%
 	for (ArticleVendu art : articles) {
-		// System.out.println(articles.toString());
+
 	%>
 
 

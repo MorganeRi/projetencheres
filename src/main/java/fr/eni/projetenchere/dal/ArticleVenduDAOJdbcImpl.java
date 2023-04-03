@@ -26,7 +26,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_BY_NOM_BY_CAT = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and libelle=?";
 	private static final String SELECT_BY_NOM_BY_CAT_SAUF_UTIL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=? and no_utilisateur!=?";
 	private static final String SELECT_BY_NOM_BY_CAT_BY_UTIL = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ? and a.no_categorie=? and no_utilisateur=?";
-	private static final String SELECT_ARTCIle_EN_VENTE = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie WHERE date_debut_enchere<= NOW() and date_fin_enchere>= NOW() ";
+	private static final String SELECT_ARTCIlE_EN_VENTE = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie WHERE date_debut_enchere<= NOW() and date_fin_enchere>= NOW() ";
 	
 	@Override
 	public void updateArticleVendu(ArticleVendu articleVendu) throws BusinessException {
@@ -547,7 +547,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		Categorie cat = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ARTCIlE_EN_VENTE);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -566,6 +566,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				if (!rs.wasNull()) {
 					dateFin = rs.getDate(5).toLocalDate();
 				}
+				System.out.println("DAOImpl");
 				Integer prixInitial = rs.getInt(6);
 				Integer prixVente = rs.getInt(7);
 				Integer idUtil1 = rs.getInt(8);
@@ -580,7 +581,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				if (articles == null) {
 					articles = new ArrayList<ArticleVendu>();
 				}
-
+				
 				articles.add(article);
 
 			}
