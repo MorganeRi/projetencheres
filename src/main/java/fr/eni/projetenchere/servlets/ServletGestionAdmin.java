@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetenchere.bll.CategorieManager;
 import fr.eni.projetenchere.bll.CategorieManagerSing;
 import fr.eni.projetenchere.bo.Categorie;
+import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletGestionAdmin
@@ -40,14 +41,18 @@ public class ServletGestionAdmin extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		Boolean estAdmin = (Boolean) session.getAttribute("admin");
 		
 		List<Categorie> listCategorie = new ArrayList<>();
+		List<Utilisateur> listUtilisateur = new ArrayList<>();
 		
-		if(idUtilisateur == null) {
+//		|| !estAdmin
+		if(idUtilisateur == null  || !estAdmin ) {
 			// Rediriger vers la page de connexion
 			response.sendRedirect("ServletConnexion");
 		} else {
 			try {
+//				récupérer toutes les catégories présentes dans la BDD
 				listCategorie = categorieManager.selectAllCategorie();
 				
 				request.setAttribute(LIST_CATEGORIE, listCategorie);
@@ -58,7 +63,6 @@ public class ServletGestionAdmin extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -76,7 +80,6 @@ public class ServletGestionAdmin extends HttpServlet {
 				nomCategorie = request.getParameter("nomCategorie");
 				
 				categorie = new Categorie(nomCategorie) ;
-//				System.out.println(categorie);
 				
 				categorieManager.ajouterCategorie(categorie);
 //				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
@@ -89,7 +92,6 @@ public class ServletGestionAdmin extends HttpServlet {
 				categorieAModifier = categorieManager.selectCategorieParId(noCategorie);
 				
 				categorieAModifier.setLibelle(request.getParameter("NouveauNomCategorie"));
-//				System.out.println(categorieAModifier.toString());
 				categorieManager.majCategorie(categorieAModifier);
 				
 //				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
@@ -98,19 +100,15 @@ public class ServletGestionAdmin extends HttpServlet {
 			}else if ("Supprimer".equals(action)) {
 //				Traitement pour supprimer la catégorie
 				noCategorie = Integer.parseInt(request.getParameter("CategorieASupprimer"));
-				System.out.println(noCategorie);
+				
 				
 				categorieASupprimer = categorieManager.selectCategorieParId(noCategorie);
 				categorieASupprimer = categorieManager.supprimerCategorie(categorieASupprimer);
-				
 //				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
 //				de validation lors de la suppression de la categorie
-				request.setAttribute("categorieASupprimer", categorieASupprimer);
 				
+				request.setAttribute("categorieASupprimer", categorieASupprimer);
 			}
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
