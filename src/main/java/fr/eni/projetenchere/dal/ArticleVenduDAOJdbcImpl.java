@@ -18,7 +18,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String UPDATE_ARTICLE = "update article_vendu set nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?, prix_initial=?,  no_categorie=? where no_article =?";
 	private static final String INSERT_ARTICLE = "insert into article_vendu(nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial, no_utilisateur, no_categorie, photo) values (?,?,?,?,?,?,?,?)";
 	private static final String DELETE_ARTICLE = "delete from article_vendu where no_article=?";
-	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur from article_vendu where no_categorie=?";
+	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where libelle=?";
 	private static final String SELECT_BY_NOM = "select no_article, nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_de_vente, no_utilisateur, a.no_categorie, libelle from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where nom_article like ?";
 	private static final String UPDATE_PX_VENTE_ARTICLE = "update article_vendu set prix_de_vente=? where no_article =?";
 	private static final String SELECT_BY_ID_ARTICLE = "select nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie, libelle, photo from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where no_article=?";
@@ -122,14 +122,14 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public List<ArticleVendu> selectByCategorieArticle(Categorie categorie) throws BusinessException {
+	public List<ArticleVendu> selectByCategorieArticle(String LibCat) throws BusinessException {
 		List<ArticleVendu> articles = null;
 		ArticleVendu article = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_CATEGORIE);
-			System.out.println(categorie.getNoCategorie());
-			pstmt.setInt(1, categorie.getNoCategorie());
+
+			pstmt.setString(1, LibCat);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -151,7 +151,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Integer prixVente = rs.getInt(7);
 				Integer idUtil = rs.getInt(8);
 				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
-
+				Categorie categorie = new Categorie(rs.getInt(9), LibCat);
 				article = new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
 						prixVente, utilisateur, categorie);
 

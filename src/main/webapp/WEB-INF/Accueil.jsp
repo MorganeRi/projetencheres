@@ -65,13 +65,13 @@
 			<br> <label class="form-label me-3" for="Categorie">Categorie
 			</label> <select class="form-control" id="Categorie" name="Categorie"
 				style="width: 300px" placeholder="Selectionner une categorie">
-				<option selected>Selectionner une categorie</option>
+				<option  selected>Selectionner une categorie</option>
 
 				<%
 				List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
 				for (Categorie categorieDisponible : listCategorie) {
 				%>
-				<option value="<%=categorieDisponible.getNoCategorie()%>"><%=categorieDisponible.getLibelle()%></option>
+				<option value="<%=categorieDisponible.getLibelle()%>"><%=categorieDisponible.getLibelle()%></option>
 				<%
 				}
 				%>
@@ -82,44 +82,48 @@
 	<%
 	if (id != null) {
 	%>
-	<form action="">
-		<div class="form-check">
-			<input type="radio" name="options" id="achatsRadio" value="achats"
-				onclick="toggleCheckboxes()" checked>Achats
-			<!-- 			<div> -->
-			<!-- 				<input type="checkbox" name="encheres" id="enchereCheckbox" -->
-			<!-- 					value="enchères ouvertes">enchères ouvertes -->
-			<!-- 			</div> -->
-			<!-- 			<div> -->
-			<!-- 				<input type="checkbox" name="mesEncheres" id="mesEncheresCheckbox" -->
-			<!-- 					value="mes enchères">mes enchères -->
-			<!-- 			</div> -->
-			<!-- 			<div> -->
-			<!-- 				<input type="checkbox" name="mesEncheresRemportees" -->
-			<!-- 					id="mesEncheresRemporteesCheckbox" value="mes enchères remportées">mes -->
-			<!-- 				enchères remportées -->
-			<!-- 			</div> -->
-		</div>
-		<div class="form-check">
-			<input type="radio" name="options" id="ventesRadio" value="ventes"
-				onclick="toggleCheckboxes()">Mes Ventes
-			<!-- 			<div> -->
-			<!-- 				<input type="checkbox" name="ventesEnCours" -->
-			<!-- 					id="ventesEnCoursCheckbox" value="mes ventes en cours">mes -->
-			<!-- 				ventes en cours -->
-			<!-- 			</div> -->
-			<!-- 			<div> -->
-			<!-- 				<input type="checkbox" name="ventesNonDebutees" -->
-			<!-- 					id="ventesNonDebuteesCheckbox" value="ventes non débutées">ventes -->
-			<!-- 				non débutées -->
-			<!-- 			</div> -->
-			<!-- 			<div> -->
-			<!-- 				<input type="checkbox" name="ventesTerminees" -->
-			<!-- 					id="ventesTermineesCheckbox" value="ventes terminées">ventes -->
-			<!-- 				terminées -->
-			<!-- 			</div> -->
-		</div>
-
+	<form class="filtreForm"
+		action="<%=request.getContextPath()%>/ServletAccueil" method="post"
+		id="formradio">
+		<input type="hidden" name="form" value="form2" />
+		<fieldset id="check">
+			<div class="form-check">
+				<input type="radio" name="options" id="achatsRadio" value="achats"
+					onclick="toggleCheckboxes()" checked>Achats
+							<div>
+								<input type="checkbox" name="check" id="enchereCheckbox"
+									value="enchères_ouvertes">enchères ouvertes
+							</div>
+							<div>
+								<input type="checkbox" name="check" id="mesEncheresCheckbox"
+									value="mes_enchères">mes enchères
+							</div>
+							<div>
+								<input type="checkbox" name="check"
+									id="mesEncheresRemporteesCheckbox" value="enchères_remportées">mes
+								enchères remportées
+							</div>
+			</div>
+			<div class="form-check">
+				<input type="radio" name="options" id="ventesRadio" value="ventes"
+					onclick="toggleCheckboxes()">Mes Ventes
+							<div>
+								<input type="checkbox" name="check"
+									id="ventesEnCoursCheckbox" value="ventes_cours">mes
+								ventes en cours
+							</div>
+							<div>
+								<input type="checkbox" name="check"
+									id="ventesNonDebuteesCheckbox" value="ventes_non_débutées">ventes
+								non débutées
+							</div>
+							<div>
+								<input type="checkbox" name="check"
+									id="ventesTermineesCheckbox" value="ventes_terminées">ventes
+								terminées
+							</div>
+			</div>
+		</fieldset>
 
 		<%
 		}
@@ -128,7 +132,7 @@
 
 	</form>
 </div>
-<div><a href="<%=request.getContextPath()%>/images/image5.png">test</a></div>
+<%-- <div><a href="<%=request.getContextPath()%>/images/image5.png">test</a></div> --%>
 
 <%
 if (articles != null) {

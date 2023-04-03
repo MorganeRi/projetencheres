@@ -43,12 +43,6 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-	    String uri = request.getRequestURI();
-	    if (uri.endsWith("/projetencheres/")) {
-	        // Rediriger l'utilisateur vers la page d'accueil
-	        RequestDispatcher rd = request.getRequestDispatcher("/ServletAccueil");
-	        rd.forward(request, response);
-	    } else {
 
 		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
 
@@ -70,7 +64,7 @@ public class ServletAccueil extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
-	}}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -85,7 +79,7 @@ public class ServletAccueil extends HttpServlet {
 		request.setAttribute("listCategorie", listCategorie);
 		
 		String recherche;
-		Integer noCategorie;
+		Integer noCategorie= null;
 		String achatOuVente = request.getParameter("options");
 		HttpSession session = request.getSession();
 		
@@ -94,32 +88,75 @@ public class ServletAccueil extends HttpServlet {
 
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 		String noCat;
-
 		noCat=request.getParameter("Categorie");
-		if (noCat!=null) {
-					
-		if (noCat.equals("Selectionner une categorie")) {
-			
-			
-			try {
-				articles = article.selectParNomArticle(recherche);
+		
 
-				if (articles==null) {
-					request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
-				}else {
-					request.setAttribute("listArticle", articles);
+
+		
+        String formulaire = request.getParameter("form");
+
+        if(formulaire == null) {
+            this.doGet(request, response);
+        }
+        
+        if(formulaire.equals("form1")) {
+        	System.out.println(noCat);
+        	System.out.println(recherche);
+            if ((noCat.equals("Selectionner une categorie")) && recherche.isBlank()) {
+            	try {
+
+					articles = article.selectToutArticle();
+					if (articles==null) {
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 1");
+					}else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
+            } else if (recherche.isBlank()) {
+            	try {
+					articles =  article.selectParCategorieArticle(noCat);
+					if (articles==null) {
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 2");
+					}else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            } else if (noCat == null || noCat.isBlank()) {
+            	try {
+					articles =  article.selectParNomArticle(recherche);
+					if (articles==null) {
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 3");
+					}else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            } else {
+            	try {
+					articles =  article.selectParNomArticleParCat(recherche, noCategorie);
+					if (articles==null) {
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 4");
+					}else {
+						request.setAttribute("listArticle", articles);
+					}
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+        	
+        }
+        
+		
 
-
-
-				
-			} catch (BusinessException e) {
-
-				e.printStackTrace();
-			}
-		} else {
-		noCategorie = Integer.parseInt(request.getParameter("Categorie"));
 			
 //		if ("achats".equals(achatOuVente)) {
 //			
@@ -141,28 +178,15 @@ public class ServletAccueil extends HttpServlet {
 //		} else {
 			
 				
-			try {
-				articles = article.selectParNomArticleParCat(recherche, noCategorie);
-
-				if (articles==null) {
-					request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
-				}else {
-					request.setAttribute("listArticle", articles);
-				}
-
-			} catch (BusinessException e) {
-
-				e.printStackTrace();
-			}
+	
 			
-			
-		}}
+		
 		
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
-		}
-//	}
+		
+	}
 	
 	private List<Categorie>  affichageCategorie() {
 		

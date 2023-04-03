@@ -20,7 +20,7 @@ public interface ArticleVenduDAO {
 	public void deleteArticleVendu(ArticleVendu articleVendu) throws BusinessException;
 
 	// Séléction par catégorie
-	public List<ArticleVendu> selectByCategorieArticle(Categorie categorie) throws BusinessException;
+	public List<ArticleVendu> selectByCategorieArticle(String LibCat) throws BusinessException;
 
 	// Séléction par nom
 	public List<ArticleVendu> selectByNomArticle(String nom) throws BusinessException;
