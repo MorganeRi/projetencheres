@@ -11,6 +11,7 @@ import fr.eni.projetenchere.bo.Categorie;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
+	private static final String INSERT_CATEGORIE = "INSERT INTO categorie(libelle) values(?)";
 	private static final String SELECT_CATEGORIE_BY_ID = "SELECT no_categorie,libelle FROM categorie WHERE no_categorie = ? ";
 	private static final String GET_ALL_CATEGORIE = "SELECT no_categorie, libelle FROM categorie";
 	
@@ -23,9 +24,10 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		
 		try (Connection cnx = ConnectionProvider.getConnection()){
-			PreparedStatement pstmt = cnx.prepareStatement("INSERT INTO categorie(libelle) values(?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_CATEGORIE, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, categorie.getLibelle());
+			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
