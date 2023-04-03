@@ -15,7 +15,7 @@ Integer id = (Integer) session.getAttribute("id");
 ArticleVendu art = (ArticleVendu) request.getAttribute("article");
 Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 %>
-<img src="./images/image3.jpg">
+
 <div class="container" style="border: 1px solid silver; width: 500px;">
 	<h1>Detail Article</h1>
 	<ul class="list-group list-group-flush">
