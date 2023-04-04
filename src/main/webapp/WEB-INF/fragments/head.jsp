@@ -27,7 +27,7 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 		class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark bg-gradient"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="ServletAccueil"><img
+			<a class="navbar-brand" href="./Accueil"><img
 				class="img-fluid" alt="logo" src="./images/logo.jpg" width="100"
 				height="auto"></a>
 			<button class="navbar-toggler" type="button"
@@ -42,24 +42,24 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 					if (id != null) {
 					%>
 					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
-						href="ServletAjoutArticle">Vendre un article</a></li>
+						href="./VendreUnArticle">Vendre un article</a></li>
 					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
-						href="ServletMonProfil">Mon profil</a></li>
+						href="./Profil">Mon profil</a></li>
 
 					<%
 					if (estAdmin) {
 					%>
 					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
-						href="ServletGestionAdmin">Interface Administrateur</a></li>
+						href="./Administrateur">Interface Administrateur</a></li>
 					<%
 					}
 
 					} else {
 					%>
 					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
-						href="ServletAjoutUtilisateur">S'inscrire</a></li>
+						href="./Inscription">S'inscrire</a></li>
 					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
-						href="ServletConnexion">Se connecter</a></li>
+						href="./seConnecter">Se connecter</a></li>
 					<%
 					}
 					%>
@@ -70,7 +70,7 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 					if (id != null) {
 					%>
 					<li class="nav-item font-weight-bold"><a class="nav-link text-white"
-						href="ServletDeconnexion">Déconnexion [<%=pseudo%>]
+						href="./Deconnexion">Déconnexion [<%=pseudo%>]
 					</a></li>
 					<%
 					}
