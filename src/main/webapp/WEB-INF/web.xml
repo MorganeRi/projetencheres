@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="4.0">
 	<display-name>ProjetEncheres</display-name>
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>5</session-timeout>
 	</session-config>
 	<welcome-file-list>
 		<welcome-file>ServletAccueil</welcome-file>

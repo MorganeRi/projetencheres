@@ -18,6 +18,9 @@ Integer id = (Integer) session.getAttribute("id");
 ArticleVendu art = (ArticleVendu) request.getAttribute("article");
 Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActuelMax");
+
+if(id!=null){
+
 %>
 
 
@@ -136,7 +139,7 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Supprimer Article</a>
 	<%
-	}
+	}}
 	%>
 </div>
 
