@@ -22,6 +22,7 @@
 				</div>
 				<%
 				Categorie categorieAjoute = (Categorie) request.getAttribute("categorieARajouter");
+				Categorie categorieAlreadyExists = (Categorie) request.getAttribute("categorieAlreadyExists");
 				Categorie categorieModifie = (Categorie) request.getAttribute("categorieAModifier");
 				Categorie categorieSupprime = (Categorie) request.getAttribute("categorieASupprimer");
 				if (categorieAjoute != null) {
@@ -37,6 +38,10 @@
 				%>
 				<p style="color: green;">La catégorie a été supprimée avec
 					succès</p>
+				<%
+				} else if (categorieAlreadyExists != null) {
+				%>
+				<p style="color: red;">La catégorie existe déjà !</p>
 				<%
 				}
 				%>
@@ -130,8 +135,25 @@
 			<div class="position-relative card table-nowrap table-card">
 				<div class="card-header align-items-center">
 					<h5 class="mb-0">Liste des utilisateurs</h5>
-					<p class="mb-0 small text-muted">Ajout/Modification/Suppression</p>
+					<p class="mb-0 small text-muted">Comptes
+						actifs/Admins/Suppression Utilisateur</p>
 				</div>
+				<%
+				Utilisateur utilisateurActif = (Utilisateur) request.getAttribute("utilisateurOnOff");
+				Utilisateur utilisateurSupprime = (Utilisateur) request.getAttribute("utilisateurASupprimer");
+
+				if (utilisateurActif != null) {
+				%>
+				<br />
+				<p style="color: green;">Le compte a changé de statut</p>
+				<%
+				} else if (utilisateurSupprime != null) {
+				%>
+				<p style="color: red;">L'utilisateur a été supprimé avec succès</p>
+
+				<%
+				}
+				%>
 				<form action="<%=request.getContextPath()%>/ServletGestionAdmin"
 					method="post">
 					<div class="table-responsive">
@@ -171,6 +193,8 @@
 									</td>
 									<%
 									}
+									Boolean booleanAdmin = utilisateurDispo.getAdministrateur();
+									if (!booleanAdmin) {
 									%>
 									<td>
 										<div class="form-check">
@@ -179,6 +203,9 @@
 												value="<%=utilisateurDispo.getNoUtilisateur()%>">
 										</div>
 									</td>
+									<%
+									}
+									%>
 								</tr>
 								<%
 								}
@@ -189,9 +216,9 @@
 					<div class="card-footer text-end">
 
 						<input type="submit" name="actionUtilisateur" class="btn btn-dark"
-							value="ActiverDesactiver" style="width: 40%"> 
-						<input type="submit" name="actionUtilisateur" class="btn btn-dark"
-							value="SupprimerUser" style="width: 20%">
+							value="ActiverDesactiver" style="width: 30%"> <input
+							type="submit" name="actionUtilisateur" class="btn btn-dark"
+							value="Supprimer" style="width: 20%">
 
 					</div>
 				</form>
