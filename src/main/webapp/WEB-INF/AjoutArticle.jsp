@@ -11,18 +11,20 @@
 </jsp:include>
 <h1 class="font-weight-bold text-center">Nouvelle vente</h1>
 
-<div class="container-fluid" style="border: 1px solid silver; width: 500px;">
+<div class="container-fluid"
+	style="border: 1px solid silver; width: 500px;">
 	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
 	%>
-	<p style="color: red;">Erreur, l'ajout d'article n'est pas possible :</p>
+	<p style="color: red;">Erreur, l'ajout d'article n'est pas possible
+		:</p>
 	<%
 	for (int codeErreur : listeCodesErreur) {
 	%>
 	<p><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
 	<%
-		}
+	}
 	}
 	%>
 	<form action="<%=request.getContextPath()%>/ServletAjoutArticle"
@@ -41,8 +43,8 @@
 		</div>
 		<br />
 		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="Categorie">Categorie : </label>
-			 <select class="form-control" id="Categorie" name="Categorie"
+			<label class="form-label me-3" for="Categorie">Categorie : </label> <select
+				class="form-control" id="Categorie" name="Categorie"
 				style="width: 300px">
 				<option value=""></option>
 
@@ -68,13 +70,21 @@
 				l'article : </label> <select class="form-control" id="photo"
 				name="imageArticle" style="width: 300px">
 				<option value=""></option>
-				<option value="<%=request.getContextPath()%>/images/image1.gif">image 1</option>
-				<option value="<%=request.getContextPath()%>/images/image2.gif">image 2</option>
-				<option value="<%=request.getContextPath()%>/images/image3.gif">image 3</option>
-				<option value="<%=request.getContextPath()%>/images/image4.jpg">image 4</option>
-				<option value="<%=request.getContextPath()%>/images/image5.png">image 5</option>
-				<option value="<%=request.getContextPath()%>/images/image6.png">image 6</option>
-				<option value="<%=request.getContextPath()%>/images/image7.png">image 7</option>
+				<option value="<%=request.getContextPath()%>/images/multimedia.jpg">Multimedia</option>
+				<option value="<%=request.getContextPath()%>/images/automobile.png">Automobile</option>
+				<option value="<%=request.getContextPath()%>/images/maison.jpg">Maison</option>
+				<option
+					value="<%=request.getContextPath()%>/images/electromenager.jpg">Electromenager</option>
+				<option
+					value="<%=request.getContextPath()%>/images/informatique.jpg">Informatique</option>
+				<option value="<%=request.getContextPath()%>/images/loisirs.jpg">Loisirs</option>
+
+				<option value="<%=request.getContextPath()%>/images/livre.jpg">Livres</option>
+				<option value="<%=request.getContextPath()%>/images/musique.avif">Musique</option>
+				<option value="<%=request.getContextPath()%>/images/jardin.jpg">Jardin</option>
+				<option value="<%=request.getContextPath()%>/images/vetements.jpg">Vetements</option>
+				<option value="<%=request.getContextPath()%>/images/sport.avif">Sports</option>
+
 			</select>
 		</div>
 
@@ -94,8 +104,8 @@
 		<br />
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 			<label class="form-label me-3" for="FinEnchere">Fin de
-				l'enchère : </label> <input class="form-control" type="datetime-local" id="FinEnchere"
-				name="FinEnchere" style="width: 300px" />
+				l'enchère : </label> <input class="form-control" type="datetime-local"
+				id="FinEnchere" name="FinEnchere" style="width: 300px" />
 		</div>
 		<br />
 		<fieldset>
@@ -104,23 +114,21 @@
 			Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
 			%>
 			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomRue">Rue : </label>
-				 <input
+				<label class="form-label me-3" for="nomRue">Rue : </label> <input
 					class="form-control" type="text" id="nomRue" name="nomRue"
 					style="width: 300px" value="<%=utilisateur.getRue()%>" />
 			</div>
 			<br />
 			<div class="mb-1 d-flex align-items-center justify-content-between">
 				<label class="form-label me-3" for="codePostal">Code Postal
-					: </label> 
-				<input class="form-control" type="text" id="codePostal"
+					: </label> <input class="form-control" type="text" id="codePostal"
 					name="codePostal" style="width: 300px"
 					value="<%=utilisateur.getCodePostal()%>" />
 			</div>
 			<br />
 			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomVille">Ville : </label> 
-				<input class="form-control" type="text" id="nomVille" name="nomVille"
+				<label class="form-label me-3" for="nomVille">Ville : </label> <input
+					class="form-control" type="text" id="nomVille" name="nomVille"
 					style="width: 300px" value="<%=utilisateur.getVille()%>" />
 			</div>
 			<br />
@@ -138,7 +146,7 @@
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 			<input type="submit" value="Enregistrer" class="btn btn-dark me-3" />
 			<a href="ServletAccueil" class="btn btn-dark me-3" role="button">Annuler</a>
-			
+
 
 		</div>
 	</form>
