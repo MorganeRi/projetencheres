@@ -54,7 +54,7 @@ public class ServletGestionAdmin extends HttpServlet {
 //		|| !estAdmin
 		if(idUtilisateur == null  || !estAdmin ) {
 			// Rediriger vers la page de connexion
-			response.sendRedirect("ServletConnexion");
+			response.sendRedirect("ServletConnexion") ;
 		} else {
 			try {
 //				récupérer toutes les catégories présentes dans la BDD
