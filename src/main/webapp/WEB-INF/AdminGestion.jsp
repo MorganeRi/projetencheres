@@ -74,12 +74,12 @@
 					<form action="<%=request.getContextPath()%>/ServletGestionAdmin"
 						method="post">
 						<div class="mb-1 d-flex align-items-center justify-content-end">
-							<label class="form-label me-3" for="nomCategorie">Ajouter
+							<label class="form-label me-2" for="nomCategorie">Ajouter
 								: </label> 
-							<input class="form-control me-3" type="text"
-								id="nomCategorie" name="nomCategorie" style="width: 30%" /> 
+							<input class="form-control me-2" type="text"
+								id="nomCategorie" name="nomCategorie" style="width: 20%" /> 
 							<input type="submit" name="action" value="Ajout"
-								class="btn btn-dark" />
+								class="btn btn-dark" style="width: 20%" />
 							 <br />
 							
 						</div>
@@ -88,7 +88,7 @@
 							<label class="form-label me-2" for="nomCategorie">Modifier
 								: </label> 
 							<select class="form-control me-2" id="Categorie" name="CategorieAModifier" 
-								style="width: 30%">
+								style="width: 20%">
 								<option value="Sélectionner categorie"></option>
 
 								<%
@@ -100,16 +100,17 @@
 								%>
 							</select>
 							<input class="form-control me-2" type="text" id="nomCategorie"
-								name="NouveauNomCategorie" style="width: 30%"
+								name="NouveauNomCategorie" style="width: 20%"
 								placeholder="Nouveau nom" /> 
 							<input type="submit" name="action"
-								class="btn btn-dark" value="Modifier">
+								class="btn btn-dark" value="Modifier" style="width: 20%">
 						</div>
+						
 						<div class="mb-1 d-flex align-items-center justify-content-end">
 							<label class="form-label me-2" for="nomCategorie">Supprimer
 								: </label> 
 							<select class="form-control me-2" id="Categorie" name="CategorieASupprimer" 
-								style="width: 30%">
+								style="width: 20%">
 								<option value=""></option>
 
 								<%
@@ -121,7 +122,7 @@
 								%>
 							</select>
 							<input type="submit" name="action"
-								class="btn btn-dark" value="Supprimer">
+								class="btn btn-dark" value="Supprimer" style="width: 20%">
 						</div>
 					</form>
 
@@ -134,7 +135,7 @@
 
 <div class="container-fluid  mt-4">
 	<div class="row">
-		<div class="col-md-11 mx-auto">
+		<div class="col-md-5 mx-auto">
 			<div class="position-relative card table-nowrap table-card">
 				<div class="card-header align-items-center">
 					<h5 class="mb-0">Liste des utilisateurs</h5>
@@ -179,8 +180,9 @@
 								%>
 								<td>
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
+										<input class="form-check-input" type="radio" 
+										id="bouton+<%=utilisateurDispo.getPseudo()%>" name="choixUtilisateur" 
+										value="choixAModifier">
 									</div>
 								</td>
 							</tr>
