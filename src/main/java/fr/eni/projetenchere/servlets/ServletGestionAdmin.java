@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.projetenchere.bll.CategorieManager;
 import fr.eni.projetenchere.bll.CategorieManagerSing;
+import fr.eni.projetenchere.bll.UtilisateurManager;
+import fr.eni.projetenchere.bll.UtilistateurManagerSing;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
 
@@ -23,8 +25,11 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletGestionAdmin")
 public class ServletGestionAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String LIST_UTILISATEUR = "listUtilisateur";
+	
 	private static final String LIST_CATEGORIE = "listCategorie";
 	private static CategorieManager categorieManager = CategorieManagerSing.getInstanceCategorieImpl();
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -56,6 +61,11 @@ public class ServletGestionAdmin extends HttpServlet {
 				listCategorie = categorieManager.selectAllCategorie();
 				
 				request.setAttribute(LIST_CATEGORIE, listCategorie);
+				
+//				récupérer tous les utilisateurs présents dans la BDD
+				listUtilisateur = utilisateurManager.getAllUtilisateur();
+				
+				request.setAttribute(LIST_UTILISATEUR, listUtilisateur);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

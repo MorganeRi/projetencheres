@@ -1,6 +1,8 @@
 package fr.eni.projetenchere.bll;
 
 
+import java.util.List;
+
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Utilisateur;
 
@@ -36,7 +38,8 @@ public interface UtilisateurManager {
 	
 	public Utilisateur selectParEmailUtilisateur (String email) throws BusinessException;
 
-
 	public Utilisateur selectParPseudoUtilisateur(String pseudo) throws BusinessException;
+	
+	public List<Utilisateur> getAllUtilisateur() throws BusinessException;
 
 }

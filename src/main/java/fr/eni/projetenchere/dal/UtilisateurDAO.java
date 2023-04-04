@@ -1,5 +1,7 @@
 package fr.eni.projetenchere.dal;
 
+import java.util.List;
+
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Utilisateur;
 
@@ -30,5 +32,8 @@ public interface UtilisateurDAO {
 	public Utilisateur selectByEmailUtilisateur(String email) throws BusinessException;
 	// afficher le profil des autres utilisateurs par pseudo
 	Utilisateur selectByPseudoUtilisateur(String pseudo) throws BusinessException;
-
+	
+	//récupérer une liste qui contient tous les utilisateurs enregistrés dans la BDD
+	public List<Utilisateur> selectAllUtilisateur() throws BusinessException;
+ 
 }

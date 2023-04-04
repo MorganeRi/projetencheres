@@ -13,5 +13,7 @@ public abstract class CodesResultatBLL {
 //	Echec pour récupérer une catégorie par ID
 	public static final int FAIL_SELECT_CATEGORIE_BY_ID = 20001;
 	
+	public static final int FAIL_SELECT_ALL_UTILISATEUR = 20003;
+	
 	public static final int  DOUBLON_MAIL_UTILISATEUR = 20002;
 }

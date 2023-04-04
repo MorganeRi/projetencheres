@@ -152,13 +152,31 @@
 							</tr>
 						</thead>
 						<tbody>
+						
+							<%
+							List<Utilisateur> listUtilisateur = (List<Utilisateur>) request.getAttribute("listUtilisateur");
+							for (Utilisateur utilisateurDispo : listUtilisateur) {
+							%>
 							<tr class="align-middle">
-								<td>#57473829</td>
-								<td>louloudu35</td>
-								<td>loulou@gmail.com</td>
-								<td><span
-									class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span>
-								</td>
+								<td><%=utilisateurDispo.getNoUtilisateur()%></td>
+								<td><%=utilisateurDispo.getPseudo()%></td>
+								<td><%=utilisateurDispo.getEmail()%></td>
+								<%
+									Boolean booleanActif = utilisateurDispo.getActif();
+									if(booleanActif == true){
+								%>
+									<td>
+									<span class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span>
+									</td>
+								<%
+									} else if (booleanActif == false ){
+								%>
+									<td>
+									<span class="badge fs-6 fw-normal bg-tint-success text-danger">Désactivé</span>
+									</td>
+								<%
+									}
+								%>
 								<td>
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" id="checkbox1">
@@ -166,64 +184,82 @@
 									</div>
 								</td>
 							</tr>
-							<tr class="align-middle">
-								<td>#012458780</td>
-								<td>brigittedu45</td>
-								<td>bribri@gmail.com</td>
-								<td><span
-									class="badge fs-6 fw-normal bg-tint-warning text-warning">Désactivé</span>
-								</td>
-								<td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-							</tr>
-							<tr class="align-middle">
-								<td>#76444326</td>
-								<td>clairefontaine</td>
-								<td>claire@papeterie.fr</td>
+							<%
+							}
+							%>
+							
+<!-- 							<tr class="align-middle"> -->
+<!-- 								<td>#57473829</td> -->
+<!-- 								<td>louloudu35</td> -->
+<!-- 								<td>loulou@gmail.com</td> -->
+<!-- 								<td><span -->
+<!-- 									class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span> -->
+<!-- 								</td> -->
+<!-- 								<td> -->
+<!-- 									<div class="form-check"> -->
+<!-- 										<input class="form-check-input" type="checkbox" id="checkbox1"> -->
+<!-- 										<label class="form-check-label" for="checkbox1"></label> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr class="align-middle"> -->
+<!-- 								<td>#012458780</td> -->
+<!-- 								<td>brigittedu45</td> -->
+<!-- 								<td>bribri@gmail.com</td> -->
+<!-- 								<td><span -->
+<!-- 									class="badge fs-6 fw-normal bg-tint-warning text-warning">Désactivé</span> -->
+<!-- 								</td> -->
+<!-- 								<td> -->
+<!-- 									<div class="form-check"> -->
+<!-- 										<input class="form-check-input" type="checkbox" id="checkbox1"> -->
+<!-- 										<label class="form-check-label" for="checkbox1"></label> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr class="align-middle"> -->
+<!-- 								<td>#76444326</td> -->
+<!-- 								<td>clairefontaine</td> -->
+<!-- 								<td>claire@papeterie.fr</td> -->
 
-								<td><span
-									class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span>
-								</td>
-								<td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-							</tr>
-							<tr class="align-middle">
-								<td>#12498745</td>
-								<td>dede</td>
-								<td>dede@hotmail.fr</td>
+<!-- 								<td><span -->
+<!-- 									class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span> -->
+<!-- 								</td> -->
+<!-- 								<td> -->
+<!-- 									<div class="form-check"> -->
+<!-- 										<input class="form-check-input" type="checkbox" id="checkbox1"> -->
+<!-- 										<label class="form-check-label" for="checkbox1"></label> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr class="align-middle"> -->
+<!-- 								<td>#12498745</td> -->
+<!-- 								<td>dede</td> -->
+<!-- 								<td>dede@hotmail.fr</td> -->
 
-								<td><span
-									class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span>
-								</td>
-								<td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-							</tr>
-							<tr class="align-middle">
-								<td>#87444654</td>
-								<td>lamoula</td>
-								<td>jmlamoula@gmail.com</td>
-								<td><span
-									class="badge fs-6 fw-normal bg-tint-success text-success">Activé </span>
-								</td>
-								<td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="checkbox1">
-										<label class="form-check-label" for="checkbox1"></label>
-									</div>
-								</td>
-							</tr>
+<!-- 								<td><span -->
+<!-- 									class="badge fs-6 fw-normal bg-tint-success text-success">Activé</span> -->
+<!-- 								</td> -->
+<!-- 								<td> -->
+<!-- 									<div class="form-check"> -->
+<!-- 										<input class="form-check-input" type="checkbox" id="checkbox1"> -->
+<!-- 										<label class="form-check-label" for="checkbox1"></label> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr class="align-middle"> -->
+<!-- 								<td>#87444654</td> -->
+<!-- 								<td>lamoula</td> -->
+<!-- 								<td>jmlamoula@gmail.com</td> -->
+<!-- 								<td><span -->
+<!-- 									class="badge fs-6 fw-normal bg-tint-success text-success">Activé </span> -->
+<!-- 								</td> -->
+<!-- 								<td> -->
+<!-- 									<div class="form-check"> -->
+<!-- 										<input class="form-check-input" type="checkbox" id="checkbox1"> -->
+<!-- 										<label class="form-check-label" for="checkbox1"></label> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
 						</tbody>
 					</table>
 				</div>

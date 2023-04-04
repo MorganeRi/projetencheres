@@ -102,7 +102,6 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 				result.add(categorie);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.GET_ALL_CATEGORIE_ECHEC);
 			throw businessException;

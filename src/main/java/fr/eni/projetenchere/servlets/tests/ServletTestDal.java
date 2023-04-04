@@ -1,7 +1,8 @@
 package fr.eni.projetenchere.servlets.tests;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetenchere.BusinessException;
-
 import fr.eni.projetenchere.bo.Categorie;
-
+import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.CategorieDAO;
 import fr.eni.projetenchere.dal.CategorieDAOJdbcImpl;
+import fr.eni.projetenchere.dal.UtilisateurDAO;
+import fr.eni.projetenchere.dal.UtilisateurDAOJdbcImpl;
 
 
 /**
@@ -136,17 +138,27 @@ public class ServletTestDal extends HttpServlet {
 //				System.err.println("Code erreur rencontré DAL : " + code);
 //			}
 //		}
-		Categorie categorie = new Categorie("alimentaire");
-		System.out.println(categorie);
+//		Categorie categorie = new Categorie("alimentaire");
+//		System.out.println(categorie);
+//		
+//		CategorieDAO categorieDAO = new CategorieDAOJdbcImpl();
+//		
+//		
+//		try {
+//			categorieDAO.insertCategorie(categorie);
+//			System.out.println("bien insérée");
+//		} catch (BusinessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
-		CategorieDAO categorieDAO = new CategorieDAOJdbcImpl();
-		
+		List<Utilisateur> listUtilisateur = new ArrayList<>();
+		UtilisateurDAO utilisateurDao = new UtilisateurDAOJdbcImpl();
 		
 		try {
-			categorieDAO.insertCategorie(categorie);
-			System.out.println("bien insérée");
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
+			listUtilisateur = utilisateurDao.selectAllUtilisateur();
+			System.out.println(listUtilisateur);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

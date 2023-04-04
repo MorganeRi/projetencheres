@@ -3,12 +3,15 @@ package fr.eni.projetenchere.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
+	
 	private static final String INSERT_UTILISATEUR = "INSERT INTO utilisateur (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?) ";
 
 	@Override
@@ -348,6 +351,48 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			throw businessException;
 		}
 		return utilisateur;
+	}
+
+	private static final String SELECT_USERS_FOR_ADMIN = "SELECT no_utilisateur,pseudo,nom,prenom,email,administrateur,actif FROM utilisateur";
+	
+	@Override
+	public List<Utilisateur> selectAllUtilisateur() throws BusinessException {
+		List<Utilisateur> result = new ArrayList<>();
+		Integer tinyIntAdministrateur, tinyIntActif = null;
+		Boolean booleanAdministrateur, booleanActif = null;
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_USERS_FOR_ADMIN);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Utilisateur utilisateur = new Utilisateur();
+				utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+				utilisateur.setPseudo(rs.getString("pseudo"));
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setPrenom(rs.getString("prenom"));
+				utilisateur.setEmail(rs.getString("email"));
+				tinyIntAdministrateur = rs.getInt("administrateur");
+				if (tinyIntAdministrateur == 0) {
+					booleanAdministrateur = false;
+				} else {
+					booleanAdministrateur = true;
+				}
+				utilisateur.setAdministrateur(booleanAdministrateur);
+				tinyIntActif = rs.getInt("actif");
+				if (tinyIntActif == 0) {
+					booleanActif = true;
+				} else if (tinyIntActif == 1){
+					booleanActif = false;
+				}
+				utilisateur.setActif(booleanActif);
+				result.add(utilisateur);
+			}
+		} catch (Exception e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.GET_ALL_UTILISATEUR_ECHEC);
+			throw businessException;
+		}
+		return result;
 	}
 
 

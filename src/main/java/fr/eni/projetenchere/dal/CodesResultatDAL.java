@@ -139,6 +139,7 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int SELECT_BY_ID_UTILISATEUR_ECHEC = 10105;
 	
+	public static final int GET_ALL_UTILISATEUR_ECHEC = 10207;
 	
 	/**
 	 * le paramètre categorie rentré est null

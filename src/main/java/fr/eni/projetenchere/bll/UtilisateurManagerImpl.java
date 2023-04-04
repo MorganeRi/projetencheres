@@ -1,11 +1,14 @@
 package fr.eni.projetenchere.bll;
 
+import java.util.List;
+
 import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.DAOFactory;
 import fr.eni.projetenchere.dal.UtilisateurDAO;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
+	
 	private UtilisateurDAO utilisateurDao;
 
 	/**
@@ -92,4 +95,15 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		return this.utilisateurDao.selectByPseudoUtilisateur(pseudo);
 	}
 
+	@Override
+	public List<Utilisateur> getAllUtilisateur() throws BusinessException {
+		try {
+			return utilisateurDao.selectAllUtilisateur();
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatBLL.FAIL_SELECT_ALL_UTILISATEUR);
+			throw businessException;
+		}
+	}
 }
