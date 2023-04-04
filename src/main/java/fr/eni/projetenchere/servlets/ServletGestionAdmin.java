@@ -163,6 +163,7 @@ public class ServletGestionAdmin extends HttpServlet {
 					
 					utilisateurOnOff = utilisateurManager.userOnOff(utilisateur);
 					request.setAttribute("utilisateurOnOff",utilisateurOnOff);
+					
 				}
 			}
 			
