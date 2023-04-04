@@ -20,7 +20,7 @@ public interface UtilisateurDAO {
 	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException;
 
 	// suppression de l'ensemble des informations de l'utilisateur
-	public void deleteUtilisateur(Utilisateur utilisateur) throws BusinessException;
+	public Utilisateur deleteUtilisateur(Utilisateur utilisateur) throws BusinessException;
 
 	// afficher le profil des autres utilisateurs
 	public Utilisateur selectByIdUtilisateur(Integer id) throws BusinessException;
@@ -35,5 +35,8 @@ public interface UtilisateurDAO {
 	
 	//récupérer une liste qui contient tous les utilisateurs enregistrés dans la BDD
 	public List<Utilisateur> selectAllUtilisateur() throws BusinessException;
+	
+	//	passer d'un compte activé à un compte désactivé
+	public Utilisateur actifOrNot(Utilisateur utilisateur) throws BusinessException;
  
 }

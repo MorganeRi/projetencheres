@@ -29,6 +29,12 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int UPDATE_UTILISATEUR_NULL = 10120;
 	/**
+	 * Le paramètre utilisateur rentré est null
+	 */
+	public static final int ACTIF_UTILISATEUR_NULL= 10208;
+	
+	public static final int UPDATE_USER_ACTIF_ECHEC = 10209;
+	/**
 	 * Echec général quand tentative de update un article null
 	 */
 	public static final int UPDATE_PX_VENTE_ARTICLE_NULL = 10030;

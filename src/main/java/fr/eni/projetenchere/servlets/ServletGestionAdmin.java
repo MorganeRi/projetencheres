@@ -25,9 +25,10 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletGestionAdmin")
 public class ServletGestionAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String LIST_UTILISATEUR = "listUtilisateur";
 	
+	private static final String LIST_UTILISATEUR = "listUtilisateur";
 	private static final String LIST_CATEGORIE = "listCategorie";
+	
 	private static CategorieManager categorieManager = CategorieManagerSing.getInstanceCategorieImpl();
 	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
        
@@ -78,27 +79,30 @@ public class ServletGestionAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Categorie categorie,categorieAModifier,categorieASupprimer = null; 
-		String nomCategorie,action = null;
-		Integer noCategorie = null;
+		String nomCategorie = null;
+		Integer noCategorie, noUtilisateur = null;
+		Utilisateur utilisateur = new Utilisateur();
+		Utilisateur utilisateurASupprimer,utilisateurOnOff = null;
 		
+		String actionCategorie = request.getParameter("action");
+		String actionUtilisateur = request.getParameter("actionUtilisateur");
 		
 		try {
-			action = request.getParameter("action");
 			
-			if("Ajout".equals(action)) {
+			
+			if("Ajout".equals(actionCategorie)) {
 //				Traitement pour ajouter une catégorie
 				nomCategorie = request.getParameter("nomCategorie");
-				
 				categorie = new Categorie(nomCategorie) ;
 				
 				categorieManager.ajouterCategorie(categorie);
 //				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
 //				de validation lors de l'insertion de la categorie
 				request.setAttribute("categorieARajouter", categorie);
-			} else if ("Modifier".equals(action)) {
+				
+			} else if ("Modifier".equals(actionCategorie)) {
 //				Traitement pour modifier une catégorie en recuperant son ancien libelle
 				noCategorie = Integer.parseInt(request.getParameter("CategorieAModifier"));
-//				System.out.println(noCategorie);
 				categorieAModifier = categorieManager.selectCategorieParId(noCategorie);
 				
 				categorieAModifier.setLibelle(request.getParameter("NouveauNomCategorie"));
@@ -107,22 +111,44 @@ public class ServletGestionAdmin extends HttpServlet {
 //				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
 //				de validation lors de la modification de la categorie
 				request.setAttribute("categorieAModifier", categorieAModifier);
-			}else if ("Supprimer".equals(action)) {
+			} else if ("Supprimer".equals(actionCategorie)) {
 //				Traitement pour supprimer la catégorie
 				noCategorie = Integer.parseInt(request.getParameter("CategorieASupprimer"));
 				
-				
-				categorieASupprimer = categorieManager.selectCategorieParId(noCategorie);
-				categorieASupprimer = categorieManager.supprimerCategorie(categorieASupprimer);
-//				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
-//				de validation lors de la suppression de la categorie
-				
-				request.setAttribute("categorieASupprimer", categorieASupprimer);
+				if(noCategorie != null) {
+					categorieASupprimer = categorieManager.selectCategorieParId(noCategorie);
+					categorieASupprimer = categorieManager.supprimerCategorie(categorieASupprimer);
+	//				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
+	//				de validation lors de la suppression de la categorie
+					
+					request.setAttribute("categorieASupprimer", categorieASupprimer);
+				}
 			}
+			
+			if("SupprimerUser".equals(actionUtilisateur)) {
+				noUtilisateur = Integer.parseInt(request.getParameter("choixUtilisateur"));
+				
+				if(noUtilisateur != null) {
+					utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+
+					utilisateurASupprimer = utilisateurManager.supprimerUtilisateur(utilisateur);
+					request.setAttribute("utilisateurASupprimer", utilisateurASupprimer);
+					
+				}
+			} else if ("ActiverDesactiver".equals(actionUtilisateur)){
+				noUtilisateur = Integer.parseInt(request.getParameter("choixUtilisateur"));
+				
+				if(noUtilisateur != null) {
+					utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+					
+					utilisateurOnOff = utilisateurManager.userOnOff(utilisateur);
+					request.setAttribute("utilisateurOnOff",utilisateurOnOff);
+				}
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		doGet(request, response);
 	}
 

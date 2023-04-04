@@ -30,7 +30,7 @@ public interface UtilisateurManager {
 	
 	public void validerPseudo (Utilisateur utilisateur, BusinessException businessException);
 	
-	public void supprimerUtilisateur (Utilisateur utilisateur) throws BusinessException;
+	public Utilisateur supprimerUtilisateur (Utilisateur utilisateur) throws BusinessException;
 		
 	public Utilisateur selectParNoUtilisateur (Integer id) throws BusinessException;
 	
@@ -41,5 +41,7 @@ public interface UtilisateurManager {
 	public Utilisateur selectParPseudoUtilisateur(String pseudo) throws BusinessException;
 	
 	public List<Utilisateur> getAllUtilisateur() throws BusinessException;
+	
+	public Utilisateur userOnOff(Utilisateur utilisateur) throws BusinessException;
 
 }

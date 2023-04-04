@@ -73,7 +73,7 @@
 			<span class="input-group-text">Rue</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					name="Rue" value=<%=utilisateur.getRue()%> required> <label
+					name="Rue" value="<%=utilisateur.getRue()%>" required> <label
 					for="floatingInputGroup1">Rue</label>
 			</div>
 		</div>
@@ -105,7 +105,7 @@
 			<span class="input-group-text">Nouveau mot de passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
-					placeholder="NouveauMotDePasse" name="MotDePasseNouveau" required> <label
+					placeholder="NouveauMotDePasse" name="MotDePasseNouveau"> <label
 					for="floatingInputGroup1">Mot de passe</label>
 			</div>
 		</div>
@@ -113,7 +113,7 @@
 			<span class="input-group-text">Confirmer mot de passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
-					placeholder="ConfirmationMotDePasse" name="ConfirmationMotDePasse" required> <label
+					placeholder="ConfirmationMotDePasse" name="ConfirmationMotDePasse"> <label
 					for="floatingInputGroup1">Confirmation Mot de passe</label>
 			</div>
 		</div>

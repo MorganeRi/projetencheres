@@ -63,14 +63,9 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	@Override
-	public void supprimerUtilisateur(Utilisateur utilisateur) throws BusinessException {
-
-		try {
-			this.utilisateurDao.deleteUtilisateur(utilisateur);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+	public Utilisateur supprimerUtilisateur(Utilisateur utilisateur) throws BusinessException {
+			utilisateurDao.deleteUtilisateur(utilisateur);
+		return utilisateur;
 	}
 
 	@Override
@@ -105,5 +100,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			businessException.ajouterErreur(CodesResultatBLL.FAIL_SELECT_ALL_UTILISATEUR);
 			throw businessException;
 		}
+	}
+
+	@Override
+	public Utilisateur userOnOff(Utilisateur utilisateur) throws BusinessException {
+		return utilisateurDao.actifOrNot(utilisateur);
 	}
 }
