@@ -95,7 +95,7 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 
 
 	<%
-	if (id == art.getUtilisateur().getNoUtilisateur()&& art.getDateDebutEnchere().isBefore(LocalDateTime.now())) {
+	if (id == art.getUtilisateur().getNoUtilisateur()&& LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
 	%>
 	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Modifier Article</a>
