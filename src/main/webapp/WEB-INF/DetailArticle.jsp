@@ -132,12 +132,22 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	%>
 
 	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
-		class="btn btn-dark" role="button">Modifier Article</a> 
-	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
+		class="btn btn-dark" role="button">Modifier Article</a> <a
+		href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Supprimer Article</a>
 	<%
 	}
 	%>
+
+	<%
+	if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isAfter(art.getDateFinEnchere())) {
+	%>
+	<a href="ServletDetailEnchere?idArticle=<%=art.getNoArticle()%>"
+		class="btn btn-dark" role="button">Consulter le detail des encheres</a>
+	<%
+	}
+	%>
+	
 </div>
 
 <jsp:include page="./fragments/foot.jsp"></jsp:include>
