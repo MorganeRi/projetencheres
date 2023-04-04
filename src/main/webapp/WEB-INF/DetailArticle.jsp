@@ -131,7 +131,7 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
 	%>
 
-	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
+	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Modifier Article</a> 
 	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Supprimer Article</a>
