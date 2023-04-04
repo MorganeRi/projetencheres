@@ -128,7 +128,6 @@ public class ServletConnexion extends HttpServlet {
 		
 		if (rememberMe != null && rememberMe.equals("on")) {
 			Cookie cookie = new Cookie("username", util.getPseudo());
-		    System.out.println("je suis un cookie");
 		      // Définit la durée de validité du cookie à 24 heures
 		      cookie.setMaxAge(60*60*24);
 		    

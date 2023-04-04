@@ -126,7 +126,7 @@
 				</div>
 			</div>
 		</fieldset>
-		<button class="btn btn-outline-success" type="submit">Rechercher</button>
+		<button class="btn btn-outline-success" type="submit">Appliquer le filtre</button>
 		<%
 		}
 		%>
