@@ -120,6 +120,13 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 
 
 	<%
+	}
+	%>
+	<%
+	}
+	%>
+
+	<%
 
 	if (id == art.getUtilisateur().getNoUtilisateur()&& LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
 
@@ -129,13 +136,6 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	<%
 	}
 	%>
-	<%
-	}
-	%>
-	<%
-	}
-	%>
-
 </div>
 
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

@@ -38,7 +38,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 		Integer idUtilisateur = (Integer) session.getAttribute("id");
 		if (idUtilisateur != null) {
 			// Rediriger vers la page de connexion
-			response.sendRedirect("ServletMonProfil");
+			response.sendRedirect("./Profil");
 			return;
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationUtilisateur.jsp");
@@ -81,7 +81,8 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			motDePasse = request.getParameter("MotDePasse");
 			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse") ;
 
-			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)||(utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()==null)){
+			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)&&(utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()==null)){
+
 				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit, administrateur);
 				utilisateurManager.createUtilisateur(utilisateur);
@@ -93,16 +94,20 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 		        session.setAttribute(SESSION_UTILISATEUR_ADMIN, utilisateur.getAdministrateur());
 				
 			} else {
+
 				if (utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() != null) {
+
 					listeCodesErreur.add(CodesResultatServlets.MAIL_DOUBLON_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);
 				}
 				if (utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()!=null) {
+
 					listeCodesErreur.add(CodesResultatServlets.PSEUDO_DOUBLON_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);
 				}
 			}
 				if (!motDePasse.equals(confirmationMotDePasse)) {
+
 					listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);
 				}
@@ -110,10 +115,10 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			e.printStackTrace();
 
 		}
+		doGet(request, response);
 
-
-		RequestDispatcher rd = request.getRequestDispatcher("./ServletAccueil");
-		rd.forward(request, response);
+//		RequestDispatcher rd = request.getRequestDispatcher("./Inscription");
+//		rd.forward(request, response);
 	}
 
 }
