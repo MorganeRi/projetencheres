@@ -26,6 +26,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	private static final String SESSION_UTILISATEUR_MAIL = "mail";
 	private static final String SESSION_UTILISATEUR_ID = "id";
 	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
+	private static final String SESSION_UTILISATEUR_ADMIN = "admin";
 
 	public ServletAjoutUtilisateur() {
 		super();
@@ -89,6 +90,8 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 				session.setAttribute(SESSION_UTILISATEUR_ID, utilisateur.getNoUtilisateur());
 				session.setAttribute(SESSION_UTILISATEUR_MAIL, email);
 				session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
+		        session.setAttribute(SESSION_UTILISATEUR_ADMIN, utilisateur.getAdministrateur());
+				
 			} else {
 				if (utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() != null) {
 					listeCodesErreur.add(CodesResultatServlets.MAIL_DOUBLON_ERREUR);
@@ -107,6 +110,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			e.printStackTrace();
 
 		}
+
 
 		RequestDispatcher rd = request.getRequestDispatcher("./ServletAccueil");
 		rd.forward(request, response);
