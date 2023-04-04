@@ -152,96 +152,100 @@ public class ServletAccueil extends HttpServlet {
 
 			Integer idUtil = (Integer) session.getAttribute("id");
 			String check = request.getParameter("check");
+			if (check != null) {
 
-			switch (check) {
-			case "encheres_ouvertes":
-				try {
+				switch (check) {
+				case "encheres_ouvertes":
+					try {
 
-					articles = article.affichageArticlesEnVente(idUtil);
-					if (articles == null) {
-						request.setAttribute("PasArticle", "Vous n'avez pas d'article en vente");
-					} else {
-						request.setAttribute("listArticle", articles);
+						articles = article.affichageArticlesEnVente(idUtil);
+						if (articles == null) {
+							request.setAttribute("PasArticle", "Vous n'avez pas d'article en vente");
+						} else {
+							request.setAttribute("listArticle", articles);
+						}
+					} catch (BusinessException e) {
+
+						e.printStackTrace();
 					}
-				} catch (BusinessException e) {
+					break;
+				case "mes_encheres":
+					try {
 
-					e.printStackTrace();
-				}
-				break;
-			case "mes_encheres":
-				try {
+						articles = article.articleEncherie(idUtil);
+						if (articles == null) {
+							request.setAttribute("PasArticle", "Vous n'avez pas encheris sur un articel");
+						} else {
+							request.setAttribute("listArticle", articles);
+						}
+					} catch (BusinessException e) {
 
-					articles = article.articleEncherie(idUtil);
-					if (articles == null) {
-						request.setAttribute("PasArticle", "Vous n'avez pas encheris sur un articel");
-					} else {
-						request.setAttribute("listArticle", articles);
+						e.printStackTrace();
 					}
-				} catch (BusinessException e) {
+					break;
+				case "encheres_remportees":
+					try {
 
-					e.printStackTrace();
-				}
-				break;
-			case "encheres_remportees":
-				try {
+						articles = article.articleEnchereRemporte(idUtil);
+						if (articles == null) {
+							request.setAttribute("PasArticle", "Vous n'avez pas remporte d'enchere");
+						} else {
+							request.setAttribute("listArticle", articles);
+						}
+					} catch (BusinessException e) {
 
-					articles = article.articleEnchereRemporte(idUtil);
-					if (articles == null) {
-						request.setAttribute("PasArticle", "Vous n'avez pas remporte d'enchere");
-					} else {
-						request.setAttribute("listArticle", articles);
+						e.printStackTrace();
 					}
-				} catch (BusinessException e) {
+					break;
+				case "ventes_cours":
+					try {
 
-					e.printStackTrace();
-				}
-				break;
-			case "ventes_cours":
-				try {
+						articles = article.ventesEnCours(idUtil);
+						if (articles == null) {
+							request.setAttribute("PasArticle", "Vous n'avez pas de vente en cours");
+						} else {
+							request.setAttribute("listArticle", articles);
+						}
+					} catch (BusinessException e) {
 
-					articles = article.ventesEnCours(idUtil);
-					if (articles == null) {
-						request.setAttribute("PasArticle", "Vous n'avez pas de vente en cours");
-					} else {
-						request.setAttribute("listArticle", articles);
+						e.printStackTrace();
 					}
-				} catch (BusinessException e) {
+					break;
+				case "ventes_non_debutees":
+					try {
 
-					e.printStackTrace();
-				}
-				break;
-			case "ventes_non_debutees":
-				try {
+						articles = article.ventesNonDebutees(idUtil);
+						if (articles == null) {
+							request.setAttribute("PasArticle",
+									"Vous n'avez d'article en attente d'être mis aux enchères");
+						} else {
+							request.setAttribute("listArticle", articles);
+						}
+					} catch (BusinessException e) {
 
-					articles = article.ventesNonDebutees(idUtil);
-					if (articles == null) {
-						request.setAttribute("PasArticle", "Vous n'avez d'article en attente d'être mis aux enchères");
-					} else {
-						request.setAttribute("listArticle", articles);
+						e.printStackTrace();
 					}
-				} catch (BusinessException e) {
+					break;
+				case "ventes_terminees":
+					try {
 
-					e.printStackTrace();
-				}
-				break;
-			case "ventes_terminees":
-				try {
+						articles = article.ventesTerminees(idUtil);
+						if (articles == null) {
+							request.setAttribute("PasArticle", "Vous n'avez pas encore vendu d'article");
+						} else {
+							request.setAttribute("listArticle", articles);
+						}
+					} catch (BusinessException e) {
 
-					articles = article.ventesTerminees(idUtil);
-					if (articles == null) {
-						request.setAttribute("PasArticle", "Vous n'avez pas encore vendu d'article");
-					} else {
-						request.setAttribute("listArticle", articles);
+						e.printStackTrace();
 					}
-				} catch (BusinessException e) {
-
-					e.printStackTrace();
+					break;
 				}
-				break;
+
+			} else {
+				request.setAttribute("PasArticle", "Veuillez cocher une option");
 			}
-
 		}
-
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 

@@ -49,7 +49,7 @@ if (id == null) {
 				<input type="checkbox" class="form-check-input" id="exampleCheck1"
 					name="rememberMe"> se souvenir de moi       
 			</div>
-				<a href="">Mot de passe oublié</a>
+				<a href="./ServletResetPassword">Mot de passe oublié</a>
 			<button type="submit" class="btn btn-dark mb-8 p-2 mt-2" 
 			style="width: 200px">Connexion</button>
 			<a href="ServletAjoutUtilisateur" class="btn btn-dark mb-8 p-2 mt-2" 
