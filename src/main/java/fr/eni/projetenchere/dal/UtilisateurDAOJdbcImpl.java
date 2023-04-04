@@ -114,7 +114,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			throw businessException;
 
 	}
-	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur, email, pseudo, administrateur FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
+	private static final String SELECT_AUTHENTIFIER_PSEUDO = "SELECT no_utilisateur, email, pseudo, administrateur, actif FROM utilisateur WHERE pseudo = ? AND mot_de_passe = ?";
 	@Override
 	public void connectUtilisateurPseudo(Utilisateur utilisateur) throws BusinessException {
 		BusinessException businessException = new BusinessException();

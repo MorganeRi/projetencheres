@@ -62,6 +62,7 @@ public class ServletGestionAdmin extends HttpServlet {
 				listCategorie = categorieManager.selectAllCategorie();
 				
 				request.setAttribute(LIST_CATEGORIE, listCategorie);
+				session.setAttribute("listeCategories", listCategorie);
 				
 //				récupérer tous les utilisateurs présents dans la BDD
 				listUtilisateur = utilisateurManager.getAllUtilisateur();
@@ -78,7 +79,8 @@ public class ServletGestionAdmin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Categorie categorie,categorieAModifier,categorieASupprimer = null; 
+		HttpSession session = request.getSession();
+		Categorie categorieARajouter,categorieAModifier,categorieASupprimer = null; 
 		String nomCategorie = null;
 		Integer noCategorie, noUtilisateur = null;
 		Utilisateur utilisateur = new Utilisateur();
@@ -87,18 +89,36 @@ public class ServletGestionAdmin extends HttpServlet {
 		String actionCategorie = request.getParameter("action");
 		String actionUtilisateur = request.getParameter("actionUtilisateur");
 		
+		List<Categorie> listCategorie = null;
+		
 		try {
 			
 			
 			if("Ajout".equals(actionCategorie)) {
 //				Traitement pour ajouter une catégorie
 				nomCategorie = request.getParameter("nomCategorie");
-				categorie = new Categorie(nomCategorie) ;
+				categorieARajouter = new Categorie(nomCategorie) ;
 				
-				categorieManager.ajouterCategorie(categorie);
-//				permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
-//				de validation lors de l'insertion de la categorie
-				request.setAttribute("categorieARajouter", categorie);
+				listCategorie = (List<Categorie>) session.getAttribute("listeCategories");
+
+//				on vérifie que la catégorie n'existe pas déjà : 
+//				- stream expression lambda java pour parcourir la liste des catégories existantes
+//				- méthode AnyMatch() qui vérifie si au moins 1 catégorie ds la liste a le même nom (boolean qui renverrait true ou false)
+//				- equalsIgnoreCase permet d'ignorer la casse
+ 				Boolean categorieExisteDeja = listCategorie.stream()
+				        .anyMatch(c -> c.getLibelle().equalsIgnoreCase(categorieARajouter.getLibelle()));
+				
+				// Si la catégorie n'existe pas encore, l'ajouter aux catégories
+				if (!categorieExisteDeja) {
+					categorieManager.ajouterCategorie(categorieARajouter);
+//					permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
+//					de validation lors de l'insertion de la categorie
+					request.setAttribute("categorieARajouter", categorieARajouter);
+				} else {
+					request.setAttribute("categorieAlreadyExists", categorieARajouter);
+				    
+				}
+				
 				
 			} else if ("Modifier".equals(actionCategorie)) {
 //				Traitement pour modifier une catégorie en recuperant son ancien libelle
@@ -125,7 +145,7 @@ public class ServletGestionAdmin extends HttpServlet {
 				}
 			}
 			
-			if("SupprimerUser".equals(actionUtilisateur)) {
+			if("Supprimer".equals(actionUtilisateur)) {
 				noUtilisateur = Integer.parseInt(request.getParameter("choixUtilisateur"));
 				
 				if(noUtilisateur != null) {
@@ -143,6 +163,7 @@ public class ServletGestionAdmin extends HttpServlet {
 					
 					utilisateurOnOff = utilisateurManager.userOnOff(utilisateur);
 					request.setAttribute("utilisateurOnOff",utilisateurOnOff);
+					
 				}
 			}
 			

@@ -79,6 +79,7 @@ public class ServletConnexion extends HttpServlet {
 				souvenirCookie(rememberMe,util, request, response);
 
 			} else {
+				System.out.println("pseudo");
 				pseudo=champ;
 				util=new Utilisateur();
 				util.setPseudo(pseudo);
