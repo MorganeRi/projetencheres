@@ -2,7 +2,6 @@ package fr.eni.projetenchere.servlets;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,23 +21,37 @@ import fr.eni.projetenchere.bo.ArticleVendu;
 public class ServletSupprimerArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletSupprimerArticle() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//request.getSession().getAttribute("id");
+	public ServletSupprimerArticle() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// request.getSession().getAttribute("id");
+		Integer idArticle;
+		ArticleVendu articleASupprimer = null;
 
 		HttpSession session = request.getSession();
-		ArticleVendu articleASupprimer = (ArticleVendu) session.getAttribute("articleAModifier");
-		
+		if (session.getAttribute("articleAModifier") == null) {
+			idArticle = Integer.parseInt(request.getParameter("idArticle"));
+			try {
+				articleASupprimer = articleVenduManager.selectParIdArticle(idArticle);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			articleASupprimer = (ArticleVendu) session.getAttribute("articleAModifier");
+		}
 		try {
 			articleVenduManager.supprimerArticleVendu(articleASupprimer);
 		} catch (BusinessException e) {
@@ -46,15 +59,16 @@ public class ServletSupprimerArticle extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		
 		request.getRequestDispatcher("/ServletAjoutArticle").forward(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -134,7 +134,7 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Modifier Article</a>
 	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
-		class="btn btn-dark" role="button">Supprimer Article</a>	
+		class="btn btn-dark" role="button">Supprimer Article</a>
 	<%
 	}
 	%>
