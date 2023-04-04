@@ -11,12 +11,13 @@
 <h1 class="font-weight-bold text-center">Gestion du site par Super
 	Admin</h1>
 
-<div class="container-fluid   mt-4">
+<div class="container-fluid mt-4">
 	<div class="row">
 		<div class="col-md-5 mx-auto">
-			<div class="position-relative card table-nowrap table-card">
+<!-- 		table-nowrap -->
+			<div class="position-relative card table-nowrap">
 				<div class="card-header align-items-center">
-					<h5 class="mb-0">Liste des catégories</h5>
+					<h5 class="mb-0 text-black">Liste des catégories</h5>
 					<p class="mb-0 small text-muted">Ajout/Modification/Suppression</p>
 				</div>
 				<%
@@ -43,7 +44,7 @@
 				%>	
 				
 				<div class="table-responsive">
-					<table class="table mb-0">
+					<table class="table mb-0 table-hover">
 						<thead class="small text-uppercase bg-body text-muted">
 							<tr>
 								<th>ID de la catégorie</th>
@@ -140,7 +141,7 @@
 					<p class="mb-0 small text-muted">Ajout/Modification/Suppression</p>
 				</div>
 				<div class="table-responsive">
-					<table class="table mb-0">
+					<table class="table mb-0 table-hover">
 						<thead class="small text-uppercase bg-body text-muted">
 							<tr>
 								<th>ID de l'utilisateur</th>

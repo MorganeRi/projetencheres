@@ -18,8 +18,10 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
+	
+	
 </head>
-<body>
+<body style="padding-bottom:100px;">
 
 	<nav
 		class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark bg-gradient"
@@ -39,24 +41,24 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 					<%
 					if (id != null) {
 					%>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
 						href="ServletAjoutArticle">Vendre un article</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
 						href="ServletMonProfil">Mon profil</a></li>
 
 					<%
 					if (estAdmin) {
 					%>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
 						href="ServletGestionAdmin">Interface Administrateur</a></li>
 					<%
 					}
 
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
 						href="ServletAjoutUtilisateur">S'inscrire</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
 						href="ServletConnexion">Se connecter</a></li>
 					<%
 					}
@@ -67,7 +69,7 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 					<%
 					if (id != null) {
 					%>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item font-weight-bold"><a class="nav-link text-white"
 						href="ServletDeconnexion">Déconnexion [<%=pseudo%>]
 					</a></li>
 					<%
