@@ -114,7 +114,7 @@ public class ServletConnexion extends HttpServlet {
         session.setAttribute(SESSION_UTILISATEUR_ADMIN, util.getAdministrateur());
 
 		
-		response.sendRedirect("./ServletConnexion");
+		response.sendRedirect("./Accueil");
 	}
 	
 	

@@ -47,9 +47,9 @@ if (id == null) {
 		<div class="p-2 mx-auto d-flex flex-column align-items-center">
 			<div class="form-check">
 				<input type="checkbox" class="form-check-input" id="exampleCheck1"
-					name="rememberMe"> se souvenir de moi
-				<!--     <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
+					name="rememberMe"> se souvenir de moi       
 			</div>
+				<a href="">Mot de passe oublié</a>
 			<button type="submit" class="btn btn-dark mb-8 p-2 mt-2" 
 			style="width: 200px">Connexion</button>
 			<a href="ServletAjoutUtilisateur" class="btn btn-dark mb-8 p-2 mt-2" 

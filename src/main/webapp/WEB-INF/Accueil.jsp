@@ -44,7 +44,7 @@
 <div class="container-fluid">
 	<h1>Liste des enchères</h1>
 	<form class="d-flex" role="search"
-		action="<%=request.getContextPath()%>/ServletAccueil" method="post">
+		action="<%=request.getContextPath()%>/Accueil" method="post">
 		<input type="hidden" name="form" value="form1" />
 		<div class="container-fluid">
 			<input class="form-control me-3" type="search"
@@ -83,7 +83,7 @@
 	if (id != null) {
 	%>
 	<form class="filtreForm"
-		action="<%=request.getContextPath()%>/ServletAccueil" method="post"
+		action="<%=request.getContextPath()%>/Accueil" method="post"
 		id="formradio">
 		<input type="hidden" name="form" value="form2" />
 		<fieldset id="check">
@@ -153,7 +153,7 @@ if (articles != null) {
 			%>
 			<h5 class="card-title text-dark">
 				<a class="text-dark"
-					href="ServletDetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
+					href="./DetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
 
 			</h5>
 			<%
@@ -183,7 +183,7 @@ if (articles != null) {
 			%>
 			<p class="card-text">
 				Vendeur : <a
-					href="ServletProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
+					href="./Profil?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 			</p>
 			<%
 			} else {
@@ -219,7 +219,7 @@ if (toutArticles != null) {
 			%>
 			<h5 class="card-title text-dark">
 				<a class="text-dark"
-					href="ServletDetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
+					href="./DetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
 
 			</h5>
 			<%
@@ -248,7 +248,7 @@ if (toutArticles != null) {
 			%>
 			<p class="card-text">
 				Vendeur : <a
-					href="ServletProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
+					href="./Profil?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 			</p>
 			<%
 			} else {
