@@ -39,8 +39,6 @@ public class ServletSupprimerArticle extends HttpServlet {
 		HttpSession session = request.getSession();
 		ArticleVendu articleASupprimer = (ArticleVendu) session.getAttribute("articleAModifier");
 		
-		System.out.println(articleASupprimer);
-		
 		try {
 			articleVenduManager.supprimerArticleVendu(articleASupprimer);
 		} catch (BusinessException e) {
