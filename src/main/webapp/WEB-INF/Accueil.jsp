@@ -146,7 +146,7 @@ if (articles != null) {
 
 
 
-	<div class="card">
+	<div class="card me-3">
 		<div class="card-body">
 			<%
 			if (id != null) {
