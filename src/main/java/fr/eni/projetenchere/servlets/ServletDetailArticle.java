@@ -152,7 +152,7 @@ public class ServletDetailArticle extends HttpServlet {
 					utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit() + enchereMax.getMontantEnchere());
 					utilisateurManager.majMontantCredit(utilisateurActuelMax);
 				}
-
+				System.out.println(enchere.getArticle().getNoArticle());
 				enchereManager.insertEnchere(enchere);
 				request.setAttribute("enchere", enchere);
 

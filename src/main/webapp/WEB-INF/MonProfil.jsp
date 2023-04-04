@@ -15,19 +15,21 @@
 <div class="container-fluid" style="border: 1px solid silver;width:500px;">
 <h1>Mon Profil</h1>
 <ul class="list-group list-group-flush">
-  <li class="list-group-item"><b>PSEUDO</b> : <%=utilisateur.getPseudo()%> </li>
-   <li class="list-group-item"><b>NOM</b> : <%=utilisateur.getNom()%></li>
-  <li class="list-group-item"><b>PRENOM</b> : <%=utilisateur.getPrenom()%></li>
-  <li class="list-group-item"><b>EMAIL</b> : <%=utilisateur.getEmail()%></li>
-  <li class="list-group-item"><b>TELEPHONE</b> : <%=utilisateur.getTelephone()%></li>
-  <li class="list-group-item"><b>RUE</b> : <%=utilisateur.getRue()%></li>
-  <li class="list-group-item"><b>CODE POSTAL</b> : <%=utilisateur.getCodePostal()%></li>
-  <li class="list-group-item"><b>VILLE</b> : <%=utilisateur.getVille()%></li>
-  <li class="list-group-item"><b>CREDIT</b> : <%=utilisateur.getCredit()%></li>
+  <li class="list-group-item"><b>Pseudo</b> : <%=utilisateur.getPseudo()%> </li>
+   <li class="list-group-item"><b>Nom</b> : <%=utilisateur.getNom()%></li>
+  <li class="list-group-item"><b>Prenom</b> : <%=utilisateur.getPrenom()%></li>
+  <li class="list-group-item"><b>Email</b> : <%=utilisateur.getEmail()%></li>
+  <li class="list-group-item"><b>Telephone</b> : <%=utilisateur.getTelephone()%></li>
+  <li class="list-group-item"><b>Rue</b> : <%=utilisateur.getRue()%></li>
+  <li class="list-group-item"><b>Code Postal</b> : <%=utilisateur.getCodePostal()%></li>
+  <li class="list-group-item"><b>Ville</b> : <%=utilisateur.getVille()%></li>
+  <li class="list-group-item"><b>Credit</b> : <%=utilisateur.getCredit()%></li>
 </ul>
 <br>
-<a href="ServletModifierUtilisateur" class="btn btn-dark"
+	<div class="mb-1 d-flex  justify-content-end">
+		<a href="ServletModifierUtilisateur" class="btn btn-dark mb-1"
 					role="button">Modifier</a>
+	</div>
 </div>
 </body>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

@@ -107,40 +107,47 @@ if(id!=null){
 	}
 	}
 	%>
-	<form method="post"
-		action="<%=request.getContextPath()%>/ServletDetailArticle">
-		<label class="form-label me-3" for="MiseAPrix"><b>Ma
-				proposition : </b></label> <input class="form-control" type="number"
-			id="enchere" name="enchere"
-			<%if (enchereMax.getMontantEnchere() == 0) {%>
-			min="<%=art.getPrixInitial() + 1%>" <%} else {%>
-			min="<%=enchereMax.getMontantEnchere() + 1%>" <%}%>
-			<%if (enchereMax.getMontantEnchere() == 0) {%>
-			value="<%=art.getPrixInitial() + 1%>" <%} else {%>
-			value="<%=enchereMax.getMontantEnchere() + 1%>" <%}%>
-			style="width: 100px" /> <input type="submit" value="Encherir"
-			class="btn btn-dark me-3" />
-	</form>
-
-
-	<%
-	}
-	%>
-	<%
-	}
-	%>
-
-	<%
-	if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
-	%>
-
-	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
-		class="btn btn-dark" role="button">Modifier Article</a> 
-	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
-		class="btn btn-dark" role="button">Supprimer Article</a>
-	<%
-	}}
-	%>
+		<br>
+		<form method="post"
+			action="<%=request.getContextPath()%>/ServletDetailArticle">
+			<div class="mb-1 d-flex flex-row justify-content-center">
+				<label class="form-label me-3 mb-2" for="MiseAPrix">
+					<b> Faire une proposition : </b>
+				</label> 
+				<input class="form-control me-3 mb-2" type="number"
+					id="enchere" name="enchere"
+					<%if (enchereMax.getMontantEnchere() == 0) {%>
+					min="<%=art.getPrixInitial() + 1%>" <%} else {%>
+					min="<%=enchereMax.getMontantEnchere() + 1%>" <%}%>
+					<%if (enchereMax.getMontantEnchere() == 0) {%>
+					value="<%=art.getPrixInitial() + 1%>" <%} else {%>
+					value="<%=enchereMax.getMontantEnchere() + 1%>" <%}%>
+					style="width: 100px" />
+				 <input type="submit" value="Encherir"
+					class="btn btn-dark me-3 mb-2" />
+			</div>
+		</form>
+	
+	
+		<%
+		}
+		%>
+		<%
+		}
+		%>
+	
+		<%
+		if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
+		%>
+	
+		<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
+			class="btn btn-dark" role="button">Modifier Article</a> 
+		<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
+			class="btn btn-dark" role="button">Supprimer Article</a>
+		<%
+		}}
+		%>
+	
 </div>
 
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

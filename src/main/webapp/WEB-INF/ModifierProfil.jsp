@@ -7,8 +7,8 @@
 	<jsp:param name="title" value="ModificationUtilisateur" />
 </jsp:include>
 
-<div class="container-fluid">
-	<h1>Mon profil</h1>
+<div class="container-fluid" style="border: 1px solid silver; width: 500px;">
+	<h1 class="font-weight-bold text-center">Mon profil</h1>
 	<br>
 	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
@@ -117,9 +117,11 @@
 					for="floatingInputGroup1">Confirmation Mot de passe</label>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-dark">Enregistrer</button>
-		<a href="ServletSupprimerCompte" class="btn btn-dark"
-					role="button">Supprimer mon compte</a>
+		<div class="mb-3 d-flex align-items-center justify-content-between">
+			<button type="submit" class="btn btn-dark ">Enregistrer</button>
+			<a href="ServletSupprimerCompte" class="btn btn-dark"
+						role="button">Supprimer mon compte</a>
+		</div>
 	</form>
 </div>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>
