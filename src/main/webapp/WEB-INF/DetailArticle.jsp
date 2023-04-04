@@ -47,7 +47,7 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	}
 	%>
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><img alt="photo"
+		<li class="list-group-item"><img class="w-25" alt="photo"
 			src="<%=art.getPhoto()%>"></li>
 		<li class="list-group-item"><b>Nom :</b> <%=art.getNomArticle()%>
 		</li>
