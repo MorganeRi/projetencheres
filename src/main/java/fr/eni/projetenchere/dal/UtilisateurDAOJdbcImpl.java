@@ -64,7 +64,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	}
 
-	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur, email, pseudo, administrateur FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
+	private static final String SELECT_AUTHENTIFIER = "SELECT no_utilisateur, email, pseudo, administrateur, actif FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
 
 	@Override
 	public void connectUtilisateur(Utilisateur utilisateur) throws BusinessException {
@@ -91,6 +91,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 						estAdmin=false;
 					}
 					utilisateur.setAdministrateur(estAdmin);
+					
+					Boolean estActif = null;
+					if (rs.getInt(5)==0) {
+						estAdmin = true;
+					} else {
+						estAdmin=false;
+					}
+					utilisateur.setActif(estActif);
 				} else {
 					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
 				}
@@ -131,6 +139,15 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 						estAdmin=false;
 					}
 					utilisateur.setAdministrateur(estAdmin);
+					
+					Boolean estActif = null;
+					if (rs.getInt(5)==0) {
+						estAdmin = true;
+					} else {
+						estAdmin=false;
+					}
+					utilisateur.setActif(estActif);
+					
 				} else {
 					businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_MDP_ECHEC);
 				}

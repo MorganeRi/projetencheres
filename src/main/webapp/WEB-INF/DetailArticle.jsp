@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
 <%@page import="fr.eni.projetenchere.bo.Enchere"%>
+<%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
@@ -16,11 +17,35 @@
 Integer id = (Integer) session.getAttribute("id");
 ArticleVendu art = (ArticleVendu) request.getAttribute("article");
 Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
+Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActuelMax");
 %>
+
+
 
 <div class="container-fluid"
 	style="border: 1px solid silver; width: 500px;">
 	<h1>Detail Article</h1>
+
+	<%
+	if ((art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null &&  id == art.getUtilisateur().getNoUtilisateur())) {
+	%>
+
+	<h2><%=utilisateurMax != null ? utilisateurMax.getPseudo(): ""%> a
+		remporté l'enchere
+	</h2>
+	<%
+	}
+	%>
+	<%
+	if (art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null
+			&& utilisateurMax != null && id.equals(utilisateurMax.getNoUtilisateur())) {
+	%>
+
+
+	<h2>Bravo vous avez remporté l'enchère</h2>
+	<%
+	}
+	%>
 	<ul class="list-group list-group-flush">
 		<li class="list-group-item"><img alt="photo"
 			src="<%=art.getPhoto()%>"></li>
@@ -95,16 +120,19 @@ Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 
 
 	<%
-	if (id == art.getUtilisateur().getNoUtilisateur()&& art.getDateDebutEnchere().isBefore(LocalDateTime.now())) {
+	}
+	%>
+	<%
+	}
+	%>
+
+	<%
+
+	if (id == art.getUtilisateur().getNoUtilisateur()&& LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
+
 	%>
 	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-dark" role="button">Modifier Article</a>
-	<%
-	}
-	%>
-	<%
-	}
-	%>
 	<%
 	}
 	%>

@@ -196,6 +196,7 @@ public class ServletAjoutArticle extends HttpServlet {
 				
 				session.setAttribute(ARTICLE_A_MANIPULER, articleVendu);
 			}
+			
 
 
 		} catch (Exception e) {

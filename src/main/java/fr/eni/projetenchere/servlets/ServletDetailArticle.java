@@ -60,6 +60,7 @@ public class ServletDetailArticle extends HttpServlet {
 			Enchere enchereMax = new Enchere();
 			Retrait retrait = new Retrait();
 			Integer idArticle = null;
+			Utilisateur utilisateurActuelMax = null;
 			ArticleVenduManager ArticleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
 			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 			EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
@@ -91,6 +92,9 @@ public class ServletDetailArticle extends HttpServlet {
 				e.printStackTrace();
 			}
 
+			utilisateurActuelMax = enchereMax.getUtilisateur();
+			request.setAttribute("utilisateurActuelMax", utilisateurActuelMax);
+			
 			request.setAttribute("article", art);
 			request.setAttribute("enchereMax", enchereMax);
 
@@ -113,7 +117,7 @@ public class ServletDetailArticle extends HttpServlet {
 		Integer noUtilisateur;
 		Enchere enchere;
 		Enchere enchereMax = null;
-		Utilisateur utilisateurActuelMax;
+		Utilisateur utilisateurActuelMax = null;
 		Integer creditUtilisateur = null;
 		LocalDateTime dateDuJour = LocalDateTime.now();
 		List<Integer> listeCodesErreur = new ArrayList<>();
@@ -162,9 +166,8 @@ public class ServletDetailArticle extends HttpServlet {
 					article.setPrixDeVente(enchereManager.selectMaxEnchere(article).getMontantEnchere());
 					articleManager.majPxVenteArticleVendu(article);
 					articleManager.majNoAcquereur(article);
-
 				}
-
+				
 			} else {
 				listeCodesErreur.add(CodesResultatServlets.CREDIT_INSUFFISANT);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
