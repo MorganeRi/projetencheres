@@ -55,7 +55,6 @@ public class ServletModifierUtilisateur extends HttpServlet {
 			try {
 				utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -116,7 +115,11 @@ public class ServletModifierUtilisateur extends HttpServlet {
 			credit = util.getCredit();
 			administrateur = util.getAdministrateur();
 			if (motDePasseAtcuel.equals(util.getMotDePasse())) {
-				if (nouveauMotDePasse.equals(confirmationMotDePasse)) {
+				if (nouveauMotDePasse.isBlank()) {
+					Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue,
+							codePostal, ville, motDePasseAtcuel, credit, administrateur);
+					utilisateurManager.majUtilisateur(utilisateur);
+				} else if (nouveauMotDePasse != null && nouveauMotDePasse.equals(confirmationMotDePasse)) {
 					Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue,
 							codePostal, ville, nouveauMotDePasse, credit, administrateur);
 					utilisateurManager.majUtilisateur(utilisateur);
