@@ -20,7 +20,7 @@ public interface UtilisateurDAO {
 	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException;
 
 	// suppression de l'ensemble des informations de l'utilisateur
-	public void deleteUtilisateur(Utilisateur utilisateur) throws BusinessException;
+	public Utilisateur deleteUtilisateur(Utilisateur utilisateur) throws BusinessException;
 
 	// afficher le profil des autres utilisateurs
 	public Utilisateur selectByIdUtilisateur(Integer id) throws BusinessException;

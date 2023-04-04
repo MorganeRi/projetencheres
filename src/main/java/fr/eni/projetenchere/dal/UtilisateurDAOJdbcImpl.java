@@ -189,7 +189,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String DELETE_UTILISATEUR = "DELETE FROM utilisateur WHERE no_utilisateur = ?";
 
 	@Override
-	public void deleteUtilisateur(Utilisateur utilisateur) throws BusinessException {
+	public Utilisateur deleteUtilisateur(Utilisateur utilisateur) throws BusinessException {
 		if (utilisateur == null) {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.DELETE_UTILISATEUR_NULL);
@@ -205,6 +205,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			businessException.ajouterErreur(CodesResultatDAL.DELETE_UTILISATEUR_ECHEC);
 			throw businessException;
 		}
+		return utilisateur;
 	}
 
 	private final String SELECT_UTILISATUEUR_BY_ID = "SELECT no_utilisateur,pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateur WHERE no_utilisateur = ?";

@@ -63,14 +63,9 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	@Override
-	public void supprimerUtilisateur(Utilisateur utilisateur) throws BusinessException {
-
-		try {
-			this.utilisateurDao.deleteUtilisateur(utilisateur);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+	public Utilisateur supprimerUtilisateur(Utilisateur utilisateur) throws BusinessException {
+			utilisateurDao.deleteUtilisateur(utilisateur);
+		return utilisateur;
 	}
 
 	@Override
