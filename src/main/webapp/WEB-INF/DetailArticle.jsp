@@ -107,6 +107,7 @@ if(id!=null){
 	}
 	}
 	%>
+
 		<br>
 		<form method="post"
 			action="<%=request.getContextPath()%>/ServletDetailArticle">
@@ -147,6 +148,16 @@ if(id!=null){
 		<%
 		}}
 		%>
+		
+		<%
+	if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isAfter(art.getDateFinEnchere())) {
+	%>
+	<a href="ServletDetailEnchere?idArticle=<%=art.getNoArticle()%>"
+		class="btn btn-dark" role="button">Consulter le detail des encheres</a>
+	<%
+	}
+	%>
+
 	
 </div>
 
