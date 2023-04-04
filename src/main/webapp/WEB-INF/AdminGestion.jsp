@@ -189,8 +189,8 @@
 					<div class="card-footer text-end">
 
 						<input type="submit" name="actionUtilisateur" class="btn btn-dark"
-							value="Activer/Desactiver" style="width: 40%"> <input
-							type="submit" name="actionUtilisateur" class="btn btn-dark"
+							value="ActiverDesactiver" style="width: 40%"> 
+						<input type="submit" name="actionUtilisateur" class="btn btn-dark"
 							value="SupprimerUser" style="width: 20%">
 
 					</div>

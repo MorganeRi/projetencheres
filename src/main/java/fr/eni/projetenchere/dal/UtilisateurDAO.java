@@ -35,5 +35,8 @@ public interface UtilisateurDAO {
 	
 	//récupérer une liste qui contient tous les utilisateurs enregistrés dans la BDD
 	public List<Utilisateur> selectAllUtilisateur() throws BusinessException;
+	
+	//	passer d'un compte activé à un compte désactivé
+	public Utilisateur actifOrNot(Utilisateur utilisateur) throws BusinessException;
  
 }

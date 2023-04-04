@@ -41,5 +41,7 @@ public interface UtilisateurManager {
 	public Utilisateur selectParPseudoUtilisateur(String pseudo) throws BusinessException;
 	
 	public List<Utilisateur> getAllUtilisateur() throws BusinessException;
+	
+	public Utilisateur userOnOff(Utilisateur utilisateur) throws BusinessException;
 
 }

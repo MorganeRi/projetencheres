@@ -101,4 +101,9 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			throw businessException;
 		}
 	}
+
+	@Override
+	public Utilisateur userOnOff(Utilisateur utilisateur) throws BusinessException {
+		return utilisateurDao.actifOrNot(utilisateur);
+	}
 }

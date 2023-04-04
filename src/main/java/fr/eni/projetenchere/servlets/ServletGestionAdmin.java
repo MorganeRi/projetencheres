@@ -126,20 +126,25 @@ public class ServletGestionAdmin extends HttpServlet {
 			}
 			
 			if("SupprimerUser".equals(actionUtilisateur)) {
-				System.out.println("coucou");
-				System.out.println(request.getParameter("choixUtilisateur"));
 				noUtilisateur = Integer.parseInt(request.getParameter("choixUtilisateur"));
-				System.out.println(noUtilisateur);
+				
 				if(noUtilisateur != null) {
 					utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
-					System.out.println(utilisateur);
-					
+
 					utilisateurASupprimer = utilisateurManager.supprimerUtilisateur(utilisateur);
-					
 					request.setAttribute("utilisateurASupprimer", utilisateurASupprimer);
 					
 				}
-			} 
+			} else if ("ActiverDesactiver".equals(actionUtilisateur)){
+				noUtilisateur = Integer.parseInt(request.getParameter("choixUtilisateur"));
+				
+				if(noUtilisateur != null) {
+					utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
+					
+					utilisateurOnOff = utilisateurManager.userOnOff(utilisateur);
+					request.setAttribute("utilisateurOnOff",utilisateurOnOff);
+				}
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

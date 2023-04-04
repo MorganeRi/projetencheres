@@ -12,6 +12,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	
+	private static final String UPDATE_ACTIF_UTILISATEUR = "UPDATE utilisateur SET actif = ? WHERE no_utilisateur = ? ";
 	private static final String INSERT_UTILISATEUR = "INSERT INTO utilisateur (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?) ";
 
 	@Override
@@ -225,7 +226,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return utilisateur;
 	}
 
-	private final String SELECT_UTILISATUEUR_BY_ID = "SELECT no_utilisateur,pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateur WHERE no_utilisateur = ?";
+	private final String SELECT_UTILISATUEUR_BY_ID = "SELECT no_utilisateur,pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur,actif FROM utilisateur WHERE no_utilisateur = ?";
 
 	@Override
 	public Utilisateur selectByIdUtilisateur(Integer id) throws BusinessException {
@@ -254,7 +255,16 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					booleanValue = true;
 				}
 				utilisateur.setAdministrateur(booleanValue);
-
+				
+				Integer tinyUserActif = rs.getInt("actif");
+				Boolean booleanActif = null; 
+				
+				if(tinyUserActif == 0) {
+					booleanActif = true;
+				} else {
+					booleanActif = false;
+				}
+				utilisateur.setActif(booleanActif);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -413,7 +423,59 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return result;
 	}
 
+	@Override
+	public Utilisateur actifOrNot(Utilisateur utilisateur) throws BusinessException {
+		if (utilisateur == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.ACTIF_UTILISATEUR_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ACTIF_UTILISATEUR);
+			
+			Integer intValueBoolean = null;
+			
+			
+			if((utilisateur.getActif()).equals(true)) {
+				intValueBoolean = 1;
+				utilisateur.setActif(false);
+			} else if ((utilisateur.getActif()).equals(false)) {
+				intValueBoolean = 0;
+				utilisateur.setActif(true);
+			}
+			pstmt.setInt(1, intValueBoolean);
+			pstmt.setInt(2, utilisateur.getNoUtilisateur());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_USER_ACTIF_ECHEC);
+			throw businessException;
+		}
+		return utilisateur;
+	}
 
+//	private static final String UPDATE_CREDIT = "UPDATE utilisateur SET credit = ? WHERE no_utilisateur = ?";
+
+//	@Override
+//	public void updateMontantCredit(Utilisateur utilisateur) throws BusinessException {
+//		if (utilisateur == null) {
+//			BusinessException businessException = new BusinessException();
+//			businessException.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR_NULL);
+//			throw businessException;
+//		}
+//		try (Connection cnx = ConnectionProvider.getConnection()) {
+//			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDIT);
+//			pstmt.setInt(1, utilisateur.getCredit());
+//			pstmt.setInt(2, utilisateur.getNoUtilisateur());
+//			pstmt.executeUpdate();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			BusinessException businessException = new BusinessException();
+//			businessException.ajouterErreur(CodesResultatDAL.UPDATE_CREDIT_ECHEC);
+//			throw businessException;
+//		}
+//	}
 
 
 }
