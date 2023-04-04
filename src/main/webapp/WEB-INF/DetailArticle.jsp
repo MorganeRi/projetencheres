@@ -27,18 +27,19 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	<h1>Detail Article</h1>
 
 	<%
-	if ((art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null &&  id == art.getUtilisateur().getNoUtilisateur())) {
+	if ((art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null
+			&& id == art.getUtilisateur().getNoUtilisateur())) {
 	%>
 
-	<h2><%=utilisateurMax != null ? utilisateurMax.getPseudo(): ""%> a
-		remporté l'enchere
+	<h2><%=utilisateurMax != null ? utilisateurMax.getPseudo() : ""%>
+		a remporté l'enchere
 	</h2>
 	<%
 	}
 	%>
 	<%
-	if (art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null
-			&& utilisateurMax != null && id.equals(utilisateurMax.getNoUtilisateur())) {
+	if (art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null && utilisateurMax != null
+			&& id.equals(utilisateurMax.getNoUtilisateur())) {
 	%>
 
 
@@ -47,8 +48,8 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	}
 	%>
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><img class="w-25" alt="photo"
-			src="<%=art.getPhoto()%>"></li>
+		<li class="list-group-item"><img class="img-fluid" alt="photo"
+			width="100" height="auto" src="<%=art.getPhoto()%>"></li>
 		<li class="list-group-item"><b>Nom :</b> <%=art.getNomArticle()%>
 		</li>
 		<li class="list-group-item"><b>Description :</b> <%=art.getDescription()%></li>
@@ -127,14 +128,12 @@ Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActu
 	%>
 
 	<%
-
-	if (id == art.getUtilisateur().getNoUtilisateur()&& LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
-
+	if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
 	%>
 	<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
-		class="btn btn-dark" role="button">Modifier Article</a>
-	<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
-		class="btn btn-dark" role="button">Supprimer Article</a>	
+		class="btn btn-dark" role="button">Modifier Article</a> <a
+		href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
+		class="btn btn-dark" role="button">Supprimer Article</a>
 	<%
 	}
 	%>
