@@ -164,7 +164,7 @@ if (articles != null) {
 
 
 
-	<div class="card my-2 mx-2 border-warning " style="width: 250px">
+	<div class="card my-2 mx-2 border-warning " style="width: 250px" >
 		<div class="card-body ">
 			<%
 			if (id != null) {
