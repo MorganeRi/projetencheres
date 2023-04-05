@@ -41,4 +41,16 @@ public class EnchereManagerImpl implements EnchereManager {
 		return null;
 	}
 
+	@Override
+	public void suppEnchere(ArticleVendu art) throws BusinessException {
+		enchereDao.deleteEnchere(art);
+		
+	}
+
+	@Override
+	public void majEnchere(Enchere ench) throws BusinessException {
+		enchereDao.updateEnchere(ench);
+		
+	}
+
 }

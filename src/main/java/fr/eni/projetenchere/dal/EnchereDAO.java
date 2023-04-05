@@ -22,4 +22,9 @@ public interface EnchereDAO {
 	
 	public void updateEnchereGagnante (Enchere enchere) throws BusinessException;
 	
+	public void deleteEnchere (ArticleVendu art) throws BusinessException;
+	
+	public void updateEnchere (Enchere ench) throws BusinessException;
+	
+	
 }

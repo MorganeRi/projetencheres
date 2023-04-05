@@ -12,11 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.projetenchere.bll.ArticleVenduManager;
+import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
 import fr.eni.projetenchere.bll.CategorieManager;
 import fr.eni.projetenchere.bll.CategorieManagerSing;
+import fr.eni.projetenchere.bll.EnchereManager;
+import fr.eni.projetenchere.bll.EnchereManagerSing;
 import fr.eni.projetenchere.bll.UtilisateurManager;
 import fr.eni.projetenchere.bll.UtilistateurManagerSing;
+import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
+import fr.eni.projetenchere.bo.Enchere;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
@@ -163,6 +169,23 @@ public class ServletGestionAdmin extends HttpServlet {
 					
 					utilisateurOnOff = utilisateurManager.userOnOff(utilisateur);
 					request.setAttribute("utilisateurOnOff",utilisateurOnOff);
+					EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
+					ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
+					List<ArticleVendu> listArtUtil = new ArrayList<ArticleVendu>();
+					Enchere ench = null;
+					listArtUtil = articleManager.articleEncherie(noUtilisateur);
+					
+					
+					for (ArticleVendu articleVendu : listArtUtil) {
+						ench = enchereManager.selectMaxEnchere(articleVendu);
+						
+						if (ench.getUtilisateur().getNoUtilisateur()==noUtilisateur) {
+							utilisateur.setCredit(utilisateur.getCredit() + ench.getMontantEnchere());
+							utilisateurManager.majMontantCredit(utilisateur);
+							enchereManager.majEnchere(ench);
+						}
+					}
+					
 					
 				}
 			}

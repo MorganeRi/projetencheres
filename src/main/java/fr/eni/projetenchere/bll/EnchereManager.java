@@ -16,5 +16,9 @@ public interface EnchereManager {
 	
 	public Boolean finEnchere (ArticleVendu articleVendu) throws BusinessException;
 	
+	public void suppEnchere (ArticleVendu art) throws BusinessException;
+	
+	public void majEnchere (Enchere ench) throws BusinessException;
+	
 
 }

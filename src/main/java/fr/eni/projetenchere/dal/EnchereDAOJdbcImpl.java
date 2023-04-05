@@ -18,6 +18,9 @@ private static final String INSERT_ENCHERE = " INSERT INTO enchere (date_enchere
 private static final String SELECT_MAX_ENCHERE= "SELECT no_enchere, date_enchere, montant_enchere, no_utilisateur, no_article, enchere_gagnante FROM enchere WHERE no_article=? AND montant_enchere = (SELECT MAX(montant_enchere) FROM enchere WHERE no_article=?)";
 private static final String SELECT_MAX_UTILISATEUR= "select no_enchere, date_enchere, MAX(montant_enchere),no_utilisateur,no_article, enchere_gagnante from enchere WHERE no_utilisateur=?";
 private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_gagnante=? where no_article =?";
+private static final String DELETE_ENCHERE = "delete from enchere where no_article=? and no_tulisateur=?";
+private static final String UPDATE_ENCHERE = "update enchere set montant_enchere=? where no_article=? and no_tulisateur=?";
+
 
 	//	méthode pour insérer une enchère en BDD
 	@Override
@@ -242,6 +245,60 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 
 			pstmt.setInt(2, enchere.getArticle().getNoArticle());
 
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_ARTICLE_ECHEC);
+
+			throw businessException;
+		}
+	}
+	//private static final String DELETE_ENCHERE = "delete from enchere where no_article=? and no_tulisateur=?";
+	@Override
+	public void deleteEnchere(ArticleVendu art) throws BusinessException {
+		if (art == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_ARTICLE_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ENCHERE);
+
+			pstmt.setInt(1, art.getNoArticle());
+			pstmt.setInt(2, art.getUtilisateur().getNoUtilisateur());
+			pstmt.executeUpdate();
+
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_ARTICLE_ECHEC);
+
+			throw businessException;
+		}
+
+	}
+//	private static final String UPDATE_ENCHERE = "update enchere set montant_enchere=? where no_article=? and no_tulisateur=?";
+	@Override
+	public void updateEnchere(Enchere ench) throws BusinessException {
+		if (ench == null) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_ARTICLE_NULL);
+			throw businessException;
+		}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ENCHERE);
+
+
+			pstmt.setInt(1, ench.getMontantEnchere());
+			pstmt.setInt(2, ench.getArticle().getNoArticle());
+			pstmt.setInt(3, ench.getUtilisateur().getNoUtilisateur());
 
 			pstmt.executeUpdate();
 
