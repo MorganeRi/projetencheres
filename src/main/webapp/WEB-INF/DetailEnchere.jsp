@@ -10,7 +10,7 @@
 <body>
 
 	<div class="container-fluid"
-		style="border: 1px solid silver; width: 500px;">
+		style="width: 500px;">
 		<h1>DETAIL DES ENCHERES</h1>
 		<table class="table mb-0 table-hover">
 			<thead>

@@ -193,7 +193,7 @@ if (articles != null) {
 					<%
 					} else if (ench.getUtilisateur().getActif()==true){
 					%>
-					<%=ench.getMontantEnchere()%> 💰
+					<%=ench.getMontantEnchere()%> 💰 
 					<%
 					} else { %>
 						<%=art.getPrixInitial()%>

@@ -14,17 +14,17 @@
 
 <h1 class="font-weight-bold text-center">Mon profil</h1>
 
-<div class="container-fluid" style="width:500px;">
+<div class="container-fluid" style="width:40%;">
 <ul class="list-group list-group-flush">
-  <li class="list-group-item"><b>Pseudo</b> : <%=utilisateur.getPseudo()%> </li>
-   <li class="list-group-item"><b>Nom</b> : <%=utilisateur.getNom()%></li>
-  <li class="list-group-item"><b>Prenom</b> : <%=utilisateur.getPrenom()%></li>
-  <li class="list-group-item"><b>Email</b> : <%=utilisateur.getEmail()%></li>
-  <li class="list-group-item"><b>Telephone</b> : <%=utilisateur.getTelephone()%></li>
-  <li class="list-group-item"><b>Rue</b> : <%=utilisateur.getRue()%></li>
-  <li class="list-group-item"><b>Code Postal</b> : <%=utilisateur.getCodePostal()%></li>
-  <li class="list-group-item"><b>Ville</b> : <%=utilisateur.getVille()%></li>
-  <li class="list-group-item"><b>Credit</b> : <%=utilisateur.getCredit()%></li>
+  <li class="list-group-item border-warning"><b>Pseudo</b> : <%=utilisateur.getPseudo()%> </li>
+   <li class="list-group-item border-warning"><b>Nom</b> : <%=utilisateur.getNom()%></li>
+  <li class="list-group-item border-warning"><b>Prenom</b> : <%=utilisateur.getPrenom()%></li>
+  <li class="list-group-item border-warning"><b>Email</b> : <%=utilisateur.getEmail()%></li>
+  <li class="list-group-item border-warning"><b>Telephone</b> : <%=utilisateur.getTelephone()%></li>
+  <li class="list-group-item border-warning"><b>Rue</b> : <%=utilisateur.getRue()%></li>
+  <li class="list-group-item border-warning"><b>Code Postal</b> : <%=utilisateur.getCodePostal()%></li>
+  <li class="list-group-item border-warning"><b>Ville</b> : <%=utilisateur.getVille()%></li>
+  <li class="list-group-item border-warning"><b>Credit</b> : <%=utilisateur.getCredit()%></li>
 </ul>
 <br>
 	<div class="mb-1 d-flex  justify-content-end">

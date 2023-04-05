@@ -7,15 +7,16 @@
 	<jsp:param name="title" value="CreationUtilisateur" />
 </jsp:include>
 
-<div class="container-fluid">
-	<h1>Mon profil</h1>
+<div class="container-fluid" style="width: 40%;">
+	<h1 class="font-weight-bold text-center">Mon profil</h1>
 	<br>
-	
+
 	<%
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 	if (utilisateur != null) {
 	%>
-	<p style="color: green;">Votre compte a été crée avec succès et vous êtes connecté ! </p>
+	<p style="color: green;">Votre compte a été crée avec succès et
+		vous êtes connecté !</p>
 	<%
 	}
 	%>
@@ -23,7 +24,8 @@
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
 	%>
-	<p style="color: red;">Erreur, la création du compte n'est pas possible :</p>
+	<p style="color: red;">Erreur, la création du compte n'est pas
+		possible :</p>
 	<%
 	for (int codeErreur : listeCodesErreur) {
 	%>
@@ -35,15 +37,15 @@
 	<form method="post"
 		action="<%=request.getContextPath()%>/ServletAjoutUtilisateur">
 		<div class="input-group mb-3">
-			<span class="input-group-text">Pseudo</span>
+			<span class="input-group-text text-warning bg-dark">Pseudo</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
-					placeholder="Pseudo" name="Pseudo" pattern="[a-zA-Z0-9]+" required> <label
-					for="floatingInputGroup1">Pseudo</label>
+					placeholder="Pseudo" name="Pseudo" pattern="[a-zA-Z0-9]+" required>
+				<label for="floatingInputGroup1">Pseudo</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Prenom</span>
+			<span class="input-group-text text-warning bg-dark">Prenom</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
 					placeholder="Prenom" name="Prenom" required> <label
@@ -51,7 +53,7 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Nom</span>
+			<span class="input-group-text text-warning bg-dark">Nom</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
 					placeholder="Nom" name="Nom" required> <label
@@ -59,7 +61,7 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Email</span>
+			<span class="input-group-text text-warning bg-dark">Email</span>
 			<div class="form-floating">
 				<input type="email" class="form-control" id="floatingInputGroup1"
 					placeholder="Email" name="Email" required> <label
@@ -67,14 +69,15 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Telephone</span>
+			<span class="input-group-text text-warning bg-dark">Telephone</span>
 			<div class="form-floating">
 				<input type="number" class="form-control" id="floatingInputGroup1"
-					placeholder="Telephone" name="Telephone"> <label for="floatingInputGroup1">Telephone</label>
+					placeholder="Telephone" name="Telephone"> <label
+					for="floatingInputGroup1">Telephone</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Rue</span>
+			<span class="input-group-text text-warning bg-dark">Rue</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
 					placeholder="Rue" name="Rue" required> <label
@@ -82,7 +85,7 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Code postal</span>
+			<span class="input-group-text text-warning bg-dark">Code postal</span>
 			<div class="form-floating">
 				<input type="number" class="form-control" id="floatingInputGroup1"
 					placeholder="CodePostal" name="CodePostal" required> <label
@@ -90,7 +93,7 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Ville</span>
+			<span class="input-group-text text-warning bg-dark">Ville</span>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInputGroup1"
 					placeholder="Ville" name="Ville" required> <label
@@ -98,7 +101,7 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Mot de passe</span>
+			<span class="input-group-text text-warning bg-dark">Mot de passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
 					placeholder="MotDePasse" name="MotDePasse" required> <label
@@ -106,16 +109,16 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Confirmation Mot de passe</span>
+			<span class="input-group-text text-warning bg-dark">Confirmation Mot de passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
-					placeholder="ConfirmationMotDePasse" name="ConfirmationMotDePasse" required> <label
-					for="floatingInputGroup1">Confirmation Mot de passe</label>
+					placeholder="ConfirmationMotDePasse" name="ConfirmationMotDePasse"
+					required> <label for="floatingInputGroup1">Confirmation
+					Mot de passe</label>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-dark">Créer</button>
-		<a href="ServletAccueil" class="btn btn-dark"
-					role="button">Annuler</a>
+		<button type="submit" class="btn btn-warning btn-lg">Créer</button>
+		<a href="ServletAccueil" class="btn btn-warning btn-lg" role="button">Annuler</a>
 	</form>
 </div>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

@@ -7,7 +7,7 @@
 	<jsp:param name="title" value="ModificationUtilisateur" />
 </jsp:include>
 
-<div class="container-fluid" style="width: 500px;">
+<div class="container-fluid" style="width: 40%;">
 	<h1 class="font-weight-bold text-center">Mon profil</h1>
 	<br>
 	

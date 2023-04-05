@@ -24,36 +24,46 @@ for (int codeErreur : listeCodesErreur) {
 Integer id = (Integer) session.getAttribute("id");
 if (id == null) {
 %>
-<div class="container-fluid"
-	style="border: 1px solid silver; width: 50%;">
+<div class="container-fluid" style="width: 30%;">
 	<form action="<%=request.getContextPath()%>/ServletConnexion"
 		method="post">
 
-		<div class="mb-2 p-2 d-flex flex-column">
-			<label for="exampleInputEmail1" class="form-label">Adresse
-				E-mail ou pseudo</label> <input type="text" class="form-control"
-				id="exampleInputEmail1" style="width: 95%"
-				aria-describedby="emailHelp" placeholder="E-mail" name="email"
-				value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
-
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Adresse
+				e-mail ou pseudo</span>
+			<div class="form-floating">
+				<input type="text" class="form-control border-warning"
+					id="exampleInputEmail1"
+					aria-describedby="emailHelp" placeholder="E-mail" name="email"
+					value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
+					<label
+					for="floatingInputGroup1">Adresse
+				e-mail ou pseudo</label>
+			</div>
 		</div>
-		<div class="mb-2 p-2 d-flex flex-column">
-			<label for="exampleInputPassword1" class="form-label">Mot de
-				passe</label> <input type="password" class="form-control"
-				id="exampleInputPassword1" style="width: 95%"
-				placeholder="Mot de passe" name="mdp"
-				value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>">
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Mot de
+				passe</span>
+			<div class="form-floating">
+				<input type="password" class="form-control border-warning"
+					id="exampleInputPassword1"
+					placeholder="Mot de passe" name="mdp"
+					value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>">
+					<label
+					for="floatingInputGroup1">Mot de passe</label>
+			</div>
 		</div>
 		<div class="p-2 mx-auto d-flex flex-column align-items-center">
 			<div class="form-check">
 				<input type="checkbox" class="form-check-input" id="exampleCheck1"
-					name="rememberMe"> se souvenir de moi       
+					name="rememberMe"> se souvenir de moi
 			</div>
-				<a href="./ServletResetPassword">Mot de passe oublié</a>
-			<button type="submit" class="btn btn-warning btn-lg mb-8 p-2 mt-2" 
-			style="width: 200px">Connexion</button>
-			<a href="ServletAjoutUtilisateur" class="btn btn-warning btn-lg mb-8 p-2 mt-2" 
-			style="width: 200px" role="button">Créer un compte</a>
+			<a href="./ServletResetPassword">Mot de passe oublié</a>
+			<button type="submit" class="btn btn-warning btn-lg mb-8 p-2 mt-2"
+				style="width: 200px">Connexion</button>
+			<a href="ServletAjoutUtilisateur"
+				class="btn btn-warning btn-lg mb-8 p-2 mt-2" style="width: 200px"
+				role="button">Créer un compte</a>
 		</div>
 	</form>
 </div>
