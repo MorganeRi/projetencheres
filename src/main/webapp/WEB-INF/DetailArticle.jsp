@@ -18,6 +18,8 @@ Integer id = (Integer) session.getAttribute("id");
 ArticleVendu art = (ArticleVendu) request.getAttribute("article");
 Enchere enchereMax = (Enchere) request.getAttribute("enchereMax");
 Utilisateur utilisateurMax = (Utilisateur) request.getAttribute("utilisateurActuelMax");
+Boolean estActif = (Boolean) session.getAttribute("actif");
+
 
 if(id!=null){
 
@@ -34,9 +36,8 @@ if(id!=null){
 			&& id == art.getUtilisateur().getNoUtilisateur())) {
 	%>
 
-	<h2><%=utilisateurMax != null ? utilisateurMax.getPseudo() : ""%>
-		a remporté l'enchere
-	</h2>
+	<h2><%=utilisateurMax != null ? (utilisateurMax.getPseudo()+" a remporté l'enchere") : ""%></h2>
+	
 	<%
 	}
 	%>
@@ -85,7 +86,7 @@ if(id!=null){
 	if (enchereAjoute.getDateEnchere().isBefore(art.getDateFinEnchere())
 			&& enchereAjoute.getDateEnchere().isAfter(art.getDateDebutEnchere())) {
 
-		if (id != art.getUtilisateur().getNoUtilisateur()) {
+		if (id != art.getUtilisateur().getNoUtilisateur()&& estActif==true) {
 			if (request.getMethod().equals("POST")) {
 		enchereSoumise = true;
 	%>
@@ -94,7 +95,7 @@ if(id!=null){
 
 
 	<%
-	}
+			}
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
 	%>

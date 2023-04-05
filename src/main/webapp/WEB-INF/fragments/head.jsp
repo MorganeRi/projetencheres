@@ -48,9 +48,11 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 					%>
 					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
 						href="./VendreUnArticle">Vendre un article</a></li>
-						<%} %>
+						<%} else { %>
+						<li class="nav-item nav-link text-white font-weight-bold">Votre compte a été désactivé, veuillez contacter un administrateur</li>
 						
-					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
+						<%} %>
+					<li class="nav-item "><a class="nav-link text-white font-weight-bold"
 						href="./Profil">Mon profil</a></li>
 
 					<%
