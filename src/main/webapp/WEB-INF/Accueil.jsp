@@ -261,14 +261,25 @@ if (toutArticles != null) {
 			%>
 			<h6 class="card-subtitle mb-2 text-body-secondary">
 				Prix :
-				<%if(art.getPrixDeVente()==0){ %>
+				<%
+				if(enchereManager.selectMaxEnchere(art)!=null){
 				
-				<%=art.getPrixInitial()%>
-				
-				<%} else { %>
-				<%=art.getPrixDeVente()%>
-				
-				<%} %>
+				Enchere ench=enchereManager.selectMaxEnchere(art); 
+				if (ench.getMontantEnchere() == null) {
+					%>
+					0
+					<%
+					} else if (ench.getUtilisateur().getActif()==true){
+					%>
+					<%=ench.getMontantEnchere()%>
+					<%
+					} else { %>
+						<%=art.getPrixInitial()%>
+				<%	}
+					
+			} else { %>
+			<%=art.getPrixInitial()%>
+			<%}%>
 				</h6>
 			<p class="card-text">
 				Fin de l'enchère :
