@@ -32,7 +32,7 @@ if(id!=null){
 	<h1 class="font-weight-bold text-center">Detail Article</h1>
 
 <div class="container-fluid"
-	style="width: 40%;">
+	style="width: 20%;">
 
 	<%
 	if ((art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null

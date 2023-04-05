@@ -14,7 +14,7 @@
 
 <h1 class="font-weight-bold text-center">Mon profil</h1>
 
-<div class="container-fluid" style="width:40%;">
+<div class="container-fluid" style="width:20%;">
 <ul class="list-group list-group-flush">
   <li class="list-group-item border-warning"><b>Pseudo</b> : <%=utilisateur.getPseudo()%> </li>
    <li class="list-group-item border-warning"><b>Nom</b> : <%=utilisateur.getNom()%></li>
