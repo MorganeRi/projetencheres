@@ -28,16 +28,28 @@
 				if (categorieAjoute != null) {
 				%>
 				<br />
-				<p style="color: green;">La catégorie a été ajoutée avec succès</p>
+				<div class="d-flex  flex-column align-items-center justify-content-center">
+					<p style="color: green;" class="align-self-center">La catégorie a été ajoutée avec succès</p>
+					<img alt="validation" src="./images/verifie.gif" width="40" height="auto">
+				</div>
 				<%
 				} else if (categorieModifie != null) {
 				%>
-				<p style="color: green;">La catégorie a été modifiée avec succès</p>
+				<div class="d-flex  flex-column align-items-center justify-content-center">
+					<p style="color: green;" class="align-self-center">La catégorie a été modifiée avec succès</p>
+					<img alt="validation" src="./images/verifie.gif" width="40" height="auto">
+				</div>
+				
+				
 				<%
 				} else if (categorieSupprime != null) {
 				%>
-				<p style="color: green;">La catégorie a été supprimée avec
+				
+				<div class=" d-flex  flex-column align-items-center justify-content-center">
+					<p style="color: green;" class="align-self-center">La catégorie a été supprimée avec
 					succès</p>
+					<img alt="validation" src="./images/verifie.gif" width="40" height="auto">
+				</div>
 				<%
 				} else if (categorieAlreadyExists != null) {
 				%>
