@@ -194,7 +194,7 @@ if (articles != null) {
 			%>
 			<p class="card-text">
 				Vendeur : <a
-					href="./Profil?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
+					href="./ProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 			</p>
 			<%
 			} else {
@@ -261,7 +261,7 @@ if (toutArticles != null) {
 			%>
 			<p class="card-text">
 				Vendeur : <a
-					href="./Profil?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
+					href="./ProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 			</p>
 			<%
 			} else {

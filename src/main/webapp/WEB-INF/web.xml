@@ -74,4 +74,12 @@
 		<servlet-name>DetailArticle</servlet-name>
 		<url-pattern>/DetailArticle</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>ProfilVendeur</servlet-name>
+		<servlet-class>fr.eni.projetenchere.servlets.ServletProfilVendeur</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProfilVendeur</servlet-name>
+		<url-pattern>/ProfilVendeur</url-pattern>
+	</servlet-mapping>
 </web-app>
