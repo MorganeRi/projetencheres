@@ -71,7 +71,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		
 		if (idUtilisateur == null) {
 			// Rediriger vers la page de connexion
-			response.sendRedirect("ServletConnexion");
+			response.sendRedirect("./seConnecter");
 		} else {
 			try {
 
