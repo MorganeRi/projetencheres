@@ -217,7 +217,7 @@ if (articles != null) {
 					<a href="./ProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 					
 					<%}else{ %>
-					<a href="./Profil?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
+					<a href="./Profil"><%=art.getUtilisateur().getNom()%></a>
 					
 				
 			</p>
