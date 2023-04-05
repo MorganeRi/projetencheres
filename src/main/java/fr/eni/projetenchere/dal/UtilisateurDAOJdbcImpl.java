@@ -41,13 +41,21 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			stmt.setInt(10, utilisateur.getCredit());
 			int tinyIntValue;
 			boolean booleanValue = utilisateur.getAdministrateur();
+			if (booleanValue == false) {
+				tinyIntValue = 0;
+			} else {
+				tinyIntValue = 1;
+			}
+			stmt.setInt(11, tinyIntValue);
+			
+
 			
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
 				if (rs.next()) {
 					utilisateur.setNoUtilisateur((rs.getInt(1)));
-
+					
 				}
 			}
 
