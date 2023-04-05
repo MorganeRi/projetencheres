@@ -10,13 +10,14 @@
 <body>
 
 	<div class="container-fluid"
-		style="width: 500px;">
-		<h1>DETAIL DES ENCHERES</h1>
+		style="width: 25%;">
+	<h1 class="font-weight-bold text-center">Detail des encheres</h1>
+	<br>
 		<table class="table mb-0 table-hover">
 			<thead>
 				<tr>
-					<th scope="col">Pseudo encheriseur</th>
-					<th scope="col">Montant enchere</th>
+					<th class="font-weight-bold text-center border-warning" scope="col">Pseudo encheriseur</th>
+					<th class="font-weight-bold text-center border-warning" scope="col">Montant enchere</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,8 +30,8 @@
 						if (ench.getUtilisateur().getActif() == true) {
 				%>
 				<tr>
-					<td><%=ench.getUtilisateur().getPseudo()%></td>
-					<td><%=ench.getMontantEnchere()%></td>
+					<td class="font-weight-bold text-center border-warning"><%=ench.getUtilisateur().getPseudo()%></td>
+					<td class="font-weight-bold text-center border-warning"><%=ench.getMontantEnchere()%></td>
 				</tr>
 				<%
 				}
