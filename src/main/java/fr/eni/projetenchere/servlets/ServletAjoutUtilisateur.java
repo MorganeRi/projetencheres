@@ -27,6 +27,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	private static final String SESSION_UTILISATEUR_ID = "id";
 	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
 	private static final String SESSION_UTILISATEUR_ADMIN = "admin";
+	private static final String SESSION_UTILISATEUR_ACTIF = "actif"; 
 
 	public ServletAjoutUtilisateur() {
 		super();
@@ -92,6 +93,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 				session.setAttribute(SESSION_UTILISATEUR_MAIL, email);
 				session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
 		        session.setAttribute(SESSION_UTILISATEUR_ADMIN, utilisateur.getAdministrateur());
+		        session.setAttribute(SESSION_UTILISATEUR_ACTIF, utilisateur.getActif());
 				
 			} else {
 
