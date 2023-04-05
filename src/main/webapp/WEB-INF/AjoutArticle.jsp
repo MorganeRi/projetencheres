@@ -137,15 +137,17 @@
 		ArticleVendu articleAjoute = (ArticleVendu) request.getAttribute("articleAManipuler");
 		if (articleAjoute != null) {
 		%>
-		<p style="color: green;">L'article a été ajouté avec succès</p>
+		<div class="mb-1 d-flex  flex-column align-items-center justify-content-center">
+			<p style="color: green;" class="align-self-center">L'article a été ajouté avec succès</p>
+			<img alt="validation" src="./images/verifie.gif" width="40" height="auto">
 
-
+		</div>
 		<%
 		}
 		%>
 		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<input type="submit" value="Enregistrer" class="btn btn-warning btn-lg my-2" />
-			<a href="./Accueil" class="btn btn-warning btn-lg my-2" role="button">Annuler</a>
+			<input type="submit" value="Enregistrer" class="btn btn-warning btn-lg my-2 shadow" />
+			<a href="./Accueil" class="btn btn-warning btn-lg my-2 shadow" role="button">Annuler</a>
 
 
 		</div>
