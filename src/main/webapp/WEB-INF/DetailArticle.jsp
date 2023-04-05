@@ -148,9 +148,9 @@ if(id!=null){
 		if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isBefore(art.getDateDebutEnchere())) {
 		%>
 	
-		<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
+		<a href="./ModifierArticle?idArticle=<%=art.getNoArticle()%>"
 			class="btn btn-warning btn-lg shadow" role="button">Modifier Article</a> 
-		<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
+		<a href="./SupprimerArticle?idArticle=<%=art.getNoArticle()%>"
 			class="btn btn-warning btn-lg shadow" role="button">Supprimer Article</a>
 		<%
 		}}
@@ -159,7 +159,7 @@ if(id!=null){
 		<%
 	if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isAfter(art.getDateFinEnchere())) {
 	%>
-	<a href="ServletDetailEnchere?idArticle=<%=art.getNoArticle()%>"
+	<a href="./DetailEnchere?idArticle=<%=art.getNoArticle()%>"
 		class="btn btn-warning btn-lg shadow" role="button">Consulter le detail des encheres</a>
 	<%
 	}
