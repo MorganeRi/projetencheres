@@ -27,8 +27,7 @@ public class EnchereManagerImpl implements EnchereManager {
 
 	@Override
 	public List<Enchere> selectEnchereById(ArticleVendu articleVendu) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.enchereDao.selectEnchereByIdArticle(articleVendu);
 	}
 
 	@Override
