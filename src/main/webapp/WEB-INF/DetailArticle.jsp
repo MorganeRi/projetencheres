@@ -5,6 +5,9 @@
 <%@page import="fr.eni.projetenchere.bo.Enchere"%>
 <%@page import="fr.eni.projetenchere.bo.Utilisateur"%>
 <%@page import="java.util.List"%>
+<%@page import="fr.eni.projetenchere.bo.Enchere"%>
+<%@page import="fr.eni.projetenchere.bll.EnchereManager"%>
+<%@page import="fr.eni.projetenchere.bll.EnchereManagerSing"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 <jsp:include page="./fragments/head.jsp">
@@ -82,11 +85,14 @@ if(id!=null){
 		enchereAjoute = new Enchere();
 		enchereAjoute.setDateEnchere(LocalDateTime.now());
 	}
-
+	EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
+	Enchere ench=null;
 	if (enchereAjoute.getDateEnchere().isBefore(art.getDateFinEnchere())
 			&& enchereAjoute.getDateEnchere().isAfter(art.getDateDebutEnchere())) {
-
-		if (id != art.getUtilisateur().getNoUtilisateur()&& estActif==true) {
+		if(enchereManager.selectMaxEnchere(art)!=null){
+			ench=enchereManager.selectMaxEnchere(art); 
+		}
+		if (id != art.getUtilisateur().getNoUtilisateur()&& estActif==true && (ench==null || ench.getUtilisateur().getNoUtilisateur()!=id)) {
 			if (request.getMethod().equals("POST")) {
 		enchereSoumise = true;
 	%>
