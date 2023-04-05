@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.projetenchere.BusinessException;
 import fr.eni.projetenchere.bll.ArticleVenduManager;
 import fr.eni.projetenchere.bll.ArticleVenduManagerSing;
 import fr.eni.projetenchere.bll.CategorieManager;
@@ -24,9 +25,12 @@ import fr.eni.projetenchere.bo.ArticleVendu;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Enchere;
 import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dal.CodesResultatDAL;
 
 /**
- * Servlet implementation class ServletGestionAdmin
+ * Servlet accessible seulement quand on est Admin, elle permet de :
+ * - Gérer les catégories
+ * - Gérer les utilisateurs
  */
 @WebServlet("/ServletGestionAdmin")
 public class ServletGestionAdmin extends HttpServlet {
@@ -37,7 +41,8 @@ public class ServletGestionAdmin extends HttpServlet {
 	
 	private static CategorieManager categorieManager = CategorieManagerSing.getInstanceCategorieImpl();
 	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-       
+    private static EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
+    private static ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -47,9 +52,12 @@ public class ServletGestionAdmin extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Ici le doGet sert à :
+	 * - Récupérer la session en cours
+	 * - Récupérer les catégories en BDD pour permettre l'affichage sur la JSP
+	 * - Récupérer les infos utilisateurs en BDD pour permettre l'affichage sur la JSP
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
 		HttpSession session = request.getSession();
 		Integer idUtilisateur = (Integer) session.getAttribute("id");
@@ -58,7 +66,7 @@ public class ServletGestionAdmin extends HttpServlet {
 		List<Categorie> listCategorie = new ArrayList<>();
 		List<Utilisateur> listUtilisateur = new ArrayList<>();
 		
-//		|| !estAdmin
+
 		if(idUtilisateur == null  || !estAdmin ) {
 			// Rediriger vers la page de connexion
 			response.sendRedirect("ServletConnexion") ;
@@ -76,13 +84,16 @@ public class ServletGestionAdmin extends HttpServlet {
 				request.setAttribute(LIST_UTILISATEUR, listUtilisateur);
 			} catch (Exception e) {
 				e.printStackTrace();
+				
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AdminGestion.jsp");
 			rd.forward(request, response);
 		}
 	}
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Ici le doPost permet de : 
+	 * - Ajouter/Modifier/Supprimer une catégorie
+	 * - Activer/Désactiver et supprimer un utilisateur
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -91,6 +102,7 @@ public class ServletGestionAdmin extends HttpServlet {
 		Integer noCategorie, noUtilisateur = null;
 		Utilisateur utilisateur = new Utilisateur();
 		Utilisateur utilisateurASupprimer,utilisateurOnOff = null;
+		Enchere ench = null;
 		
 		String actionCategorie = request.getParameter("action");
 		String actionUtilisateur = request.getParameter("actionUtilisateur");
@@ -99,7 +111,7 @@ public class ServletGestionAdmin extends HttpServlet {
 		
 		try {
 			
-			
+//			prend en compte le message associé à chaque bouton submit pour savoir quoi faire
 			if("Ajout".equals(actionCategorie)) {
 //				Traitement pour ajouter une catégorie
 				nomCategorie = request.getParameter("nomCategorie");
@@ -107,14 +119,14 @@ public class ServletGestionAdmin extends HttpServlet {
 				
 				listCategorie = (List<Categorie>) session.getAttribute("listeCategories");
 
-//				on vérifie que la catégorie n'existe pas déjà : 
+//				on vérifie que la catégorie que l'admin veut rajouter n'existe pas déjà : 
 //				- stream expression lambda java pour parcourir la liste des catégories existantes
 //				- méthode AnyMatch() qui vérifie si au moins 1 catégorie ds la liste a le même nom (boolean qui renverrait true ou false)
 //				- equalsIgnoreCase permet d'ignorer la casse
  				Boolean categorieExisteDeja = listCategorie.stream()
 				        .anyMatch(c -> c.getLibelle().equalsIgnoreCase(categorieARajouter.getLibelle()));
 				
-				// Si la catégorie n'existe pas encore, l'ajouter aux catégories
+// 				Si la catégorie n'existe pas encore, l'ajouter aux catégories
 				if (!categorieExisteDeja) {
 					categorieManager.ajouterCategorie(categorieARajouter);
 //					permettre d'avoir accès à cet attribut depuis la JSP pour afficher message
@@ -152,11 +164,13 @@ public class ServletGestionAdmin extends HttpServlet {
 			}
 			
 			if("Supprimer".equals(actionUtilisateur)) {
+//				ici on récupére le paramètre Int donné par le radio bouton sélectionné avant le submit
 				noUtilisateur = Integer.parseInt(request.getParameter("choixUtilisateur"));
 				
 				if(noUtilisateur != null) {
+//					Méthode pour récupérer l'utilisateur par son ID
 					utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
-
+//					Méthode pour supprimer l'utilisateur récupéré à partir de la méthode précédente
 					utilisateurASupprimer = utilisateurManager.supprimerUtilisateur(utilisateur);
 					request.setAttribute("utilisateurASupprimer", utilisateurASupprimer);
 					
@@ -167,14 +181,14 @@ public class ServletGestionAdmin extends HttpServlet {
 				if(noUtilisateur != null) {
 					utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 					
+					
 					utilisateurOnOff = utilisateurManager.userOnOff(utilisateur);
 					request.setAttribute("utilisateurOnOff",utilisateurOnOff);
-					EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
-					ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
-					List<ArticleVendu> listArtUtil = new ArrayList<ArticleVendu>();
-					Enchere ench = null;
-					listArtUtil = articleManager.articleEncherie(noUtilisateur);
 					
+//					Si on désactive un utilisateur, permettre que toutes ses enchères en cours soient set à null
+					List<ArticleVendu> listArtUtil = new ArrayList<ArticleVendu>();
+					
+					listArtUtil = articleManager.articleEncherie(noUtilisateur);
 					
 					for (ArticleVendu articleVendu : listArtUtil) {
 						ench = enchereManager.selectMaxEnchere(articleVendu);

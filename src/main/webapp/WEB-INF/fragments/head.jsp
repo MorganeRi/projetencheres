@@ -22,6 +22,11 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 	crossorigin="anonymous">
 
 <style>
+
+	.link-warning{
+		text-decoration : none;
+	}
+	
 	.card-title {
 		color : #FFA500;
 		font-family : Arial;

@@ -28,5 +28,7 @@ public abstract class CodesResultatServlets {
 	
 	public static final int HORS_DATE_ENCHERE = 30016;
 	
+	public static final int GESTION_ADMIN_AFFICHAGE = 30017;
+	
 
 }
