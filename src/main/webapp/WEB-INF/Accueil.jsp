@@ -46,6 +46,7 @@
 
 <div class="container-fluid" style="width:50%;">
 	<h1 class="text-center ">Liste des enchères</h1>
+	
 	<form role="search"
 		action="<%=request.getContextPath()%>/Accueil" method="post">
 		<div class="d-flex flex-row justify-content-center" >
@@ -87,7 +88,7 @@
 				}
 				%>
 			</select>
-			<button class="btn btn-warning btn-lg mx-2" type="submit" style="width : 150px">Rechercher</button>
+			<button class="btn btn-warning btn-lg mx-2 shadow" type="submit" style="width : 150px">Rechercher</button>
 		</div>
 	</form>
 	<%
@@ -140,7 +141,7 @@
 			</fieldset>
 		</div>
 		<div class="d-flex flex-row justify-content-center">
-			<button class="btn btn-warning btn-lg mt-2 d-flex justify-content-center" type="submit">Appliquer
+			<button class="btn btn-warning btn-lg mt-2 d-flex justify-content-center shadow" type="submit">Appliquer
 				le filtre</button>
 		</div>
 		<%
