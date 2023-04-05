@@ -99,7 +99,7 @@ public class ServletAccueil extends HttpServlet {
 
 					articles = article.selectToutArticle();
 					if (articles == null) {
-						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 1");
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
 						request.setAttribute("listArticle", articles);
 					}
@@ -111,7 +111,7 @@ public class ServletAccueil extends HttpServlet {
 				try {
 					articles = article.selectParCategorieArticle(noCat);
 					if (articles == null) {
-						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 2");
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
 						request.setAttribute("listArticle", articles);
 					}
@@ -123,7 +123,7 @@ public class ServletAccueil extends HttpServlet {
 				try {
 					articles = article.selectParNomArticle(recherche);
 					if (articles == null) {
-						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 3");
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
 						request.setAttribute("listArticle", articles);
 					}
@@ -135,7 +135,7 @@ public class ServletAccueil extends HttpServlet {
 				try {
 					articles = article.selectParNomArticleParCat(recherche, noCat);
 					if (articles == null) {
-						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche 4");
+						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
 						request.setAttribute("listArticle", articles);
 					}

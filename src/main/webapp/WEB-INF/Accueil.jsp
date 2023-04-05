@@ -41,17 +41,17 @@
 	<jsp:param name="title" value="Accueil" />
 </jsp:include>
 
-<div class="container-fluid">
-	<h1>Liste des enchères</h1>
-	<form class="d-flex" role="search"
+<div class="container-fluid" style="border: 1px solid silver;width:50%;">
+	<h1 class="text-center ">Liste des enchères</h1>
+	<form role="search"
 		action="<%=request.getContextPath()%>/Accueil" method="post">
-		<input type="hidden" name="form" value="form1" />
-		<div class="container-fluid">
-			<input class="form-control me-3" type="search"
+		<div class="d-flex flex-row justify-content-center" >
+			<input type="hidden" name="form" value="form1" />
+		
+<!-- 		style="width: 400px" -->
+			<input class="form-control border border-warning mx-2" type="search"
 				placeholder="Rechercher un article" aria-label="Search"
-				name="search" style="width: 400px">
-
-
+				name="search" style="width : 30%">
 
 
 			<%
@@ -62,10 +62,14 @@
 
 			String pasArticle = (String) request.getAttribute("PasArticle");
 			%>
-			<br> <label class="form-label me-3" for="Categorie">Categorie
-			</label> <select class="form-control" id="Categorie" name="Categorie"
-				style="width: 300px" placeholder="Selectionner une categorie">
-				<option selected>Selectionner une categorie</option>
+<!-- 			<label class="form-label me-3" for="Categorie">Categorie -->
+<!-- 			</label> placeholder="Selectionner une categorie" -->
+			<br> 
+<!-- 			style="width: 300px" -->
+<!-- placeholder="Rechercher par categorie" -->
+			 <select class="form-control border border-warning " id="Categorie" name="Categorie" style="width : 30%"
+			 	>
+ 				<option selected>Selectionner une categorie</option>
 
 				<%
 				List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
@@ -76,7 +80,7 @@
 				}
 				%>
 			</select>
-			<button class="btn btn-outline-success" type="submit">Rechercher</button>
+			<button class="btn btn-warning btn-lg mx-2" type="submit" style="width : 150px">Rechercher</button>
 		</div>
 	</form>
 	<%
@@ -85,48 +89,53 @@
 	<form class="filtreForm"
 		action="<%=request.getContextPath()%>/Accueil" method="post"
 		id="formradio">
-		<input type="hidden" name="form" value="form2" />
-		<fieldset id="check">
-			<legend>Mes Achats</legend>
-			<div class="form-check">
-				<!-- 				<input type="radio" name="options" id="achatsRadio" value="achats" -->
-				<!-- 					onclick="toggleCheckboxes()" checked>Achats -->
-				<div>
-					<input type="radio" name="check" id="enchereCheckbox"
-						value="encheres_ouvertes">enchères ouvertes
+		<div class="d-flex flex-row justify-content-around">
+			<input type="hidden" name="form" value="form2" />
+			<fieldset id="check">
+				<legend class="border-top border-black">Mes Achats</legend>
+				<div class="form-check">
+					<!-- 				<input type="radio" name="options" id="achatsRadio" value="achats" -->
+					<!-- 					onclick="toggleCheckboxes()" checked>Achats -->
+					<div>
+						<input type="radio" name="check" id="enchereCheckbox"
+							value="encheres_ouvertes">enchères ouvertes
+					</div>
+					<div>
+						<input type="radio" name="check" id="mesEncheresCheckbox"
+							value="mes_encheres">mes enchères
+					</div>
+					<div>
+						<input type="radio" name="check"
+							id="mesEncheresRemporteesCheckbox" value="encheres_remportees">mes
+						enchères remportées
+					</div>
 				</div>
-				<div>
-					<input type="radio" name="check" id="mesEncheresCheckbox"
-						value="mes_encheres">mes enchères
-				</div>
-				<div>
-					<input type="radio" name="check"
-						id="mesEncheresRemporteesCheckbox" value="encheres_remportees">mes
-					enchères remportées
-				</div>
-			</div>
-		</fieldset>
-		<fieldset id="check">
-			<legend>Mes ventes</legend>
-			<div class="form-check">
-				<!-- 				<input type="radio" name="options" id="ventesRadio" value="ventes" -->
-				<!-- 					onclick="toggleCheckboxes()">Mes Ventes -->
+			</fieldset>
+			<fieldset id="check">
+				<legend class="border-top border-black">Mes ventes</legend>
+				<div class="form-check">
+					<!-- 				<input type="radio" name="options" id="ventesRadio" value="ventes" -->
+					<!-- 					onclick="toggleCheckboxes()">Mes Ventes -->
 
-				<div>
-					<input type="radio" name="check" id="ventesEnCoursCheckbox"
-						value="ventes_cours">mes ventes en cours
+					<div>
+						<input type="radio" name="check" id="ventesEnCoursCheckbox"
+							value="ventes_cours">mes ventes en cours
+					</div>
+					<div>
+						<input type="radio" name="check" id="ventesNonDebuteesCheckbox"
+							value="ventes_non_debutees">ventes non débutées
+					</div>
+					<div>
+						<input type="radio" name="check" id="ventesTermineesCheckbox"
+							value="ventes_terminees">ventes terminées
+					</div>
 				</div>
-				<div>
-					<input type="radio" name="check" id="ventesNonDebuteesCheckbox"
-						value="ventes_non_debutees">ventes non débutées
-				</div>
-				<div>
-					<input type="radio" name="check" id="ventesTermineesCheckbox"
-						value="ventes_terminees">ventes terminées
-				</div>
-			</div>
-		</fieldset>
-		<button class="btn btn-outline-success" type="submit">Appliquer le filtre</button>
+			</fieldset>
+		</div>
+		<div class="d-flex flex-row justify-content-center">
+			<button class="btn btn-warning btn-lg mt-2 d-flex justify-content-center" type="submit">Appliquer
+				le filtre</button>
+		</div>
 		<%
 		}
 		%>
@@ -139,14 +148,16 @@
 <%
 if (articles != null) {
 %>
-<div class="container-fluid d-flex align-content-stretch flex-wrap">
+<!-- align-content-stretch flex-wrap -->
+<div class="container-fluid" style="width:80%;">
+	<div class="d-flex flex-row justify-content-around">
 	<%
 	for (ArticleVendu art : articles) {
 	%>
 
 
 
-	<div class="card me-3">
+	<div class="card my-2 mx-2 border-warning">
 		<div class="card-body">
 			<%
 			if (id != null) {
@@ -200,19 +211,21 @@ if (articles != null) {
 	<%
 	}
 	%>
+	</div>
 </div>
 <%
 } else {
 if (toutArticles != null) {
 %>
-<div class="container-fluid d-flex flex-wrap">
+<div class="container-fluid"  style="width:1000px;">
+	<div class="d-flex flex-row justify-content-around">
 	<%
 	for (ArticleVendu art : toutArticles) {
 	%>
 
 
 
-	<div class="card">
+	<div class="card my-2 mx-2 border-warning">
 		<div class="card-body">
 			<%
 			if (id != null) {
@@ -265,6 +278,7 @@ if (toutArticles != null) {
 	<%
 	}
 	%>
+	</div>
 </div>
 
 <%
