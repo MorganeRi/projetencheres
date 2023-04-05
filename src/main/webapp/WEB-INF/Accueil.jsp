@@ -169,15 +169,14 @@ if (articles != null) {
 			<%
 			if (id != null) {
 			%>
-			<h5 class="card-title text-center">
-				<a class="text-dark"
-					href="./DetailArticle?idArticle=<%=art.getNoArticle()%>" class="link-warning"><%=art.getNomArticle()%></a>
+			<h5 class="card-title  text-center">
+				<a href="./DetailArticle?idArticle=<%=art.getNoArticle()%>" class="link-warning"><%=art.getNomArticle()%></a>
 
 			</h5>
 			<%
 			} else {
 			%>
-			<h5 class="card-title text-dark"><%=art.getNomArticle()%></h5>
+			<h5 class="card-title text-center"><%=art.getNomArticle()%></h5>
 			<%
 			}
 			%>
@@ -263,7 +262,7 @@ if (toutArticles != null) {
 			<%
 			} else {
 			%>
-			<h5 class="card-title text-dark"><%=art.getNomArticle()%></h5>
+			<h5 class="card-title text-center"><%=art.getNomArticle()%></h5>
 			<%
 			}
 			%>
