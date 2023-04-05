@@ -174,7 +174,7 @@ public class ServletAccueil extends HttpServlet {
 
 						articles = article.articleEncherie(idUtil);
 						if (articles == null) {
-							request.setAttribute("PasArticle", "Vous n'avez pas encheris sur un articel");
+							request.setAttribute("PasArticle", "Vous n'avez pas encheris sur un article");
 						} else {
 							request.setAttribute("listArticle", articles);
 						}

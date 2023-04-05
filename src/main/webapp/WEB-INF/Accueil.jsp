@@ -109,7 +109,7 @@
 					</div>
 					<div>
 						<input type="radio" name="check" id="mesEncheresCheckbox"
-							value="mes_encheres">mes enchères
+							value="mes_encheres">mes enchères en cours
 					</div>
 					<div>
 						<input type="radio" name="check"
