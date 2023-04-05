@@ -80,7 +80,7 @@
 							<label class="form-label me-2" for="nomCategorie">Ajouter
 								: </label> <input class="form-control me-2" type="text"
 								id="nomCategorie" name="nomCategorie" style="width: 30%" /> <input
-								type="submit" name="action" value="Ajout" class="btn btn-dark"
+								type="submit" name="action" value="Ajout" class="btn btn-warning btn-lg"
 								style="width: 20%" /> <br />
 
 						</div>
@@ -101,7 +101,7 @@
 							</select> <input class="form-control me-2" type="text" id="nomCategorie"
 								name="NouveauNomCategorie" style="width: 30%"
 								placeholder="Nouveau nom" /> <input type="submit" name="action"
-								class="btn btn-dark" value="Modifier" style="width: 20%">
+								class="btn btn-warning btn-lg" value="Modifier" style="width: 20%">
 						</div>
 
 						<div class="mb-1 d-flex align-items-center justify-content-end">
@@ -117,7 +117,7 @@
 								<%
 								}
 								%>
-							</select> <input type="submit" name="action" class="btn btn-dark"
+							</select> <input type="submit" name="action" class="btn btn-warning btn-lg"
 								value="Supprimer" style="width: 20%">
 						</div>
 					</form>
@@ -215,9 +215,9 @@
 					</div>
 					<div class="card-footer text-end">
 
-						<input type="submit" name="actionUtilisateur" class="btn btn-dark"
+						<input type="submit" name="actionUtilisateur" class="btn btn-warning btn-lg"
 							value="ActiverDesactiver" style="width: 30%"> <input
-							type="submit" name="actionUtilisateur" class="btn btn-dark"
+							type="submit" name="actionUtilisateur" class="btn btn-warning btn-lg"
 							value="Supprimer" style="width: 20%">
 
 					</div>

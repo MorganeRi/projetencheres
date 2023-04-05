@@ -118,8 +118,8 @@
 			</div>
 		</div>
 		<div class="mb-3 d-flex align-items-center justify-content-between">
-			<button type="submit" class="btn btn-dark ">Enregistrer</button>
-			<a href="ServletSupprimerCompte" class="btn btn-dark"
+			<button type="submit" class="btn btn-warning btn-lg ">Enregistrer</button>
+			<a href="ServletSupprimerCompte" class="btn btn-warning btn-lg"
 						role="button">Supprimer mon compte</a>
 		</div>
 	</form>

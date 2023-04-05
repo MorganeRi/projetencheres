@@ -27,7 +27,7 @@
 </ul>
 <br>
 	<div class="mb-1 d-flex  justify-content-end">
-		<a href="ServletModifierUtilisateur" class="btn btn-dark mb-1"
+		<a href="ServletModifierUtilisateur" class="btn btn-warning btn-lg mb-1"
 					role="button">Modifier</a>
 	</div>
 </div>

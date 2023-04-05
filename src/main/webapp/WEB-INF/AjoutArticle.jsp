@@ -144,8 +144,8 @@
 		}
 		%>
 		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<input type="submit" value="Enregistrer" class="btn btn-dark me-3" />
-			<a href="ServletAccueil" class="btn btn-dark me-3" role="button">Annuler</a>
+			<input type="submit" value="Enregistrer" class="btn btn-warning btn-lg my-2" />
+			<a href="ServletAccueil" class="btn btn-warning btn-lg my-2" role="button">Annuler</a>
 
 
 		</div>

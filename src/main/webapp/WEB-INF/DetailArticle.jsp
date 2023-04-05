@@ -126,7 +126,7 @@ if(id!=null){
 					value="<%=enchereMax.getMontantEnchere() + 1%>" <%}%>
 					style="width: 100px" />
 				 <input type="submit" value="Encherir"
-					class="btn btn-dark me-3 mb-2" />
+					class="btn btn-warning btn-lg me-3 mb-2" />
 			</div>
 		</form>
 	
@@ -143,9 +143,9 @@ if(id!=null){
 		%>
 	
 		<a href="ServletModifierArticle?idArticle=<%=art.getNoArticle()%>"
-			class="btn btn-dark" role="button">Modifier Article</a> 
+			class="btn btn-warning btn-lg" role="button">Modifier Article</a> 
 		<a href="ServletSupprimerArticle?idArticle=<%=art.getNoArticle()%>"
-			class="btn btn-dark" role="button">Supprimer Article</a>
+			class="btn btn-warning btn-lg" role="button">Supprimer Article</a>
 		<%
 		}}
 		%>
@@ -154,7 +154,7 @@ if(id!=null){
 	if (id == art.getUtilisateur().getNoUtilisateur() && LocalDateTime.now().isAfter(art.getDateFinEnchere())) {
 	%>
 	<a href="ServletDetailEnchere?idArticle=<%=art.getNoArticle()%>"
-		class="btn btn-dark" role="button">Consulter le detail des encheres</a>
+		class="btn btn-warning btn-lg" role="button">Consulter le detail des encheres</a>
 	<%
 	}
 	%>
