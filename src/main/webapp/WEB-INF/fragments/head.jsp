@@ -20,18 +20,38 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
-	
-	
+
+<style>
+.nav-item {
+	font-size: large;
+	/*   	font-family: "Nimbus Sans L"; */
+}
+
+/* Style pour les éléments <li> dans la navbar */
+nav .navbar-nav li {
+	padding: 10px 15px;
+}
+
+/* Style pour les éléments <li> lorsqu'ils sont survolés */
+nav .navbar-nav li:hover {
+	color: #FFFFFF;
+}
+
+.my-nav-item {
+	color: #FFD700;
+	/*         font-weight: bold; */
+}
+</style>
+
 </head>
-<body style="padding-bottom:100px;">
+<body style="padding-bottom: 100px;">
 
 	<nav
-		class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark bg-gradient"
+		class="sticky-top navbar navbar-expand-lg bg-body-tertiary bg-dark "
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="./Accueil"><img
-				class="img-fluid" alt="logo" src="./images/logo.jpg" width="100"
-				height="auto"></a>
+			<a class="navbar-brand" href="./Accueil"><img class="img-fluid"
+				alt="logo" src="./images/logo.jpg" width="100" height="auto"></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -42,43 +62,51 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 				<ul class="navbar-nav mr-auto">
 					<%
 					if (id != null) {
-						
-						if(estActif){
-						
+
+						if (estActif) {
 					%>
-					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
+					<li class="nav-item"><a
+						class="nav-link my-nav-item"
 						href="./VendreUnArticle">Vendre un article</a></li>
-						<%} else { %>
-						<li class="nav-item nav-link text-white font-weight-bold">Votre compte a été désactivé, veuillez contacter un administrateur</li>
-						
-						<%} %>
-					<li class="nav-item "><a class="nav-link text-white font-weight-bold"
+					<%
+					} else {
+					%>
+					<li class="nav-item nav-link my-nav-item ">Votre compte a été
+						désactivé, veuillez contacter un administrateur</li>
+
+					<%
+					}
+					%>
+					<li class="nav-item"><a class="nav-link my-nav-item"
 						href="./Profil">Mon profil</a></li>
 
 					<%
 					if (estAdmin) {
 					%>
-					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
+					<li class="nav-item"><a class="nav-link my-nav-item"
 						href="./Administrateur">Interface Administrateur</a></li>
 					<%
 					}
 
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
+
+					<li class="nav-item "><a class="nav-link my-nav-item"
 						href="./Inscription">S'inscrire</a></li>
-					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
+					<li class="nav-item"><a class="nav-link  my-nav-item"
 						href="./seConnecter">Se connecter</a></li>
+
 					<%
 					}
 					%>
 
 				</ul>
-				<ul class="navbar-nav" style="margin-left:auto;">
+				<ul class="navbar-nav" style="margin-left: auto;">
 					<%
 					if (id != null) {
 					%>
-					<li class="nav-item font-weight-bold"><a class="nav-link text-white"
+					<!-- 					class="nav-link text-white" -->
+					<li class="nav-item"><a class="btn btn-warning "
 						href="./Deconnexion">Déconnexion [<%=pseudo%>]
 					</a></li>
 					<%
