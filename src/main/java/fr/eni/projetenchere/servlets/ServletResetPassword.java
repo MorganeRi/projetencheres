@@ -39,7 +39,7 @@ public class ServletResetPassword extends HttpServlet {
 		// Récupération des données du formulaire de demande de ré-initialisation de mot
 		// de passe
 		String email = request.getParameter("email");
-
+System.out.println(email);
 		// Vérification de l'existence de l'utilisateur dans la base de données
 		boolean userExists = checkUserExists(email);
 
@@ -78,7 +78,9 @@ public class ServletResetPassword extends HttpServlet {
 
 		try {
 			utilMail = UTILMAN.selectParEmailUtilisateur(email);
+			System.out.println(utilMail);
 			utilPseudo = UTILMAN.selectParPseudoUtilisateur(email);
+			System.out.println(utilPseudo);
 		} catch (BusinessException e) {
 
 			e.printStackTrace();

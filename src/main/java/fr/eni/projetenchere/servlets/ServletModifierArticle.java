@@ -119,7 +119,8 @@ public class ServletModifierArticle extends HttpServlet {
 		Integer noCategorie = null;
 		Categorie categorie = null;
 		Retrait retrait = new Retrait();
-		
+		String photo = null;
+		Boolean photoOuPas= true;
 		Integer resultatComparaisonDates = null;
 		
 		LocalDateTime dateDebutEnchere = null;
@@ -138,7 +139,19 @@ public class ServletModifierArticle extends HttpServlet {
 			articleAManipuler.setDateDebutEnchere(LocalDateTime.parse(request.getParameter("DebutEnchere")));
 			articleAManipuler.setDateFinEnchere(LocalDateTime.parse(request.getParameter("FinEnchere")));
 			articleAManipuler.setPrixInitial(Integer.parseInt(request.getParameter("prixDepart")));
-			
+			String test = request.getParameter("imageArticle");
+			if (test.equals("")) {
+				
+				photoOuPas = false;
+			}
+
+			if (photoOuPas) {
+				
+				photo = request.getParameter("imageArticle");
+				
+				articleAManipuler.setPhoto(photo);
+				
+			}
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 			articleAManipuler.setUtilisateur(utilisateur);

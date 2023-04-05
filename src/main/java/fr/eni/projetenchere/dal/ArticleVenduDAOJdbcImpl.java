@@ -14,7 +14,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
-	private static final String UPDATE_ARTICLE = "update article_vendu set nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?, prix_initial=?,  no_categorie=? where no_article =?";
+	private static final String UPDATE_ARTICLE = "update article_vendu set nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?, prix_initial=?,  no_categorie=?, photo=? where no_article =?";
 	private static final String INSERT_ARTICLE = "insert into article_vendu(nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial, no_utilisateur, no_categorie, photo) values (?,?,?,?,?,?,?,?)";
 	private static final String DELETE_ARTICLE = "delete from article_vendu where no_article=?";
 	private static final String SELECT_BY_CATEGORIE = "select no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_de_vente, no_utilisateur, a.no_categorie from article_vendu as a inner join categorie as c on a.no_categorie=c.no_categorie where libelle=?";
@@ -50,6 +50,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pstmt.setInt(5, articleVendu.getPrixInitial());
 			pstmt.setInt(6, articleVendu.getCategorie().getNoCategorie());
 			pstmt.setInt(7, articleVendu.getNoArticle());
+			pstmt.setString(8, articleVendu.getPhoto());
 
 			pstmt.executeUpdate();
 

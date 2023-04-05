@@ -29,10 +29,10 @@ if(id!=null){
 %>
 
 
+	<h1 class="font-weight-bold text-center">Detail Article</h1>
 
 <div class="container-fluid"
-	style="border: 1px solid silver; width: 500px;">
-	<h1>Detail Article</h1>
+	style="width: 40%;">
 
 	<%
 	if ((art != null && LocalDateTime.now().isAfter(art.getDateFinEnchere()) && id != null
@@ -55,28 +55,28 @@ if(id!=null){
 	}
 	%>
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><img class="img-fluid" alt="photo"
+		<li class="list-group-item border-warning"><img class="img-fluid" alt="photo"
 			width="200" height="auto" src="<%=art.getPhoto()%>"></li>
-		<li class="list-group-item"><b>Nom :</b> <%=art.getNomArticle()%>
+		<li class="list-group-item border-warning"><b>Nom :</b> <%=art.getNomArticle()%>
 		</li>
-		<li class="list-group-item"><b>Description :</b> <%=art.getDescription()%></li>
-		<li class="list-group-item"><b>Categorie : </b> <%=art.getCategorie().getLibelle()%></li>
+		<li class="list-group-item border-warning"><b>Description :</b> <%=art.getDescription()%></li>
+		<li class="list-group-item border-warning"><b>Categorie : </b> <%=art.getCategorie().getLibelle()%></li>
 		<%
 		if (enchereMax.getMontantEnchere() == null) {
 		%>
-		<li class="list-group-item"><b>Meilleur offre :</b>0</li>
+		<li class="list-group-item border-warning"><b>Meilleur offre :</b>0</li>
 		<%
 		} else {
 		%>
-		<li class="list-group-item"><b>Meilleur offre :</b> <%=enchereMax.getMontantEnchere()%></li>
+		<li class="list-group-item border-warning"><b>Meilleur offre :</b> <%=enchereMax.getMontantEnchere()%></li>
 		<%
 		}
 		%>
-		<li class="list-group-item"><b>Mise à prix : </b> <%=art.getPrixInitial()%></li>
-		<li class="list-group-item"><b>Fin de l'enchère : </b> <%=art.getDateFinEnchere()%></li>
-		<li class="list-group-item"><b>Retrait : </b> <%=art.getRetrait().getRue()%>
+		<li class="list-group-item border-warning"><b>Mise à prix : </b> <%=art.getPrixInitial()%></li>
+		<li class="list-group-item border-warning"><b>Fin de l'enchère : </b> <%=art.getDateFinEnchere()%></li>
+		<li class="list-group-item border-warning"><b>Retrait : </b> <%=art.getRetrait().getRue()%>
 			<%=art.getRetrait().getCodePostal()%> <%=art.getRetrait().getVille()%></li>
-		<li class="list-group-item"><b>Vendeur : </b> <%=art.getUtilisateur().getNom()%></li>
+		<li class="list-group-item border-warning"><b>Vendeur : </b> <%=art.getUtilisateur().getNom()%></li>
 	</ul>
 	<%
 	boolean enchereSoumise = false; // initialisez la variable booléenne
