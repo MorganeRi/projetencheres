@@ -5,6 +5,9 @@
 <%@page import="fr.eni.projetenchere.messages.LecteurMessage"%>
 <%@page import="fr.eni.projetenchere.bo.ArticleVendu"%>
 <%@page import="fr.eni.projetenchere.bo.Categorie"%>
+<%@page import="fr.eni.projetenchere.bo.Enchere"%>
+<%@page import="fr.eni.projetenchere.bll.EnchereManager"%>
+<%@page import="fr.eni.projetenchere.bll.EnchereManagerSing"%>
 <script>
 	function toggleCheckboxes() {
 		var achatsRadio = document.getElementById("achatsRadio");
@@ -61,6 +64,10 @@
 			List<ArticleVendu> toutArticles = (List<ArticleVendu>) request.getAttribute("listToutArticle");
 
 			String pasArticle = (String) request.getAttribute("PasArticle");
+			
+			EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
+			
+			
 			%>
 <!-- 			<label class="form-label me-3" for="Categorie">Categorie -->
 <!-- 			</label> placeholder="Selectionner une categorie" -->
@@ -176,15 +183,25 @@ if (articles != null) {
 			%>
 			<h6 class="card-subtitle mb-2 text-body-secondary">
 				Prix :
+				<%
+				if(enchereManager.selectMaxEnchere(art)!=null){
 				
-				<%if(art.getPrixDeVente()==0){ %>
-				
-				<%=art.getPrixInitial()%>
-				
-				<%} else { %>
-				<%=art.getPrixDeVente()%>
-				
-				<%} %>
+				Enchere ench=enchereManager.selectMaxEnchere(art); 
+				if (ench.getMontantEnchere() == null) {
+					%>
+					0
+					<%
+					} else if (ench.getUtilisateur().getActif()==true){
+					%>
+					<%=ench.getMontantEnchere()%>
+					<%
+					} else { %>
+						<%=art.getPrixInitial()%>
+				<%	}
+					
+			} else { %>
+			<%=art.getPrixInitial()%>
+			<%}%>
 				</h6>
 			<p class="card-text">
 				Fin de l'enchère :
