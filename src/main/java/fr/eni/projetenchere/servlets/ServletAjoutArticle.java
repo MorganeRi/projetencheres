@@ -148,7 +148,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			categorie = categorieManager.selectCategorieParId(noCategorie);
 			
 			
-			System.out.println(request.getParameter("imageArticle"));
+
 			String test = request.getParameter("imageArticle");
 			Boolean photoOuPas= true;
 			

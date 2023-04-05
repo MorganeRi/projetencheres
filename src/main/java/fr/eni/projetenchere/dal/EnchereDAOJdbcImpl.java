@@ -109,6 +109,7 @@ private static final String UPDATE_BOOL_GAGNANTE = "update enchere set enchere_g
 				
 				ArticleVendu articleVendu1 = (ArticleVendu) new ArticleVenduDAOJdbcImpl().selectByIdArticle(idArticle);
 				Utilisateur utilisateur = (Utilisateur) new UtilisateurDAOJdbcImpl().selectByIdUtilisateur(idUtil);
+
 				Integer gagnante= rs.getInt(6);
 				Boolean enchGa;
 				if (gagnante==0) {

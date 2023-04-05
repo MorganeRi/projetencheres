@@ -80,7 +80,7 @@ public class ServletDetailArticle extends HttpServlet {
 				art = ArticleVenduManager.selectParIdArticle(idArticle);
 				utilisateur = utilisateurManager.selectParNoUtilisateur(art.getUtilisateur().getNoUtilisateur());
 				// retrait = retMan.selectParIdRetrait(idArticle);
-				if (enchereManager.selectMaxEnchere(art) != null) {
+				if (enchereManager.selectMaxEnchere(art) != null && enchereManager.selectMaxEnchere(art).getUtilisateur().getActif()==true) {
 					enchereMax = enchereManager.selectMaxEnchere(art);
 				} else {
 					enchereMax.setMontantEnchere(0);
@@ -94,8 +94,23 @@ public class ServletDetailArticle extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			utilisateurActuelMax = enchereMax.getUtilisateur();
-			request.setAttribute("utilisateurActuelMax", utilisateurActuelMax);
+			try {
+				if (enchereManager.selectMaxEnchere(art)!=null) {
+					
+
+				if (enchereManager.selectMaxEnchere(art).getUtilisateur().getActif()==false) {
+					utilisateurActuelMax = enchereMax.getUtilisateur();
+					request.setAttribute("utilisateurActuelMax", utilisateurActuelMax);
+				} else {
+					request.setAttribute("utilisateurActuelMax", null);
+				}
+				}
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 			
 			request.setAttribute("article", art);
 			request.setAttribute("enchereMax", enchereMax);
@@ -152,7 +167,7 @@ public class ServletDetailArticle extends HttpServlet {
 					utilisateurActuelMax.setCredit(utilisateurActuelMax.getCredit() + enchereMax.getMontantEnchere());
 					utilisateurManager.majMontantCredit(utilisateurActuelMax);
 				}
-				System.out.println(enchere.getArticle().getNoArticle());
+
 				enchereManager.insertEnchere(enchere);
 				request.setAttribute("enchere", enchere);
 
