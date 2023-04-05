@@ -15,7 +15,11 @@
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 	if (utilisateur != null) {
 	%>
-	<p style="color: green;">Votre compte a été crée avec succès et vous êtes connecté ! </p>
+	
+	<div class="d-flex  flex-column align-items-center justify-content-center">
+		<p style="color: green;" class="align-self-center">Votre compte a été crée avec succès et vous êtes connecté !</p>
+		<img alt="validation" src="./images/verifie.gif" width="40" height="auto">
+	</div>
 	<%
 	}
 	%>
@@ -114,7 +118,7 @@
 			</div>
 		</div>
 		<button type="submit" class="btn btn-dark">Créer</button>
-		<a href="ServletAccueil" class="btn btn-dark"
+		<a href="ServletAccueil" class="btn btn-dark shadow"
 					role="button">Annuler</a>
 	</form>
 </div>
