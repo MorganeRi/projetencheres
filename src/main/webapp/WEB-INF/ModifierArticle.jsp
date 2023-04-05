@@ -46,85 +46,139 @@
 				<input class="form-control border-warning" type="text"
 					id="nomArticle" name="nomArticle"
 					value='<%=articleVendu.getNomArticle()%>' required /> <label
-					class="floatingInputGroup1" for="nomArticle">Article : </label>
+					class="floatingInputGroup1" for="nomArticle">Article</label>
 			</div>
 		</div>
 		<br />
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="Description">Description
-				: </label>
-			<textarea class="form-control" id="Description" name="Description"
-				style="height: 100px; width: 300px" required /><%=articleVendu.getDescription()%></textarea>
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Description</span>
+			<div class="form-floating">
+				<textarea class="form-control border-warning" id="Description"
+					name="Description" required /><%=articleVendu.getDescription()%></textarea>
+				<label class="floatingInputGroup1" for="Description">Description
+				</label>
+			</div>
 		</div>
 		<br />
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="Categorie">Categorie : </label> <select
-				class="form-control" id="Categorie" name="Categorie"
-				style="width: 300px" required>
-				<option value="<%=articleVendu.getCategorie().getNoCategorie()%>">
-					<%=articleVendu.getCategorie().getLibelle()%></option>
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Categorie</span>
+			<div class="form-floating">
+				<select class="form-control border-warning" id="Categorie"
+					name="Categorie" required>
+					<option value="<%=articleVendu.getCategorie().getNoCategorie()%>">
+						<%=articleVendu.getCategorie().getLibelle()%></option>
 
-				<%
-				List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
-				for (Categorie categorieDisponible : listCategorie) {
-				%>
-				<option value="<%=categorieDisponible.getNoCategorie()%>"><%=categorieDisponible.getLibelle()%></option>
-				<%
-				}
-				%>
-			</select>
+					<%
+					List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listCategorie");
+					for (Categorie categorieDisponible : listCategorie) {
+					%>
+					<option value="<%=categorieDisponible.getNoCategorie()%>"><%=categorieDisponible.getLibelle()%></option>
+					<%
+					}
+					%>
+				</select> <label class="floatingInputGroup1" for="Categorie">Categorie
+				</label>
+			</div>
 		</div>
 		<br />
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="imageArticle">Photo de
-				l'article : </label> <input class="form-control" type="file"
-				id="imageArticle" name="imageArticle" accept="image/png, image/jpeg"
-				style="width: 400px" />
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Photo de
+				l'article</span>
+			<div class="form-floating">
+				<select class="form-control border-warning" id="photo"
+					name="imageArticle">
+					<option value=""></option>
+					<option value="<%=request.getContextPath()%>/images/multimedia.jpg">Multimedia</option>
+					<option value="<%=request.getContextPath()%>/images/automobile.png">Automobile</option>
+					<option value="<%=request.getContextPath()%>/images/maison.jpg">Maison</option>
+					<option
+						value="<%=request.getContextPath()%>/images/electromenager.jpg">Electromenager</option>
+					<option
+						value="<%=request.getContextPath()%>/images/informatique.jpg">Informatique</option>
+					<option value="<%=request.getContextPath()%>/images/loisirs.jpg">Loisirs</option>
+
+					<option value="<%=request.getContextPath()%>/images/livre.jpg">Livres</option>
+					<option value="<%=request.getContextPath()%>/images/musique.avif">Musique</option>
+					<option value="<%=request.getContextPath()%>/images/jardin.jpg">Jardin</option>
+					<option value="<%=request.getContextPath()%>/images/vetements.jpg">Vetements</option>
+					<option value="<%=request.getContextPath()%>/images/sport.avif">Sports</option>
+
+				</select> <label class="floatingInputGroup1" for="Categorie">Photo de
+					l'article</label>
+			</div>
 		</div>
 		<br />
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="MiseAPrix">Mise à prix :
-			</label> <input class="form-control" type="number" id="prixDepart"
-				name="prixDepart" min="150" max="1000" style="width: 300px"
-				placeholder="150" value=<%=articleVendu.getPrixInitial()%> required />
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Mise à
+				prix</span>
+			<div class="form-floating">
+				<input class="form-control border-warning" type="number"
+					id="prixDepart" name="prixDepart" min="150" max="1000"
+					placeholder="150" value=<%=articleVendu.getPrixInitial()%> required />
+				<label class="floatingInputGroup1" for="MiseAPrix">Mise à
+					prix</label>
+			</div>
 		</div>
 		<br />
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="DebutEnchere">Début de
-				l'enchère : </label> <input class="form-control" type="datetime-local"
-				id="DebutEnchere" name="DebutEnchere" style="width: 300px"
-				value=<%=articleVendu.getDateDebutEnchere()%> required />
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Début de
+				l'enchère</span>
+			<div class="form-floating">
+				<input class="form-control border-warning" type="datetime-local"
+					id="DebutEnchere" name="DebutEnchere"
+					value=<%=articleVendu.getDateDebutEnchere()%> required /> <label
+					class="floatingInputGroup1" for="DebutEnchere">Début de
+					l'enchère</label>
+			</div>
 		</div>
 		<br />
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="FinEnchere">Fin de
-				l'enchère : </label> <input class="form-control" type="datetime-local"
-				id="FinEnchere" name="FinEnchere" style="width: 300px"
-				value=<%=articleVendu.getDateFinEnchere()%> required />
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Fin de
+				l'enchère</span>
+			<div class="form-floating">
+				<input class="form-control border-warning" type="datetime-local"
+					id="FinEnchere" name="FinEnchere"
+					value=<%=articleVendu.getDateFinEnchere()%> required /> <label
+					class="floatingInputGroup1" for="FinEnchere">Fin de
+					l'enchère : </label>
+			</div>
 		</div>
 		<br />
 		<fieldset>
-			<legend>Retrait</legend>
+			<legend class="text-center">Retrait</legend>
 			<%
 			Retrait retrait = (Retrait) request.getAttribute("retrait");
 			%>
-			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomRue">Rue : </label> <input
-					class="form-control" type="text" id="nomRue" name="nomRue"
-					style="width: 300px" value="<%=retrait.getRue()%>" />
+			<div class="input-group mb-3">
+				<span class="input-group-text text-warning bg-dark">Rue</span>
+				<div class="form-floating">
+					<input class="form-control border-warning" type="text" id="nomRue"
+						name="nomRue" value="<%=retrait.getRue()%>" /> <label
+						class="floatingInputGroup1" for="nomRue">Rue : </label>
+				</div>
 			</div>
 			<br />
-			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="codePostal">Code Postal
-					: </label> <input class="form-control" type="text" id="codePostal"
-					name="codePostal" style="width: 300px"
-					value="<%=retrait.getCodePostal()%>" />
+			<div class="input-group mb-3">
+				<span class="input-group-text text-warning bg-dark">Code
+					Postal</span>
+				<div class="form-floating">
+					<input class="form-control border-warning" type="text"
+						id="codePostal" name="codePostal"
+						value="<%=retrait.getCodePostal()%>" /> <label
+						class="floatingInputGroup1" for="codePostal">Code Postal :
+					</label>
+				</div>
 			</div>
 			<br />
-			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomVille">Ville : </label> <input
-					class="form-control" type="text" id="nomVille" name="nomVille"
-					style="width: 300px" value="<%=retrait.getVille()%>" />
+			<div class="input-group mb-3">
+				<span class="input-group-text text-warning bg-dark">Code
+					Postal</span>
+				<div class="form-floating">
+					<input class="form-control border-warning" type="text"
+						id="nomVille" name="nomVille"
+						value="<%=retrait.getVille()%>" /> <label
+						class="floatingInputGroup1" for="nomVille">Ville : </label>
+				</div>
 			</div>
 			<br />
 		</fieldset>
@@ -156,6 +210,7 @@
 		<%
 		}
 		%>
+
 	</form>
 
 </div>
