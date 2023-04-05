@@ -95,9 +95,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					
 					Boolean estActif = null;
 					if (rs.getInt(5)==0) {
-						estAdmin = true;
+						estActif = true;
 					} else {
-						estAdmin=false;
+						estActif=false;
 					}
 					utilisateur.setActif(estActif);
 				} else {
@@ -143,9 +143,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 					
 					Boolean estActif = null;
 					if (rs.getInt(5)==0) {
-						estAdmin = true;
+						estActif = true;
 					} else {
-						estAdmin=false;
+						estActif=false;
 					}
 					utilisateur.setActif(estActif);
 					

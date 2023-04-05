@@ -6,6 +6,8 @@ Integer id = (Integer) session.getAttribute("id");
 String pseudo = (String) session.getAttribute("pseudo");
 
 Boolean estAdmin = (Boolean) session.getAttribute("admin");
+
+Boolean estActif = (Boolean) session.getAttribute("actif");
 %>
 
 <!DOCTYPE html>
@@ -40,10 +42,17 @@ Boolean estAdmin = (Boolean) session.getAttribute("admin");
 				<ul class="navbar-nav mr-auto">
 					<%
 					if (id != null) {
+						
+						if(estActif){
+						
 					%>
 					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
 						href="./VendreUnArticle">Vendre un article</a></li>
-					<li class="nav-item"><a class="nav-link text-white font-weight-bold"
+						<%} else { %>
+						<li class="nav-item nav-link text-white font-weight-bold">Votre compte a été désactivé, veuillez contacter un administrateur</li>
+						
+						<%} %>
+					<li class="nav-item "><a class="nav-link text-white font-weight-bold"
 						href="./Profil">Mon profil</a></li>
 
 					<%
