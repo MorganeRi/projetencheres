@@ -39,7 +39,7 @@ if(id!=null){
 			&& id == art.getUtilisateur().getNoUtilisateur())) {
 	%>
 
-	<h2><%=utilisateurMax != null ? (utilisateurMax.getPseudo()+" a remporté l'enchere") : ""%></h2>
+	<h2><%=utilisateurMax != null ? (utilisateurMax.getPseudo()+" a remporté l'enchere") : ""%> 🏆</h2> 
 	
 	<%
 	}
@@ -50,7 +50,7 @@ if(id!=null){
 	%>
 
 
-	<h2>Bravo vous avez remporté l'enchère</h2>
+	<h2>Bravo vous avez remporté l'enchère 🥇</h2> 🥇
 	<%
 	}
 	%>
