@@ -99,42 +99,42 @@
 		<div class="d-flex flex-row justify-content-around">
 			<input type="hidden" name="form" value="form2" />
 			<fieldset id="check">
-				<legend class="border-top border-black">Mes Achats</legend>
+				<legend class="border-top border-warning">Mes Achats</legend>
 				<div class="form-check">
 					<!-- 				<input type="radio" name="options" id="achatsRadio" value="achats" -->
 					<!-- 					onclick="toggleCheckboxes()" checked>Achats -->
 					<div>
 						<input type="radio" name="check" id="enchereCheckbox"
-							value="encheres_ouvertes">enchères ouvertes
+							value="encheres_ouvertes"> enchères ouvertes
 					</div>
 					<div>
 						<input type="radio" name="check" id="mesEncheresCheckbox"
-							value="mes_encheres">mes enchères en cours
+							value="mes_encheres"> mes enchères en cours
 					</div>
 					<div>
 						<input type="radio" name="check"
-							id="mesEncheresRemporteesCheckbox" value="encheres_remportees">mes
+							id="mesEncheresRemporteesCheckbox" value="encheres_remportees"> mes
 						enchères remportées
 					</div>
 				</div>
 			</fieldset>
 			<fieldset id="check">
-				<legend class="border-top border-black">Mes ventes</legend>
+				<legend class="border-top border-warning">Mes ventes</legend>
 				<div class="form-check">
 					<!-- 				<input type="radio" name="options" id="ventesRadio" value="ventes" -->
 					<!-- 					onclick="toggleCheckboxes()">Mes Ventes -->
 
 					<div>
 						<input type="radio" name="check" id="ventesEnCoursCheckbox"
-							value="ventes_cours">mes ventes en cours
+							value="ventes_cours"> mes ventes en cours
 					</div>
 					<div>
 						<input type="radio" name="check" id="ventesNonDebuteesCheckbox"
-							value="ventes_non_debutees">ventes non débutées
+							value="ventes_non_debutees"> ventes non débutées
 					</div>
 					<div>
 						<input type="radio" name="check" id="ventesTermineesCheckbox"
-							value="ventes_terminees">ventes terminées
+							value="ventes_terminees"> ventes terminées
 					</div>
 				</div>
 			</fieldset>
@@ -164,7 +164,7 @@ if (articles != null) {
 
 
 
-	<div class="card my-2 mx-2 border-warning " style="width: 250px" >
+	<div class="card my-1 mx-1 border-warning " style="width: 310px" >
 		<div class="card-body ">
 			<%
 			if (id != null) {
@@ -204,7 +204,7 @@ if (articles != null) {
 			<%}%>
 				</h6>
 			<p class="card-text">
-				Fin de l'enchère : 
+				Fin enchère : 
 				<%=art.getDateFinEnchere()%> 📅</p>
 			<%
 			if (id != null) {
@@ -251,7 +251,7 @@ if (toutArticles != null) {
 
 
 
-	<div class="card my-2 mx-2 border-warning " style="width: 250px">
+	<div class="card my-1 mx-1 border-warning " style="width: 310px">
 		<div class="card-body ">
 			<%
 			if (id != null) {
@@ -290,7 +290,7 @@ if (toutArticles != null) {
 			<%}%>
 				</h6>
 			<p class="card-text">
-				Fin de l'enchère : 
+				Fin enchère : 
 				<%=art.getDateFinEnchere()%> 📅</p>
 			<%
 			if (id != null) {
