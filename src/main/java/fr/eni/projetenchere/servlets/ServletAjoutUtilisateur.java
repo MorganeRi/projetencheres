@@ -68,6 +68,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 		String confirmationMotDePasse;
 		Integer credit = 100;
 		Boolean administrateur = false;
+		Boolean actif = true;
 		List<Integer> listeCodesErreur = new ArrayList<>();
 
 		try {
@@ -86,6 +87,7 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 
 				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit, administrateur);
+				utilisateur.setActif(actif);
 				utilisateurManager.createUtilisateur(utilisateur);
 				request.setAttribute("utilisateur", utilisateur);
 				HttpSession session = request.getSession();
