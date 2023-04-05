@@ -60,7 +60,7 @@ public class ServletAccueil extends HttpServlet {
 
 		request.setAttribute("listCategorie", listCategorie);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp" );
 		rd.forward(request, response);
 	}
 
