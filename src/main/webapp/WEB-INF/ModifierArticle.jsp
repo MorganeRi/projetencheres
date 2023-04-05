@@ -17,8 +17,7 @@
 
 <h1 class="font-weight-bold text-center">Modifier l'article</h1>
 <!-- 	style="border: 1px solid silver;width:600px;" -->
-<div class="container-fluid"
-	style="border: 1px solid silver; width: 500px;">
+<div class="container-fluid" style="width: 30%;">
 
 	<%
 	ArticleVendu articleVendu = (ArticleVendu) request.getAttribute("articleAManipuler");
@@ -40,12 +39,15 @@
 		}
 		}
 		%>
-
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3 mt-2" for="nomArticle">Article
-				: </label> <input class="form-control mt-2" type="text" id="nomArticle"
-				name="nomArticle" style="width: 300px"
-				value='<%=articleVendu.getNomArticle()%>' required />
+		<br>
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Article</span>
+			<div class="form-floating">
+				<input class="form-control border-warning" type="text"
+					id="nomArticle" name="nomArticle"
+					value='<%=articleVendu.getNomArticle()%>' required /> <label
+					class="floatingInputGroup1" for="nomArticle">Article : </label>
+			</div>
 		</div>
 		<br />
 		<div class="mb-1 d-flex align-items-center justify-content-between">
@@ -96,8 +98,8 @@
 		<br />
 		<div class="mb-1 d-flex align-items-center justify-content-between">
 			<label class="form-label me-3" for="FinEnchere">Fin de
-				l'enchère : </label> <input class="form-control" type="datetime-local" id="FinEnchere"
-				name="FinEnchere" style="width: 300px"
+				l'enchère : </label> <input class="form-control" type="datetime-local"
+				id="FinEnchere" name="FinEnchere" style="width: 300px"
 				value=<%=articleVendu.getDateFinEnchere()%> required />
 		</div>
 		<br />
@@ -139,10 +141,12 @@
 		if (LocalDateTime.now().isBefore(articleVendu.getDateDebutEnchere())) {
 		%>
 		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<input type="submit" value="Enregistrer" class="btn btn-warning btn-lg me-3 shadow" />
-			<input type="reset" value="Annuler" class="btn btn-warning btn-lg me-3 shadow">
-			<a href="ServletSupprimerArticle" class="btn btn-warning btn-lg me-3 shadow"
-				role="button">Supprimer l'article</a>
+			<input type="submit" value="Enregistrer"
+				class="btn btn-warning btn-lg me-3 shadow" /> <input type="reset"
+				value="Annuler" class="btn btn-warning btn-lg me-3 shadow">
+			<a href="ServletSupprimerArticle"
+				class="btn btn-warning btn-lg me-3 shadow" role="button">Supprimer
+				l'article</a>
 		</div>
 		<%
 		} else if (LocalDateTime.now().isAfter(articleVendu.getDateDebutEnchere())) {

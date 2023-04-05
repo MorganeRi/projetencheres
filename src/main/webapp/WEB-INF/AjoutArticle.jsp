@@ -115,41 +115,58 @@
 			<span class="input-group-text text-warning bg-dark">Début de
 				l'enchère</span>
 			<div class="form-floating">
-				<input class="form-control border-warning" type="datetime-local" id="DebutEnchere"
-					name="DebutEnchere" /> <label
+				<input class="form-control border-warning" type="datetime-local"
+					id="DebutEnchere" name="DebutEnchere" /> <label
 					class="floatingInputGroup1" for="DebutEnchere">Début de
 					l'enchère</label>
 			</div>
 		</div>
 		<br />
-		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<label class="form-label me-3" for="FinEnchere">Fin de
-				l'enchère : </label> <input class="form-control" type="datetime-local"
-				id="FinEnchere" name="FinEnchere" style="width: 300px" />
+		<div class="input-group mb-3">
+			<span class="input-group-text text-warning bg-dark">Fin de
+				l'enchère</span>
+			<div class="form-floating">
+				<input class="form-control border-warning" type="datetime-local"
+					id="FinEnchere" name="FinEnchere" /> <label
+					class="floatingInputGroup1" for="FinEnchere">Fin de
+					l'enchère</label>
+			</div>
 		</div>
 		<br />
 		<fieldset>
-			<legend>Retrait</legend>
+			<legend class="text-center">Retrait</legend>
 			<%
 			Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
 			%>
-			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomRue">Rue : </label> <input
-					class="form-control" type="text" id="nomRue" name="nomRue"
-					style="width: 300px" value="<%=utilisateur.getRue()%>" />
+			<div class="input-group mb-3">
+				<span class="input-group-text text-warning bg-dark">Rue</span>
+				<div class="form-floating">
+					<input class="form-control border-warning" type="text" id="nomRue"
+						name="nomRue" value="<%=utilisateur.getRue()%>" /> <label
+						class="floatingInputGroup1" for="nomRue">Rue</label>
+				</div>
 			</div>
 			<br />
-			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="codePostal">Code Postal
-					: </label> <input class="form-control" type="text" id="codePostal"
-					name="codePostal" style="width: 300px"
-					value="<%=utilisateur.getCodePostal()%>" />
+			<div class="input-group mb-3">
+				<span class="input-group-text text-warning bg-dark">Code
+					Postal</span>
+				<div class="form-floating">
+					<input class="form-control border-warning" type="text"
+						id="codePostal" name="codePostal"
+						value="<%=utilisateur.getCodePostal()%>" /> <label
+						class="floatingInputGroup1" for="codePostal">Code Postal </label>
+				</div>
 			</div>
 			<br />
-			<div class="mb-1 d-flex align-items-center justify-content-between">
-				<label class="form-label me-3" for="nomVille">Ville : </label> <input
-					class="form-control" type="text" id="nomVille" name="nomVille"
-					style="width: 300px" value="<%=utilisateur.getVille()%>" />
+			<div class="input-group mb-3">
+				<span class="input-group-text text-warning bg-dark">Code
+					Postal</span>
+				<div class="form-floating">
+					<input class="form-control border-warning" type="text"
+						id="nomVille" name="nomVille"
+						value="<%=utilisateur.getVille()%>" /> <label
+						class="floatingInputGroup1" for="nomVille">Ville : </label>
+				</div>
 			</div>
 			<br />
 		</fieldset>
