@@ -22,25 +22,44 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 	crossorigin="anonymous">
 
 <style>
-.nav-item {
-	font-size: large;
-	/*   	font-family: "Nimbus Sans L"; */
-}
-
-/* Style pour les éléments <li> dans la navbar */
-nav .navbar-nav li {
-	padding: 10px 15px;
-}
-
-/* Style pour les éléments <li> lorsqu'ils sont survolés */
-nav .navbar-nav li:hover {
-	color: #FFFFFF;
-}
-
-.my-nav-item {
-	color: #FFD700;
-	/*         font-weight: bold; */
-}
+	
+	
+	.card-title a{
+		color : #FFA500;
+		font-family : Arial;
+		font-weight: bold;
+		text-decoration : none;
+	}
+	
+	.card :hover{
+		
+	}
+	
+	.card-title:hover{
+		color : #000080;
+		
+	}
+	
+	.nav-item {
+		font-size: large;
+		/*   	font-family: "Nimbus Sans L"; */
+	}
+	
+	/* Style pour les éléments <li> dans la navbar */
+	nav .navbar-nav li {
+		padding: 10px 15px;
+	}
+	
+	/* Style pour les éléments <li> lorsqu'ils sont survolés */
+	nav .navbar-nav li:hover {
+		color: #FFFFFF;
+		
+	}
+	
+	.my-nav-item {
+		color: #FFD700;
+		/*         font-weight: bold; */
+	}
 </style>
 
 </head>

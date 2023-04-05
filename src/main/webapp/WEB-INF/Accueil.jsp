@@ -156,22 +156,22 @@
 if (articles != null) {
 %>
 <!-- align-content-stretch flex-wrap -->
-<div class="container-fluid" style="width:80%;">
-	<div class="d-flex flex-row justify-content-around">
+<div class="container-fluid" style="border: 1px solid silver;width:80%;">
+	<div class="d-flex flex-wrap justify-content-around">
 	<%
 	for (ArticleVendu art : articles) {
 	%>
 
 
 
-	<div class="card my-2 mx-2 border-warning">
-		<div class="card-body">
+	<div class="card my-2 mx-2 border-warning ">
+		<div class="card-body ">
 			<%
 			if (id != null) {
 			%>
 			<h5 class="card-title text-dark">
 				<a class="text-dark"
-					href="./DetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
+					href="./DetailArticle?idArticle=<%=art.getNoArticle()%>" class="link-warning"><%=art.getNomArticle()%></a>
 
 			</h5>
 			<%
@@ -234,22 +234,21 @@ if (articles != null) {
 } else {
 if (toutArticles != null) {
 %>
-<div class="container-fluid"  style="width:1000px;">
-	<div class="d-flex flex-row justify-content-around">
+<div class="container-fluid"  style="border: 1px solid silver;width:1000px;">
+	<div class="d-flex flex-wrap justify-content-around">
 	<%
 	for (ArticleVendu art : toutArticles) {
 	%>
 
 
 
-	<div class="card my-2 mx-2 border-warning">
-		<div class="card-body">
+	<div class="card my-2 mx-2 border-warning " >
+		<div class="card-body ">
 			<%
 			if (id != null) {
 			%>
 			<h5 class="card-title text-dark">
-				<a class="text-dark"
-					href="./DetailArticle?idArticle=<%=art.getNoArticle()%>"><%=art.getNomArticle()%></a>
+				<a href="./DetailArticle?idArticle=<%=art.getNoArticle()%>" class="link-warning"><%=art.getNomArticle()%></a>
 
 			</h5>
 			<%
