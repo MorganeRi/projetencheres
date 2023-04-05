@@ -12,8 +12,9 @@
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
 	%>
 
-<div class="container-fluid" style="border: 1px solid silver;width:500px;">
-<h1>Mon Profil</h1>
+<h1 class="font-weight-bold text-center">Mon profil</h1>
+
+<div class="container-fluid" style="width:500px;">
 <ul class="list-group list-group-flush">
   <li class="list-group-item"><b>Pseudo</b> : <%=utilisateur.getPseudo()%> </li>
    <li class="list-group-item"><b>Nom</b> : <%=utilisateur.getNom()%></li>

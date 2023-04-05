@@ -7,7 +7,7 @@
 	<jsp:param name="title" value="ModificationUtilisateur" />
 </jsp:include>
 
-<div class="container-fluid" style="border: 1px solid silver; width: 500px;">
+<div class="container-fluid" style="width: 500px;">
 	<h1 class="font-weight-bold text-center">Mon profil</h1>
 	<br>
 	
@@ -42,88 +42,88 @@
 	<form method="post"
 		action="<%=request.getContextPath()%>/ServletModifierUtilisateur">
 		<div class="input-group mb-3">
-			<span class="input-group-text">Pseudo</span>
+			<span class="input-group-text text-warning bg-dark">Pseudo</span>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInputGroup1"
+				<input type="text" class="form-control border-warning" id="floatingInputGroup1"
 					name="Pseudo" value=<%=utilisateur.getPseudo()%> required> <label
 					for="floatingInputGroup1">Pseudo</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Prenom</span>
+			<span class="input-group-text text-warning bg-dark">Prenom</span>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInputGroup1"
+				<input type="text" class="form-control border-warning" id="floatingInputGroup1"
 					name="Prenom" value=<%=utilisateur.getPrenom()%> required> <label
 					for="floatingInputGroup1">Prenom</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Nom</span>
+			<span class="input-group-text text-warning bg-dark">Nom</span>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInputGroup1"
+				<input type="text" class="form-control border-warning" id="floatingInputGroup1"
 					name="Nom" value=<%=utilisateur.getNom()%> required> <label
 					for="floatingInputGroup1">Nom</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Email</span>
+			<span class="input-group-text text-warning bg-dark">Email</span>
 			<div class="form-floating">
-				<input type="email" class="form-control" id="floatingInputGroup1"
+				<input type="email" class="form-control border-warning" id="floatingInputGroup1"
 					name="Email" value=<%=utilisateur.getEmail()%> required> <label
 					for="floatingInputGroup1">Email</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Telephone</span>
+			<span class="input-group-text text-warning bg-dark">Telephone</span>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInputGroup1"
+				<input type="text" class="form-control border-warning" id="floatingInputGroup1"
 					name="Telephone" value=<%=utilisateur.getTelephone()%>> <label for="floatingInputGroup1">Telephone</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Rue</span>
+			<span class="input-group-text text-warning bg-dark">Rue</span>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInputGroup1"
+				<input type="text" class="form-control border-warning" id="floatingInputGroup1"
 					name="Rue" value="<%=utilisateur.getRue()%>" required> <label
 					for="floatingInputGroup1">Rue</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Code postal</span>
+			<span class="input-group-text text-warning bg-dark">Code postal</span>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInputGroup1"
+				<input type="text" class="form-control border-warning" id="floatingInputGroup1"
 					name="CodePostal" value=<%=utilisateur.getCodePostal()%> required> <label
 					for="floatingInputGroup1">Code postal</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Ville</span>
+			<span class="input-group-text text-warning bg-dark">Ville</span>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInputGroup1"
+				<input type="text" class="form-control border-warning" id="floatingInputGroup1"
 					name="Ville" value=<%=utilisateur.getVille()%> required> <label
 					for="floatingInputGroup1">Ville</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Mot de passe actuel</span>
+			<span class="input-group-text text-warning bg-dark">Mot de passe actuel</span>
 			<div class="form-floating">
-				<input type="password" class="form-control" id="floatingInputGroup1"
+				<input type="password" class="form-control border-warning" id="floatingInputGroup1"
 					placeholder="MotDePasseActuel" name="MotDePasseActuel" required> <label
 					for="floatingInputGroup1">Mot de passe</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Nouveau mot de passe</span>
+			<span class="input-group-text text-warning bg-dark">Nouveau mot de passe</span>
 			<div class="form-floating">
-				<input type="password" class="form-control" id="floatingInputGroup1"
+				<input type="password" class="form-control border-warning" id="floatingInputGroup1"
 					placeholder="NouveauMotDePasse" name="MotDePasseNouveau"> <label
 					for="floatingInputGroup1">Mot de passe</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text">Confirmer mot de passe</span>
+			<span class="input-group-text text-warning bg-dark">Confirmer mot de passe</span>
 			<div class="form-floating">
-				<input type="password" class="form-control" id="floatingInputGroup1"
+				<input type="password" class="form-control border-warning" id="floatingInputGroup1"
 					placeholder="ConfirmationMotDePasse" name="ConfirmationMotDePasse"> <label
 					for="floatingInputGroup1">Confirmation Mot de passe</label>
 			</div>
