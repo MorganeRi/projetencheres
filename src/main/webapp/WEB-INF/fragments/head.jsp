@@ -31,9 +31,6 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 		text-decoration : none;
 	}
 	
-	.card :hover{
-		
-	}
 	
 	.card-title:hover{
 		color : #000080;

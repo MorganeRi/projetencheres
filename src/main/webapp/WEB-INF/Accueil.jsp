@@ -44,7 +44,7 @@
 	<jsp:param name="title" value="Accueil" />
 </jsp:include>
 
-<div class="container-fluid" style="border: 1px solid silver;width:50%;">
+<div class="container-fluid" style="width:50%;">
 	<h1 class="text-center ">Liste des enchères</h1>
 	<form role="search"
 		action="<%=request.getContextPath()%>/Accueil" method="post">
@@ -156,7 +156,7 @@
 if (articles != null) {
 %>
 <!-- align-content-stretch flex-wrap -->
-<div class="container-fluid" style="border: 1px solid silver;width:80%;">
+<div class="container-fluid" style="width:80%;">
 	<div class="d-flex flex-wrap justify-content-around">
 	<%
 	for (ArticleVendu art : articles) {
@@ -164,12 +164,12 @@ if (articles != null) {
 
 
 
-	<div class="card my-2 mx-2 border-warning ">
+	<div class="card my-2 mx-2 border-warning " style="width: 250px">
 		<div class="card-body ">
 			<%
 			if (id != null) {
 			%>
-			<h5 class="card-title text-dark">
+			<h5 class="card-title text-center">
 				<a class="text-dark"
 					href="./DetailArticle?idArticle=<%=art.getNoArticle()%>" class="link-warning"><%=art.getNomArticle()%></a>
 
@@ -189,34 +189,34 @@ if (articles != null) {
 				Enchere ench=enchereManager.selectMaxEnchere(art); 
 				if (ench.getMontantEnchere() == null) {
 					%>
-					0
+					0 💰
 					<%
 					} else if (ench.getUtilisateur().getActif()==true){
 					%>
-					<%=ench.getMontantEnchere()%>
+					<%=ench.getMontantEnchere()%> 💰
 					<%
 					} else { %>
 						<%=art.getPrixInitial()%>
 				<%	}
 					
 			} else { %>
-			<%=art.getPrixInitial()%>
+			<%=art.getPrixInitial()%> 💰
 			<%}%>
 				</h6>
 			<p class="card-text">
-				Fin de l'enchère :
-				<%=art.getDateFinEnchere()%></p>
+				Fin de l'enchère : 
+				<%=art.getDateFinEnchere()%> 📅</p>
 			<%
 			if (id != null) {
 			%>
-			<p class="card-text">
+			<p class="card-text text-center">
 				Vendeur : <a
 					href="./ProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 			</p>
 			<%
 			} else {
 			%>
-			<p class="card-text">
+			<p class="card-text text-center">
 				Vendeur :
 				<%=art.getUtilisateur().getNom()%></p>
 			<%
@@ -234,7 +234,7 @@ if (articles != null) {
 } else {
 if (toutArticles != null) {
 %>
-<div class="container-fluid"  style="border: 1px solid silver;width:1000px;">
+<div class="container-fluid"  style="width:1000px;">
 	<div class="d-flex flex-wrap justify-content-around">
 	<%
 	for (ArticleVendu art : toutArticles) {
@@ -242,12 +242,12 @@ if (toutArticles != null) {
 
 
 
-	<div class="card my-2 mx-2 border-warning " >
+	<div class="card my-2 mx-2 border-warning " style="width: 250px">
 		<div class="card-body ">
 			<%
 			if (id != null) {
 			%>
-			<h5 class="card-title text-dark">
+			<h5 class="card-title text-center">
 				<a href="./DetailArticle?idArticle=<%=art.getNoArticle()%>" class="link-warning"><%=art.getNomArticle()%></a>
 
 			</h5>
@@ -266,34 +266,34 @@ if (toutArticles != null) {
 				Enchere ench=enchereManager.selectMaxEnchere(art); 
 				if (ench.getMontantEnchere() == null) {
 					%>
-					0
+					0 💰
 					<%
 					} else if (ench.getUtilisateur().getActif()==true){
 					%>
-					<%=ench.getMontantEnchere()%>
+					<%=ench.getMontantEnchere()%> 💰
 					<%
 					} else { %>
-						<%=art.getPrixInitial()%>
+						<%=art.getPrixInitial()%> 💰
 				<%	}
 					
 			} else { %>
-			<%=art.getPrixInitial()%>
+			<%=art.getPrixInitial()%> 💰
 			<%}%>
 				</h6>
 			<p class="card-text">
-				Fin de l'enchère :
-				<%=art.getDateFinEnchere()%></p>
+				Fin de l'enchère : 
+				<%=art.getDateFinEnchere()%> 📅</p>
 			<%
 			if (id != null) {
 			%>
-			<p class="card-text">
+			<p class="card-text text-center">
 				Vendeur : <a
 					href="./ProfilVendeur?idVendeur=<%=art.getUtilisateur().getNoUtilisateur()%>"><%=art.getUtilisateur().getNom()%></a>
 			</p>
 			<%
 			} else {
 			%>
-			<p class="card-text">
+			<p class="card-text text-center">
 				Vendeur :
 				<%=art.getUtilisateur().getNom()%></p>
 			<%
