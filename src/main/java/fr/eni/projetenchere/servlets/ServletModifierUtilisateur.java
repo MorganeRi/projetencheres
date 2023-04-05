@@ -118,11 +118,13 @@ public class ServletModifierUtilisateur extends HttpServlet {
 				if (nouveauMotDePasse.isBlank()) {
 					Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue,
 							codePostal, ville, motDePasseAtcuel, credit, administrateur);
+					request.setAttribute("Utilisateur2",utilisateur);
 					utilisateurManager.majUtilisateur(utilisateur);
 				} else if (nouveauMotDePasse != null && nouveauMotDePasse.equals(confirmationMotDePasse)) {
 					Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue,
 							codePostal, ville, nouveauMotDePasse, credit, administrateur);
 					utilisateurManager.majUtilisateur(utilisateur);
+					request.setAttribute("Utilisateur3",utilisateur);
 				} else {
 					listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);

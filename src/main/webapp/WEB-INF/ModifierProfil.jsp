@@ -10,6 +10,8 @@
 <div class="container-fluid" style="border: 1px solid silver; width: 500px;">
 	<h1 class="font-weight-bold text-center">Mon profil</h1>
 	<br>
+	
+
 	<%
 	List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
 	if (listeCodesErreur != null) {
@@ -26,6 +28,15 @@
 	
 	<%
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("Utilisateur");
+	%>
+	<%
+	Utilisateur utilisateur2 = (Utilisateur) request.getAttribute("Utilisateur2");
+	Utilisateur utilisateur3 = (Utilisateur) request.getAttribute("Utilisateur3");
+	if ((utilisateur2 != null)||(utilisateur3 != null)) {
+	%>
+	<p style="color: green;">Les modifications ont bien été prises en compte</p>
+	<%
+	}
 	%>
 	
 	<form method="post"
