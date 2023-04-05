@@ -118,7 +118,7 @@
 			</div>
 		</div>
 		<button type="submit" class="btn btn-dark">Créer</button>
-		<a href="ServletAccueil" class="btn btn-dark"
+		<a href="ServletAccueil" class="btn btn-dark shadow"
 					role="button">Annuler</a>
 	</form>
 </div>

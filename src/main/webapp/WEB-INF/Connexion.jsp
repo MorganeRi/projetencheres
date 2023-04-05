@@ -50,9 +50,9 @@ if (id == null) {
 					name="rememberMe"> se souvenir de moi       
 			</div>
 				<a href="./ServletResetPassword">Mot de passe oublié</a>
-			<button type="submit" class="btn btn-warning btn-lg mb-8 p-2 mt-2" 
+			<button type="submit" class="btn btn-warning btn-lg mb-8 p-2 mt-2 shadow" 
 			style="width: 200px">Connexion</button>
-			<a href="ServletAjoutUtilisateur" class="btn btn-warning btn-lg mb-8 p-2 mt-2" 
+			<a href="ServletAjoutUtilisateur" class="btn btn-warning btn-lg mb-8 p-2 mt-2 shadow" 
 			style="width: 200px" role="button">Créer un compte</a>
 		</div>
 	</form>
