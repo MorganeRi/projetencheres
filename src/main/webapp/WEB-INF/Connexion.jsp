@@ -33,12 +33,10 @@ if (id == null) {
 				e-mail ou pseudo</span>
 			<div class="form-floating">
 				<input type="text" class="form-control border-warning"
-					id="exampleInputEmail1"
-					aria-describedby="emailHelp" placeholder="E-mail" name="email"
+					id="exampleInputEmail1" aria-describedby="emailHelp"
+					placeholder="E-mail" name="email"
 					value="<%=listeCodesErreur != null ? request.getParameter("email") : ""%>">
-					<label
-					for="floatingInputGroup1">Adresse
-				e-mail ou pseudo</label>
+				<label for="floatingInputGroup1">Adresse e-mail ou pseudo</label>
 			</div>
 		</div>
 		<div class="input-group mb-3">
@@ -46,11 +44,9 @@ if (id == null) {
 				passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control border-warning"
-					id="exampleInputPassword1"
-					placeholder="Mot de passe" name="mdp"
+					id="exampleInputPassword1" placeholder="Mot de passe" name="mdp"
 					value="<%=listeCodesErreur != null ? request.getParameter("mdp") : ""%>">
-					<label
-					for="floatingInputGroup1">Mot de passe</label>
+				<label for="floatingInputGroup1">Mot de passe</label>
 			</div>
 		</div>
 		<div class="p-2 mx-auto d-flex flex-column align-items-center">
@@ -58,12 +54,14 @@ if (id == null) {
 				<input type="checkbox" class="form-check-input" id="exampleCheck1"
 					name="rememberMe"> se souvenir de moi
 			</div>
+
 			<a href="./ServletResetPassword">Mot de passe oublié</a>
-			<button type="submit" class="btn btn-warning btn-lg mb-8 p-2 mt-2"
+			<button type="submit"
+				class="btn btn-warning btn-lg mb-8 p-2 mt-2 shadow"
 				style="width: 200px">Connexion</button>
 			<a href="ServletAjoutUtilisateur"
-				class="btn btn-warning btn-lg mb-8 p-2 mt-2" style="width: 200px"
-				role="button">Créer un compte</a>
+				class="btn btn-warning btn-lg mb-8 p-2 mt-2 shadow"
+				style="width: 200px" role="button">Créer un compte</a>
 		</div>
 	</form>
 </div>

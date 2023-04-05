@@ -139,9 +139,9 @@
 		if (LocalDateTime.now().isBefore(articleVendu.getDateDebutEnchere())) {
 		%>
 		<div class="mb-1 d-flex align-items-center justify-content-between">
-			<input type="submit" value="Enregistrer" class="btn btn-warning btn-lg me-3" />
-			<input type="reset" value="Annuler" class="btn btn-warning btn-lg me-3">
-			<a href="ServletSupprimerArticle" class="btn btn-warning btn-lg me-3"
+			<input type="submit" value="Enregistrer" class="btn btn-warning btn-lg me-3 shadow" />
+			<input type="reset" value="Annuler" class="btn btn-warning btn-lg me-3 shadow">
+			<a href="ServletSupprimerArticle" class="btn btn-warning btn-lg me-3 shadow"
 				role="button">Supprimer l'article</a>
 		</div>
 		<%

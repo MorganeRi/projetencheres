@@ -15,8 +15,14 @@
 	Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 	if (utilisateur != null) {
 	%>
-	<p style="color: green;">Votre compte a été crée avec succès et
-		vous êtes connecté !</p>
+
+	<div
+		class="d-flex  flex-column align-items-center justify-content-center">
+		<p style="color: green;" class="align-self-center">Votre compte a
+			été crée avec succès et vous êtes connecté !</p>
+		<img alt="validation" src="./images/verifie.gif" width="40"
+			height="auto">
+	</div>
 	<%
 	}
 	%>
@@ -85,7 +91,8 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text text-warning bg-dark">Code postal</span>
+			<span class="input-group-text text-warning bg-dark">Code
+				postal</span>
 			<div class="form-floating">
 				<input type="number" class="form-control" id="floatingInputGroup1"
 					placeholder="CodePostal" name="CodePostal" required> <label
@@ -101,7 +108,8 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text text-warning bg-dark">Mot de passe</span>
+			<span class="input-group-text text-warning bg-dark">Mot de
+				passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
 					placeholder="MotDePasse" name="MotDePasse" required> <label
@@ -109,7 +117,8 @@
 			</div>
 		</div>
 		<div class="input-group mb-3">
-			<span class="input-group-text text-warning bg-dark">Confirmation Mot de passe</span>
+			<span class="input-group-text text-warning bg-dark">Confirmation
+				Mot de passe</span>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="floatingInputGroup1"
 					placeholder="ConfirmationMotDePasse" name="ConfirmationMotDePasse"
@@ -117,8 +126,14 @@
 					Mot de passe</label>
 			</div>
 		</div>
+		<<<<<<< HEAD
 		<button type="submit" class="btn btn-warning btn-lg">Créer</button>
 		<a href="ServletAccueil" class="btn btn-warning btn-lg" role="button">Annuler</a>
+		=======
+		<button type="submit" class="btn btn-dark">Créer</button>
+		<a href="ServletAccueil" class="btn btn-dark shadow" role="button">Annuler</a>
+		>>>>>>> branch 'master' of
+		https://github.com/MorganeRi/projetencheres.git
 	</form>
 </div>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

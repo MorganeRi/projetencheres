@@ -328,4 +328,23 @@ if (toutArticles != null) {
 }
 %>
 
+<jsp:include page="./fragments/foot.jsp"></jsp:include>>
+
+	<%
+	}
+	%>
+	</div>
+</div>
+
+<%
+} else {
+%>
+
+<p><%=pasArticle%></p>
+
+<%
+}
+}
+%>
+
 <jsp:include page="./fragments/foot.jsp"></jsp:include>

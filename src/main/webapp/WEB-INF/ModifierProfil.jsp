@@ -34,7 +34,11 @@
 	Utilisateur utilisateur3 = (Utilisateur) request.getAttribute("Utilisateur3");
 	if ((utilisateur2 != null)||(utilisateur3 != null)) {
 	%>
-	<p style="color: green;">Les modifications ont bien été prises en compte</p>
+	
+	<div class="d-flex  flex-column align-items-center justify-content-center">
+		<p style="color: green;" class="align-self-center">Les modifications ont bien été prises en compte</p>
+		<img alt="validation" src="./images/verifie.gif" width="40" height="auto">
+	</div>
 	<%
 	}
 	%>
@@ -129,8 +133,8 @@
 			</div>
 		</div>
 		<div class="mb-3 d-flex align-items-center justify-content-between">
-			<button type="submit" class="btn btn-warning btn-lg ">Enregistrer</button>
-			<a href="ServletSupprimerCompte" class="btn btn-warning btn-lg"
+			<button type="submit" class="btn btn-warning btn-lg shadow">Enregistrer</button>
+			<a href="ServletSupprimerCompte" class="btn btn-warning btn-lg shadow"
 						role="button">Supprimer mon compte</a>
 		</div>
 	</form>
