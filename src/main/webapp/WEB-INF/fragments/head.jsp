@@ -22,9 +22,7 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 	crossorigin="anonymous">
 
 <style>
-	
-	
-	.card-title a{
+	.card-title {
 		color : #FFA500;
 		font-family : Arial;
 		font-weight: bold;
@@ -33,7 +31,8 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 	
 	
 	.card-title:hover{
-		color : #000080;
+		color : #FF8C00;
+		cursor : pointer;
 		
 	}
 	
@@ -56,6 +55,12 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 	.my-nav-item {
 		color: #FFD700;
 		/*         font-weight: bold; */
+	}
+	
+	.lien{
+		text-decoration : none; 
+		font-weight: bold;
+		
 	}
 </style>
 

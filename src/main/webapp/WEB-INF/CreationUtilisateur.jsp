@@ -126,14 +126,10 @@
 					Mot de passe</label>
 			</div>
 		</div>
-		<<<<<<< HEAD
+		
 		<button type="submit" class="btn btn-warning btn-lg">Créer</button>
-		<a href="ServletAccueil" class="btn btn-warning btn-lg" role="button">Annuler</a>
-		=======
-		<button type="submit" class="btn btn-dark">Créer</button>
-		<a href="ServletAccueil" class="btn btn-dark shadow" role="button">Annuler</a>
-		>>>>>>> branch 'master' of
-		https://github.com/MorganeRi/projetencheres.git
+		<a href="ServletAccueil" class="btn btn-warning btn-lg shadow" role="button">Annuler</a>
+		
 	</form>
 </div>
 <jsp:include page="./fragments/foot.jsp"></jsp:include>
