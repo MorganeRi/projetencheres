@@ -27,28 +27,21 @@ import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Retrait;
 import fr.eni.projetenchere.bo.Utilisateur;
 
-
 /**
- * Servlet ServletModifierArticle qui permet de :
- * -Afficher toutes les infos actuelles de l'article
- * -Permettre de changer les infos dans chaque champ
- * -Mettre à jour les changements d'infos de l'article
- * -Supprimer l'article 
+ * Servlet ServletModifierArticle qui permet de : -Afficher toutes les infos
+ * actuelles de l'article -Permettre de changer les infos dans chaque champ
+ * -Mettre à jour les changements d'infos de l'article -Supprimer l'article
  */
 @WebServlet("/ServletModifierArticle")
 public class ServletModifierArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String LIST_CATEGORIE = "listCategorie";
 //	private static final String UTILISATEUR = "Utilisateur";
-	
-	private static CategorieManager cateegorieManager = CategorieManagerSing.getInstanceCategorieImpl();
-	
-	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-	
-	private static ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
-	
-	private static RetraitManager retraitManager = RetraitManagerSing.getInstanceRetraitImpl();
 
+	private static CategorieManager cateegorieManager = CategorieManagerSing.getInstanceCategorieImpl();
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+	private static ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
+	private static RetraitManager retraitManager = RetraitManagerSing.getInstanceRetraitImpl();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -59,48 +52,50 @@ public class ServletModifierArticle extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * Ici mon doGet va permettre lors de l'appel de la Servlet de : 
-	 * - récupérer la session en cours, si pas de session on renvoie direct à la ServletConnexion
-	 * - On va aller chercher les catégories en BDD pour les réafficher dans le déroulant de la JSP
-	 * - On va récupérer l'idArticle stocké dans la session (qui permet d'acceder au modifierArticle
-	 * quand on est sur le detail de l'article)
-	 * - On récupère les infos retrait en fonction de l'idArticle
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response) 
+	 *      Ici mon doGet va permettre lors de l'appel de la Servlet de :
+	 *      - récupérer la session en cours, si pas de session on renvoie direct à
+	 *      la ServletConnexion - On va aller chercher les catégories en BDD pour
+	 *      les réafficher dans le déroulant de la JSP - On va récupérer l'idArticle
+	 *      stocké dans la session (qui permet d'acceder au modifierArticle quand on
+	 *      est sur le detail de l'article) - On récupère les infos retrait en
+	 *      fonction de l'idArticle
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 //		gérer la récupération de session utilisateur
 		HttpSession session = request.getSession();
-        Integer idUtilisateur = (Integer) session.getAttribute("id");
-        List<Categorie> listCategorie = new ArrayList<>(); 
-       
+		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		List<Categorie> listCategorie = new ArrayList<>();
+
 		Integer noArticle = null;
 		ArticleVendu articleAAfficher = new ArticleVendu();
 		Retrait retrait = null;
-        
-        if (idUtilisateur == null) {
-            response.sendRedirect("ServletConnexion");
-            return;
-        } else {
+
+		if (idUtilisateur == null) {
+			response.sendRedirect("ServletConnexion");
+			return;
+		} else {
 			try {
 				listCategorie = cateegorieManager.selectAllCategorie();
 				request.setAttribute(LIST_CATEGORIE, listCategorie);
-				
+
 				noArticle = (Integer) session.getAttribute("idArticle");
 				articleAAfficher = articleVenduManager.selectParIdArticle(noArticle);
 				request.setAttribute("articleAManipuler", articleAAfficher);
-				
+
 				retrait = retraitManager.selectParIdRetrait(noArticle);
 				request.setAttribute("retrait", retrait);
-				
+
 			} catch (BusinessException e1) {
-				
+
 				e1.printStackTrace();
 			}
 			session.setAttribute("articleAModifier", articleAAfficher);
 
-			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierArticle.jsp");
-			rd.forward(request, response); 
+			rd.forward(request, response);
 		}
 	}
 
@@ -110,62 +105,62 @@ public class ServletModifierArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
 		Integer noUtilisateur = null;
 		Utilisateur utilisateur = new Utilisateur();
-		
+
 		ArticleVendu articleAManipuler = (ArticleVendu) session.getAttribute("articleAModifier");
 		Integer noCategorie = null;
 		Categorie categorie = null;
 		Retrait retrait = new Retrait();
 		String photo = null;
-		Boolean photoOuPas= true;
+		Boolean photoOuPas = true;
 		Integer resultatComparaisonDates = null;
-		
+
 		LocalDateTime dateDebutEnchere = null;
 		LocalDateTime dateFinEnchere = null;
-		
+
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		
+
 		try {
 			articleAManipuler.setNomArticle(request.getParameter("nomArticle"));
 			articleAManipuler.setDescription(request.getParameter("Description"));
-			
+
 			noCategorie = Integer.parseInt(request.getParameter("Categorie"));
 			categorie = cateegorieManager.selectCategorieParId(noCategorie);
-			
+
 			articleAManipuler.setCategorie(categorie);
 			articleAManipuler.setDateDebutEnchere(LocalDateTime.parse(request.getParameter("DebutEnchere")));
 			articleAManipuler.setDateFinEnchere(LocalDateTime.parse(request.getParameter("FinEnchere")));
 			articleAManipuler.setPrixInitial(Integer.parseInt(request.getParameter("prixDepart")));
 			String test = request.getParameter("imageArticle");
 			if (test.equals("")) {
-				
+
 				photoOuPas = false;
 			}
 
 			if (photoOuPas) {
-				
+
 				photo = request.getParameter("imageArticle");
-				
+
 				articleAManipuler.setPhoto(photo);
-				
+
 			}
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
 			articleAManipuler.setUtilisateur(utilisateur);
-			
+
 			retrait.setArticle(articleAManipuler);
 			retrait.setRue(request.getParameter("nomRue"));
 			retrait.setCodePostal(request.getParameter("codePostal"));
 			retrait.setVille(request.getParameter("nomVille"));
-			
+
 			dateDebutEnchere = articleAManipuler.getDateDebutEnchere();
 			dateFinEnchere = articleAManipuler.getDateFinEnchere();
 			resultatComparaisonDates = dateDebutEnchere.compareTo(dateFinEnchere);
-			
-			if(resultatComparaisonDates > 0) {
+
+			if (resultatComparaisonDates > 0) {
 //				la date de début est postérieure à la date de fin 
 				listeCodesErreur.add(CodesResultatServlets.ERREUR_DATE_POSTERIEUR);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
@@ -174,15 +169,14 @@ public class ServletModifierArticle extends HttpServlet {
 //				les deux dates sont égales
 				listeCodesErreur.add(CodesResultatServlets.ERREUR_DATES_IDENTIQUES);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
-				
-			}else if(resultatComparaisonDates < 0){
+
+			} else if (resultatComparaisonDates < 0) {
 //				la date de début est antérieure à la date de fin 
 				articleVenduManager.majArticleVendu(articleAManipuler);
 				retraitManager.majRetrait(retrait);
 				request.setAttribute("articleModifie", articleAManipuler);
 			}
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

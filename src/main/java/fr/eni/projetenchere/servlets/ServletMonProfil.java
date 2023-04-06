@@ -21,7 +21,8 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletMonProfil")
 public class ServletMonProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -45,9 +46,8 @@ public class ServletMonProfil extends HttpServlet {
 			return;
 		} else {
 
-			Integer noUtilisateur;
+			Integer noUtilisateur = null;
 			Utilisateur utilisateur = new Utilisateur();
-			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 			noUtilisateur = (Integer) request.getSession().getAttribute("id");
 			try {

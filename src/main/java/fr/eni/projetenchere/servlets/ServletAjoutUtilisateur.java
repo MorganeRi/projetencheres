@@ -27,7 +27,9 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	private static final String SESSION_UTILISATEUR_ID = "id";
 	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
 	private static final String SESSION_UTILISATEUR_ADMIN = "admin";
-	private static final String SESSION_UTILISATEUR_ACTIF = "actif"; 
+	private static final String SESSION_UTILISATEUR_ACTIF = "actif";
+
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 	public ServletAjoutUtilisateur() {
 		super();
@@ -54,18 +56,16 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-
-		String pseudo;
-		String prenom;
-		String nom;
-		String email;
-		String telephone;
-		String rue;
-		String codePostal;
-		String ville;
-		String motDePasse;
-		String confirmationMotDePasse;
+		String pseudo = null;
+		String prenom = null;
+		String nom = null;
+		String email = null;
+		String telephone = null;
+		String rue = null;
+		String codePostal = null;
+		String ville = null;
+		String motDePasse = null;
+		String confirmationMotDePasse = null;
 		Integer credit = 100;
 		Boolean administrateur = false;
 		Boolean actif = true;
@@ -81,9 +81,11 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 			codePostal = request.getParameter("CodePostal");
 			ville = request.getParameter("Ville");
 			motDePasse = request.getParameter("MotDePasse");
-			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse") ;
+			confirmationMotDePasse = request.getParameter("ConfirmationMotDePasse");
 
-			if (motDePasse.equals(confirmationMotDePasse)&&(utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)&&(utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()==null)){
+			if (motDePasse.equals(confirmationMotDePasse)
+					&& (utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() == null)
+					&& (utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur() == null)) {
 
 				Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit, administrateur);
@@ -94,35 +96,28 @@ public class ServletAjoutUtilisateur extends HttpServlet {
 				session.setAttribute(SESSION_UTILISATEUR_ID, utilisateur.getNoUtilisateur());
 				session.setAttribute(SESSION_UTILISATEUR_MAIL, email);
 				session.setAttribute(SESSION_UTILISATEUR_PSEUDO, pseudo);
-		        session.setAttribute(SESSION_UTILISATEUR_ADMIN, utilisateur.getAdministrateur());
-		        session.setAttribute(SESSION_UTILISATEUR_ACTIF, utilisateur.getActif());
-				
+				session.setAttribute(SESSION_UTILISATEUR_ADMIN, utilisateur.getAdministrateur());
+				session.setAttribute(SESSION_UTILISATEUR_ACTIF, utilisateur.getActif());
+
 			} else {
 
 				if (utilisateurManager.selectParEmailUtilisateur(email).getNoUtilisateur() != null) {
-
 					listeCodesErreur.add(CodesResultatServlets.MAIL_DOUBLON_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);
 				}
-				if (utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur()!=null) {
-
+				if (utilisateurManager.selectParPseudoUtilisateur(pseudo).getNoUtilisateur() != null) {
 					listeCodesErreur.add(CodesResultatServlets.PSEUDO_DOUBLON_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);
 				}
 			}
-				if (!motDePasse.equals(confirmationMotDePasse)) {
-
-					listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
-					request.setAttribute("listeCodesErreur", listeCodesErreur);
-				}
+			if (!motDePasse.equals(confirmationMotDePasse)) {
+				listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
-
 		}
 		doGet(request, response);
-
-//		RequestDispatcher rd = request.getRequestDispatcher("./Inscription");
-//		rd.forward(request, response);
 	}
 
 }

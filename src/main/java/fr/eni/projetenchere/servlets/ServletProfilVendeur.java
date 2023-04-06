@@ -21,50 +21,53 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletProfilVendeur")
 public class ServletProfilVendeur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletProfilVendeur() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-        Integer idUtilisateur = (Integer) session.getAttribute("id");
-        if (idUtilisateur == null) {
-            // Rediriger vers la page de connexion
-            response.sendRedirect("ServletConnexion");
-            return;
-        } else {
-
-		Utilisateur utilisateur = new Utilisateur();
-		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-
-		Integer idVendeur = Integer.parseInt(request.getParameter("idVendeur"));
-
-//		noUtilisateur = (Integer) request.getSession().getAttribute("id");
-		try {
-			// TO DO : Changer id pour mettre id vendeur
-			utilisateur = utilisateurManager.selectParNoUtilisateur(idVendeur);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-
-		request.setAttribute("Utilisateur", utilisateur);
-
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ProfilVendeur.jsp");
-		rd.forward(request, response); }
+	public ServletProfilVendeur() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		if (idUtilisateur == null) {
+			// Rediriger vers la page de connexion
+			response.sendRedirect("ServletConnexion");
+			return;
+		} else {
+
+			Utilisateur utilisateur = new Utilisateur();
+
+			Integer idVendeur = Integer.parseInt(request.getParameter("idVendeur"));
+
+			try {
+				utilisateur = utilisateurManager.selectParNoUtilisateur(idVendeur);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("Utilisateur", utilisateur);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ProfilVendeur.jsp");
+			rd.forward(request, response);
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

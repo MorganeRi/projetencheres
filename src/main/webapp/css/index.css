@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.link-warning {
+	text-decoration: none;
+}
+
+.card-title {
+	color: #FFA500;
+	font-family: Arial;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.card-title:hover {
+	color: #FF8C00;
+	cursor: pointer;
+}
+
+.nav-item {
+	font-size: large;
+}
+
+/* Style pour les éléments <li> dans la navbar */
+nav .navbar-nav li {
+	padding: 10px 15px;
+}
+
+/* Style pour les éléments <li> lorsqu'ils sont survolés */
+nav .navbar-nav li:hover {
+	color: #FFFFFF;
+}
+
+.my-nav-item {
+	color: #FFD700;
+}
+
+.lien {
+	text-decoration: none;
+	font-weight: bold;
+}

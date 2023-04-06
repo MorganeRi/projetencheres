@@ -27,6 +27,9 @@ import fr.eni.projetenchere.bo.Categorie;
 public class ServletAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
+	private static CategorieManager categorieManager = CategorieManagerSing.getInstanceCategorieImpl();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -42,17 +45,13 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
-
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 
 		try {
-			articles = article.selectToutArticle();
-
+			articles = articleManager.selectToutArticle();
 			request.setAttribute("listToutArticle", articles);
 
 		} catch (BusinessException e) {
-
 			e.printStackTrace();
 		}
 		List<Categorie> listCategorie = new ArrayList<>();
@@ -60,7 +59,7 @@ public class ServletAccueil extends HttpServlet {
 
 		request.setAttribute("listCategorie", listCategorie);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp" );
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 	}
 
@@ -80,7 +79,6 @@ public class ServletAccueil extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		recherche = request.getParameter("search");
-		ArticleVenduManager article = ArticleVenduManagerSing.getInstanceArticle();
 
 		List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
 		String noCat;
@@ -97,7 +95,7 @@ public class ServletAccueil extends HttpServlet {
 			if ((noCat.equals("Selectionner une categorie")) && recherche.isBlank()) {
 				try {
 
-					articles = article.selectToutArticle();
+					articles = articleManager.selectToutArticle();
 					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
@@ -109,7 +107,7 @@ public class ServletAccueil extends HttpServlet {
 				}
 			} else if (recherche.isBlank()) {
 				try {
-					articles = article.selectParCategorieArticle(noCat);
+					articles = articleManager.selectParCategorieArticle(noCat);
 					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
@@ -121,7 +119,7 @@ public class ServletAccueil extends HttpServlet {
 				}
 			} else if (noCat.equals("Selectionner une categorie")) {
 				try {
-					articles = article.selectParNomArticle(recherche);
+					articles = articleManager.selectParNomArticle(recherche);
 					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
@@ -133,7 +131,7 @@ public class ServletAccueil extends HttpServlet {
 				}
 			} else {
 				try {
-					articles = article.selectParNomArticleParCat(recherche, noCat);
+					articles = articleManager.selectParNomArticleParCat(recherche, noCat);
 					if (articles == null) {
 						request.setAttribute("PasArticle", "Il n'y a pas d'article correspondant à votre recherche");
 					} else {
@@ -158,7 +156,7 @@ public class ServletAccueil extends HttpServlet {
 				case "encheres_ouvertes":
 					try {
 
-						articles = article.affichageArticlesEnVente(idUtil);
+						articles = articleManager.affichageArticlesEnVente(idUtil);
 						if (articles == null) {
 							request.setAttribute("PasArticle", "Vous n'avez pas d'article en vente");
 						} else {
@@ -172,7 +170,7 @@ public class ServletAccueil extends HttpServlet {
 				case "mes_encheres":
 					try {
 
-						articles = article.articleEncherie(idUtil);
+						articles = articleManager.articleEncherie(idUtil);
 						if (articles == null) {
 							request.setAttribute("PasArticle", "Vous n'avez pas encheris sur un article");
 						} else {
@@ -186,7 +184,7 @@ public class ServletAccueil extends HttpServlet {
 				case "encheres_remportees":
 					try {
 
-						articles = article.articleEnchereRemporte(idUtil);
+						articles = articleManager.articleEnchereRemporte(idUtil);
 						if (articles == null) {
 							request.setAttribute("PasArticle", "Vous n'avez pas remporte d'enchere");
 						} else {
@@ -200,7 +198,7 @@ public class ServletAccueil extends HttpServlet {
 				case "ventes_cours":
 					try {
 
-						articles = article.ventesEnCours(idUtil);
+						articles = articleManager.ventesEnCours(idUtil);
 						if (articles == null) {
 							request.setAttribute("PasArticle", "Vous n'avez pas de vente en cours");
 						} else {
@@ -214,7 +212,7 @@ public class ServletAccueil extends HttpServlet {
 				case "ventes_non_debutees":
 					try {
 
-						articles = article.ventesNonDebutees(idUtil);
+						articles = articleManager.ventesNonDebutees(idUtil);
 						if (articles == null) {
 							request.setAttribute("PasArticle",
 									"Vous n'avez d'article en attente d'être mis aux enchères");
@@ -229,7 +227,7 @@ public class ServletAccueil extends HttpServlet {
 				case "ventes_terminees":
 					try {
 
-						articles = article.ventesTerminees(idUtil);
+						articles = articleManager.ventesTerminees(idUtil);
 						if (articles == null) {
 							request.setAttribute("PasArticle", "Vous n'avez pas encore vendu d'article");
 						} else {
@@ -254,10 +252,10 @@ public class ServletAccueil extends HttpServlet {
 	private List<Categorie> affichageCategorie() {
 
 		List<Categorie> listCategorie = new ArrayList<>();
-		CategorieManager catMan = CategorieManagerSing.getInstanceCategorieImpl();
+
 		try {
 
-			listCategorie = catMan.selectAllCategorie();
+			listCategorie = categorieManager.selectAllCategorie();
 
 		} catch (BusinessException e1) {
 			// TODO Auto-generated catch block

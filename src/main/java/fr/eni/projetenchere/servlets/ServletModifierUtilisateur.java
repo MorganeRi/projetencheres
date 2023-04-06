@@ -23,6 +23,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletModifierUtilisateur")
 public class ServletModifierUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 	/**
@@ -72,20 +73,20 @@ public class ServletModifierUtilisateur extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Integer id;
-		String pseudo;
-		String prenom;
-		String nom;
-		String email;
-		String telephone;
-		String rue;
-		String codePostal;
-		String ville;
-		String motDePasseAtcuel;
-		String nouveauMotDePasse;
-		String confirmationMotDePasse;
-		Integer credit;
-		Boolean administrateur;
+		Integer id = null;
+		String pseudo = null;
+		String prenom = null;
+		String nom = null;
+		String email = null;
+		String telephone = null;
+		String rue = null;
+		String codePostal = null;
+		String ville = null;
+		String motDePasseAtcuel = null;
+		String nouveauMotDePasse = null;
+		String confirmationMotDePasse = null;
+		Integer credit = null;
+		Boolean administrateur = null;
 
 		Utilisateur util = new Utilisateur();
 		List<Integer> listeCodesErreur = new ArrayList<>();
@@ -118,13 +119,13 @@ public class ServletModifierUtilisateur extends HttpServlet {
 				if (nouveauMotDePasse.isBlank()) {
 					Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue,
 							codePostal, ville, motDePasseAtcuel, credit, administrateur);
-					request.setAttribute("Utilisateur2",utilisateur);
+					request.setAttribute("Utilisateur2", utilisateur);
 					utilisateurManager.majUtilisateur(utilisateur);
 				} else if (nouveauMotDePasse != null && nouveauMotDePasse.equals(confirmationMotDePasse)) {
 					Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue,
 							codePostal, ville, nouveauMotDePasse, credit, administrateur);
 					utilisateurManager.majUtilisateur(utilisateur);
-					request.setAttribute("Utilisateur3",utilisateur);
+					request.setAttribute("Utilisateur3", utilisateur);
 				} else {
 					listeCodesErreur.add(CodesResultatServlets.MOTDEPASSE_ERREUR);
 					request.setAttribute("listeCodesErreur", listeCodesErreur);

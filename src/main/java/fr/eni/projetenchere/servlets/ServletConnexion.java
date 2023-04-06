@@ -27,117 +27,103 @@ public class ServletConnexion extends HttpServlet {
 	private static final String SESSION_UTILISATEUR_MAIL = "mail";
 	private static final String SESSION_UTILISATEUR_ID = "id";
 	private static final String SESSION_UTILISATEUR_PSEUDO = "pseudo";
-	private static final String SESSION_UTILISATEUR_ADMIN = "admin"; 
-	private static final String SESSION_UTILISATEUR_ACTIF = "actif"; 
-	
-	
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletConnexion() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private static final String SESSION_UTILISATEUR_ADMIN = "admin";
+	private static final String SESSION_UTILISATEUR_ACTIF = "actif";
+
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ServletConnexion() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String champ;
-		String mdp;
-		Utilisateur util =null;
-		String mail=null;
-		String pseudo=null;
-		String rememberMe=null;
+		HttpSession session = request.getSession();
+		String champ = null;
+		String mdp = null;
+		Utilisateur util = null;
+		String mail = null;
+		String pseudo = null;
+		String rememberMe = null;
 
-		UtilisateurManager utilMan = UtilistateurManagerSing.getInstanceUtilisateur();
-		try
-		{
-	
-
-			rememberMe=request.getParameter("rememberMe");
+		try {
+			rememberMe = request.getParameter("rememberMe");
 			champ = request.getParameter("email");
 			mdp = request.getParameter("mdp");
 
-			
-			//Vérifier si c'est un pseudo ou un mail
+			// Vérifier si c'est un pseudo ou un mail
 			if (champ.contains("@")) {
-				mail=champ;
-				util=new Utilisateur(mail, mdp);
-				utilMan.authentifierUtilisateurMail(util);
-				request.setAttribute("Utilisateur",util);
-				souvenirCookie(rememberMe,util, request, response);
+				mail = champ;
+				util = new Utilisateur(mail, mdp);
+				utilisateurManager.authentifierUtilisateurMail(util);
+				request.setAttribute("Utilisateur", util);
+				souvenirCookie(rememberMe, util, request, response);
 
 			} else {
 				System.out.println("pseudo");
-				pseudo=champ;
-				util=new Utilisateur();
+				pseudo = champ;
+				util = new Utilisateur();
 				util.setPseudo(pseudo);
 				util.setMotDePasse(mdp);
-				utilMan.authentifierUtilisateurPseudo(util);
-				request.setAttribute("Utilisateur",util);
-				souvenirCookie(rememberMe,util, request, response);
+				utilisateurManager.authentifierUtilisateurPseudo(util);
+				request.setAttribute("Utilisateur", util);
+				souvenirCookie(rememberMe, util, request, response);
 
 			}
-			
-			
-			
-			
 		} catch (BusinessException e) {
 
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 
 			// se substituer à la problématique d'appel statique depuis l'EL
-			request.setAttribute("listeMessagesErreur", 
-					e.getListeCodesErreur()
-						.stream()
-						.map(x -> LecteurMessage.getMessageErreur(x))
-						.collect(Collectors.toList())
-			);
-		
+			request.setAttribute("listeMessagesErreur", e.getListeCodesErreur().stream()
+					.map(x -> LecteurMessage.getMessageErreur(x)).collect(Collectors.toList()));
+
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
-			rd.forward(request, response);	
+			rd.forward(request, response);
 			return;
 		}
-		
-		HttpSession session = request.getSession();
-        session.setAttribute(SESSION_UTILISATEUR_ID,util.getNoUtilisateur() );
-        session.setAttribute(SESSION_UTILISATEUR_MAIL, util.getEmail());
-        session.setAttribute(SESSION_UTILISATEUR_PSEUDO, util.getPseudo());
-        session.setAttribute(SESSION_UTILISATEUR_ADMIN, util.getAdministrateur());
-        session.setAttribute(SESSION_UTILISATEUR_ACTIF, util.getActif());
+		session.setAttribute(SESSION_UTILISATEUR_ID, util.getNoUtilisateur());
+		session.setAttribute(SESSION_UTILISATEUR_MAIL, util.getEmail());
+		session.setAttribute(SESSION_UTILISATEUR_PSEUDO, util.getPseudo());
+		session.setAttribute(SESSION_UTILISATEUR_ADMIN, util.getAdministrateur());
+		session.setAttribute(SESSION_UTILISATEUR_ACTIF, util.getActif());
 
-		
 		response.sendRedirect("./Accueil");
 	}
-	
-	
-	// Methode qui cree un cookie valable 5 min si l'utilisateur a cocher la case "se souvenir de moi"
-	private void souvenirCookie(String rememberMe,Utilisateur util, HttpServletRequest request, HttpServletResponse response) {
 
-		
+	// Methode qui cree un cookie valable 5 min si l'utilisateur a cocher la case
+	// "se souvenir de moi"
+	private void souvenirCookie(String rememberMe, Utilisateur util, HttpServletRequest request,
+			HttpServletResponse response) {
+
 		if (rememberMe != null && rememberMe.equals("on")) {
 			Cookie cookie = new Cookie("username", util.getPseudo());
-		      // Définit la durée de validité du cookie à 24 heures
-		      cookie.setMaxAge(60*60*24);
-		    
-		      // Ajoute le cookie à la réponse HTTP
-		      response.addCookie(cookie);
-			
+			// Définit la durée de validité du cookie à 24 heures
+			cookie.setMaxAge(60 * 60 * 24);
+
+			// Ajoute le cookie à la réponse HTTP
+			response.addCookie(cookie);
 		}
-		
-	}
-	
+
 	}
 
-
+}

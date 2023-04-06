@@ -31,6 +31,11 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletDetailArticle")
 public class ServletDetailArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
+	private static EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
+	private static ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
+
 	ArticleVendu art = new ArticleVendu();
 
 	/**
@@ -47,7 +52,7 @@ public class ServletDetailArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
 
 		Integer idUtilisateur = (Integer) session.getAttribute("id");
@@ -63,10 +68,6 @@ public class ServletDetailArticle extends HttpServlet {
 			Retrait retrait = new Retrait();
 			Integer idArticle = null;
 			Utilisateur utilisateurActuelMax = null;
-			ArticleVenduManager ArticleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
-			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-			EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
-//			RetraitManager retMan = RetraitManagerSing.getInstanceRetraitImpl();
 
 			if ((request.getParameter("idArticle")) != null) {
 				idArticle = Integer.parseInt(request.getParameter("idArticle"));
@@ -77,10 +78,11 @@ public class ServletDetailArticle extends HttpServlet {
 			}
 			try {
 
-				art = ArticleVenduManager.selectParIdArticle(idArticle);
+				art = articleVenduManager.selectParIdArticle(idArticle);
 				utilisateur = utilisateurManager.selectParNoUtilisateur(art.getUtilisateur().getNoUtilisateur());
 				// retrait = retMan.selectParIdRetrait(idArticle);
-				if (enchereManager.selectMaxEnchere(art) != null && enchereManager.selectMaxEnchere(art).getUtilisateur().getActif()==true) {
+				if (enchereManager.selectMaxEnchere(art) != null
+						&& enchereManager.selectMaxEnchere(art).getUtilisateur().getActif() == true) {
 					enchereMax = enchereManager.selectMaxEnchere(art);
 				} else {
 					enchereMax.setMontantEnchere(0);
@@ -95,23 +97,19 @@ public class ServletDetailArticle extends HttpServlet {
 			}
 
 			try {
-				if (enchereManager.selectMaxEnchere(art)!=null) {
-					
+				if (enchereManager.selectMaxEnchere(art) != null) {
 
-				if (enchereManager.selectMaxEnchere(art).getUtilisateur().getActif()==false) {
-					utilisateurActuelMax = enchereMax.getUtilisateur();
-					request.setAttribute("utilisateurActuelMax", utilisateurActuelMax);
-				} else {
-					request.setAttribute("utilisateurActuelMax", null);
-				}
+					if (enchereManager.selectMaxEnchere(art).getUtilisateur().getActif() == false) {
+						utilisateurActuelMax = enchereMax.getUtilisateur();
+						request.setAttribute("utilisateurActuelMax", utilisateurActuelMax);
+					} else {
+						request.setAttribute("utilisateurActuelMax", null);
+					}
 				}
 			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
+
 			request.setAttribute("article", art);
 			request.setAttribute("enchereMax", enchereMax);
 
@@ -128,26 +126,23 @@ public class ServletDetailArticle extends HttpServlet {
 			throws ServletException, IOException {
 
 		Integer montantEnchere = null;
-		Integer noArticle;
+		Integer noArticle = null;
 		ArticleVendu article = null;
 		Utilisateur utilisateur = null;
-		Integer noUtilisateur;
-		Enchere enchere;
+		Integer noUtilisateur = null;
+		Enchere enchere = null;
 		Enchere enchereMax = null;
 		Utilisateur utilisateurActuelMax = null;
 		Integer creditUtilisateur = null;
 		LocalDateTime dateDuJour = LocalDateTime.now();
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		ArticleVenduManager articleManager = ArticleVenduManagerSing.getInstanceArticle();
-		UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-		EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
 
 		try {
 
 			String enchereString = request.getParameter("enchere");
 			montantEnchere = Integer.parseInt(enchereString);
 			noArticle = (Integer) (request.getSession().getAttribute("idArticle"));
-			article = articleManager.selectParIdArticle(noArticle);
+			article = articleVenduManager.selectParIdArticle(noArticle);
 			HttpSession session = request.getSession();
 			noUtilisateur = (Integer) session.getAttribute("id");
 			utilisateur = utilisateurManager.selectParNoUtilisateur(noUtilisateur);
@@ -181,10 +176,10 @@ public class ServletDetailArticle extends HttpServlet {
 					article.setNoAcquereur(
 							enchereManager.selectMaxEnchere(article).getUtilisateur().getNoUtilisateur());
 					article.setPrixDeVente(enchereManager.selectMaxEnchere(article).getMontantEnchere());
-					articleManager.majPxVenteArticleVendu(article);
-					articleManager.majNoAcquereur(article);
+					articleVenduManager.majPxVenteArticleVendu(article);
+					articleVenduManager.majNoAcquereur(article);
 				}
-				
+
 			} else {
 				listeCodesErreur.add(CodesResultatServlets.CREDIT_INSUFFISANT);
 				request.setAttribute("listeCodesErreur", listeCodesErreur);

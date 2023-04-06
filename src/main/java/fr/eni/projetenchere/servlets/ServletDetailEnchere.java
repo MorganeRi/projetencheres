@@ -27,6 +27,9 @@ import fr.eni.projetenchere.bo.Enchere;
 public class ServletDetailEnchere extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static EnchereManager enchereManager = EnchereManagerSing.getInstanceEnchereImpl();
+	private static ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -44,16 +47,13 @@ public class ServletDetailEnchere extends HttpServlet {
 		HttpSession session = request.getSession();
 		Integer idArticle = (Integer) session.getAttribute("idArticle");
 		ArticleVendu article;
-		List<Enchere> encheres = new ArrayList<>();
-		EnchereManager ench = EnchereManagerSing.getInstanceEnchereImpl();
-		ArticleVenduManager art = ArticleVenduManagerSing.getInstanceArticle();
-		System.out.println(idArticle);
+		List<Enchere> listEncheres = new ArrayList<>();
 
 		try {
-			article = art.selectParIdArticle(idArticle);
-			encheres = ench.selectEnchereById(article);
-			request.setAttribute("listeEnchere", encheres);
-			System.out.println(encheres);
+			article = articleVenduManager.selectParIdArticle(idArticle);
+			listEncheres = enchereManager.selectEnchereById(article);
+			request.setAttribute("listeEnchere", listEncheres);
+			System.out.println(listEncheres);
 
 		} catch (BusinessException e) {
 

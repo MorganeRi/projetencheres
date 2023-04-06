@@ -20,54 +20,8 @@ Boolean estActif = (Boolean) session.getAttribute("actif");
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
+<link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
 
-<style>
-
-	.link-warning{
-		text-decoration : none;
-	}
-	
-	.card-title {
-		color : #FFA500;
-		font-family : Arial;
-		font-weight: bold;
-		text-decoration : none;
-	}
-	
-	
-	.card-title:hover{
-		color : #FF8C00;
-		cursor : pointer;
-		
-	}
-	
-	.nav-item {
-		font-size: large;
-		/*   	font-family: "Nimbus Sans L"; */
-	}
-	
-	/* Style pour les éléments <li> dans la navbar */
-	nav .navbar-nav li {
-		padding: 10px 15px;
-	}
-	
-	/* Style pour les éléments <li> lorsqu'ils sont survolés */
-	nav .navbar-nav li:hover {
-		color: #FFFFFF;
-		
-	}
-	
-	.my-nav-item {
-		color: #FFD700;
-		/*         font-weight: bold; */
-	}
-	
-	.lien{
-		text-decoration : none; 
-		font-weight: bold;
-		
-	}
-</style>
 
 </head>
 <body style="padding-bottom: 100px;">

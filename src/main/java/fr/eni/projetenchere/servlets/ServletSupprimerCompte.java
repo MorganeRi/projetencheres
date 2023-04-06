@@ -19,6 +19,8 @@ import fr.eni.projetenchere.bo.Utilisateur;
 @WebServlet("/ServletSupprimerCompte")
 public class ServletSupprimerCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -42,18 +44,16 @@ public class ServletSupprimerCompte extends HttpServlet {
 			response.sendRedirect("ServletConnexion");
 			return;
 		} else {
-
-			UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
-			Utilisateur util = new Utilisateur();
+			Utilisateur utilisateur = new Utilisateur();
 			try {
-				util = utilisateurManager.selectParNoUtilisateur((Integer) request.getSession().getAttribute("id"));
+				utilisateur = utilisateurManager.selectParNoUtilisateur((Integer) request.getSession().getAttribute("id"));
 				// util = utilisateurManager.selectParNoUtilisateur(2);
 			} catch (BusinessException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			try {
-				utilisateurManager.supprimerUtilisateur(util);
+				utilisateurManager.supprimerUtilisateur(utilisateur);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
