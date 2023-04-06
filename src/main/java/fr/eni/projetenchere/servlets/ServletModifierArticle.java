@@ -28,9 +28,11 @@ import fr.eni.projetenchere.bo.Retrait;
 import fr.eni.projetenchere.bo.Utilisateur;
 
 /**
- * Servlet ServletModifierArticle qui permet de : -Afficher toutes les infos
- * actuelles de l'article -Permettre de changer les infos dans chaque champ
- * -Mettre à jour les changements d'infos de l'article -Supprimer l'article
+ * Servlet ServletModifierArticle qui permet de : 
+ * -Afficher toutes les infos actuelles de l'article 
+ * -Permettre de changer les infos dans chaque champ
+ * -Mettre à jour les changements d'infos de l'article
+ *  -Supprimer l'article
  */
 @WebServlet("/ServletModifierArticle")
 public class ServletModifierArticle extends HttpServlet {
@@ -38,7 +40,7 @@ public class ServletModifierArticle extends HttpServlet {
 	private static final String LIST_CATEGORIE = "listCategorie";
 //	private static final String UTILISATEUR = "Utilisateur";
 
-	private static CategorieManager cateegorieManager = CategorieManagerSing.getInstanceCategorieImpl();
+	private static CategorieManager categorieManager = CategorieManagerSing.getInstanceCategorieImpl();
 	private static UtilisateurManager utilisateurManager = UtilistateurManagerSing.getInstanceUtilisateur();
 	private static ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstanceArticle();
 	private static RetraitManager retraitManager = RetraitManagerSing.getInstanceRetraitImpl();
@@ -50,16 +52,20 @@ public class ServletModifierArticle extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response) 
 	 *      Ici mon doGet va permettre lors de l'appel de la Servlet de :
 	 *      - récupérer la session en cours, si pas de session on renvoie direct à
-	 *      la ServletConnexion - On va aller chercher les catégories en BDD pour
-	 *      les réafficher dans le déroulant de la JSP - On va récupérer l'idArticle
+	 *      la ServletConnexion 
+	 *      - On va aller chercher les catégories en BDD pour
+	 *      les réafficher dans le déroulant de la JSP 
+	 *      - On va récupérer l'idArticle
 	 *      stocké dans la session (qui permet d'acceder au modifierArticle quand on
-	 *      est sur le detail de l'article) - On récupère les infos retrait en
+	 *      est sur le detail de l'article) 
+	 *      - On récupère les infos retrait en
 	 *      fonction de l'idArticle
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -67,20 +73,24 @@ public class ServletModifierArticle extends HttpServlet {
 //		gérer la récupération de session utilisateur
 		HttpSession session = request.getSession();
 		Integer idUtilisateur = (Integer) session.getAttribute("id");
+		
 		List<Categorie> listCategorie = new ArrayList<>();
 
 		Integer noArticle = null;
-		ArticleVendu articleAAfficher = new ArticleVendu();
 		Retrait retrait = null;
+		ArticleVendu articleAAfficher = new ArticleVendu();
+		
 
 		if (idUtilisateur == null) {
 			response.sendRedirect("ServletConnexion");
 			return;
 		} else {
 			try {
-				listCategorie = cateegorieManager.selectAllCategorie();
+//				on récupère les catégories présentes en BDD
+				listCategorie = categorieManager.selectAllCategorie();
 				request.setAttribute(LIST_CATEGORIE, listCategorie);
-
+				
+//				permet de récupérer l'article que l'on demande de modifier
 				noArticle = (Integer) session.getAttribute("idArticle");
 				articleAAfficher = articleVenduManager.selectParIdArticle(noArticle);
 				request.setAttribute("articleAManipuler", articleAAfficher);
@@ -92,6 +102,7 @@ public class ServletModifierArticle extends HttpServlet {
 
 				e1.printStackTrace();
 			}
+//			permettre de récupérer l'article en question depuis le doPost
 			session.setAttribute("articleAModifier", articleAAfficher);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierArticle.jsp");
@@ -102,10 +113,13 @@ public class ServletModifierArticle extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 *      Ici mon doPost va permettre lors d'un submit de : 
+	 *      - update un article
+	 *      - update un retrait
+	 *      - gestion des logs
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
 		Integer noUtilisateur = null;
 		Utilisateur utilisateur = new Utilisateur();
@@ -126,9 +140,8 @@ public class ServletModifierArticle extends HttpServlet {
 		try {
 			articleAManipuler.setNomArticle(request.getParameter("nomArticle"));
 			articleAManipuler.setDescription(request.getParameter("Description"));
-
 			noCategorie = Integer.parseInt(request.getParameter("Categorie"));
-			categorie = cateegorieManager.selectCategorieParId(noCategorie);
+			categorie = categorieManager.selectCategorieParId(noCategorie);
 
 			articleAManipuler.setCategorie(categorie);
 			articleAManipuler.setDateDebutEnchere(LocalDateTime.parse(request.getParameter("DebutEnchere")));
@@ -179,6 +192,7 @@ public class ServletModifierArticle extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
 
 		doGet(request, response);
